@@ -1,0 +1,31 @@
+{
+  "name": "nuxt-t",
+  "version": "0.0.1",
+  "description": "Test-pack layer for Nuxt Applications",
+  "repository": "github:AloisSeckar/nuxt-t",
+  "license": "MIT",
+  "type": "module",
+  "main": "./nuxt.config.ts",
+  "scripts": {
+    "analyze": "nuxt analyze",
+    "eslint": "eslint .",
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "start": "nuxt start",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@nuxt/test-utils": "3.15.4",
+    "@vue/test-utils": "2.4.6",
+    "happy-dom": "16.6.0",
+    "vitest": "3.0.2"
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "0.7.5",
+    "nuxt": "3.15.2",
+    "typescript": "latest"
+  },
+  "packageManager": "pnpm@9.15.4"
+}
