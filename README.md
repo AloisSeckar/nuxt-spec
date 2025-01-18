@@ -1,27 +1,27 @@
-# Nuxt T(est)
+# Nuxt Spec
 
-![Nuxt T(est)](https://github.com/AloisSeckar/nuxt-t/blob/main/public/nuxt-t.png)
+![Nuxt Spec](https://github.com/AloisSeckar/nuxt-spec/blob/main/public/nuxt-spec.png)
 
-**Nuxt T(est)** (aka `nuxt-t`) is a base layer for [Nuxt](https://nuxt.com/) applications incorporating together a couple of testing libraries and packages and providing some utility functions. I created this project in early 2025 because I was unable to find a convenient "one-dependency" way to start testing my Nuxt apps and I didn't want to repeat the same steps and maintain the same set of dependencies over and over. 
+**Nuxt Spec** (aka `nuxt-spec`) is a base layer for [Nuxt](https://nuxt.com/) applications incorporating together a couple of testing libraries and packages and providing some utility functions. I created this project in early 2025 because I was unable to find a convenient "one-dependency" way to start testing my Nuxt apps and I didn't want to repeat the same steps and maintain the same set of dependencies over and over. 
 
 While Nuxt itself does have a [dedicated module for testing](https://nuxt.com/docs/getting-started/testing), to remain as versatile as possible, it has to be combined with other packages (which can be different based on your choice). I am trying to overcome this by defining "the way". This is both the strength and the weakness of this project. You were warned.
 
-The most important client of `nuxt-t` is my [Nuxt Ignis](https://github.com/AloisSeckar/nuxt-ignis) template starter that adds up even more ready-to-use cool stuff for your future awesome Nuxt websites.
+The most important client of `nuxt-spec` is my [Nuxt Ignis](https://github.com/AloisSeckar/nuxt-ignis) template starter that adds up even more ready-to-use cool stuff for your future awesome Nuxt websites.
 
 
 ## How to use
 
-Aside from being "forked" and used as you seem fit, `nuxt-t` is also available as an [NPM package](https://www.npmjs.com/package/nuxt-t) that can be referenced as a single-import with all the features incoming.
+Aside from being "forked" and used as you seem fit, `nuxt-spec` is also available as an [NPM package](https://www.npmjs.com/package/nuxt-spec) that can be referenced as a single-import with all the features incoming.
 
 1) Add following dependency into your `package.json`:
 ```
-"nuxt-t": "0.0.1"
+"nuxt-spec": "0.0.1"
 ```
 
 2) Add following section into your `nuxt.config.ts`:
 ```
 extends: [
-  'nuxt-t'
+  'nuxt-spec'
 ]
 ```
 

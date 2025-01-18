@@ -1,8 +1,8 @@
 {
-  "name": "nuxt-t",
+  "name": "nuxt-spec",
   "version": "0.0.1",
   "description": "Test-pack layer for Nuxt Applications",
-  "repository": "github:AloisSeckar/nuxt-t",
+  "repository": "github:AloisSeckar/nuxt-spec",
   "license": "MIT",
   "type": "module",
   "main": "./nuxt.config.ts",

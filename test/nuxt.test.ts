@@ -7,9 +7,9 @@ describe('NuxtTestComponent', () => {
   it('component renders text properly', () => {
     const wrapper = mount(NuxtTestComponent, {
       propsData: {
-        text: 'nuxt-t',
+        text: 'nuxt-spec',
       },
     })
-    expect(wrapper.text()).toContain('nuxt-t')
+    expect(wrapper.text()).toContain('nuxt-spec')
   })
 })
