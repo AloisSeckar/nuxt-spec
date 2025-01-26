@@ -31,7 +31,10 @@ shamefully-hoist=true
 strict-peer-dependencies=false
 ```
 
-You are just `npm install` and `npm run dev` away from testing your Nuxt projects!
+4) If you're prompoted, run `npm exec playwright-core install` to download and locally install headless browser runtimes.
+
+
+**DONE.** You are just `npm install` and `npm run dev` away from testing your Nuxt projects!
 
 
 ## Overview
@@ -39,6 +42,7 @@ You are just `npm install` and `npm run dev` away from testing your Nuxt project
 **Nuxt T(est)** currently contains:
 - [vitest](https://www.npmjs.com/package/vitest) as the fundamental testing framework
 - [happy-dom](https://www.npmjs.com/package/happy-dom) as the headless browser runtime
+- [playwright-core](https://www.npmjs.com/package/vitest) as the headless browser testing framework
 - [@vue/test-utils](https://www.npmjs.com/package/@vue/test-utils) for testing Vue stuff
 - [@nuxt/test-utils](https://www.npmjs.com/package/@nuxt/test-utils) for testing Nuxt stuff
 

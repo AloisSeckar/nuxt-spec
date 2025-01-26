@@ -19,12 +19,13 @@
   "dependencies": {
     "@nuxt/test-utils": "3.15.4",
     "@vue/test-utils": "2.4.6",
-    "happy-dom": "16.6.0",
-    "vitest": "3.0.2"
+    "happy-dom": "16.7.2",
+    "playwright-core": "1.50.0",
+    "vitest": "3.0.4"
   },
   "devDependencies": {
     "@nuxt/eslint": "0.7.5",
-    "nuxt": "3.15.2",
+    "nuxt": "3.15.3",
     "typescript": "latest"
   },
   "packageManager": "pnpm@9.15.4"
