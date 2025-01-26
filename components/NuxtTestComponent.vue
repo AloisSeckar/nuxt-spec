@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-defineProps({ text: String })
+defineProps({ text: { type: String, default: 'nuxt-spec' } })
 </script>
