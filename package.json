@@ -1,6 +1,6 @@
 {
   "name": "nuxt-spec",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Test-pack layer for Nuxt Applications",
   "repository": "github:AloisSeckar/nuxt-spec",
   "license": "MIT",
