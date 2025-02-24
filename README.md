@@ -46,6 +46,10 @@ strict-peer-dependencies=false
 - [@vue/test-utils](https://www.npmjs.com/package/@vue/test-utils) for testing Vue stuff
 - [@nuxt/test-utils](https://www.npmjs.com/package/@nuxt/test-utils) for testing Nuxt stuff
 
+The suite provides two (p)npm commands, that can be run out-of-the-box in extending Nuxt projects:
+- `test` - equal to `vitest run` (runs once and ends)
+- `test-i` - equal to `vitest` (runs and waits in HMR for test changes)
+
 Planned future content:
 - [backstopjs](https://www.npmjs.com/package/backstopjs) as the solution for visual testing
 

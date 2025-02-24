@@ -14,7 +14,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "start": "nuxt start",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test-i": "vitest"
   },
   "dependencies": {
     "@nuxt/test-utils": "3.15.4",
