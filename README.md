@@ -33,9 +33,19 @@ strict-peer-dependencies=false
 
 4) If you're prompoted, run `npm exec playwright-core install` to download and locally install headless browser runtimes.
 
-
 **DONE.** You are just `npm install` and `npm run dev` away from testing your Nuxt projects!
 
+### Running tests
+
+Vitest automatically discovers all `*.test.ts` and `*.spec.ts` files in project and will run them.
+
+It is recommended to add following two (p)npm commands into your `package.json` into `"scripts"` section in order to run tests easilly:
+- `test: vitest run` - runs once and ends
+- `test-i: vitest` - runs and waits in HMR mode for test file changes
+
+Then you can call in terminal in root of your project: 
+
+`npm run test` | `npm run test-i` or `pnpm test` | `pnpm test-i`
 
 ## Overview
 
@@ -45,10 +55,6 @@ strict-peer-dependencies=false
 - [playwright-core](https://www.npmjs.com/package/vitest) as the headless browser testing framework
 - [@vue/test-utils](https://www.npmjs.com/package/@vue/test-utils) for testing Vue stuff
 - [@nuxt/test-utils](https://www.npmjs.com/package/@nuxt/test-utils) for testing Nuxt stuff
-
-The suite provides two (p)npm commands, that can be run out-of-the-box in extending Nuxt projects:
-- `test` - equal to `vitest run` (runs once and ends)
-- `test-i` - equal to `vitest` (runs and waits in HMR for test changes)
 
 Planned future content:
 - [backstopjs](https://www.npmjs.com/package/backstopjs) as the solution for visual testing
