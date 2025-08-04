@@ -18,16 +18,23 @@
     "test-i": "vitest"
   },
   "dependencies": {
-    "@nuxt/test-utils": "3.15.4",
+    "@nuxt/test-utils": "3.19.2",
     "@vue/test-utils": "2.4.6",
-    "happy-dom": "16.8.1",
-    "playwright-core": "1.50.1",
-    "vitest": "3.0.5"
+    "happy-dom": "18.0.1",
+    "playwright-core": "1.54.2",
+    "vitest": "3.2.4"
   },
   "devDependencies": {
-    "@nuxt/eslint": "0.7.6",
-    "nuxt": "3.15.4",
-    "typescript": "latest"
+    "@nuxt/eslint": "1.7.1",
+    "nuxt": "4.0.2",
+    "typescript": "5.9.2"
   },
-  "packageManager": "pnpm@9.15.5"
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild",
+      "unrs-resolver"
+    ]
+  },
+  "packageManager": "pnpm@10.14.0"
 }
