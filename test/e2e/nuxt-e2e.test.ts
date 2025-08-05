@@ -1,4 +1,3 @@
-// @vitest-environment nuxt
 import { setup, $fetch, createPage, url } from '@nuxt/test-utils/e2e'
 import { describe, expect, test } from 'vitest'
 

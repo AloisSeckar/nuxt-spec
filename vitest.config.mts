@@ -1,8 +1,25 @@
-import { defineVitestConfig } from '@nuxt/test-utils/config'
+// https://nuxt.com/docs/4.x/getting-started/testing#setup
 
-export default defineVitestConfig({
+import { defineConfig } from 'vitest/config'
+import { defineVitestProject } from '@nuxt/test-utils/config'
+
+export default defineConfig({
   test: {
-    environment: 'nuxt',
-    setupFiles: ['./utils/vitest-utils.ts'],
+    projects: [
+      {
+        test: {
+          name: 'node',
+          include: ['test/{e2e,unit}/*.{test,spec}.ts'],
+          environment: 'node',
+        },
+      },
+      await defineVitestProject({
+        test: {
+          name: 'nuxt',
+          include: ['test/nuxt/*.{test,spec}.ts'],
+          environment: 'nuxt',
+        },
+      }),
+    ],
   },
 })
