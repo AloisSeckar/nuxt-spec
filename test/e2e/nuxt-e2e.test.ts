@@ -8,14 +8,14 @@ describe('NuxtTestComponent E2E test', async () => {
   test('component renders in browser', async () => {
     // fetch for the rendered value
     const html = await $fetch('/')
-    expect(html).toContain('nuxt-spec')
+    expect(html).toContain('Test Component')
   })
 
   test('with playwright', async () => {
     // render page in headless browser
     const page = await createPage()
     await page.goto(url('/'), { waitUntil: 'hydration' })
-    const hasText = await page.getByText('nuxt-spec').isVisible()
+    const hasText = await page.getByText('Test Component').isVisible()
     expect(hasText).toBeTruthy()
   })
 })
