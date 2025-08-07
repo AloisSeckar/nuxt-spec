@@ -1,9 +1,7 @@
 import { describe, test, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import NuxtTestComponent from '../../components/NuxtTestComponent.vue'
-
-// mockNuxtImport - macro for mimicking external functionality for unit tests
+import NuxtTestComponent from '../../app/components/NuxtTestComponent.vue'
 
 const text = 'custom-text'
 

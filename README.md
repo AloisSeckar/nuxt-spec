@@ -66,7 +66,7 @@ By default, `nuxt-spec` uses Vitest configuration defined in [`/utils/vitest-con
 To add/override your custom config, you can create a file named `vitest.config.ts` in the root of your project with the following content:
 
 ```ts
-import { loadVitestConfig } from './utils/vitest-config'
+import { loadVitestConfig } from './app/utils/vitest-config'
 
 export default loadVitestConfig({
   // your custom config here
