@@ -59,6 +59,23 @@ Then you can call in terminal in root of your project:
 Planned future content:
 - [backstopjs](https://www.npmjs.com/package/backstopjs) as the solution for visual testing
 
+## Configuration
+
+By default, `nuxt-spec` uses Vitest configuration defined in [`/utils/vitest-config.ts`](https://github.com/AloisSeckar/nuxt-spec/blob/main/utils/vitest-config.ts). The configuration is based on [Nuxt team recommendations](https://nuxt.com/docs/4.x/getting-started/testing) and our best judgement.
+
+To add/override your custom config, you can create a file named `vitest.config.ts` in the root of your project with the following content:
+
+```ts
+import { loadVitestConfig } from './utils/vitest-config'
+
+export default loadVitestConfig({
+  // your custom config here
+})
+```
+
+And pass whatever you want as a parameter object. It will be defu-merged with the defaults (custom config takes precedence).
+
+Alternatively, if you don't want to use any part of the `nuxt-spec` default configuration, you can override `vitest.config.ts` file completely and define your own [Vitest configuration](https://vitest.dev/config/) from scratch.
 
 ## Contact
 
