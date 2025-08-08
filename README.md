@@ -49,15 +49,17 @@ Then you can call in terminal in root of your project:
 
 ## Overview
 
-**Nuxt T(est)** currently contains:
-- [vitest](https://www.npmjs.com/package/vitest) as the fundamental testing framework
+**Nuxt Spec** currently contains:
+- [vitest](https://www.npmjs.com/package/vitest) **v4** as the fundamental testing framework
+- [@vitest/browser](https://www.npmjs.com/package/@vitest/browser) as the experimental browser runner
 - [happy-dom](https://www.npmjs.com/package/happy-dom) as the headless browser runtime
 - [playwright-core](https://www.npmjs.com/package/vitest) as the headless browser testing framework
 - [@vue/test-utils](https://www.npmjs.com/package/@vue/test-utils) for testing Vue stuff
 - [@nuxt/test-utils](https://www.npmjs.com/package/@nuxt/test-utils) for testing Nuxt stuff
 
-Planned future content:
-- [backstopjs](https://www.npmjs.com/package/backstopjs) as the solution for visual testing
+Planned future development:
+- reason about (not) using Vitest browser mode (or make it optional)
+- solution for visual testing - either [backstopjs](https://www.npmjs.com/package/backstopjs) or Vitest's native (currently experimental)
 
 ## Configuration
 
