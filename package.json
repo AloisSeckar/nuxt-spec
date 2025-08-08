@@ -26,8 +26,8 @@
     "@vitest/browser": "4.0.0-beta.7"
   },
   "devDependencies": {
-    "@nuxt/eslint": "1.7.1",
-    "nuxt": "4.0.2",
+    "@nuxt/eslint": "1.8.0",
+    "nuxt": "4.0.3",
     "typescript": "5.9.2"
   },
   "pnpm": {
