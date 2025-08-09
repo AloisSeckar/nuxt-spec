@@ -8,7 +8,6 @@ While Nuxt itself does have a [dedicated module for testing](https://nuxt.com/do
 
 The most important client of `nuxt-spec` is my [Nuxt Ignis](https://github.com/AloisSeckar/nuxt-ignis) template starter that adds up even more ready-to-use cool stuff for your future awesome Nuxt websites.
 
-
 ## How to use
 
 Aside from being "forked" and used as you seem fit, `nuxt-spec` is also available as an [NPM package](https://www.npmjs.com/package/nuxt-spec) that can be referenced as a single-import with all the features incoming.
@@ -35,17 +34,32 @@ strict-peer-dependencies=false
 
 **DONE.** You are just `npm install` and `npm run dev` away from testing your Nuxt projects!
 
+### Optional setup
+
+The `nuxt-spec` package comes with a CLI tool that can help you:
+- scaffold the default `vitest.config.ts` (see [configuration](#configuration) section)
+- add a few test-related script shorthands into your `package.json` (see [running tests](#running-tests) section)
+
+To use it, just run the following command in your terminal after you installed `nuxt-spec` package (files must be available in your `node_modules` folder):
+
+```bash
+npx nuxt-spec-cli
+```
+
+You will be prompted for each action which allows you to choose only one action to run and skip the other.
+
 ### Running tests
 
-Vitest automatically discovers all `*.test.ts` and `*.spec.ts` files in project and will run them.
+Once installed, Vitest automatically discovers all `*.test.ts` and `*.spec.ts` files in project and will run them.
 
-It is recommended to add following two (p)npm commands into your `package.json` into `"scripts"` section in order to run tests easilly:
+It is recommended to have following three commands `package.json` file in `"scripts"` section in order to run tests easilly:
 - `test: vitest run` - runs once and ends
+- `test-u: vitest run -u` - runs once and updates snapshots
 - `test-i: vitest` - runs and waits in HMR mode for test file changes
 
 Then you can call in terminal in root of your project: 
 
-`npm run test` | `npm run test-i` or `pnpm test` | `pnpm test-i`
+`npm run test` | `npm run test-u` | `npm run test-i`
 
 ## Overview
 

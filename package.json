@@ -15,7 +15,11 @@
     "preview": "nuxt preview",
     "start": "nuxt start",
     "test": "vitest run",
+    "test-u": "vitest run -u",
     "test-i": "vitest"
+  },
+  "bin": {
+    "spec-setup": "./bin/spec-setup.js"
   },
   "dependencies": {
     "@nuxt/test-utils": "3.19.2",
