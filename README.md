@@ -61,6 +61,8 @@ Planned future development:
 - reason about (not) using Vitest browser mode (or make it optional)
 - solution for visual testing - either [backstopjs](https://www.npmjs.com/package/backstopjs) or Vitest's native (currently experimental)
 
+See [CHANGELOG.md](https://github.com/AloisSeckar/nuxt-spec/blob/main/CHANGELOG.md) for the latest updates and features.
+
 ## Configuration
 
 By default, `nuxt-spec` uses Vitest configuration defined in [`/utils/vitest-config.ts`](https://github.com/AloisSeckar/nuxt-spec/blob/main/utils/vitest-config.ts). The configuration is based on [Nuxt team recommendations](https://nuxt.com/docs/4.x/getting-started/testing) and our best judgement.
