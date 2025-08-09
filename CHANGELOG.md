@@ -4,10 +4,10 @@ Overview of the newest features in Nuxt Spec.
 
 ## 0.1.1
 
-**TBA** (in progress)
+**2025-08-09**
 
-- CLI tool for scaffolding `vitest.config.ts` and test-related scripts in `package.json`
-- Solution for visual regression testing (?)
+- feat: CLI tool for scaffolding `vitest.config.ts` and test-related scripts in `package.json`
+- docs: added `CHANGELOG.md` and fixed link to `playwright-core`
 
 ## 0.1.0
 
