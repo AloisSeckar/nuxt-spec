@@ -2,6 +2,12 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.1.2
+
+**2025-08-09**
+
+- fix: target path for scaffolded `vitest.config.ts` (#3)
+
 ## 0.1.1
 
 **2025-08-09**
