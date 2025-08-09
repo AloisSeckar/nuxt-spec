@@ -12,7 +12,7 @@ export async function createFileFromTemplate(templateFile, targetFile) {
     const __dirname = path.dirname(__filename)
 
     const templatePath = path.resolve(__dirname, `../${templateFile}`)
-    const targetPath = path.resolve(process.cwd(), `../${targetFile}`)
+    const targetPath = path.resolve(process.cwd(), targetFile)
 
     if (!existsSync(templatePath)) {
       console.error(`Template file not found at ${templatePath}`)
