@@ -43,7 +43,7 @@ The `nuxt-spec` package comes with a CLI tool that can help you:
 To use it, just run the following command in your terminal after you installed `nuxt-spec` package (files must be available in your `node_modules` folder):
 
 ```bash
-npx nuxt-spec-cli
+npx spec-setup
 ```
 
 You will be prompted for each action which allows you to choose only one action to run and skip the other.
