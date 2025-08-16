@@ -79,12 +79,12 @@ See [CHANGELOG.md](https://github.com/AloisSeckar/nuxt-spec/blob/main/CHANGELOG.
 
 ## Configuration
 
-By default, `nuxt-spec` uses Vitest configuration defined in [`/utils/vitest-config.ts`](https://github.com/AloisSeckar/nuxt-spec/blob/main/utils/vitest-config.ts). The configuration is based on [Nuxt team recommendations](https://nuxt.com/docs/4.x/getting-started/testing) and our best judgement.
+By default, `nuxt-spec` uses Vitest configuration defined in [`/config/index.mjs`](https://github.com/AloisSeckar/nuxt-spec/blob/main/config/index.mjs). The configuration is based on [Nuxt team recommendations](https://nuxt.com/docs/4.x/getting-started/testing) and our best judgement.
 
-To add/override your custom config, you can create a file named `vitest.config.ts` in the root of your project with the following content:
+To add/override your custom config, you can create (or scaffold via CLI tool) a file named `vitest.config.ts` in the root of your project with the following content:
 
 ```ts
-import { loadVitestConfig } from 'nuxt-spec'
+import { loadVitestConfig } from 'nuxt-spec/config'
 
 export default loadVitestConfig({
   // your custom config here

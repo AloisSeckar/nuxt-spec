@@ -22,7 +22,7 @@
     "spec-setup": "./bin/spec-setup.js"
   },
   "exports": {
-    ".": {
+    "./config": {
       "import": "./config/index.mjs",
       "default": "./config/index.mjs"
     }
