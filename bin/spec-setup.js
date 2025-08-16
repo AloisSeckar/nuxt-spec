@@ -9,7 +9,7 @@ import { updatePackageJsonScripts } from './utils/modify-scripts.js'
 
 async function main() {
   // 1) create vitest.config.ts
-  await createFileFromTemplate('../vitest.config.ts', 'vitest.config.ts')
+  await createFileFromTemplate('../config/vitest.config.ts.template', 'vitest.config.ts')
 
   // 2) modify scripts in package.json
   await updatePackageJsonScripts({

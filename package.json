@@ -21,6 +21,18 @@
   "bin": {
     "spec-setup": "./bin/spec-setup.js"
   },
+  "exports": {
+    ".": {
+      "import": "./config/index.mjs",
+      "default": "./config/index.mjs"
+    }
+  },
+  "files": [
+    "app",
+    "bin",
+    "config",
+    "public"
+  ],
   "dependencies": {
     "@nuxt/test-utils": "3.19.2",
     "@vue/test-utils": "2.4.6",

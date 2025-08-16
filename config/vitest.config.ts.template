@@ -1,0 +1,5 @@
+import { loadVitestConfig } from 'nuxt-spec'
+
+export default loadVitestConfig({
+  // custom config here
+})
