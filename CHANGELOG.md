@@ -2,6 +2,13 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.1.5
+
+**2025-08-16**
+
+- fix: invalid Vitest config + broken import path (#4)
+- build: bump Vitest
+
 ## 0.1.4
 
 **2025-08-16**
