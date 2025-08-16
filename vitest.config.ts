@@ -4,7 +4,7 @@
 // this is the variant required to run tests locally during development
 // refer to /config/vitest.config.ts.template for the client variant
 
-import { loadVitestConfig } from './app/utils/vitest-config'
+import { loadVitestConfig } from './config/index.mjs'
 
 export default loadVitestConfig({
   // custom config here

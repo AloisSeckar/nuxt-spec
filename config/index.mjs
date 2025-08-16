@@ -14,7 +14,7 @@ export async function loadVitestConfig(userVitestConfig) {
         // default fallback to catch tests in /test folder
         {
           test: {
-            name: 'node',
+            name: 'default',
             include: ['test/*.{test,spec}.ts'],
             environment: 'node',
           },
