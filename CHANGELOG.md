@@ -2,6 +2,12 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.1.4
+
+**2025-08-16**
+
+- fix: make loadVitestConfig available from root dir - solving issues from testing (#4)
+
 ## 0.1.3
 
 **2025-08-16**
