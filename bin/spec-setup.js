@@ -4,15 +4,14 @@
 // and to add test-related commands in `package.json`
 // usage: `npx spec-setup.js` in target folder
 
-import { createFileFromTemplate } from './utils/create-file.js'
-import { updatePackageJsonScripts } from './utils/modify-scripts.js'
+import { createFileFromTemplate, updateJsonFile } from 'elrh-cosca'
 
-async function main() {
+export async function main() {
   // 1) create vitest.config.ts
-  await createFileFromTemplate('../config/vitest.config.ts.template', 'vitest.config.ts')
+  await createFileFromTemplate('config/vitest.config.ts.template', 'vitest.config.ts')
 
   // 2) modify scripts in package.json
-  await updatePackageJsonScripts({
+  await updateJsonFile('package.json', 'scripts', {
     'test': 'vitest run',
     'test-u': 'vitest run -u',
     'test-i': 'vitest',
