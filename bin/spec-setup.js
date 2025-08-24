@@ -8,7 +8,7 @@ import { createFileFromTemplate, updateJsonFile } from 'elrh-cosca'
 
 export async function main() {
   // 1) create vitest.config.ts
-  await createFileFromTemplate('config/vitest.config.ts.template', 'vitest.config.ts')
+  await createFileFromTemplate('nuxt-spec:config/vitest.config.ts.template', 'vitest.config.ts')
 
   // 2) modify scripts in package.json
   await updateJsonFile('package.json', 'scripts', {
