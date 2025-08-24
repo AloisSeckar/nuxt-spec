@@ -2,6 +2,12 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.1.7
+
+**2025-08-24**
+
+- fix: update `elrh-cosca` to solve module resolution issue (experimental)
+
 ## 0.1.6
 
 **2025-08-24**

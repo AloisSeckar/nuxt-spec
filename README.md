@@ -14,7 +14,7 @@ Aside from being "forked" and used as you seem fit, `nuxt-spec` is also availabl
 
 1) Add following dependency into your `package.json`:
 ```
-"nuxt-spec": "0.1.6"
+"nuxt-spec": "0.1.7"
 ```
 
 2) Add following section into your `nuxt.config.ts`:
