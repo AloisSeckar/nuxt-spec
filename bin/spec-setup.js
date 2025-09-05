@@ -1,16 +1,29 @@
 #!/usr/bin/env node
 
-// CLI tool to scaffold default `vitest.config.ts` file
-// and to add test-related commands in `package.json`
+// CLI tool to scaffold necessary adjustments:
+// 1) create default `vitest.config.ts` file
+// 2) add `extends: ['nuxt-spec']` to `nuxt.config.ts`
+// 3) create .npmrc file
+// 4) modify scripts in `package.json`
 // usage: `npx spec-setup.js` in target folder
 
-import { createFileFromTemplate, updateJsonFile } from 'elrh-cosca'
+import { createFileFromTemplate, updateConfigFile, updateJsonFile } from 'elrh-cosca'
 
 export async function main() {
   // 1) create vitest.config.ts
   await createFileFromTemplate('nuxt-spec:config/vitest.config.ts.template', 'vitest.config.ts')
 
-  // 2) modify scripts in package.json
+  // 2) modify nuxt.config.ts
+  await updateConfigFile('nuxt.config.ts', {
+    extends: [
+      'nuxt-spec',
+    ],
+  })
+
+  // 3) .npmrc file
+  await createFileFromTemplate('nuxt-spec:config/.npmrc.template', '.npmrc')
+
+  // 4) modify scripts in package.json
   await updateJsonFile('package.json', 'scripts', {
     'test': 'vitest run',
     'test-u': 'vitest run -u',
