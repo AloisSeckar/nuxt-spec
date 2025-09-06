@@ -7,31 +7,20 @@
 // 4) modify scripts in `package.json`
 // usage: `npx spec-setup.js` in target folder
 
-import { createFileFromTemplate, updateConfigFile, updateJsonFile } from 'elrh-cosca'
+import { promptUser } from 'elrh-cosca'
 
-export async function main() {
-  // 1) create vitest.config.ts
-  await createFileFromTemplate('nuxt-spec:config/vitest.config.ts.template', 'vitest.config.ts')
-
-  // 2) modify nuxt.config.ts
-  await updateConfigFile('nuxt.config.ts', {
-    extends: [
-      'nuxt-spec',
-    ],
-  })
-
-  // 3) .npmrc file
-  await createFileFromTemplate('nuxt-spec:config/.npmrc.template', '.npmrc')
-
-  // 4) modify scripts in package.json
-  await updateJsonFile('package.json', 'scripts', {
-    'test': 'vitest run',
-    'test-u': 'vitest run -u',
-    'test-i': 'vitest',
-  })
+export async function specSetup() {
+  const shouldDoAuto = await promptUser('Do you want Nuxt Spec to set everything up automatically (no prompts)?')
+  if (shouldDoAuto) {
+    const { specSetupAuto } = await import('./spec-setup-auto.js')
+    await specSetupAuto()
+  } else {
+    const { specSetupManual } = await import('./spec-setup-manual.js')
+    await specSetupManual()
+  }
 }
 
-main().catch((err) => {
+specSetup().catch((err) => {
   console.error('Error:', err)
   process.exit(1)
 })
