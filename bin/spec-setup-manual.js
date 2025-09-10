@@ -7,11 +7,11 @@
 // 4) modify scripts in `package.json`
 // usage: `npx spec-setup.js` in target folder
 
-import { createFileFromTemplate, updateConfigFile, updateJsonFile } from 'elrh-cosca'
+import { createFileFromWebTemplate, updateConfigFile, updateJsonFile } from 'elrh-cosca'
 
 export async function specSetupManual() {
   // 1) create vitest.config.ts
-  await createFileFromTemplate('nuxt-spec:config/vitest.config.ts.template', 'vitest.config.ts')
+  await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/config/vitest.config.ts.template', 'vitest.config.ts')
 
   // 2) modify nuxt.config.ts
   await updateConfigFile('nuxt.config.ts', {
@@ -21,7 +21,7 @@ export async function specSetupManual() {
   })
 
   // 3) .npmrc file
-  await createFileFromTemplate('nuxt-spec:config/.npmrc.template', '.npmrc')
+  await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/.npmrc', '.npmrc', true)
 
   // 4) modify scripts in package.json
   await updateJsonFile('package.json', 'scripts', {
