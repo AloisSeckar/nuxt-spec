@@ -1,12 +1,6 @@
 #!/usr/bin/env node
 
-// CLI tool to scaffold necessary adjustments:
-// 1) create default `vitest.config.ts` file
-// 2) add `extends: ['nuxt-spec']` to `nuxt.config.ts`
-// 3) create .npmrc file
-// 4) modify scripts in `package.json`
-// usage: `npx spec-setup.js` in target folder
-
+// @see bin/spec-setup.js for details
 // "auto" version runs with supressed prompts (force = true)
 
 import { createFileFromWebTemplate, updateConfigFile, updateJsonFile } from 'elrh-cosca'
