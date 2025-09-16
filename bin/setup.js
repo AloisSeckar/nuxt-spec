@@ -1,16 +1,19 @@
 #!/usr/bin/env node
 
-// CLI tool to scaffold necessary adjustments in project folder:
-//
-// 1) create default `vitest.config.ts` file
-// 2) add `extends: ['nuxt-spec']` to `nuxt.config.ts`
-// 3) create .npmrc file
-// 4) modify scripts in `package.json`
-//
-// usage: `npx spec-setup.js` in target folder
-
 import { promptUser, showMessage } from 'elrh-cosca'
 
+/**
+ * CLI tool to scaffold necessary adjustments in project folder.
+ *
+ * It first asks whether to run in "auto" mode (no prompts, force = true) or "manual" mode (with prompts, force = false).
+ *
+ * Then it:
+ *  1) adds `nuxt-spec` into `package.json` dependencies
+ *  2) adds `extends: ['nuxt-spec']` to `nuxt.config.ts`
+ *  3) creates `.npmrc` file
+ *  4) creates default `vitest.config.ts` file
+ *  5) adds test-related scripts in `package.json`
+ */
 export async function specSetup() {
   showMessage('NUXT SPEC SETUP')
   showMessage('This CLI tool will help you include Nuxt Spec in your project.')
@@ -20,10 +23,10 @@ export async function specSetup() {
   showMessage('')
 
   if (shouldDoAuto) {
-    const { specSetupAuto } = await import('./spec-setup-auto.js')
+    const { specSetupAuto } = await import('./setup-auto.js')
     await specSetupAuto()
   } else {
-    const { specSetupManual } = await import('./spec-setup-manual.js')
+    const { specSetupManual } = await import('./setup-manual.js')
     await specSetupManual()
   }
 }

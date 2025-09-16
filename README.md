@@ -20,7 +20,7 @@ The `nuxt-spec` package comes with a CLI tool that can help you:
 To use it, just run the following command in your terminal:
 
 ```bash
-npx nuxt-spec spec-setup
+npx nuxt-spec setup
 ```
 
 First, the CLI tool will ask you whether you want to do the setup automatically. If you choose `y`es, it will perform all the steps for you. If you choose `n`o, it will guide you through the manual setup step-by-step (see [manual setup](#manual-setup) section).

@@ -19,7 +19,7 @@
     "test-i": "vitest"
   },
   "bin": {
-    "spec-setup": "./bin/spec-setup.js"
+    "setup": "./bin/setup.js"
   },
   "exports": {
     "./config": {

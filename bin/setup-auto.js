@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
-// @see bin/spec-setup.js for details
-// "auto" version runs with supressed prompts (force = true)
-
 import { createFileFromWebTemplate, updateConfigFile, updateJsonFile } from 'elrh-cosca'
 
+/**
+ * CLI tool to scaffold necessary adjustments in project folder.
+ * This is the "auto" version running with supressed prompts (force = true).
+ * @see `bin/setup.js` for details
+ */
 export async function specSetupAuto() {
   // 1) add dependency to package.json
   await updateJsonFile('package.json', 'dependencies', {

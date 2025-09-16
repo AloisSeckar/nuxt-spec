@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
-// @see bin/spec-setup.js for details
-// usage: `npx spec-setup.js` in target folder
-
 import { createFileFromWebTemplate, updateConfigFile, updateJsonFile } from 'elrh-cosca'
 
+/**
+ * CLI tool to scaffold necessary adjustments in project folder.
+ * This is the "manual" version running with prompts for each action (force = false).
+ * @see `bin/setup.js` for details
+ */
 export async function specSetupManual() {
   // 1) add dependency to package.json
   await updateJsonFile('package.json', 'dependencies', {
