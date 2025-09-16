@@ -12,6 +12,23 @@ The most important client of `nuxt-spec` is my [Nuxt Ignis](https://github.com/A
 
 Aside from being "forked" and used as you seem fit, `nuxt-spec` is also available as an [NPM package](https://www.npmjs.com/package/nuxt-spec) that can be referenced as a single-import with all the features incoming.
 
+The `nuxt-spec` package comes with a CLI tool that can help you:
+- setup the dependency in your project
+- scaffold the default `vitest.config.ts` (see [configuration](#configuration) section)
+- add a few test-related script shorthands into your `package.json` (see [running tests](#running-tests) section)
+
+To use it, just run the following command in your terminal:
+
+```bash
+npx nuxt-spec spec-setup
+```
+
+First, the CLI tool will ask you whether you want to do the setup automatically. If you choose `y`es, it will perform all the steps for you. If you choose `n`o, it will guide you through the manual setup step-by-step (see [manual setup](#manual-setup) section).
+
+### Manual setup
+
+If you don't want to use the CLI tool, or you want to understand its flow better, here are the detailed steps:
+
 1) Add following dependency into your `package.json`:
 ```
 "nuxt-spec": "0.1.7"
@@ -30,36 +47,48 @@ shamefully-hoist=true
 strict-peer-dependencies=false
 ```
 
-4) If you're prompoted, run `npm exec playwright-core install` to download and locally install headless browser runtimes.
+4) Add `vitest.config.ts` file with following content (if you don't have it yet):
 
-**DONE.** You are just `npm install` and `npm run dev` away from testing your Nuxt projects!
+```ts
+import { loadVitestConfig } from 'nuxt-spec/config'
 
-### Optional setup
-
-The `nuxt-spec` package comes with a CLI tool that can help you:
-- scaffold the default `vitest.config.ts` (see [configuration](#configuration) section)
-- add a few test-related script shorthands into your `package.json` (see [running tests](#running-tests) section)
-
-To use it, just run the following command in your terminal after you installed `nuxt-spec` package (files must be available in your `node_modules` folder):
-
-```bash
-npx spec-setup
+export default loadVitestConfig({
+  // your custom config here
+})
 ```
 
-You will be prompted for each action which allows you to choose only one action to run and skip the other.
+5) (Optional) Add following scripts into your `package.json`:
+```
+"scripts": {
+  "test": "vitest run",
+  "test-u": "vitest run -u",
+  "test-i": "vitest"
+}
+```
+### Install and execute
+
+Whether you used the CLI tool or did the manual setup, you are ready to install and run the tests.
+
+1) Run `pnpm install` to install the dependencies.
+
+2) If you're prompoted (for the first time when installing to a new machine), run `pnpm exec playwright-core install` to download and locally install headless browser runtimes.
+
+3) Run `pnpm dev` to start the development server of your awesome Nuxt project!
 
 ### Running tests
 
-Once installed, Vitest automatically discovers all `*.test.ts` and `*.spec.ts` files in project and will run them.
+Once installed, Vitest automatically discovers all `*.test.ts` and `*.spec.ts` files in project and becomes capable of running them.
 
-It is recommended to have following three commands `package.json` file in `"scripts"` section in order to run tests easilly:
+You can use those three optional commands `package.json` file in `"scripts"` section in order to run tests easilly:
 - `test: vitest run` - runs once and ends
 - `test-u: vitest run -u` - runs once and updates snapshots
 - `test-i: vitest` - runs and waits in HMR mode for test file changes
 
 Then you can call in terminal in root of your project: 
 
-`npm run test` | `npm run test-u` | `npm run test-i`
+`pnpm test` | `pnpm test-u` | `pnpm test-i`
+
+Or you can use the `vitest` command directly with all its parameters. See [Vitest CLI documentation](https://vitest.dev/guide/cli.html) for more info.
 
 ## Overview
 

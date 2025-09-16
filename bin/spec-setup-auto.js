@@ -6,8 +6,10 @@
 import { createFileFromWebTemplate, updateConfigFile, updateJsonFile } from 'elrh-cosca'
 
 export async function specSetupAuto() {
-  // 1) create vitest.config.ts
-  await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/config/vitest.config.ts.template', 'vitest.config.ts', true)
+  // 1) add dependency to package.json
+  await updateJsonFile('package.json', 'dependencies', {
+    'nuxt-spec': '0.1.7',
+  }, true)
 
   // 2) modify nuxt.config.ts
   await updateConfigFile('nuxt.config.ts', {
@@ -19,7 +21,10 @@ export async function specSetupAuto() {
   // 3) .npmrc file
   await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/.npmrc', '.npmrc', true)
 
-  // 4) modify scripts in package.json
+  // 4) create vitest.config.ts
+  await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/config/vitest.config.ts.template', 'vitest.config.ts', true)
+
+  // 5) modify scripts in package.json
   await updateJsonFile('package.json', 'scripts', {
     'test': 'vitest run',
     'test-u': 'vitest run -u',
