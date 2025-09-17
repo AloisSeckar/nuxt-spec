@@ -21,8 +21,8 @@ importers:
         specifier: 2.4.6
         version: 2.4.6
       elrh-cosca:
-        specifier: 0.2.6
-        version: 0.2.6
+        specifier: 0.2.7
+        version: 0.2.7
       happy-dom:
         specifier: 18.0.1
         version: 18.0.1
@@ -2459,8 +2459,8 @@ packages:
   electron-to-chromium@1.5.194:
     resolution: {integrity: sha512-SdnWJwSUot04UR51I2oPD8kuP2VI37/CADR1OHsFOUzZIvfWJBO6q11k5P/uKNyTT3cdOsnyjkrZ+DDShqYqJA==}
 
-  elrh-cosca@0.2.6:
-    resolution: {integrity: sha512-0yOX6FGO0LQ7tIlmRjkhAVTSiVf8ZQRJsIt5gQLZ7FLqbPyJxAzmmLr5AUBPUv5CjhpqNJzaPIkqC0pRZhe7bQ==}
+  elrh-cosca@0.2.7:
+    resolution: {integrity: sha512-43stb1V5wiRuyKs5mR+wXtJGwnJrQCl8ZUepNH6wm5wJvNG+n/+Ed6nFurjZbg6sLiiB36FUJy9HQQoaT3o4Wg==}
     hasBin: true
 
   emoji-regex@8.0.0:
@@ -7293,7 +7293,7 @@ snapshots:
 
   electron-to-chromium@1.5.194: {}
 
-  elrh-cosca@0.2.6: {}
+  elrh-cosca@0.2.7: {}
 
   emoji-regex@8.0.0: {}
 
