@@ -2,6 +2,16 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.1.8
+
+**2025-09-18**
+
+- feat: improved CLI tooling with `elrh-cosca` - run `npx nuxt-spec setup` to start the setup wizard
+- feat: "auto" and "manual" CLI mode
+- docs: updated README with new setup instructions
+- build: bump Nuxt to `4.1.2`, Vitest to `4.0.0-beta.11` + few other deps
+- chore: improved release process - run tests before building and build before publishing
+
 ## 0.1.7
 
 **2025-08-24**

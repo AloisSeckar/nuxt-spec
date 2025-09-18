@@ -10,7 +10,7 @@ import { createFileFromWebTemplate, updateConfigFile, updateJsonFile } from 'elr
 export async function specSetupAuto() {
   // 1) add dependency to package.json
   await updateJsonFile('package.json', 'dependencies', {
-    'nuxt-spec': '0.1.7',
+    'nuxt-spec': '0.1.8',
   }, true)
 
   // 2) modify nuxt.config.ts
