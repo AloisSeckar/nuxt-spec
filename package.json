@@ -9,7 +9,7 @@
   "scripts": {
     "analyze": "nuxt analyze",
     "eslint": "eslint .",
-    "build": "nuxt build",
+    "build": "pnpm test && nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "prepublishOnly": "pnpm build",
