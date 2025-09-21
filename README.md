@@ -30,11 +30,13 @@ First, the CLI tool will ask you whether you want to do the setup automatically.
 If you don't want to use the CLI tool, or you want to understand its flow better, here are the detailed steps:
 
 1) Add following dependency into your `package.json`:
+
 ```
 "nuxt-spec": "0.1.8"
 ```
 
 2) Add following section into your `nuxt.config.ts`:
+
 ```
 extends: [
   'nuxt-spec'
@@ -42,9 +44,9 @@ extends: [
 ```
 
 3) Add `.npmrc` file with following content (if you don't have it yet):
+
 ```
 shamefully-hoist=true
-strict-peer-dependencies=false
 ```
 
 4) Add `vitest.config.ts` file with following content (if you don't have it yet):
@@ -58,6 +60,7 @@ export default loadVitestConfig({
 ```
 
 5) (Optional) Add following scripts into your `package.json`:
+
 ```
 "scripts": {
   "test": "vitest run",
@@ -65,6 +68,7 @@ export default loadVitestConfig({
   "test-i": "vitest"
 }
 ```
+
 ### Install and execute
 
 Whether you used the CLI tool or did the manual setup, you are ready to install and run the tests.
