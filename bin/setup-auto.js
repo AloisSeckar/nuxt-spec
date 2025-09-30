@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { createFileFromWebTemplate, updateConfigFile, updateJsonFile } from 'elrh-cosca'
+import { createFileFromWebTemplate, hasJsonKey, removeFromJsonFile, updateConfigFile, updateJsonFile } from 'elrh-cosca'
 
 /**
  * CLI tool to scaffold necessary adjustments in project folder.
@@ -8,10 +8,32 @@ import { createFileFromWebTemplate, updateConfigFile, updateJsonFile } from 'elr
  * @see `bin/setup.js` for details
  */
 export async function specSetupAuto() {
-  // 1) add dependency to package.json
+  // 1) manage dependencies in package.json
+
+  // add nuxt-spec
   await updateJsonFile('package.json', 'dependencies', {
     'nuxt-spec': '0.1.8',
   }, true)
+
+  // remove now obsolete nuxt, vue and vue-router (if they are present)
+  if (hasJsonKey('package.json', 'dependencies.nuxt')) {
+    await removeFromJsonFile('package.json', 'dependencies.nuxt', true)
+  }
+  if (hasJsonKey('package.json', 'dependencies.vue')) {
+    await removeFromJsonFile('package.json', 'dependencies.vue', true)
+  }
+  if (hasJsonKey('package.json', 'dependencies.vue-router')) {
+    await removeFromJsonFile('package.json', 'dependencies.vue-router', true)
+  }
+  if (hasJsonKey('package.json', 'devDependencies.nuxt')) {
+    await removeFromJsonFile('package.json', 'devDependencies.nuxt', true)
+  }
+  if (hasJsonKey('package.json', 'devDependencies.vue')) {
+    await removeFromJsonFile('package.json', 'devDependencies.vue', true)
+  }
+  if (hasJsonKey('package.json', 'devDependencies.vue-router')) {
+    await removeFromJsonFile('package.json', 'devDependencies.vue-router', true)
+  }
 
   // 2) modify nuxt.config.ts
   await updateConfigFile('nuxt.config.ts', {
