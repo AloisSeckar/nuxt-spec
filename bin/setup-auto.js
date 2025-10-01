@@ -2,7 +2,7 @@
 
 import {
   createFileFromWebTemplate, fileExists, hasJsonKey,
-  removeFromJsonFile, removePath, updateConfigFile, updateJsonFile,
+  removeFromJsonFile, removePath, updateConfigFile, updateJsonFile, updateTextFile,
 } from 'elrh-cosca'
 
 /**
@@ -46,7 +46,11 @@ export async function specSetupAuto() {
   }, true)
 
   // 3) .npmrc file
-  await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/.npmrc', '.npmrc', true)
+  if (fileExists('.npmrc')) {
+    await updateTextFile('.npmrc', ['shamefully-hoist=true'], true)
+  } else {
+    await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/.npmrc', '.npmrc', true)
+  }
 
   // 4) create vitest.config.ts
   await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/config/vitest.config.ts.template', 'vitest.config.ts', true)

@@ -2,7 +2,7 @@
 
 import {
   createFileFromWebTemplate, fileExists, hasJsonKey, promptUser,
-  removeFromJsonFile, removePath, updateConfigFile, updateJsonFile,
+  removeFromJsonFile, removePath, updateConfigFile, updateJsonFile, updateTextFile,
 } from 'elrh-cosca'
 
 /**
@@ -49,8 +49,12 @@ export async function specSetupManual() {
   }, false, 'This will add \'nuxt-spec\' module to your \'nuxt.config.ts\'. Continue?')
 
   // 3) .npmrc file
-  await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/.npmrc',
-    '.npmrc', false, 'This will adjust \'.npmrc\' file for your project. Continue?')
+  if (fileExists('.npmrc')) {
+    await updateTextFile('.npmrc', ['shamefully-hoist=true'], false, 'This will adjust \'.npmrc\' file in your project. Continue?')
+  } else {
+    await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/.npmrc',
+      '.npmrc', false, 'This will add \'.npmrc\' file for your project. Continue?')
+  }
 
   // 4) create vitest.config.ts
   await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/config/vitest.config.ts.template',
