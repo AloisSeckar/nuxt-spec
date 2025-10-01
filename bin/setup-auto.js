@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
-import { createFileFromWebTemplate, hasJsonKey, removeFromJsonFile, updateConfigFile, updateJsonFile } from 'elrh-cosca'
+import {
+  createFileFromWebTemplate, fileExists, hasJsonKey,
+  removeFromJsonFile, removePath, updateConfigFile, updateJsonFile,
+} from 'elrh-cosca'
 
 /**
  * CLI tool to scaffold necessary adjustments in project folder.
@@ -54,4 +57,19 @@ export async function specSetupAuto() {
     'test-u': 'vitest run -u',
     'test-i': 'vitest',
   }, true)
+
+  // 6) clear node_modules and lock file(s)
+  await removePath('node_modules', true)
+  if (fileExists('package-lock.json')) {
+    await removePath('package-lock.json', true)
+  }
+  if (fileExists('pnpm-lock.yaml')) {
+    await removePath('pnpm-lock.yaml', true)
+  }
+  if (fileExists('yarn.lock')) {
+    await removePath('yarn.lock', true)
+  }
+  if (fileExists('bun.lockb')) {
+    await removePath('bun.lockb', true)
+  }
 }
