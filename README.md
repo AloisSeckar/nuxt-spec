@@ -12,7 +12,7 @@ The most important client of `nuxt-spec` is my [Nuxt Ignis](https://github.com/A
 
 Aside from being "forked" and used as you seem fit, `nuxt-spec` is also available as an [NPM package](https://www.npmjs.com/package/nuxt-spec) that can be referenced as a single-import with all the features incoming.
 
-The `nuxt-spec` package comes with a CLI tool that can help you:
+The `nuxt-spec` package comes with a built-in CLI tool that can help you:
 - setup the dependency in your project
 - scaffold the default `vitest.config.ts` (see [configuration](#configuration) section)
 - add a few test-related script shorthands into your `package.json` (see [running tests](#running-tests) section)
@@ -20,7 +20,7 @@ The `nuxt-spec` package comes with a CLI tool that can help you:
 To use it, just run the following command in your terminal:
 
 ```bash
-npx nuxt-spec setup
+npx nuxt-spec
 ```
 
 First, the CLI tool will ask you whether you want to do the setup automatically. If you choose `y`es, it will perform all the steps for you. If you choose `n`o, it will guide you through the manual setup step-by-step (see [manual setup](#manual-setup) section).
