@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import {
-  createFileFromWebTemplate, fileExists, hasJsonKey, promptUser,
-  removeFromJsonFile, removePath, updateConfigFile, updateJsonFile, updateTextFile,
+  createFileFromWebTemplate, deletePath, fileExists, hasJsonKey, promptUser,
+  removeFromJsonFile, updateConfigFile, updateJsonFile, updateTextFile,
 } from 'elrh-cosca'
 
 /**
@@ -70,18 +70,18 @@ export async function specSetupManual() {
   // 6) clear node_modules and lock file(s)
   const prepareForReinstall = await promptUser('Dependencies should be re-installed now. Do you want to remove node_modules and the lock file?')
   if (prepareForReinstall) {
-    await removePath('node_modules', true)
+    await deletePath('node_modules', true)
     if (fileExists('package-lock.json')) {
-      await removePath('package-lock.json', true)
+      await deletePath('package-lock.json', true)
     }
     if (fileExists('pnpm-lock.yaml')) {
-      await removePath('pnpm-lock.yaml', true)
+      await deletePath('pnpm-lock.yaml', true)
     }
     if (fileExists('yarn.lock')) {
-      await removePath('yarn.lock', true)
+      await deletePath('yarn.lock', true)
     }
     if (fileExists('bun.lockb')) {
-      await removePath('bun.lockb', true)
+      await deletePath('bun.lockb', true)
     }
   }
 }
