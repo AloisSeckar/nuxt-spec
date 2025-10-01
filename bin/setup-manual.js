@@ -19,8 +19,8 @@ export async function specSetupManual() {
   }, false, 'This will add \'nuxt-spec\' dependency to your \'package.json\'. Continue?')
 
   // remove now obsolete nuxt, vue and vue-router
-  const remove = await promptUser('As \'nuxt-spec\' provides \'nuxt\', \'vue\' and \'vue-router\' dependencies out of the box, do you want to remove them from your \'package.json\' to avoid duplications and possible version clashes?')
-  if (remove) {
+  const removeDeps = await promptUser('As \'nuxt-spec\' provides \'nuxt\', \'vue\' and \'vue-router\' dependencies out of the box, do you want to remove them from your \'package.json\' to avoid duplications and possible version clashes?')
+  if (removeDeps) {
     if (hasJsonKey('package.json', 'dependencies.nuxt')) {
       await removeFromJsonFile('package.json', 'dependencies.nuxt', true)
     }
