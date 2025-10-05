@@ -2,6 +2,15 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.1.9
+
+**2025-10-05**
+
+- feat: improved CLI setup - removing dependencies (`nuxt`, `vue`, `vue-router`) from `package.json`
+- feat: improved CLI setup - removing `node_modules` and lock file(s)
+- feat: change CLI execution - now runs via `npx nuxt-spec setup`
+- build: bump `vitest` to `4.0.0-beta.16`, `happy-dom` to `19.0.2`, `playwright-core` to `1.55.1` and `typescript` to `5.9.3`
+
 ## 0.1.8
 
 **2025-09-18**

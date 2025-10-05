@@ -15,7 +15,7 @@ export async function specSetupAuto() {
 
   // add nuxt-spec
   await updateJsonFile('package.json', 'dependencies', {
-    'nuxt-spec': '0.1.8',
+    'nuxt-spec': '0.1.9',
   }, true)
 
   // remove now obsolete nuxt, vue and vue-router (if they are present)
