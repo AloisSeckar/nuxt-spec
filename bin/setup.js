@@ -29,74 +29,140 @@ export async function specSetup() {
   // 1) manage dependencies in package.json
 
   // add nuxt-spec
-  await updateJsonFile('package.json', 'dependencies', {
-    'nuxt-spec': '0.1.9',
-  }, isAutoRun, 'This will add \'nuxt-spec\' dependency to your \'package.json\'. Continue?')
+  try {
+    await updateJsonFile('package.json', 'dependencies', {
+      'nuxt-spec': '0.1.9',
+    }, isAutoRun, 'This will add \'nuxt-spec\' dependency to your \'package.json\'. Continue?')
+  } catch (error) {
+    console.error('Error adding \'nuxt-spec\' dependency:\n', error.message)
+  }
 
   // remove now obsolete nuxt, vue and vue-router
   const removeDeps = isAutoRun || await promptUser('As \'nuxt-spec\' provides \'nuxt\', \'vue\' and \'vue-router\' dependencies out of the box, do you want to remove them from your \'package.json\' to avoid duplications and possible version clashes?')
   if (removeDeps) {
     if (hasJsonKey('package.json', 'dependencies.nuxt')) {
-      await removeFromJsonFile('package.json', 'dependencies.nuxt', true)
+      try {
+        await removeFromJsonFile('package.json', 'dependencies.nuxt', true)
+      } catch (error) {
+        console.error('Error removing \'nuxt\' dependency:\n', error.message)
+      }
     }
     if (hasJsonKey('package.json', 'dependencies.vue')) {
-      await removeFromJsonFile('package.json', 'dependencies.vue', true)
+      try {
+        await removeFromJsonFile('package.json', 'dependencies.vue', true)
+      } catch (error) {
+        console.error('Error removing \'vue\' dependency:\n', error.message)
+      }
     }
     if (hasJsonKey('package.json', 'dependencies.vue-router')) {
-      await removeFromJsonFile('package.json', 'dependencies.vue-router', true)
+      try {
+        await removeFromJsonFile('package.json', 'dependencies.vue-router', true)
+      } catch (error) {
+        console.error('Error removing \'vue-router\' dependency:\n', error.message)
+      }
     }
     if (hasJsonKey('package.json', 'devDependencies.nuxt')) {
-      await removeFromJsonFile('package.json', 'devDependencies.nuxt', true)
+      try {
+        await removeFromJsonFile('package.json', 'devDependencies.nuxt', true)
+      } catch (error) {
+        console.error('Error removing \'nuxt\' devDependency:\n', error.message)
+      }
     }
     if (hasJsonKey('package.json', 'devDependencies.vue')) {
-      await removeFromJsonFile('package.json', 'devDependencies.vue', true)
+      try {
+        await removeFromJsonFile('package.json', 'devDependencies.vue', true)
+      } catch (error) {
+        console.error('Error removing \'vue\' devDependency:\n', error.message)
+      }
     }
     if (hasJsonKey('package.json', 'devDependencies.vue-router')) {
-      await removeFromJsonFile('package.json', 'devDependencies.vue-router', true)
+      try {
+        await removeFromJsonFile('package.json', 'devDependencies.vue-router', true)
+      } catch (error) {
+        console.error('Error removing \'vue-router\' devDependency:\n', error.message)
+      }
     }
   }
 
   // 2) modify nuxt.config.ts
-  await updateConfigFile('nuxt.config.ts', {
-    extends: [
-      'nuxt-spec',
-    ],
-  }, isAutoRun, 'This will add \'nuxt-spec\' module to your \'nuxt.config.ts\'. Continue?')
+  try {
+    await updateConfigFile('nuxt.config.ts', {
+      extends: [
+        'nuxt-spec',
+      ],
+    }, isAutoRun, 'This will add \'nuxt-spec\' module to your \'nuxt.config.ts\'. Continue?')
+  } catch (error) {
+    console.error('Error updating \'nuxt.config.ts\':\n', error.message)
+  }
 
   // 3) .npmrc file
-  if (fileExists('.npmrc')) {
-    await updateTextFile('.npmrc', ['shamefully-hoist=true'], isAutoRun, 'This will adjust \'.npmrc\' file in your project. Continue?')
-  } else {
-    await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/.npmrc',
-      '.npmrc', isAutoRun, 'This will add \'.npmrc\' file for your project. Continue?')
+  try {
+    if (fileExists('.npmrc')) {
+      await updateTextFile('.npmrc', ['shamefully-hoist=true'], isAutoRun, 'This will adjust \'.npmrc\' file in your project. Continue?')
+    } else {
+      await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/.npmrc',
+        '.npmrc', isAutoRun, 'This will add \'.npmrc\' file for your project. Continue?')
+    }
+  } catch (error) {
+    console.error('Error setting up \'.npmrc\':\n', error.message)
   }
 
   // 4) create vitest.config.ts
-  await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/config/vitest.config.ts.template',
-    'vitest.config.ts', isAutoRun, 'This will create a new \'vitest.config.ts\' file for your project. Continue?')
+  try {
+    await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/config/vitest.config.ts.template',
+      'vitest.config.ts', isAutoRun, 'This will create a new \'vitest.config.ts\' file for your project. Continue?')
+  } catch (error) {
+    console.error('Error setting up \'vitest.config.ts\':\n', error.message)
+  }
 
   // 5) modify scripts in package.json
-  await updateJsonFile('package.json', 'scripts', {
-    'test': 'vitest run',
-    'test-u': 'vitest run -u',
-    'test-i': 'vitest',
-  }, isAutoRun, 'This will adjust the test-related commands in your \'package.json\'. Continue?')
+  try {
+    await updateJsonFile('package.json', 'scripts', {
+      'test': 'vitest run',
+      'test-u': 'vitest run -u',
+      'test-i': 'vitest',
+    }, isAutoRun, 'This will adjust the test-related commands in your \'package.json\'. Continue?')
+  } catch (error) {
+    console.error('Error adjusting scripts in \'package.json\':\n', error.message)
+  }
 
   // 6) clear node_modules and lock file(s)
   const prepareForReinstall = isAutoRun || await promptUser('Dependencies should be re-installed now. Do you want to remove node_modules and the lock file?')
   if (prepareForReinstall) {
-    await deletePath('node_modules', true)
+    if (!fileExists('node_modules')) {
+      try {
+        await deletePath('node_modules', true)
+      } catch (error) {
+        console.error('Error deleting \'node_modules\':\n', error.message)
+      }
+    }
     if (fileExists('package-lock.json')) {
-      await deletePath('package-lock.json', true)
+      try {
+        await deletePath('package-lock.json', true)
+      } catch (error) {
+        console.error('Error deleting \'package-lock.json\':\n', error.message)
+      }
     }
     if (fileExists('pnpm-lock.yaml')) {
-      await deletePath('pnpm-lock.yaml', true)
+      try {
+        await deletePath('pnpm-lock.yaml', true)
+      } catch (error) {
+        console.error('Error deleting \'pnpm-lock.yaml\':\n', error.message)
+      }
     }
     if (fileExists('yarn.lock')) {
-      await deletePath('yarn.lock', true)
+      try {
+        await deletePath('yarn.lock', true)
+      } catch (error) {
+        console.error('Error deleting \'yarn.lock\':\n', error.message)
+      }
     }
     if (fileExists('bun.lockb')) {
-      await deletePath('bun.lockb', true)
+      try {
+        await deletePath('bun.lockb', true)
+      } catch (error) {
+        console.error('Error deleting \'bun.lockb\':\n', error.message)
+      }
     }
   }
 }
