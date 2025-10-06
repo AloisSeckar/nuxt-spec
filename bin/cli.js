@@ -17,7 +17,18 @@ const args = process.argv.slice(2);
       await (await import('./setup.js')).specSetup(args[1] || false);
       break;
     default:
-      console.log('Usage: `npx nuxt-spec setup [true|false]`');
+      console.log(`Usage: \`${getCmd()} nuxt-spec setup [true|false]\``);
       process.exit(args.length ? 1 : 0);
   }
 })();
+
+function getCmd() {
+  const userAgent = process.env.npm_config_user_agent;
+  if (userAgent) {
+    if (userAgent.includes('pnpm')) return 'pnpx';
+    if (userAgent.includes('yarn')) return 'yarn dlx';
+    if (userAgent.includes('bun')) return 'bunx';
+    if (userAgent.includes('npm')) return 'npx';
+  }
+  return 'npx'; // fallback assumption
+}

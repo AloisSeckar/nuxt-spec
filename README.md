@@ -19,9 +19,33 @@ The `nuxt-spec` package comes with a built-in CLI tool that can help you:
 
 To use it, just run the following command in your terminal:
 
+<!-- tabs:start -->
+
+#### **npm**
+
 ```bash
 npx nuxt-spec setup
 ```
+
+#### **yarn**
+
+```bash
+yarn dlx nuxt-spec setup
+```
+
+#### **pnpm**
+
+```bash
+pnpx nuxt-spec setup
+```
+
+#### **bun**
+
+```bash
+bunx nuxt-spec setup
+```
+
+<!-- tabs:end -->
 
 First, the CLI tool will ask you whether you want to do the setup automatically. If you choose `y`es, it will perform all the steps for you. If you choose `n`o, it will guide you through the manual setup step-by-step (see [manual setup](#manual-setup) section).
 
@@ -73,11 +97,95 @@ export default loadVitestConfig({
 
 Whether you used the CLI tool or did the manual setup, you are ready to install and run the tests.
 
-1) Run `pnpm install` to install the dependencies.
+1) Install the dependencies:
 
-2) If you're prompoted (for the first time when installing to a new machine), run `pnpm exec playwright-core install` to download and locally install headless browser runtimes.
+<!-- tabs:start -->
 
-3) Run `pnpm dev` to start the development server of your awesome Nuxt project!
+#### **npm**
+
+```bash
+npm install
+```
+
+#### **yarn**
+
+```bash
+yarn install
+```
+
+#### **pnpm**
+
+```bash
+pnpm install
+```
+
+#### **bun**
+
+```bash
+bun install
+```
+
+<!-- tabs:end -->
+
+2) If you're prompted (for the first time when installing to a new machine), install headless browser runtimes:
+
+<!-- tabs:start -->
+
+#### **npm**
+
+```bash
+npx playwright-core install
+```
+
+#### **yarn**
+
+```bash
+yarn dlx playwright-core install
+```
+
+#### **pnpm**
+
+```bash
+pnpm exec playwright-core install
+```
+
+#### **bun**
+
+```bash
+bunx playwright-core install
+```
+
+<!-- tabs:end -->
+
+3) Start the development server of your awesome Nuxt project:
+
+<!-- tabs:start -->
+
+#### **npm**
+
+```bash
+npm run dev
+```
+
+#### **yarn**
+
+```bash
+yarn dev
+```
+
+#### **pnpm**
+
+```bash
+pnpm dev
+```
+
+#### **bun**
+
+```bash
+bun run dev
+```
+
+<!-- tabs:end -->
 
 ### Running tests
 
@@ -88,9 +196,43 @@ You can use those three optional commands `package.json` file in `"scripts"` sec
 - `test-u: vitest run -u` - runs once and updates snapshots
 - `test-i: vitest` - runs and waits in HMR mode for test file changes
 
-Then you can call in terminal in root of your project: 
+Then you can call in terminal in root of your project:
 
-`pnpm test` | `pnpm test-u` | `pnpm test-i`
+<!-- tabs:start -->
+
+#### **npm**
+
+```bash
+npm run test     # runs once and ends
+npm run test-u   # runs once and updates snapshots
+npm run test-i   # runs and waits in HMR mode
+```
+
+#### **yarn**
+
+```bash
+yarn test        # runs once and ends
+yarn test-u      # runs once and updates snapshots
+yarn test-i      # runs and waits in HMR mode
+```
+
+#### **pnpm**
+
+```bash
+pnpm test        # runs once and ends
+pnpm test-u      # runs once and updates snapshots
+pnpm test-i      # runs and waits in HMR mode
+```
+
+#### **bun**
+
+```bash
+bun run test     # runs once and ends
+bun run test-u   # runs once and updates snapshots
+bun run test-i   # runs and waits in HMR mode
+```
+
+<!-- tabs:end -->
 
 Or you can use the `vitest` command directly with all its parameters. See [Vitest CLI documentation](https://vitest.dev/guide/cli.html) for more info.
 
