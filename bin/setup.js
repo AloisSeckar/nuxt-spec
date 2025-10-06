@@ -17,13 +17,15 @@ import {
  *  4) creates default `vitest.config.ts` file
  *  5) adds test-related scripts in `package.json`
  *  6) clear node_modules and lock file(s)
+ *
+ * @param {boolean} autoRun - Whether to run the setup automatically without any prompts (defaults to false).
  */
-export async function specSetup() {
+export async function specSetup(autoRun = false) {
   showMessage('NUXT SPEC SETUP')
   showMessage('This CLI tool will help you include Nuxt Spec in your project.')
   showMessage('Refer to the documentation for more information.', 2)
 
-  const isAutoRun = await promptUser('Do you want to set everything up automatically (no more prompts)?')
+  const isAutoRun = autoRun || await promptUser('Do you want to set everything up automatically (no more prompts)?')
   showMessage('')
 
   // 1) manage dependencies in package.json
