@@ -17,35 +17,14 @@ The `nuxt-spec` package comes with a built-in CLI tool that can help you:
 - scaffold the default `vitest.config.ts` (see [configuration](#configuration) section)
 - add a few test-related script shorthands into your `package.json` (see [running tests](#running-tests) section)
 
-To use it, just run the following command in your terminal:
+To use it, just run the CLI script in your terminal:
 
-<!-- tabs:start -->
-
-#### **npm**
-
-```bash
-npx nuxt-spec setup
-```
-
-#### **yarn**
-
-```bash
-yarn dlx nuxt-spec setup
-```
-
-#### **pnpm**
-
-```bash
-pnpx nuxt-spec setup
-```
-
-#### **bun**
-
-```bash
-bunx nuxt-spec setup
-```
-
-<!-- tabs:end -->
+| Manager | Command |
+|-----------------|---------|
+| npm | `npx nuxt-spec setup` |
+| yarn | `yarn dlx nuxt-spec setup` |
+| pnpm | `pnpx nuxt-spec setup` |
+| bun | `bunx nuxt-spec setup` |
 
 First, the CLI tool will ask you whether you want to do the setup automatically. If you choose `y`es, it will perform all the steps for you. If you choose `n`o, it will guide you through the manual setup step-by-step (see [manual setup](#manual-setup) section).
 
