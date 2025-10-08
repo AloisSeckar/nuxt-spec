@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 import { 
-  createFileFromWebTemplate, deletePath, pathExists, hasJsonKey, promptUser,
-  removeFromJsonFile, showMessage, updateConfigFile, updateJsonFile, updateTextFile,
+  createFileFromWebTemplate, deletePath, getPackageManager, hasJsonKey, 
+  pathExists, promptUser, removeFromJsonFile, showMessage, 
+  updateConfigFile, updateJsonFile, updateTextFile,
 } from 'elrh-cosca'
 
 /**
@@ -15,7 +16,7 @@ import {
  *  2) adds `extends: ['nuxt-spec']` to `nuxt.config.ts`
  *  3) creates/updates `.npmrc` file
  *  4) creates default `vitest.config.ts` file
- *  5) adds test-related scripts in `package.json`
+ *  5) adds test-related scripts and pnpm approved build scripts (if using pnpm) in `package.json`
  *  6) clear node_modules and lock file(s)
  *
  * @param {boolean} autoRun - Whether to run the setup automatically without any prompts (defaults to false).
@@ -117,7 +118,9 @@ export async function specSetup(autoRun = false) {
     console.error('Error setting up \'vitest.config.ts\':\n', error.message)
   }
 
-  // 5) modify scripts in package.json
+  // 5) modify package.json
+
+  // add test scripts
   try {
     await updateJsonFile('package.json', 'scripts', {
       'test': 'vitest run',
@@ -126,6 +129,21 @@ export async function specSetup(autoRun = false) {
     }, isAutoRun, 'This will adjust the test-related commands in your \'package.json\'. Continue?')
   } catch (error) {
     console.error('Error adjusting scripts in \'package.json\':\n', error.message)
+  }
+
+  // add pnpm approved build scripts
+  if (getPackageManager() === 'pnpm') {
+    try {
+      await updateJsonFile('package.json', 'pnpm', {
+        'onlyBuiltDependencies': [
+          "@parcel/watcher",
+          "esbuild",
+          "unrs-resolver"
+        ]
+      }, isAutoRun, 'This will adjust pnpm approved build scripts in your \'package.json\'. Continue?')
+    } catch (error) {
+      console.error('Error adjusting pnpm approved build scripts in \'package.json\':\n', error.message)
+    }
   }
 
   // 6) clear node_modules and lock file(s)
