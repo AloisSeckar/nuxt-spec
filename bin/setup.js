@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { 
-  createFileFromWebTemplate, deletePath, fileExists, hasJsonKey, promptUser,
+  createFileFromWebTemplate, deletePath, pathExists, hasJsonKey, promptUser,
   removeFromJsonFile, showMessage, updateConfigFile, updateJsonFile, updateTextFile,
 } from 'elrh-cosca'
 
@@ -99,7 +99,7 @@ export async function specSetup(autoRun = false) {
 
   // 3) .npmrc file
   try {
-    if (fileExists('.npmrc')) {
+    if (pathExists('.npmrc')) {
       await updateTextFile('.npmrc', ['shamefully-hoist=true'], isAutoRun, 'This will adjust \'.npmrc\' file in your project. Continue?')
     } else {
       await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/.npmrc',
@@ -131,35 +131,35 @@ export async function specSetup(autoRun = false) {
   // 6) clear node_modules and lock file(s)
   const prepareForReinstall = isAutoRun || await promptUser('Dependencies should be re-installed now. Do you want to remove node_modules and the lock file?')
   if (prepareForReinstall) {
-    if (!fileExists('node_modules')) {
+    if (!pathExists('node_modules')) {
       try {
         await deletePath('node_modules', true)
       } catch (error) {
         console.error('Error deleting \'node_modules\':\n', error.message)
       }
     }
-    if (fileExists('package-lock.json')) {
+    if (pathExists('package-lock.json')) {
       try {
         await deletePath('package-lock.json', true)
       } catch (error) {
         console.error('Error deleting \'package-lock.json\':\n', error.message)
       }
     }
-    if (fileExists('pnpm-lock.yaml')) {
+    if (pathExists('pnpm-lock.yaml')) {
       try {
         await deletePath('pnpm-lock.yaml', true)
       } catch (error) {
         console.error('Error deleting \'pnpm-lock.yaml\':\n', error.message)
       }
     }
-    if (fileExists('yarn.lock')) {
+    if (pathExists('yarn.lock')) {
       try {
         await deletePath('yarn.lock', true)
       } catch (error) {
         console.error('Error deleting \'yarn.lock\':\n', error.message)
       }
     }
-    if (fileExists('bun.lockb')) {
+    if (pathExists('bun.lockb')) {
       try {
         await deletePath('bun.lockb', true)
       } catch (error) {

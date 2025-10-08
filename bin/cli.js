@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import { getPackageManager } from 'elrh-cosca'
+
 /**
  * CLI tool to scaffold necessary adjustments in project folder.
  * 
@@ -28,23 +30,17 @@ const args = process.argv.slice(2)
 // try detecting what package manager was used
 // to give user apropriate usage hint
 function getCmd() {
-
-  if (globalThis?.Deno) {
-    return 'deno run --allow-run npm:npx'
+  const packageManager = getPackageManager()
+  switch (packageManager) {
+    case 'pnpm':
+      return 'pnpx'
+    case 'yarn':
+      return 'yarn dlx'
+    case 'bun':
+      return 'bunx'
+    case 'deno':
+      return 'deno run --allow-run npm:npx'
+    default:
+      return 'npx'
   }
-
-  if (globalThis?.Bun) {
-    return 'bunx'
-  }
-
-  const userAgent = process?.env?.npm_config_user_agent;
-  if (userAgent) {
-    if (userAgent.includes('pnpm')) return 'pnpx';
-    if (userAgent.includes('yarn')) return 'yarn dlx';
-    if (userAgent.includes('bun')) return 'bunx';
-    if (userAgent.includes('npm')) return 'npx';
-  }
-
-  // fallback assumption
-  return 'npx'
 }
