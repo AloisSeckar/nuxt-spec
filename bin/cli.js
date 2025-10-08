@@ -9,26 +9,42 @@
  * (no prompts, force = true) or manual mode (with prompts, force = false).
  */
 
-const args = process.argv.slice(2);
+// get parameters passed by user
+const args = process.argv.slice(2)
 
+// execute actions based on first param
+// additional params might be passed into the called functions
 (async () => {
   switch (args[0]) {
     case 'setup':
-      await (await import('./setup.js')).specSetup(args[1] || false);
+      await (await import('./setup.js')).specSetup(args[1] || false)
       break;
     default:
-      console.log(`Usage: \`${getCmd()} nuxt-spec setup [true|false]\``);
-      process.exit(args.length ? 1 : 0);
+      console.log(`Usage: \`${getCmd()} nuxt-spec setup [true|false]\``)
+      process.exit(args.length ? 1 : 0)
   }
-})();
+})()
 
+// try detecting what package manager was used
+// to give user apropriate usage hint
 function getCmd() {
-  const userAgent = process.env.npm_config_user_agent;
+
+  if (globalThis?.Deno) {
+    return 'deno run --allow-run npm:npx'
+  }
+
+  if (globalThis?.Bun) {
+    return 'bunx'
+  }
+
+  const userAgent = process?.env?.npm_config_user_agent;
   if (userAgent) {
     if (userAgent.includes('pnpm')) return 'pnpx';
     if (userAgent.includes('yarn')) return 'yarn dlx';
     if (userAgent.includes('bun')) return 'bunx';
     if (userAgent.includes('npm')) return 'npx';
   }
-  return 'npx'; // fallback assumption
+
+  // fallback assumption
+  return 'npx'
 }
