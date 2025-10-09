@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import { 
-  createFileFromWebTemplate, deletePath, getPackageManager, hasJsonKey, 
-  pathExists, promptUser, removeFromJsonFile, showMessage, 
+import {
+  createFileFromWebTemplate, deletePath, getPackageManager, hasJsonKey,
+  pathExists, promptUser, removeFromJsonFile, showMessage,
   updateConfigFile, updateJsonFile, updateTextFile,
 } from 'elrh-cosca'
 
@@ -135,11 +135,11 @@ export async function specSetup(autoRun = false) {
   if (getPackageManager() === 'pnpm') {
     try {
       await updateJsonFile('package.json', 'pnpm', {
-        'onlyBuiltDependencies': [
-          "@parcel/watcher",
-          "esbuild",
-          "unrs-resolver"
-        ]
+        onlyBuiltDependencies: [
+          '@parcel/watcher',
+          'esbuild',
+          'unrs-resolver',
+        ],
       }, isAutoRun, 'This will adjust pnpm approved build scripts in your \'package.json\'. Continue?')
     } catch (error) {
       console.error('Error adjusting pnpm approved build scripts in \'package.json\':\n', error.message)
