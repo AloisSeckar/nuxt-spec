@@ -1,24 +1,22 @@
 import { describe, test, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import NuxtTestComponent from '../../app/components/NuxtTestComponent.vue'
+import NuxtSpecTestComponent from '../../app/components/NuxtSpecTestComponent.vue'
 
 const text = 'custom-text'
 
-describe('NuxtTestComponent', () => {
+describe('NuxtSpecTestComponent', () => {
   test('component mounts and renders text properly', () => {
-    const wrapper = mount(NuxtTestComponent, {
+    const wrapper = mount(NuxtSpecTestComponent, {
       propsData: {
         text,
       },
     })
     expect(wrapper.text()).toContain(text)
   })
-})
 
-describe('NuxtTestComponentSuspended', () => {
   test('component mounts using mountSuspended and renders text properly', async () => {
-    const component = await mountSuspended(NuxtTestComponent, {
+    const component = await mountSuspended(NuxtSpecTestComponent, {
       props: {
         text,
       },
