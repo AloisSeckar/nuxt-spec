@@ -149,7 +149,7 @@ export async function specSetup(autoRun = false) {
   // 6) clear node_modules and lock file(s)
   const prepareForReinstall = isAutoRun || await promptUser('Dependencies should be re-installed now. Do you want to remove node_modules and the lock file?')
   if (prepareForReinstall) {
-    if (!pathExists('node_modules')) {
+    if (pathExists('node_modules')) {
       try {
         await deletePath('node_modules', true)
       } catch (error) {
