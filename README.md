@@ -36,7 +36,7 @@ If you don't want to use the CLI tool, or you want to understand its flow better
 1) Add following dependency into your `package.json`:
 
 ```
-"nuxt-spec": "0.1.9"
+"nuxt-spec": "0.1.10"
 ```
 
 2) Add following section into your `nuxt.config.ts`:

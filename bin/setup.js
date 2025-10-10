@@ -34,7 +34,7 @@ export async function specSetup(autoRun = false) {
   // add nuxt-spec
   try {
     await updateJsonFile('package.json', 'dependencies', {
-      'nuxt-spec': '0.1.9',
+      'nuxt-spec': '0.1.10',
     }, isAutoRun, 'This will add \'nuxt-spec\' dependency to your \'package.json\'. Continue?')
   } catch (error) {
     console.error('Error adding \'nuxt-spec\' dependency:\n', error.message)

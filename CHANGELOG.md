@@ -2,6 +2,23 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.1.10
+
+**2025-10-10**
+
+- feat: CLI script now try-catches each step and will finish even if errors encountered
+- feat: CLI script now accepts external `autoRun` parameter to avoid even the initial prompt
+- feat: CLI script now guesses executing package manager to give more accurate usage hints
+- feat: CLI script now scaffolds `"pnpm": "onlyBuildDependencies"` if `pnpm` is used
+- refactor: merge "auto" and "manual" CLI scripts to avoid duplication
+- test: small updates in demo suite
+- docs: instructions for more package managers
+- build: updated dependencies
+  - `nuxt` to `4.1.3`
+  - `vitest` to `4.0.0-beta.17`
+  - `happy-dom` to `20.0.0`
+  - `playwright-core` to `1.56.0`
+
 ## 0.1.9
 
 **2025-10-05**
