@@ -185,4 +185,10 @@ export async function specSetup(autoRun = false) {
       }
     }
   }
+
+  // 7) inform user
+  showMessage('')
+  showMessage('NUXT SPEC SETUP COMPLETE', 2)
+  showMessage(`Proceed with \`${getPackageManager()} install\` to get started.`)
+
 }
