@@ -1,7 +1,7 @@
 import { setup, $fetch, createPage, url } from '@nuxt/test-utils/e2e'
 import { describe, expect, test } from 'vitest'
 
-describe('NuxtTestComponent E2E test', async () => {
+describe('Nuxt Spec E2E test', async () => {
   // setup app.vue in headless browser
   await setup()
 
