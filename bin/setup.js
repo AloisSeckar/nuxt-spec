@@ -184,11 +184,17 @@ export async function specSetup(autoRun = false) {
         console.error('Error deleting \'bun.lockb\':\n', error.message)
       }
     }
+    if (pathExists('deno.lock')) {
+      try {
+        await deletePath('deno.lock', true)
+      } catch (error) {
+        console.error('Error deleting \'deno.lock\':\n', error.message)
+      }
+    }
   }
 
   // 7) inform user
   showMessage('')
   showMessage('NUXT SPEC SETUP COMPLETE', 2)
   showMessage(`Proceed with \`${getPackageManager()} install\` to get started.`)
-
 }
