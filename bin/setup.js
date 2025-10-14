@@ -14,7 +14,7 @@ import {
  * Then it:
  *  1) adds `nuxt-spec` into `package.json` dependencies and removes `nuxt`, `vue` and `vue-router` if present
  *  2) adds `extends: ['nuxt-spec']` to `nuxt.config.ts`
- *  3) creates/updates `.npmrc` file
+ *  3) creates/updates `.npmrc` file (only if pnpm is used)
  *  4) creates default `vitest.config.ts` file
  *  5) adds test-related scripts and pnpm approved build scripts (if using pnpm) in `package.json`
  *  6) clear node_modules and lock file(s)
@@ -28,6 +28,8 @@ export async function specSetup(autoRun = false) {
 
   const isAutoRun = autoRun || await promptUser('Do you want to set everything up automatically (no more prompts)?')
   showMessage('')
+
+  const packageManager = getPackageManager()
 
   // 1) manage dependencies in package.json
 
@@ -98,16 +100,18 @@ export async function specSetup(autoRun = false) {
     console.error('Error updating \'nuxt.config.ts\':\n', error.message)
   }
 
-  // 3) .npmrc file
-  try {
-    if (pathExists('.npmrc')) {
-      await updateTextFile('.npmrc', ['shamefully-hoist=true'], isAutoRun, 'This will adjust \'.npmrc\' file in your project. Continue?')
-    } else {
-      await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/.npmrc',
-        '.npmrc', isAutoRun, 'This will add \'.npmrc\' file for your project. Continue?')
+  // 3) .npmrc file (only if pnpm is used)
+  if (packageManager === 'pnpm') {
+    try {
+      if (pathExists('.npmrc')) {
+        await updateTextFile('.npmrc', ['shamefully-hoist=true'], isAutoRun, 'This will adjust \'.npmrc\' file in your project. Continue?')
+      } else {
+        await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/.npmrc',
+          '.npmrc', isAutoRun, 'This will add \'.npmrc\' file for your project. Continue?')
+      }
+    } catch (error) {
+      console.error('Error setting up \'.npmrc\':\n', error.message)
     }
-  } catch (error) {
-    console.error('Error setting up \'.npmrc\':\n', error.message)
   }
 
   // 4) create vitest.config.ts
@@ -132,7 +136,7 @@ export async function specSetup(autoRun = false) {
   }
 
   // add pnpm approved build scripts
-  if (getPackageManager() === 'pnpm') {
+  if (packageManager === 'pnpm') {
     try {
       await updateJsonFile('package.json', 'pnpm', {
         onlyBuiltDependencies: [
@@ -196,5 +200,5 @@ export async function specSetup(autoRun = false) {
   // 7) inform user
   showMessage('')
   showMessage('NUXT SPEC SETUP COMPLETE', 2)
-  showMessage(`Proceed with \`${getPackageManager()} install\` to get started.`)
+  showMessage(`Proceed with \`${packageManager} install\` to get started.`)
 }
