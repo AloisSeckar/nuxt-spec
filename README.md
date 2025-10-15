@@ -73,6 +73,20 @@ export default loadVitestConfig({
 }
 ```
 
+6) (Optional) Setup file structures for tests as follows:
+
+```
+test/
+├── e2e/
+│   └── nuxt-e2e.test.ts
+├── nuxt/
+│   └── nuxt-unit.test.ts
+└── unit/
+    └── vitest.test.ts
+```
+
+You can use sample files from the [project repository](https://github.com/AloisSeckar/nuxt-spec/tree/main/test).
+
 ### Install and execute
 
 Whether you used the CLI tool or did the manual setup, you are ready to install and run the tests.

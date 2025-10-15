@@ -1,3 +1,6 @@
+// testing Nuxt components in isolation
+// test env is set to 'nuxt' for better integration
+
 import { describe, test, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { mountSuspended } from '@nuxt/test-utils/runtime'

@@ -1,3 +1,6 @@
+// testing the behavior of the whole application
+// test env is set to 'node' to simulate the real environment
+
 import { setup, $fetch, createPage, url } from '@nuxt/test-utils/e2e'
 import { describe, expect, test } from 'vitest'
 

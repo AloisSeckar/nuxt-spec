@@ -17,7 +17,8 @@ import {
  *  3) creates/updates `.npmrc` file (only if pnpm is used)
  *  4) creates default `vitest.config.ts` file
  *  5) adds test-related scripts and pnpm approved build scripts (if using pnpm) in `package.json`
- *  6) clear node_modules and lock file(s)
+ *  6) creates sample test files
+ *  7) clear node_modules and lock file(s)
  *
  * @param {boolean} autoRun - Whether to run the setup automatically without any prompts (defaults to false).
  */
@@ -150,7 +151,30 @@ export async function specSetup(autoRun = false) {
     }
   }
 
-  // 6) clear node_modules and lock file(s)
+  // 6) create sample test files
+  const createSampleTests = isAutoRun || await promptUser('Do you want to create sample tests in \'/test\' folder?')
+  if (createSampleTests) {
+    try {
+      await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/test/e2e/nuxt-e2e.test.ts',
+        'test/e2e/nuxt-e2e.test.ts', true)
+    } catch (error) {
+      console.error('Error setting up \'nuxt-e2e.test.ts\':\n', error.message)
+    }
+    try {
+      await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/test/nuxt/nuxt-unit.test.ts',
+        'test/nuxt/nuxt-unit.test.ts', true)
+    } catch (error) {
+      console.error('Error setting up \'nuxt-unit.test.ts\':\n', error.message)
+    }
+    try {
+      await createFileFromWebTemplate('https://github.com/AloisSeckar/nuxt-spec/blob/main/test/unit/vitest.test.ts',
+        'test/unit/vitest.test.ts', true)
+    } catch (error) {
+      console.error('Error setting up \'vitest.test.ts\':\n', error.message)
+    }
+  }
+
+  // 7) clear node_modules and lock file(s)
   const prepareForReinstall = isAutoRun || await promptUser('Dependencies should be re-installed now. Do you want to remove node_modules and the lock file?')
   if (prepareForReinstall) {
     if (pathExists('node_modules')) {
