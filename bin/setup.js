@@ -167,7 +167,7 @@ export async function specSetup(autoRun = false) {
       console.error('Error setting up \'nuxt-unit.test.ts\':\n', error.message)
     }
     try {
-      await createFileFromWebTemplate('https://github.com/AloisSeckar/nuxt-spec/blob/main/test/unit/vitest.test.ts',
+      await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/heads/main/test/unit/vitest.test.ts',
         'test/unit/vitest.test.ts', true)
     } catch (error) {
       console.error('Error setting up \'vitest.test.ts\':\n', error.message)
