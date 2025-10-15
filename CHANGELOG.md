@@ -2,6 +2,15 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.1.11
+
+**2025-10-15**
+
+- feat: CLI scripts can scaffold sample test files (#8)
+- feat: CLI script also removes `deno.lock` file if present(#13)
+- feat: CLI scripts only set `shamefully-hoist=true` for `pnpm` (#14)
+- feat: GitHub links now use specific version tags
+
 ## 0.1.10
 
 **2025-10-10**
