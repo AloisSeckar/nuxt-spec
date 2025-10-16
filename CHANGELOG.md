@@ -2,6 +2,14 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.1.12
+
+**2025-10-16**
+
+- fix: allow proper extending from Nuxt Spec layer again (#16)
+- fix: update component import in Nuxt component test file (#15)
+- build: bump `happy-dom` to `20.0.2` (fix CVE-2025-62410)
+
 ## 0.1.11
 
 **2025-10-15**
