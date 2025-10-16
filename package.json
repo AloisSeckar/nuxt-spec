@@ -23,6 +23,7 @@
     "nuxt-spec": "./bin/cli.js"
   },
   "exports": {
+    ".": "./nuxt.config.ts",
     "./config": {
       "import": "./config/index.mjs",
       "default": "./config/index.mjs"
