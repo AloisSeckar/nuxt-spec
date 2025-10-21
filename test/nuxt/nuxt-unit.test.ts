@@ -5,7 +5,7 @@ import { describe, test, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 
-// @ts-ignore error - see https://github.com/AloisSeckar/nuxt-spec/issues/17
+// @ts-expect-error - see https://github.com/AloisSeckar/nuxt-spec/issues/17
 import { NuxtSpecTestComponent } from '#components' // replace with your component (`nuxt dev` must run first to create the reference)
 
 const text = 'custom-text'
