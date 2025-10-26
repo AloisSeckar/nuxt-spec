@@ -17,14 +17,21 @@ const args = process.argv.slice(2);
 // execute actions based on first param
 // additional params might be passed into the called functions
 (async () => {
-  switch (args[0]) {
-    case 'setup':
-      await (await import('./setup.js')).specSetup(args[1] || false)
-      break
-    default:
-      console.log(`Usage: \`${getCmd()} nuxt-spec setup [true|false]\``)
-      process.exit(args.length ? 1 : 0)
+  let status = 0
+  try {
+    switch (args[0]) {
+      case 'setup':
+        await (await import('./setup.js')).specSetup(args[1] || false)
+        break
+      default:
+        console.log(`Usage: \`${getCmd()} nuxt-spec setup [true|false]\``)
+        status = 1
+    }
+  } catch (error) {
+    console.error('Setup failed:', error.message)
+    status = 1
   }
+  process.exit(status)
 })()
 
 // try detecting what package manager was used

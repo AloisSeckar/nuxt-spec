@@ -225,4 +225,7 @@ export async function specSetup(autoRun = false) {
   showMessage('')
   showMessage('NUXT SPEC SETUP COMPLETE', 2)
   showMessage(`Proceed with \`${packageManager} install\` to get started.`)
+
+  // force exit to prevent #20
+  process.exit(0)
 }
