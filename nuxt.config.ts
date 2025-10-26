@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     '@nuxt/test-utils/module',
   ],
 
-  compatibilityDate: '2025-08-08',
+  compatibilityDate: '2025-10-26',
 
   eslint: {
     config: {

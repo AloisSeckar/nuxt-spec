@@ -9,7 +9,7 @@ describe('Test `loadVitestConfig` function', () => {
   test('should include `projects` by default', async () => {
     const config = await loadVitestConfig({})
     expect(config.test?.projects).toBeDefined()
-  })
+  }, 10000) // first test needs more time
 
   test('should exclude `projects` upon request', async () => {
     const config = await loadVitestConfig({}, false)
