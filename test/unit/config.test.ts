@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { loadVitestConfig } from '../../config/index.ts'
+import { loadVitestConfig } from '../../config/index.mjs'
 
 describe('Test `loadVitestConfig` function', () => {
   test('should be defined', () => {
