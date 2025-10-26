@@ -2,6 +2,19 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.1.13
+
+**2025-10-26**
+- feat: TS types in `nuxt-spec/config` (#18)
+- feat: option to exclude `projects` from vitest config (#19
+- build: updated dependencies
+  - `nuxt` to `4.2.0`
+  - `nuxt-test-utils` to `3.20.1`
+  - `vitest` to `4.0.3`
+  - `happy-dom` to `20.0.8`
+  - `playwright-core` to `1.56.1`
+  - `vue-router` to `4.6.3`
+
 ## 0.1.12
 
 **2025-10-16**
