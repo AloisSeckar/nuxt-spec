@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { loadVitestConfig } from '../../config/index.mjs'
+import { loadVitestConfig } from '../../config/index.ts'
 
 describe('Test `loadVitestConfig` function', () => {
   test('should be defined', () => {
@@ -8,29 +8,29 @@ describe('Test `loadVitestConfig` function', () => {
 
   test('should include `projects` by default', async () => {
     const config = await loadVitestConfig({})
-    expect(config.test.projects).toBeDefined()
+    expect(config.test?.projects).toBeDefined()
   })
 
   test('should exclude `projects` upon request', async () => {
     const config = await loadVitestConfig({}, false)
-    expect(config.test.projects).toBeUndefined()
+    expect(config.test?.projects).toBeUndefined()
   })
 
   test('should merge custom config with defaults', async () => {
-    const config = await loadVitestConfig({ key: 'value' })
+    const config = await loadVitestConfig({ test: { ui: true } })
     // custom config should be added
-    expect(config.key).toBeDefined()
-    expect(config.key).toBe('value')
+    expect(config.test?.ui).toBeDefined()
+    expect(config.test?.ui).toBe(true)
     // defaults should be preserved
-    expect(config.test.projects).toBeDefined()
+    expect(config.test?.projects).toBeDefined()
   })
 
   test('should merge custom config with defaults but exclude `projects` upon request', async () => {
-    const config = await loadVitestConfig({ key: 'value' }, false)
+    const config = await loadVitestConfig({ test: { ui: false } }, false)
     // custom config should be added
-    expect(config.key).toBeDefined()
-    expect(config.key).toBe('value')
+    expect(config.test?.ui).toBeDefined()
+    expect(config.test?.ui).toBe(false)
     // defaults should be preserved
-    expect(config.test.projects).toBeUndefined()
+    expect(config.test?.projects).toBeUndefined()
   })
 })

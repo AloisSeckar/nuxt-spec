@@ -25,8 +25,9 @@
   "exports": {
     ".": "./nuxt.config.ts",
     "./config": {
-      "import": "./config/index.mjs",
-      "default": "./config/index.mjs"
+      "types": "./config/index.ts",
+      "import": "./config/index.ts",
+      "default": "./config/index.ts"
     }
   },
   "files": [
