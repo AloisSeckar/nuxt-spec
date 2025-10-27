@@ -2,11 +2,17 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.1.14
+
+**2025-10-27**
+- fix: proper error handling in CLI (#20)
+- fix: loading vitest config during runtime (#21)
+
 ## 0.1.13
 
 **2025-10-26**
 - feat: TS types in `nuxt-spec/config` (#18)
-- feat: option to exclude `projects` from vitest config (#19
+- feat: option to exclude `projects` from vitest config (#19)
 - build: updated dependencies
   - `nuxt` to `4.2.0`
   - `nuxt-test-utils` to `3.20.1`
