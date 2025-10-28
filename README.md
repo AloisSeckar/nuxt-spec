@@ -262,7 +262,19 @@ export default loadVitestConfig({
 
 And pass whatever you want as a parameter object. It will be defu-merged with the defaults (custom config takes precedence).
 
-By default, the configuration establishes 3 `projects`:
+**NOTE**: Based on the [Vitest documentation](https://main.vitest.dev/config/), it is possible to pass in **any configuration option** valid for [Vite](https://vite.dev/config/). Configuration related directly to Vitest must be passed under the `test` key, e.g.:
+
+```ts
+import { loadVitestConfig } from 'nuxt-spec/config'
+
+export default loadVitestConfig({
+  test: {
+    // your custom config specific to Vitest here
+  }
+})
+```
+
+By default, Nuxt Spec built-in configuration establishes 3 `projects`:
 - `unit` - for unit tests in `test/unit/`
 - `nuxt` - for Nuxt-related tests in `test/nuxt/`
 - `e2e` - for end-to-end tests in `test/e2e/`
