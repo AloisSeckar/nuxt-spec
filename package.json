@@ -51,6 +51,10 @@
     "vue-router": "4.6.3"
   },
   "pnpm": {
+    "overrides": {
+      "@eslint/plugin-kit": "^0.3.4",
+      "brace-expansion": "^2.0.2"
+    },
     "onlyBuiltDependencies": [
       "@parcel/watcher",
       "esbuild",
