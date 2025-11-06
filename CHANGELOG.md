@@ -2,6 +2,15 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.1.15
+
+**2025-11-06**
+- fix: add TS support for Nuxt aliases like `#components` in test files (#17)
+- docs: added info about passing in Vite config into `loadVitestConfig`
+- build: updated dependencies
+  - `vitest` to `4.0.7`
+  - `happy-dom` to `20.0.10`
+
 ## 0.1.14
 
 **2025-10-27**
