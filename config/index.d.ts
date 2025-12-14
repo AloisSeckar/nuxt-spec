@@ -1,4 +1,9 @@
 import type { UserConfig } from 'vite'
+import type { TestUserConfig } from 'vitest/config'
+
+type ExtendedUserConfig = UserConfig & {
+  test?: TestUserConfig
+}
 
 /**
  * Prepare Vitest configuration object - user config merged with nuxt-spec defaults
@@ -7,6 +12,6 @@ import type { UserConfig } from 'vite'
  * @returns Promise resolving to defu-merged Vitest configuration
  */
 export declare function loadVitestConfig(
-  userVitestConfig: UserConfig,
+  userVitestConfig: ExtendedUserConfig,
   projects?: boolean,
-): Promise<UserConfig>
+): Promise<ExtendedUserConfig>
