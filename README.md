@@ -36,7 +36,7 @@ If you don't want to use the CLI tool, or you want to understand its flow better
 1) Add following dependency into your `package.json`:
 
 ```
-"nuxt-spec": "0.1.15"
+"nuxt-spec": "0.1.16"
 ```
 
 2) Add following section into your `nuxt.config.ts`:
@@ -85,7 +85,7 @@ test/
     └── vitest.test.ts
 ```
 
-You can use sample files from the [project repository](https://github.com/AloisSeckar/nuxt-spec/tree/v0.1.15/test).
+You can use sample files from the [project repository](https://github.com/AloisSeckar/nuxt-spec/tree/v0.1.16/test).
 
 ### Install and execute
 
@@ -244,11 +244,11 @@ Planned future development:
 - reason about (not) using Vitest browser mode (or make it optional)
 - solution for visual testing - either [backstopjs](https://www.npmjs.com/package/backstopjs) or Vitest's native (currently experimental)
 
-See [CHANGELOG.md](https://github.com/AloisSeckar/nuxt-spec/blob/v0.1.15/CHANGELOG.md) for the latest updates and features.
+See [CHANGELOG.md](https://github.com/AloisSeckar/nuxt-spec/blob/v0.1.16/CHANGELOG.md) for the latest updates and features.
 
 ## Configuration
 
-By default, `nuxt-spec` uses Vitest configuration defined in [`/config/index.mjs`](https://github.com/AloisSeckar/nuxt-spec/blob/v0.1.15/config/index.mjs). The configuration is based on [Nuxt team recommendations](https://nuxt.com/docs/4.x/getting-started/testing) and our best judgement.
+By default, `nuxt-spec` uses Vitest configuration defined in [`/config/index.mjs`](https://github.com/AloisSeckar/nuxt-spec/blob/v0.1.16/config/index.mjs). The configuration is based on [Nuxt team recommendations](https://nuxt.com/docs/4.x/getting-started/testing) and our best judgement.
 
 To add/override your custom config, you can create (or scaffold via CLI tool) a file named `vitest.config.ts` in the root of your project with the following content:
 
@@ -260,7 +260,7 @@ export default loadVitestConfig({
 })
 ```
 
-And pass whatever you want as a parameter object. It will be defu-merged with the defaults (custom config takes precedence).
+And pass whatever you want as a parameter object. It will be defu-merged with the defaults (custom config takes precedence). The object is typed to be compatible with both [Vite](https://vite.dev/config/) and [Vitest](https://vitest.dev/config/) configuration options. Used type is derived from the respective `.d.ts` files of those packages.
 
 **NOTE**: Based on the [Vitest documentation](https://main.vitest.dev/config/), it is possible to pass in **any configuration option** valid for [Vite](https://vite.dev/config/). Configuration related directly to Vitest must be passed under the `test` key, e.g.:
 

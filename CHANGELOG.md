@@ -2,6 +2,20 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.1.16
+
+**2025-12-14**
+- fix: corrected typing for `loadVitestConfig` function (#23)
+- fix: native support for `#components` alias in `test/nuxt` folder via Nuxt `4.2.2` (#17)
+- build: updated dependencies
+  - `nuxt` to `4.2.0`
+  - `vitest` to `4.0.15`
+  - `happy-dom` to `20.0.11`
+  - `playwright-core` to `1.57.0`
+  - `@nuxt/eslint` to `1.12.1`
+  - `@nuxt/test-utils` to `3.21.0`
+  - `vue-router` to `4.6.5`
+
 ## 0.1.15
 
 **2025-11-06**
