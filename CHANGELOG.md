@@ -2,6 +2,20 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.1.18
+
+**2026-02-08**
+- feat: update default config to support sub-directories (#26)
+- build: updated dependencies
+  - `nuxt` to `4.3.1`
+  - `vitest` to `4.0.18`
+  - `vue` to `3.5.27`
+  - `happy-dom` to `20.5.1`
+  - `playwright-core` to `1.58.2`
+  - `@nuxt/eslint` to `1.14.0`
+  - `@nuxt/test-utils` to `4.0.0`
+  - `vue-router` to `5.0.2`
+
 ## 0.1.17
 
 **2026-01-12**
