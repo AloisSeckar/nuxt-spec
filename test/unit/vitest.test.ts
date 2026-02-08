@@ -3,6 +3,6 @@
 
 import { expect, test } from 'vitest'
 
-test('vitest should run', () => {
+test('vitest should run in /test/unit', () => {
   expect(1).toBe(1)
 })

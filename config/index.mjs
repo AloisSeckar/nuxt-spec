@@ -13,11 +13,11 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
 
   if (projects === true) {
     baseConfig.test.projects = [
-      // default fallback to catch tests in /test folder
+      // default fallback to catch tests directly in /test folder
       {
         test: {
           name: 'default',
-          include: ['test/*.{test,spec}.ts'],
+          include: ['{test,tests}/**/*.{test,spec}.ts', '!test/{nuxt,e2e,unit}/**'],
           environment: 'node',
         },
       },
@@ -25,7 +25,7 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
       {
         test: {
           name: 'node',
-          include: ['test/{e2e,unit}/*.{test,spec}.ts'],
+          include: ['test/{e2e,unit}/**/*.{test,spec}.ts'],
           environment: 'node',
         },
       },
@@ -33,7 +33,7 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
       await defineVitestProject({
         test: {
           name: 'nuxt',
-          include: ['test/nuxt/*.{test,spec}.ts'],
+          include: ['test/nuxt/**/*.{test,spec}.ts'],
           environment: 'nuxt',
         },
       }),

@@ -274,12 +274,13 @@ export default loadVitestConfig({
 })
 ```
 
-By default, Nuxt Spec built-in configuration establishes 3 `projects`:
-- `unit` - for unit tests in `test/unit/`
-- `nuxt` - for Nuxt-related tests in `test/nuxt/`
-- `e2e` - for end-to-end tests in `test/e2e/`
+By default, Nuxt Spec built-in configuration establishes 3 `projects` + one fallback:
+- `unit` - for unit tests in `test/unit/**` - env is set to `node` 
+- `nuxt` - for Nuxt-related tests in `test/nuxt/**` - env is set to `nuxt` 
+- `e2e` - for end-to-end tests in `test/e2e/**` - env is set to `node` 
+- `default` - fallback for all other tests in `test/**` and/or `tests/**` directories - env is set to `node` 
 
-Vitest will then expects at least one test defined in one of those directories. The `test.projects` confing may be extended with others, but it cannot be easily removed due to nature of defu-merge process. If your project uses different configuration (i.e. your test reside in completely different path), you can pass `false` as a second parameter to `loadVitestConfig()` function to exclude `test.projects` key to be injected:
+Vitest will then expects at least one test defined in either of those directories. The `test.projects` confing may be extended with others, but it cannot be easily removed due to nature of defu-merge process. If your project uses different configuration (i.e. your test reside in completely different path), you can pass `false` as a second parameter to `loadVitestConfig()` function to exclude `test.projects` key to be injected:
 
 ```ts
 import { loadVitestConfig } from 'nuxt-spec/config'
