@@ -1,5 +1,7 @@
 .env
 .nuxt
 .output
+.vitest-attachments
+__current__
 dist
 node_modules

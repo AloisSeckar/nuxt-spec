@@ -17,19 +17,19 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
       {
         test: {
           name: 'default',
-          include: ['{test,tests}/**/*.{test,spec}.ts', '!test/{nuxt,e2e,unit}/**'],
+          include: ['{test,tests}/**/*.{test,spec}.ts', '!test/{browser,e2e,nuxt,unit}/**'],
           environment: 'node',
         },
       },
-      // proposed setup for unit and e2e tests
+      // proposed setup for Unit tests
       {
         test: {
           name: 'node',
-          include: ['test/{e2e,unit}/**/*.{test,spec}.ts'],
+          include: ['test/unit/**/*.{test,spec}.ts'],
           environment: 'node',
         },
       },
-      // proposed setup for Nuxt
+      // proposed setup for Nuxt component tests
       await defineVitestProject({
         test: {
           name: 'nuxt',
@@ -37,6 +37,22 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
           environment: 'nuxt',
         },
       }),
+      // proposed setup for classic E2E tests (node-based, using @nuxt/test-utils)
+      {
+        test: {
+          name: 'e2e',
+          include: ['test/e2e/**/*.{test,spec}.ts'],
+          environment: 'node',
+        },
+      },
+      // proposed setup for visual regression tests (with Playwright runner)
+      {
+        test: {
+          name: 'browser',
+          include: ['test/browser/**/*.{test,spec}.ts'],
+          environment: 'node',
+        },
+      },
     ]
   }
 
