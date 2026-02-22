@@ -5,6 +5,7 @@
 import { defu } from 'defu'
 import { defineConfig } from 'vitest/config'
 import { defineVitestProject } from '@nuxt/test-utils/config'
+import { playwright } from '@vitest/browser-playwright'
 
 export async function loadVitestConfig(userVitestConfig, projects = true) {
   const baseConfig = {
@@ -51,6 +52,15 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
           name: 'browser',
           include: ['test/browser/**/*.{test,spec}.ts'],
           environment: 'node',
+          browser: {
+            provider: playwright(),
+            enabled: true,
+            headless: true,
+            instances: [{
+              browser: 'chromium',
+              viewport: { width: 1280, height: 720 },
+            }],
+          },
         },
       },
     ]

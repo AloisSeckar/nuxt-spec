@@ -1,5 +1,7 @@
 // visual regression test using @nuxt/test-utils + Playwright
 // starts a real Nuxt application instance and captures screenshots
+// WIP - currently only capable of doing custom screenshot,
+//       not using the built-in snapshot testing of Vitest
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
@@ -16,7 +18,7 @@ describe('Visual Regression', async () => {
   // start the Nuxt application
   await setup()
 
-  test('home page matches screenshot', async () => {
+  test('home page matches screenshot - custom', async () => {
     // open a real browser page and navigate to the running Nuxt app
     const page = await createPage()
     await page.goto(url('/'), { waitUntil: 'networkidle' })

@@ -4,4 +4,5 @@
 .vitest-attachments
 __current__
 dist
+html
 node_modules

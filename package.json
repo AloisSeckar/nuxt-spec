@@ -41,6 +41,7 @@
     "@nuxt/test-utils": "4.0.0",
     "@vitest/browser": "4.0.18",
     "@vitest/browser-playwright": "4.0.18",
+    "@vitest/ui": "4.0.18",
     "@vue/test-utils": "2.4.6",
     "elrh-cosca": "0.3.5",
     "happy-dom": "20.5.1",
@@ -48,15 +49,19 @@
     "playwright-core": "1.58.2",
     "typescript": "5.9.3",
     "vitest": "4.0.18",
+    "vitest-browser-vue": "2.0.2",
     "vue": "3.5.27",
     "vue-router": "5.0.2"
   },
   "pnpm": {
+    "overrides": {
+      "vite": "npm:vite@8.0.0-beta.15"
+    },
     "onlyBuiltDependencies": [
       "@parcel/watcher",
       "esbuild",
       "unrs-resolver"
     ]
   },
-  "packageManager": "pnpm@10.29.1"
+  "packageManager": "pnpm@10.30.1"
 }
