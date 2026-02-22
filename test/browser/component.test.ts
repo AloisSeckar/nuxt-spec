@@ -1,4 +1,5 @@
-// render component using built-in feature
+// render component using built-in vue-specific `render` function
+// this is an alternative to setup proposed in /test/nuxt/**
 
 import { expect, test } from 'vitest'
 import { render } from 'vitest-browser-vue'

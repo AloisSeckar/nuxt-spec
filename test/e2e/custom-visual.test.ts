@@ -1,4 +1,4 @@
-// visual regression test using @nuxt/test-utils + Playwright
+// custom visual regression test using @nuxt/test-utils + Playwright
 // starts a real Nuxt application instance and captures screenshots
 // WIP - currently only capable of doing custom screenshot,
 //       not using the built-in snapshot testing of Vitest

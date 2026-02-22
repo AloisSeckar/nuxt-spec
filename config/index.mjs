@@ -6,6 +6,7 @@ import { defu } from 'defu'
 import { defineConfig } from 'vitest/config'
 import { defineVitestProject } from '@nuxt/test-utils/config'
 import { playwright } from '@vitest/browser-playwright'
+import vue from '@vitejs/plugin-vue'
 
 export async function loadVitestConfig(userVitestConfig, projects = true) {
   const baseConfig = {
@@ -46,8 +47,10 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
           environment: 'node',
         },
       },
-      // proposed setup for visual regression tests (with Playwright runner)
+      // proposed setup for browser component tests (with Playwright runner)
       {
+        // vue plugin is required for proper imports resolution
+        plugins: [vue()],
         test: {
           name: 'browser',
           include: ['test/browser/**/*.{test,spec}.ts'],
