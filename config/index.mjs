@@ -2,7 +2,7 @@
 // based on https://nuxt.com/docs/4.x/getting-started/testing#setup
 // `projects=false` can be used to suspend the default usage of "projects" in Vitest config
 
-import { defu } from 'defu'
+import { mergeConfig } from './merge' // defu-based merge function
 import { defineConfig } from 'vitest/config'
 import { defineVitestProject } from '@nuxt/test-utils/config'
 import { playwright } from '@vitest/browser-playwright'
@@ -69,5 +69,5 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
     ]
   }
 
-  return defu(userVitestConfig, defineConfig(baseConfig))
+  return mergeConfig(userVitestConfig, defineConfig(baseConfig))
 }
