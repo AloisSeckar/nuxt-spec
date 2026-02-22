@@ -28,6 +28,11 @@
       "types": "./config/index.d.ts",
       "import": "./config/index.mjs",
       "default": "./config/index.mjs"
+    },
+    "./utils": {
+      "types": "./utils/index.d.ts",
+      "import": "./utils/index.ts",
+      "default": "./utils/index.ts"
     }
   },
   "files": [
