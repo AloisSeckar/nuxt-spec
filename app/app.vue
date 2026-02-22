@@ -4,6 +4,7 @@
     <div>
       Test-pack layer for <a href="https://nuxt.com/">Nuxt</a> applications
     </div>
-    <NuxtSpecTestComponent text="Test Component" />
+    <NuxtSpecTestComponent id="test" text="Test Component" />
+    <NuxtSpecApiTestComponent />
   </div>
 </template>
