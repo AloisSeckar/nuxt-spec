@@ -12,7 +12,7 @@ export async function compareScrenshot(page: NuxtPage, fileName: string, targetD
   const screenshot = await page.screenshot({ fullPage: true })
   const baselinePath = resolve(baselineDir, fileName)
 
-  const updating = process.argv.includes('-u') || process.argv.includes('--update')
+  const updating = expect.getState().snapshotState?._updateSnapshot === 'all'
   if (updating || !existsSync(baselinePath)) {
     // save new baseline screenshot
     mkdirSync(baselineDir, { recursive: true })
