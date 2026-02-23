@@ -239,6 +239,7 @@ Or you can use the `vitest` command directly with all its parameters. See [Vites
 **Nuxt Spec** currently contains:
 - [vitest](https://www.npmjs.com/package/vitest) **v4** as the fundamental testing framework
 - [@vitest/browser](https://www.npmjs.com/package/@vitest/browser) as more advanced browser-native testing runner
+- [@vitest/ui](https://www.npmjs.com/package/@vitest/ui) as graphic UI above the Vitest test runner
 - [happy-dom](https://www.npmjs.com/package/happy-dom) as the headless browser runtime
 - [playwright-core](https://www.npmjs.com/package/playwright-core) as the headless browser testing framework
 - [@vue/test-utils](https://www.npmjs.com/package/@vue/test-utils) for testing Vue stuff
