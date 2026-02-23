@@ -319,7 +319,7 @@ await compareScrenshot(page, 'screenshot.png')
 const page: NuxtPage = await gotoPage('url')
 
 // accepts either a URL string or instance of NuxtPage (from @nuxt/test-utils) and a CSS selector
-// returns innerHTML of the element matching the selector
+// returns `innerHTML` of the element matching the selector
 const html: string = await getDataHtml('/', '#test') 
 const html: string = await getDataHtml(page, '#test')
 
@@ -327,9 +327,10 @@ const html: string = await getDataHtml(page, '#test')
 // css selector for element that triggers API call when clicked (i.e. button)
 // fragment of API endpoint URL that should be called (to test the response)
 // css selector for element where the API response should be rendered (i.e. div)
-// returns innerHTML of the element matching the result selector after the API call is made by Playwright runner
-const html: string = await getAPIResultHtml('/', '#api-fetch', 'jsonplaceholder.typicode.com/posts', '#api-result')
-const html: string = await getAPIResultHtml(page, '#api-fetch', 'jsonplaceholder.typicode.com/posts', '#api-result')
+// returns `innerHTML` of the element matching the result selector after the API call 
+// is made by Playwright runner
+const html: string = await getAPIResultHtml('/', '#api-fetch', '/your-api', '#api-result')
+const html: string = await getAPIResultHtml(page, '#api-fetch', '/your-api', '#api-result')
 ```
 
 For detailed description, see [utils.d.ts](https://github.com/AloisSeckar/nuxt-spec/blob/v0.2.0-alpha.1/utils/index.d.ts).
