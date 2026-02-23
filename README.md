@@ -300,6 +300,40 @@ export default loadVitestConfig({
 
 Alternatively, if you don't want to use any part of the `nuxt-spec` default configuration at all, you can override `vitest.config.ts` file completely and define your own [Vitest configuration](https://vitest.dev/config/) from scratch.
 
+## Utilities
+
+Nuxt Spec offers couple of utility functions that are exported via `nuxt-spec/utils` subpackage.
+
+You can use them in your test files as follows:
+
+```ts
+import { compareScrenshot, gotoPage, getDataHtml, getAPIResultHtml, } from 'nuxt-spec/utils'
+
+// accepts instance of NuxtPage (from @nuxt/test-utils)
+// takes a screenshot of current viewport and compares it with stored baseline
+// if screenshot doesn't exist, it will be created as baseline
+// if screenshots don't match, the method will cause Vitest test to fail
+await compareScrenshot(page, 'screenshot.png')
+
+// navigates to given URL and returns the instance of NuxtPage (from @nuxt/test-utils)
+const page: NuxtPage = await gotoPage('url')
+
+// accepts either a URL string or instance of NuxtPage (from @nuxt/test-utils) and a CSS selector
+// returns innerHTML of the element matching the selector
+const html: string = await getDataHtml('/', '#test') 
+const html: string = await getDataHtml(page, '#test')
+
+// accepts either a URL string or instance of NuxtPage (from @nuxt/test-utils)
+// css selector for element that triggers API call when clicked (i.e. button)
+// fragment of API endpoint URL that should be called (to test the response)
+// css selector for element where the API response should be rendered (i.e. div)
+// returns innerHTML of the element matching the result selector after the API call is made by Playwright runner
+const html: string = await getAPIResultHtml('/', '#api-fetch', 'jsonplaceholder.typicode.com/posts', '#api-result')
+const html: string = await getAPIResultHtml(page, '#api-fetch', 'jsonplaceholder.typicode.com/posts', '#api-result')
+```
+
+For detailed description, see [utils.d.ts](https://github.com/AloisSeckar/nuxt-spec/blob/v0.1.18/utils/index.d.ts).
+
 ## Contact
 
 Use GitHub issues to report bugs or suggest improvements. I will be more than happy to address them.
