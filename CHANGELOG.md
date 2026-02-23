@@ -2,6 +2,26 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.2.0-alpha.1
+
+**2026-02-23**
+- feat: included `@vitest/browser` and `@vitest/ui` packages
+- feat: added new `browser` project config for Vitest browser-mode tests
+- feat: introduced crude solution for visual regression testing (#2)
+- feat: introduced `compareScrenshot` util function for visual regression testing
+- feat: introduced `gotoPage`, `getDataHtml` and `getAPIResultHtml` helpers for Nuxt E2E tests (#27)
+- fix: created proper custom merging strategy for `test.projects` config (#24)
+- docs: explained latest changes in `README.md`
+- build: updated dependencies
+  - `@vitest/browser-playwright` to `4.0.18` (added)
+  - `@vitest/ui` to `4.0.18` (added)
+  - `vitest-browser-vue` to `2.0.2` (added)
+  - `@vitejs/plugin-vue` to `6.0.4` (added)
+  - `happy-dom` to `20.7.0`
+  - `@nuxt/eslint` to `1.15.1`
+  - `vue` to `3.5.28`
+  - `vue-router` to `5.0.3`
+
 ## 0.1.18
 
 **2026-02-08**
