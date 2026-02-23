@@ -4,7 +4,7 @@
 
 **Nuxt Spec** (aka `nuxt-spec`) is a base layer for [Nuxt](https://nuxt.com/) applications incorporating together a couple of testing libraries and packages and providing some utility functions. I created this project in early 2025 because I was unable to find a convenient "one-dependency" way to start testing my Nuxt apps and I didn't want to repeat the same steps and maintain the same set of dependencies over and over. 
 
-While Nuxt itself does have a [dedicated module for testing](https://nuxt.com/docs/getting-started/testing), to remain as versatile as possible, it has to be combined with other packages (which can be different based on your choice). I am trying to overcome this by defining "the way". This is both the strength and the weakness of this project. You were warned.
+While Nuxt itself does have a [dedicated module for testing](https://nuxt.com/docs/getting-started/testing), to remain as versatile as possible, it has to be combined with other packages (which can be different based on your choice). I am trying to overcome this by defining "The Way". This is both the strength and the weakness of this project. You were warned.
 
 The most important client of `nuxt-spec` is my [Nuxt Ignis](https://github.com/AloisSeckar/nuxt-ignis) template starter that adds up even more ready-to-use cool stuff for your future awesome Nuxt websites.
 
@@ -16,6 +16,7 @@ The `nuxt-spec` package comes with a built-in CLI tool that can help you:
 - setup the dependency in your project
 - scaffold the default `vitest.config.ts` (see [configuration](#configuration) section)
 - add a few test-related script shorthands into your `package.json` (see [running tests](#running-tests) section)
+- create demo test files in proposed file structure
 
 To use it, just run the CLI script in your terminal:
 
@@ -77,12 +78,15 @@ export default loadVitestConfig({
 
 ```
 test/
+├── browser/
+│   └── vitest-browser.test.ts
 ├── e2e/
 │   └── nuxt-e2e.test.ts
+│   └── nuxt-visual.test.ts
 ├── nuxt/
 │   └── nuxt-unit.test.ts
 └── unit/
-    └── vitest.test.ts
+    └── vitest-unit.test.ts
 ```
 
 You can use sample files from the [project repository](https://github.com/AloisSeckar/nuxt-spec/tree/v0.1.18/test).
@@ -234,7 +238,7 @@ Or you can use the `vitest` command directly with all its parameters. See [Vites
 
 **Nuxt Spec** currently contains:
 - [vitest](https://www.npmjs.com/package/vitest) **v4** as the fundamental testing framework
-- [@vitest/browser](https://www.npmjs.com/package/@vitest/browser) as the experimental browser runner
+- [@vitest/browser](https://www.npmjs.com/package/@vitest/browser) as more advanced browser-native testing runner
 - [happy-dom](https://www.npmjs.com/package/happy-dom) as the headless browser runtime
 - [playwright-core](https://www.npmjs.com/package/playwright-core) as the headless browser testing framework
 - [@vue/test-utils](https://www.npmjs.com/package/@vue/test-utils) for testing Vue stuff
@@ -242,7 +246,7 @@ Or you can use the `vitest` command directly with all its parameters. See [Vites
 
 Planned future development:
 - reason about (not) using Vitest browser mode (or make it optional)
-- solution for visual testing - either [backstopjs](https://www.npmjs.com/package/backstopjs) or Vitest's native (currently experimental)
+- solution for visual regression testing - (currently there is experimental custom solution)
 
 See [CHANGELOG.md](https://github.com/AloisSeckar/nuxt-spec/blob/v0.1.18/CHANGELOG.md) for the latest updates and features.
 
@@ -271,16 +275,19 @@ export default loadVitestConfig({
   test: {
     // your custom config specific to Vitest here
   }
+  // by the nature of the Vitest config resolution,
+  // you may also pass ANY OTHER valid Vite configuration options here
 })
 ```
 
-By default, Nuxt Spec built-in configuration establishes 3 `projects` + one fallback:
+By default, Nuxt Spec built-in configuration establishes 4 `projects` + one fallback:
 - `unit` - for unit tests in `test/unit/**` - env is set to `node` 
 - `nuxt` - for Nuxt-related tests in `test/nuxt/**` - env is set to `nuxt` 
 - `e2e` - for end-to-end tests in `test/e2e/**` - env is set to `node` 
+- `browser` - for browser-mode tests in `test/browser/**` - env is set to `node` (this is effectively an alternative to `nuxt` relying on `@vitest/browser` instead of `@nuxt/test-utils`)
 - `default` - fallback for all other tests in `test/**` and/or `tests/**` directories - env is set to `node` 
 
-Vitest will then expects at least one test defined in either of those directories. The `test.projects` confing may be extended with others, but it cannot be easily removed due to nature of defu-merge process. If your project uses different configuration (i.e. your test reside in completely different path), you can pass `false` as a second parameter to `loadVitestConfig()` function to exclude `test.projects` key to be injected:
+Vitest will then expects at least one test defined in either of those directories. Any parts of the `test.projects` confing may be altered and user-defined values will be logically merged with the defaults. Also you may add new custom projects' definitions to fit your needs. If your project uses significantly different configuration (i.e. your tests reside in completely different path), you can pass `false` as a second parameter to `loadVitestConfig()` function to exclude default `test.projects` values from being injected completely:
 
 ```ts
 import { loadVitestConfig } from 'nuxt-spec/config'
