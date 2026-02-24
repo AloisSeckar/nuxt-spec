@@ -1,7 +1,7 @@
 // internal unit tests for "/config/merge.ts"
 
 import { describe, expect, test } from 'vitest'
-import { mergeConfig } from '../../config/merge'
+import { mergeConfig } from '../../config/merge.js'
 
 describe('Test `mergeConfig` function', () => {
   test('should be defined', () => {
@@ -130,14 +130,16 @@ describe('Test `mergeConfig` function', () => {
           {
             test: {
               browser: {
-                instances: [{
-                  browser: 'chromium',
-                  viewport: { width: 800, height: 600 },
-                }],
-                instances: [{
-                  browser: 'firefox',
-                  viewport: { width: 800, height: 600 },
-                }],
+                instances: [
+                  {
+                    browser: 'chromium',
+                    viewport: { width: 800, height: 600 },
+                  },
+                  {
+                    browser: 'firefox',
+                    viewport: { width: 800, height: 600 },
+                  },
+                ],
               },
             },
           },
@@ -151,14 +153,16 @@ describe('Test `mergeConfig` function', () => {
       {
         test: {
           browser: {
-            instances: [{
-              browser: 'chromium',
-              viewport: { width: 800, height: 600 },
-            }],
-            instances: [{
-              browser: 'firefox',
-              viewport: { width: 800, height: 600 },
-            }],
+            instances: [
+              {
+                browser: 'chromium',
+                viewport: { width: 800, height: 600 },
+              },
+              {
+                browser: 'firefox',
+                viewport: { width: 800, height: 600 },
+              },
+            ],
           },
         },
       },
@@ -185,7 +189,7 @@ describe('Test `mergeConfig` function', () => {
           {
             plugins: ['euv'],
             test: {
-              name: 'custom',
+              name: 'default',
             },
           },
         ],
@@ -202,9 +206,6 @@ describe('Test `mergeConfig` function', () => {
         ],
         test: {
           name: 'default',
-        },
-        test: {
-          name: 'custom',
         },
       },
     ])
