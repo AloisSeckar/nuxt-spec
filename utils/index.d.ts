@@ -46,7 +46,7 @@ export declare function getAPIResultHtml(
  * @returns `true` when the screenshot matches the baseline (or a new baseline was saved)
  * @throws Fails the current Vitest test when a mismatch is detected
  */
-export declare function compareScrenshot(
+export declare function compareScreenshot(
   page: NuxtPage,
   fileName: string,
   targetDir?: string,

@@ -3,7 +3,7 @@ import { resolve } from 'node:path'
 import type { NuxtPage } from '@nuxt/test-utils'
 import { expect } from 'vitest'
 
-export async function compareScrenshot(page: NuxtPage, fileName: string, targetDir?: string): Promise<boolean> {
+export async function compareScreenshot(page: NuxtPage, fileName: string, targetDir?: string): Promise<boolean> {
   const dir = resolve(process.cwd(), targetDir ?? 'test/e2e')
   const baselineDir = resolve(dir, '__baseline__')
   const currentDir = resolve(dir, '__current__')

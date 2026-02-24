@@ -307,13 +307,13 @@ Nuxt Spec offers couple of utility functions that are exported via `nuxt-spec/ut
 You can use them in your test files as follows:
 
 ```ts
-import { compareScrenshot, gotoPage, getDataHtml, getAPIResultHtml, } from 'nuxt-spec/utils'
+import { compareScreenshot, gotoPage, getDataHtml, getAPIResultHtml, } from 'nuxt-spec/utils'
 
 // accepts instance of NuxtPage (from @nuxt/test-utils)
 // takes a screenshot of current viewport and compares it with stored baseline
 // if screenshot doesn't exist, it will be created as baseline
 // if screenshots don't match, the method will cause Vitest test to fail
-await compareScrenshot(page, 'screenshot.png')
+await compareScreenshot(page, 'screenshot.png')
 
 // navigates to given URL and returns the instance of NuxtPage (from @nuxt/test-utils)
 const page: NuxtPage = await gotoPage('url')

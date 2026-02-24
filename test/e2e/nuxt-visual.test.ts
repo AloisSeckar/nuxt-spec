@@ -5,7 +5,7 @@
 
 import { setup, createPage, url } from '@nuxt/test-utils/e2e'
 import { describe, expect, test } from 'vitest'
-import { compareScrenshot } from 'nuxt-spec/utils'
+import { compareScreenshot } from 'nuxt-spec/utils'
 
 describe('Visual Regression', async () => {
   // start the Nuxt application
@@ -16,6 +16,6 @@ describe('Visual Regression', async () => {
     const page = await createPage()
     await page.goto(url('/'), { waitUntil: 'networkidle' })
 
-    expect(await compareScrenshot(page, 'home-page.png')).toEqual(true)
+    expect(await compareScreenshot(page, 'home-page.png')).toEqual(true)
   })
 })

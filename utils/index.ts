@@ -1,8 +1,8 @@
 import { gotoPage, getDataHtml, getAPIResultHtml } from './e2e'
-import { compareScrenshot } from './screenshot'
+import { compareScreenshot } from './screenshot'
 
 export {
-  compareScrenshot,
+  compareScreenshot,
   gotoPage,
   getDataHtml,
   getAPIResultHtml,
