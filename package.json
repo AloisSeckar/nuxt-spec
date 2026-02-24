@@ -39,7 +39,8 @@
     "app",
     "bin",
     "config",
-    "public"
+    "public",
+    "utils"
   ],
   "dependencies": {
     "@nuxt/eslint": "1.15.1",
