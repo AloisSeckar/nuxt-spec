@@ -2,6 +2,13 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.2.0-alpha.2
+
+**2026-02-24**
+- fix: export `nuxt-ignis/utils` sub-package properly
+- fix: make custom defu merger function for Vitest config available in production build
+- fix: corrected util function name to `compareScreenshot`
+
 ## 0.2.0-alpha.1
 
 **2026-02-23**
