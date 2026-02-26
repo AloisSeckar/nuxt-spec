@@ -41,13 +41,17 @@ export declare function getAPIResultHtml(
  * screenshot is saved as the new baseline.
  *
  * @param page - Playwright page instance obtained from `createPage()`
- * @param fileName - Name of the PNG file used for baseline storage and comparison
- * @param targetDir - Directory for baseline/current screenshots, relative to project root (defaults to `test/e2e`)
+ * @param options.fileName - Name of the PNG file used for baseline storage and comparison (defaults to route and `index.png` for `/`)
+ * @param options.targetDir - Directory for baseline/current screenshots, relative to project root (defaults to `test/e2e`)
+ * @param options.selector - CSS selector for a specific element to capture (defaults to full page)
  * @returns `true` when the screenshot matches the baseline (or a new baseline was saved)
  * @throws Fails the current Vitest test when a mismatch is detected
  */
 export declare function compareScreenshot(
   page: NuxtPage,
-  fileName: string,
-  targetDir?: string,
+  options?: {
+    fileName?: string
+    targetDir?: string
+    selector?: string
+  },
 ): Promise<boolean>
