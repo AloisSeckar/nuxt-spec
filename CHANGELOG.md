@@ -2,6 +2,11 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.2.0-alpha.4
+
+**2026-02-26**
+- fix: update types for `nuxt-spec/utils` subpackage
+
 ## 0.2.0-alpha.3
 
 **2026-02-26**
@@ -11,7 +16,7 @@ Overview of the newest features in Nuxt Spec.
 ## 0.2.0-alpha.2
 
 **2026-02-24**
-- fix: export `nuxt-ignis/utils` sub-package properly
+- fix: export `nuxt-spec/utils` sub-package properly
 - fix: make custom defu merger function for Vitest config available in production build
 - fix: corrected util function name to `compareScreenshot`
 
