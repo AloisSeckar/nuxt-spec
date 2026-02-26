@@ -17,6 +17,7 @@ export async function compareScreenshot(page: NuxtPage, options?: { fileName?: s
     : await page.screenshot({ fullPage: true })
   const baselinePath = resolve(baselineDir, fileName)
 
+  // @ts-expect-error - this is reliable way of reading Vitest "update" flag
   const updating = expect.getState().snapshotState?._updateSnapshot === 'all'
   if (updating || !existsSync(baselinePath)) {
     // save new baseline screenshot
