@@ -2,6 +2,12 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.2.0-alpha.3
+
+**2026-02-26**
+- refactor: introduce `options` parameter into `compareScreenshot` function
+- feat: enhance `compareScreenshot` function to support CSS selector for element-specific screenshots
+
 ## 0.2.0-alpha.2
 
 **2026-02-24**
