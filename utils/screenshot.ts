@@ -3,10 +3,13 @@ import { resolve } from 'node:path'
 import type { NuxtPage } from '@nuxt/test-utils'
 import { expect } from 'vitest'
 
-export async function compareScreenshot(page: NuxtPage, fileName: string, targetDir?: string): Promise<boolean> {
-  const dir = resolve(process.cwd(), targetDir ?? 'test/e2e')
+export async function compareScreenshot(page: NuxtPage, options?: { fileName?: string, targetDir?: string }): Promise<boolean> {
+  const dir = resolve(process.cwd(), options?.targetDir ?? 'test/e2e')
   const baselineDir = resolve(dir, '__baseline__')
   const currentDir = resolve(dir, '__current__')
+
+  const route = page.url().substring(page.url().lastIndexOf('/') + 1) || 'index'
+  const fileName = options?.fileName ?? `${route}.png`
 
   // capture full-page screenshot as PNG
   const screenshot = await page.screenshot({ fullPage: true })

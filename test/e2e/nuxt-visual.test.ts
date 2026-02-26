@@ -16,6 +16,9 @@ describe('Visual Regression', async () => {
     const page = await createPage()
     await page.goto(url('/'), { waitUntil: 'networkidle' })
 
-    expect(await compareScreenshot(page, 'home-page.png')).toEqual(true)
+    // no options - will use route as filename (or "index" for "/")
+    expect(await compareScreenshot(page)).toEqual(true)
+    // file name can be specified explicitly
+    expect(await compareScreenshot(page, { fileName: 'homepage.png' })).toEqual(true)
   })
 })
