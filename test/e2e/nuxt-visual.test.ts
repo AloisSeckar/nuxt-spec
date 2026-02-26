@@ -20,5 +20,8 @@ describe('Visual Regression', async () => {
     expect(await compareScreenshot(page)).toEqual(true)
     // file name can be specified explicitly
     expect(await compareScreenshot(page, { fileName: 'homepage.png' })).toEqual(true)
+
+    // only capture a specific element
+    expect(await compareScreenshot(page, { fileName: 'component.png', selector: '#test' })).toEqual(true)
   })
 })

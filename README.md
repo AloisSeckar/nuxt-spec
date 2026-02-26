@@ -313,7 +313,15 @@ import { compareScreenshot, gotoPage, getDataHtml, getAPIResultHtml, } from 'nux
 // takes a screenshot of current viewport and compares it with stored baseline
 // if screenshot doesn't exist, it will be created as baseline
 // if screenshots don't match, the method will cause Vitest test to fail
-await compareScreenshot(page, 'screenshot.png')
+// accepts optional object with extra options:
+// - `fileName` - name of the screenshot file (default is based on current route)
+// - `selector` - CSS selector of the element to capture (default is full page)
+// - `targetDir` - directory where the screenshots should be stored (default is `./test/e2e/`)
+
+await compareScreenshot(page) // will produce "index.png" file in `./test/e2e/` directory
+await compareScreenshot(page, { fileName: 'homepage.png' }) // will produce "homepage.png"
+await compareScreenshot(page, { fileName: 'component.png', selector: '#test' }) // will produce "component.png" only with id="test" element
+await compareScreenshot(page, { fileName: 'homepage.png', targetDir: '/screenshots' }) // will produce "homepage.png" in `/screenshots` directory
 
 // navigates to given URL and returns the instance of NuxtPage (from @nuxt/test-utils)
 const page: NuxtPage = await gotoPage('url')
