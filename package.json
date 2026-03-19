@@ -62,7 +62,10 @@
   },
   "pnpm": {
     "overrides": {
-      "vite": "npm:vite@8.0.1"
+      "vite": "npm:vite@8.0.1",
+      "minimatch": "^9.0.6",
+      "tar": "^7.5.10",
+      "h3": "^1.15.6"
     },
     "onlyBuiltDependencies": [
       "@parcel/watcher",
