@@ -2,6 +2,14 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.2.0-alpha.6
+
+**2026-03-19**
+- feat: add `pixelmatch` to mitigate cross-platform rendering differences in visual tests
+- build: updated dependencies
+  - `pixelmatch` to `7.1.0` (added)
+  - `fast-png` to `8.0.0` (added)
+
 ## 0.2.0-alpha.5
 
 **2026-03-19**
