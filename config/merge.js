@@ -7,6 +7,9 @@
 
 import { createDefu } from 'defu'
 
+// in real Vitest config, "name" is nested inside another "test" object
+const getProjectName = (project) => project?.name ?? project?.test?.name
+
 export const mergeConfig = createDefu((obj, key, value) => {
   if (key === 'projects' && Array.isArray(obj[key]) && Array.isArray(value)) {
     const defaults = obj[key]
@@ -14,13 +17,13 @@ export const mergeConfig = createDefu((obj, key, value) => {
 
     // override default values if user-defined config specifies them
     obj[key] = defaults.map((defaultProject) => {
-      const override = overrides.find(o => o.name === defaultProject.name)
+      const override = overrides.find(o => getProjectName(o) === getProjectName(defaultProject))
       return override ? mergeProject(override, defaultProject) : defaultProject
     })
 
     // add any user projects that don't exist in defaults
     for (const override of overrides) {
-      if (!defaults.some(d => d.name === override.name)) {
+      if (!defaults.some(d => getProjectName(d) === getProjectName(override))) {
         obj[key].push(override)
       }
     }

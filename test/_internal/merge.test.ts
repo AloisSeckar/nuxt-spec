@@ -2,6 +2,7 @@
 
 import { describe, expect, test } from 'vitest'
 import { mergeConfig } from '../../config/merge.js'
+import { defineConfig } from 'vitest/config'
 
 describe('Test `mergeConfig` function', () => {
   test('should be defined', () => {
@@ -60,7 +61,7 @@ describe('Test `mergeConfig` function', () => {
     ])
   })
 
-  test('should merge real Vitest config correctly', () => {
+  test('should merge real Vitest config with single project correctly', () => {
     const defaultConfig = {
       test: {
         projects: [
@@ -91,7 +92,7 @@ describe('Test `mergeConfig` function', () => {
       },
     }
 
-    const mergedConfig = mergeConfig(userConfig, defaultConfig)
+    const mergedConfig = mergeConfig(userConfig, defineConfig(defaultConfig))
 
     expect(mergedConfig.test.projects).toEqual([
       {
@@ -101,6 +102,69 @@ describe('Test `mergeConfig` function', () => {
           environment: 'nuxt',
           pool: 'threads',
           customOption: true,
+        },
+      },
+    ])
+  })
+  
+  test('should merge real Vitest config with multiple projects correctly', () => {
+    const defaultConfig = {
+      test: {
+        projects: [
+          {
+            test: {
+              name: 'default',
+              include: ['{test,tests}/**/*.{test,spec}.ts', '!test/{browser,e2e,nuxt,unit}/**'],
+              environment: 'node',
+            },
+          },
+          {
+            test: {
+              name: 'e2e',
+              include: ['test/e2e/**/*.{test,spec}.ts'],
+              environment: 'node',
+            },
+          },
+        ],
+      },
+    }
+
+    const userConfig = {
+      test: {
+        projects: [
+          {
+            test: {
+              name: 'default',
+              exclude: ['**/playwright/**'],
+            },
+          },
+          {
+            test: {
+              name: 'e2e',
+              include: ['test/e2e/**/*.{test,spec}.ts'],
+              environment: 'node',
+            },
+          },
+        ],
+      },
+    }
+
+    const mergedConfig = mergeConfig(userConfig, defineConfig(defaultConfig))
+
+    expect(mergedConfig.test.projects).toEqual([
+      {
+        test: {
+          name: 'default',
+          include: ['{test,tests}/**/*.{test,spec}.ts', '!test/{browser,e2e,nuxt,unit}/**'],
+          exclude: ['**/playwright/**'],
+          environment: 'node',
+        },
+      },
+      {
+        test: {
+          name: 'e2e',
+          include: ['test/e2e/**/*.{test,spec}.ts'],
+          environment: 'node',
         },
       },
     ])
