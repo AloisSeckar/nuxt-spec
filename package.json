@@ -63,9 +63,12 @@
   "pnpm": {
     "overrides": {
       "vite": "npm:vite@8.0.1",
-      "minimatch": "^9.0.6",
+      "minimatch": "^9.0.9",
       "tar": "^7.5.10",
-      "h3": "^1.15.6"
+      "h3@^1.0.0": "^1.15.8",
+      "h3-next": "npm:h3@^2.0.1-rc.15",
+      "serialize-javascript": "^7.0.3",
+      "devalue": "^5.6.4"
     },
     "onlyBuiltDependencies": [
       "@parcel/watcher",
