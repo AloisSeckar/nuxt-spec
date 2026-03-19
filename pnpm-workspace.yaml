@@ -1,0 +1,10 @@
+# settings for Nuxt & pnpm
+
+# migrated from .npmrc
+shamefullyHoist: true
+
+# migrated from package.json
+onlyBuiltDependencies:
+  - "@parcel/watcher"
+  - "esbuild"
+  - "unrs-resolver"
