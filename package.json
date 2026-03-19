@@ -43,26 +43,26 @@
     "utils"
   ],
   "dependencies": {
-    "@nuxt/eslint": "1.15.1",
+    "@nuxt/eslint": "1.15.2",
     "@nuxt/test-utils": "4.0.0",
-    "@vitejs/plugin-vue": "6.0.4",
-    "@vitest/browser": "4.0.18",
-    "@vitest/browser-playwright": "4.0.18",
-    "@vitest/ui": "4.0.18",
+    "@vitejs/plugin-vue": "6.0.5",
+    "@vitest/browser": "4.1.0",
+    "@vitest/browser-playwright": "4.1.0",
+    "@vitest/ui": "4.1.0",
     "@vue/test-utils": "2.4.6",
     "elrh-cosca": "0.3.5",
-    "happy-dom": "20.7.0",
-    "nuxt": "4.3.1",
+    "happy-dom": "20.8.4",
+    "nuxt": "4.4.2",
     "playwright-core": "1.58.2",
     "typescript": "5.9.3",
-    "vitest": "4.0.18",
-    "vitest-browser-vue": "2.0.2",
-    "vue": "3.5.28",
+    "vitest": "4.1.0",
+    "vitest-browser-vue": "2.1.0",
+    "vue": "3.5.30",
     "vue-router": "5.0.3"
   },
   "pnpm": {
     "overrides": {
-      "vite": "npm:vite@8.0.0-beta.15"
+      "vite": "npm:vite@8.0.1"
     },
     "onlyBuiltDependencies": [
       "@parcel/watcher",
@@ -70,5 +70,5 @@
       "unrs-resolver"
     ]
   },
-  "packageManager": "pnpm@10.30.1"
+  "packageManager": "pnpm@10.32.1"
 }
