@@ -14,7 +14,7 @@ import {
  * Then it:
  *  1) adds `nuxt-spec` into `package.json` dependencies and removes `nuxt`, `vue` and `vue-router` if present
  *  2) adds `extends: ['nuxt-spec']` to `nuxt.config.ts`
- *  3) creates/updates `.npmrc` file (only if pnpm is used)
+ *  3) creates/updates `pnpm-workspace.yaml` file (only if pnpm is used)
  *  4) creates default `vitest.config.ts` file
  *  5) adds test-related scripts and pnpm approved build scripts (if using pnpm) in `package.json`
  *  6) creates sample test files
@@ -101,17 +101,17 @@ export async function specSetup(autoRun = false) {
     console.error('Error updating \'nuxt.config.ts\':\n', error.message)
   }
 
-  // 3) .npmrc file (only if pnpm is used)
+  // 3) `pnpm-workspace.yaml` file (only if pnpm is used)
   if (packageManager === 'pnpm') {
     try {
-      if (pathExists('.npmrc')) {
-        await updateTextFile('.npmrc', ['shamefully-hoist=true'], isAutoRun, 'This will adjust \'.npmrc\' file in your project. Continue?')
+      if (pathExists('pnpm-workspace.yaml')) {
+        await updateTextFile('pnpm-workspace.yaml', ['shamefully-hoist=true'], isAutoRun, 'This will adjust \'pnpm-workspace.yaml\' file in your project. Continue?')
       } else {
-        await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.7/.npmrc',
-          '.npmrc', isAutoRun, 'This will add \'.npmrc\' file for your project. Continue?')
+        await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.7/config/pnpm-workspace.yaml.template',
+          'pnpm-workspace.yaml', isAutoRun, 'This will add \'pnpm-workspace.yaml\' file for your project. Continue?')
       }
     } catch (error) {
-      console.error('Error setting up \'.npmrc\':\n', error.message)
+      console.error('Error setting up \'pnpm-workspace.yaml\':\n', error.message)
     }
   }
 

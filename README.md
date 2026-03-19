@@ -48,10 +48,10 @@ extends: [
 ]
 ```
 
-3) Add `.npmrc` file with following content (if you don't have it yet):
+3) Add `pnpm-workspace.yaml` file with following content (if you don't have it yet):
 
 ```
-shamefully-hoist=true
+shamefullyHoist: true
 ```
 
 4) Add `vitest.config.ts` file with following content (if you don't have it yet):

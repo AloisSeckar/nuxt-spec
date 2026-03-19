@@ -1,9 +1,11 @@
 # settings for Nuxt & pnpm
 
 # migrated from .npmrc
+# https://pnpm.io/settings#shamefullyhoist
 shamefullyHoist: true
 
 # migrated from package.json
+# https://pnpm.io/settings#onlybuiltdependencies
 onlyBuiltDependencies:
   - "@parcel/watcher"
   - "esbuild"
