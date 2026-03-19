@@ -35,23 +35,36 @@ export declare function getAPIResultHtml(
   responseElement: string,
 ): Promise<string>
 
+export interface CompareScreenshotOptions {
+  /** Name of the PNG file used for baseline storage and comparison (defaults to route and `index.png` for `/`) */
+  fileName?: string
+  /** Directory for baseline/current screenshots, relative to project root (defaults to `test/e2e`) */
+  targetDir?: string
+  /** CSS selector for a specific element to capture (defaults to full page) */
+  selector?: string
+  /** Max ratio of different pixels (0–1). Default: 0 (exact match) */
+  maxDiffPixelRatio?: number
+  /** Max absolute number of different pixels. Takes precedence over `maxDiffPixelRatio` when set. Default: 0 (exact match) */
+  maxDiffPixels?: number
+  /** Per-pixel color distance threshold (0–1). Lower = stricter. Default: 0.1 */
+  threshold?: number
+}
+
 /**
- * Capture a full-page screenshot and compare it against a stored baseline PNG.
+ * Capture a browser screenshot and compare it against a stored baseline PNG.
  * When run with `-u` / `--update`, or when no baseline exists yet, the current
  * screenshot is saved as the new baseline.
  *
+ * Comparison uses pixelmatch for perceptual pixel diffing. By default,
+ * zero differing pixels are allowed (exact match). Set `maxDiffPixelRatio`
+ * or `maxDiffPixels` to tolerate cross-platform rendering differences.
+ *
  * @param page - Playwright page instance obtained from `createPage()`
- * @param options.fileName - Name of the PNG file used for baseline storage and comparison (defaults to route and `index.png` for `/`)
- * @param options.targetDir - Directory for baseline/current screenshots, relative to project root (defaults to `test/e2e`)
- * @param options.selector - CSS selector for a specific element to capture (defaults to full page)
+ * @param options - extra options (see `CompareScreenshotOptions`)
  * @returns `true` when the screenshot matches the baseline (or a new baseline was saved)
  * @throws Fails the current Vitest test when a mismatch is detected
  */
 export declare function compareScreenshot(
   page: NuxtPage,
-  options?: {
-    fileName?: string
-    targetDir?: string
-    selector?: string
-  },
+  options?: CompareScreenshotOptions,
 ): Promise<boolean>

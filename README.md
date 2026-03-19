@@ -311,17 +311,33 @@ import { compareScreenshot, gotoPage, getDataHtml, getAPIResultHtml, } from 'nux
 
 // accepts instance of NuxtPage (from @nuxt/test-utils)
 // takes a screenshot of current viewport and compares it with stored baseline
-// if screenshot doesn't exist, it will be created as baseline
+// the comparison is done using `pixelmatch` library
+// if screenshot doesn't exist, it will be created in __baseline__ subfolder
+// screenshot from current run is always captured into __current__ subfolder
 // if screenshots don't match, the method will cause Vitest test to fail
 // accepts optional object with extra options:
 // - `fileName` - name of the screenshot file (default is based on current route)
 // - `selector` - CSS selector of the element to capture (default is full page)
 // - `targetDir` - directory where the screenshots should be stored (default is `./test/e2e/`)
+// - `maxDiffPixelRatio` - allows mitigating with cross-platform rendering differencies by setting 
+//                         a 0-1 scale tolerance (default 0)
+// - `maxDiffPixels` - same but with exact max value of different pixels which overrides setting
+//                     `maxDiffPixelRatio` (default 0)
+// - `threshold` - allows adjusting the tolerance for "same" color on 0-1 scale (default 0.1)
 
-await compareScreenshot(page) // will produce "index.png" file in `./test/e2e/` directory
-await compareScreenshot(page, { fileName: 'homepage.png' }) // will produce "homepage.png"
-await compareScreenshot(page, { fileName: 'component.png', selector: '#test' }) // will produce "component.png" only with id="test" element
-await compareScreenshot(page, { fileName: 'homepage.png', targetDir: '/screenshots' }) // will produce "homepage.png" in `/screenshots` directory
+// will produce "index.png" file in `./test/e2e/` directory
+await compareScreenshot(page)
+// will produce "homepage.png"
+await compareScreenshot(page, { fileName: 'homepage.png' })
+// will produce "component.png" only with id="test" element
+await compareScreenshot(page, { fileName: 'component.png', selector: '#test' })
+// will produce "homepage.png" in `/screenshots` directory
+await compareScreenshot(page, { fileName: 'homepage.png', targetDir: '/screenshots' })
+// will produce "homepage.png" and the comparison will only fail when more than 1000 pixels differ
+await compareScreenshot(page, { fileName: 'homepage.png', maxDiffPixels: 1000 }) 
+// will produce "homepage.png", the comparison will only fail when more than 1000 pixels differ
+// while more pixels will be considered "same" based on color
+await compareScreenshot(page, { fileName: 'homepage.png', maxDiffPixels: 1000, threshold: 0.5 }) 
 
 // navigates to given URL and returns the instance of NuxtPage (from @nuxt/test-utils)
 const page: NuxtPage = await gotoPage('url')

@@ -16,12 +16,15 @@ describe('Visual Regression', async () => {
     const page = await createPage()
     await page.goto(url('/'), { waitUntil: 'networkidle' })
 
-    // no options - will use route as filename (or "index" for "/")
-    expect(await compareScreenshot(page)).toEqual(true)
+    // maxDiffPixels or maxDiffPixelRatio can be set to mitigate cross-platform rendering differences
+
+    // no fileName specified - will use route as filename (or "index" for "/")
+    expect(await compareScreenshot(page, { maxDiffPixels: 1500 })).toEqual(true)
+    
     // file name can be specified explicitly
-    expect(await compareScreenshot(page, { fileName: 'homepage.png' })).toEqual(true)
+    expect(await compareScreenshot(page, { fileName: 'homepage.png', maxDiffPixels: 1500 })).toEqual(true)
 
     // only capture a specific element
-    expect(await compareScreenshot(page, { fileName: 'component.png', selector: '#test' })).toEqual(true)
+    expect(await compareScreenshot(page, { fileName: 'component.png', selector: '#test', maxDiffPixels: 300 })).toEqual(true)
   })
 })
