@@ -37,7 +37,7 @@ export async function specSetup(autoRun = false) {
   // add nuxt-spec
   try {
     await updateJsonFile('package.json', 'dependencies', {
-      'nuxt-spec': '0.2.0-alpha.6',
+      'nuxt-spec': '0.2.0-alpha.7',
     }, isAutoRun, 'This will add \'nuxt-spec\' dependency to your \'package.json\'. Continue?')
   } catch (error) {
     console.error('Error adding \'nuxt-spec\' dependency:\n', error.message)
@@ -107,7 +107,7 @@ export async function specSetup(autoRun = false) {
       if (pathExists('.npmrc')) {
         await updateTextFile('.npmrc', ['shamefully-hoist=true'], isAutoRun, 'This will adjust \'.npmrc\' file in your project. Continue?')
       } else {
-        await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.6/.npmrc',
+        await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.7/.npmrc',
           '.npmrc', isAutoRun, 'This will add \'.npmrc\' file for your project. Continue?')
       }
     } catch (error) {
@@ -117,7 +117,7 @@ export async function specSetup(autoRun = false) {
 
   // 4) create vitest.config.ts
   try {
-    await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.6/config/vitest.config.ts.template',
+    await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.7/config/vitest.config.ts.template',
       'vitest.config.ts', isAutoRun, 'This will create a new \'vitest.config.ts\' file for your project. Continue?')
   } catch (error) {
     console.error('Error setting up \'vitest.config.ts\':\n', error.message)
@@ -155,31 +155,31 @@ export async function specSetup(autoRun = false) {
   const createSampleTests = isAutoRun || await promptUser('Do you want to create sample tests in \'/test\' folder?')
   if (createSampleTests) {
     try {
-      await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.6/test/browser/vitest-browser.test.ts',
+      await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.7/test/browser/vitest-browser.test.ts',
         'test/browser/vitest-browser.test.ts', true)
     } catch (error) {
       console.error('Error setting up \'vitest-browser.test.ts\':\n', error.message)
     }
     try {
-      await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.6/test/e2e/nuxt-e2e.test.ts',
+      await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.7/test/e2e/nuxt-e2e.test.ts',
         'test/e2e/nuxt-e2e.test.ts', true)
     } catch (error) {
       console.error('Error setting up \'nuxt-e2e.test.ts\':\n', error.message)
     }
     try {
-      await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.6/test/e2e/nuxt-visual.test.ts',
+      await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.7/test/e2e/nuxt-visual.test.ts',
         'test/e2e/nuxt-visual.test.ts', true)
     } catch (error) {
       console.error('Error setting up \'nuxt-visual.test.ts\':\n', error.message)
     }
     try {
-      await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.6/test/nuxt/nuxt-unit.test.ts',
+      await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.7/test/nuxt/nuxt-unit.test.ts',
         'test/nuxt/nuxt-unit.test.ts', true)
     } catch (error) {
       console.error('Error setting up \'nuxt-unit.test.ts\':\n', error.message)
     }
     try {
-      await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.6/test/unit/vitest-unit.test.ts',
+      await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.7/test/unit/vitest-unit.test.ts',
         'test/unit/vitest-unit.test.ts', true)
     } catch (error) {
       console.error('Error setting up \'vitest-unit.test.ts\':\n', error.message)

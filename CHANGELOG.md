@@ -2,6 +2,11 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.2.0-alpha.7
+
+**2026-03-19**
+- fix: proper resolution of `project` config overrides (#29)
+
 ## 0.2.0-alpha.6
 
 **2026-03-19**
