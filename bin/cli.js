@@ -35,7 +35,7 @@ const args = process.argv.slice(2);
 })()
 
 // try detecting what package manager was used
-// to give user apropriate usage hint
+// to give user appropriate usage hint
 function getCmd() {
   const packageManager = getPackageManager()
   switch (packageManager) {

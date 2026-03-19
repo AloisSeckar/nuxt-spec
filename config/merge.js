@@ -3,7 +3,7 @@
 // user-defined config overrides are merged by "name"
 
 // for consistent and predictable results, passing "include" or "browser.instances"
-// will result into OVERRIDE insteead of merging with nuxt-spec defaults
+// will result in OVERRIDE instead of merging with nuxt-spec defaults
 
 import { createDefu } from 'defu'
 

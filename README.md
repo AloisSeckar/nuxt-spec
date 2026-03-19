@@ -10,7 +10,7 @@ The most important client of `nuxt-spec` is my [Nuxt Ignis](https://github.com/A
 
 ## How to use
 
-Aside from being "forked" and used as you seem fit, `nuxt-spec` is also available as an [NPM package](https://www.npmjs.com/package/nuxt-spec) that can be referenced as a single-import with all the features incoming.
+Aside from being "forked" and used as you see fit, `nuxt-spec` is also available as an [NPM package](https://www.npmjs.com/package/nuxt-spec) that can be referenced as a single-import with all the features incoming.
 
 The `nuxt-spec` package comes with a built-in CLI tool that can help you:
 - setup the dependency in your project
@@ -189,7 +189,7 @@ bun run dev
 
 Once installed, Vitest automatically discovers all `*.test.ts` and `*.spec.ts` files in project and becomes capable of running them.
 
-You can use those three optional commands `package.json` file in `"scripts"` section in order to run tests easilly:
+You can use those three optional commands `package.json` file in `"scripts"` section in order to run tests easily:
 - `test: vitest run` - runs once and ends
 - `test-u: vitest run -u` - runs once and updates snapshots
 - `test-i: vitest` - runs and waits in HMR mode for test file changes
@@ -288,7 +288,7 @@ By default, Nuxt Spec built-in configuration establishes 4 `projects` + one fall
 - `browser` - for browser-mode tests in `test/browser/**` - env is set to `node` (this is effectively an alternative to `nuxt` relying on `@vitest/browser` instead of `@nuxt/test-utils`)
 - `default` - fallback for all other tests in `test/**` and/or `tests/**` directories - env is set to `node` 
 
-Vitest will then expects at least one test defined in either of those directories. Any parts of the `test.projects` confing may be altered and user-defined values will be logically merged with the defaults. Also you may add new custom projects' definitions to fit your needs. If your project uses significantly different configuration (i.e. your tests reside in completely different path), you can pass `false` as a second parameter to `loadVitestConfig()` function to exclude default `test.projects` values from being injected completely:
+Vitest will then expect at least one test defined in either of those directories. Any parts of the `test.projects` config may be altered and user-defined values will be logically merged with the defaults. Also you may add new custom projects' definitions to fit your needs. If your project uses significantly different configuration (i.e. your tests reside in completely different path), you can pass `false` as a second parameter to `loadVitestConfig()` function to exclude default `test.projects` values from being injected completely:
 
 ```ts
 import { loadVitestConfig } from 'nuxt-spec/config'
@@ -302,7 +302,7 @@ Alternatively, if you don't want to use any part of the `nuxt-spec` default conf
 
 ## Utilities
 
-Nuxt Spec offers couple of utility functions that are exported via `nuxt-spec/utils` subpackage.
+Nuxt Spec offers a couple of utility functions that are exported via `nuxt-spec/utils` subpackage.
 
 You can use them in your test files as follows:
 
@@ -319,7 +319,7 @@ import { compareScreenshot, gotoPage, getDataHtml, getAPIResultHtml, } from 'nux
 // - `fileName` - name of the screenshot file (default is based on current route)
 // - `selector` - CSS selector of the element to capture (default is full page)
 // - `targetDir` - directory where the screenshots should be stored (default is `./test/e2e/`)
-// - `maxDiffPixelRatio` - allows mitigating with cross-platform rendering differencies by setting 
+// - `maxDiffPixelRatio` - allows mitigating cross-platform rendering differences by setting 
 //                         a 0-1 scale tolerance (default 0)
 // - `maxDiffPixels` - same but with exact max value of different pixels which overrides setting
 //                     `maxDiffPixelRatio` (default 0)

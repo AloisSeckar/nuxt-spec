@@ -1,4 +1,4 @@
-// this is same file as ../vitest.test.ts )
+// this is the same file as ../vitest.test.ts
 // here we ensure it is being picked up from nested folder
 // see https://github.com/AloisSeckar/nuxt-spec/issues/26
 

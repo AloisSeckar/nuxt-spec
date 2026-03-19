@@ -132,7 +132,7 @@ Overview of the newest features in Nuxt Spec.
 **2025-10-15**
 
 - feat: CLI scripts can scaffold sample test files (#8)
-- feat: CLI script also removes `deno.lock` file if present(#13)
+- feat: CLI script also removes `deno.lock` file if present (#13)
 - feat: CLI scripts only set `shamefully-hoist=true` for `pnpm` (#14)
 - feat: GitHub links now use specific version tags
 
@@ -143,7 +143,7 @@ Overview of the newest features in Nuxt Spec.
 - feat: CLI script now try-catches each step and will finish even if errors encountered
 - feat: CLI script now accepts external `autoRun` parameter to avoid even the initial prompt
 - feat: CLI script now guesses executing package manager to give more accurate usage hints
-- feat: CLI script now scaffolds `"pnpm": "onlyBuildDependencies"` if `pnpm` is used
+- feat: CLI script now scaffolds `"pnpm": "onlyBuiltDependencies"` if `pnpm` is used
 - refactor: merge "auto" and "manual" CLI scripts to avoid duplication
 - test: small updates in demo suite
 - docs: instructions for more package managers
