@@ -23,9 +23,6 @@ importers:
       '@nuxt/test-utils':
         specifier: 4.0.0
         version: 4.0.0(@vitest/ui@4.1.0)(@vue/test-utils@2.4.6)(happy-dom@20.8.4)(magicast@0.5.2)(playwright-core@1.58.2)(typescript@5.9.3)(vite@8.0.1(@types/node@25.5.0)(esbuild@0.27.4)(jiti@2.6.1)(terser@5.46.1)(yaml@2.8.2))(vitest@4.1.0)
-      '@types/pngjs':
-        specifier: 6.0.5
-        version: 6.0.5
       '@vitejs/plugin-vue':
         specifier: 6.0.5
         version: 6.0.5(vite@8.0.1(@types/node@25.5.0)(esbuild@0.27.4)(jiti@2.6.1)(terser@5.46.1)(yaml@2.8.2))(vue@3.5.30(typescript@5.9.3))
@@ -44,6 +41,9 @@ importers:
       elrh-cosca:
         specifier: 0.3.5
         version: 0.3.5
+      fast-png:
+        specifier: 8.0.0
+        version: 8.0.0
       happy-dom:
         specifier: 20.8.4
         version: 20.8.4
@@ -56,9 +56,6 @@ importers:
       playwright-core:
         specifier: 1.58.2
         version: 1.58.2
-      pngjs:
-        specifier: 7.0.0
-        version: 7.0.0
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -1552,9 +1549,6 @@ packages:
   '@types/node@25.5.0':
     resolution: {integrity: sha512-jp2P3tQMSxWugkCUKLRPVUpGaL5MVFwF8RDuSRztfwgN1wmqJeMSbKlnEtQqU8UrhTmzEmZdu2I6v2dpp7XIxw==}
 
-  '@types/pngjs@6.0.5':
-    resolution: {integrity: sha512-0k5eKfrA83JOZPppLtS2C7OUtyNAl2wKNxfyYl9Q5g9lPkgBl/9hNyAu6HuEH2J4XmIv2znEpkDd0SaZVxW6iQ==}
-
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
 
@@ -2633,6 +2627,9 @@ packages:
     resolution: {integrity: sha512-XXyd9d3ie/JeIIjm6WeKalvapGGFI4ShAjPJM78vgUFYzoEsuNSjvvVTuht0XZcwbVdOnEEGzhxwguRbxkIcDg==}
     hasBin: true
 
+  fast-png@8.0.0:
+    resolution: {integrity: sha512-gCysNasJ8KEMgfdYIKd/wTDo6ENK1PWT0RJO7O+0pgmuHPw2O6tA1WvdxFRJoLf9V8yFYpG0FA1YgI8X97OhJA==}
+
   fastq@1.20.1:
     resolution: {integrity: sha512-GGToxJ/w1x32s/D2EKND7kTil4n8OVk/9mycTc4VDza13lOvpUZTGX3mFSCtV9ksdGBVzvsyAVLM6mHFThxXxw==}
 
@@ -2861,6 +2858,9 @@ packages:
   ini@4.1.1:
     resolution: {integrity: sha512-QQnnxNyfvmHFIsj7gkPcYymR8Jdw/o7mp5ZFihxn6h8Ci6fh3Dx4E1gPjpQEpIuPo9XVNY/ZUwh4BPMjGyL01g==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+
+  iobuffer@6.0.1:
+    resolution: {integrity: sha512-SZWYkWNfjIXIBYSDpXDYIgshqtbOPsi4lviawAEceR1Kqk+sHDlcQjWrzNQsii80AyBY0q5c8HCTNjqo74ul+Q==}
 
   ioredis@5.10.0:
     resolution: {integrity: sha512-HVBe9OFuqs+Z6n64q09PQvP1/R4Bm+30PAyyD4wIEqssh3v9L21QjCVk4kRLucMBcDokJTcLjsGeVRlq/nH6DA==}
@@ -5922,10 +5922,6 @@ snapshots:
     dependencies:
       undici-types: 7.18.2
 
-  '@types/pngjs@6.0.5':
-    dependencies:
-      '@types/node': 25.5.0
-
   '@types/resolve@1.20.2': {}
 
   '@types/whatwg-mimetype@3.0.2': {}
@@ -7104,6 +7100,11 @@ snapshots:
 
   fast-npm-meta@1.4.2: {}
 
+  fast-png@8.0.0:
+    dependencies:
+      fflate: 0.8.2
+      iobuffer: 6.0.1
+
   fastq@1.20.1:
     dependencies:
       reusify: 1.1.0
@@ -7320,6 +7321,8 @@ snapshots:
   ini@1.3.8: {}
 
   ini@4.1.1: {}
+
+  iobuffer@6.0.1: {}
 
   ioredis@5.10.0:
     dependencies:

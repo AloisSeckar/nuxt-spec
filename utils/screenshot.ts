@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { expect } from 'vitest'
-import { PNG } from 'pngjs'
+import { decode, type DecodedPng } from 'fast-png'
 import pixelmatch from 'pixelmatch'
 import type { NuxtPage } from '@nuxt/test-utils'
 
@@ -50,15 +50,15 @@ export async function compareScreenshot(page: NuxtPage, options?: CompareScreens
 
   // compare against stored baseline PNG using pixelmatch
   const baseline = readFileSync(baselinePath)
-  const baselineImg = PNG.sync.read(baseline)
-  const actualImg = PNG.sync.read(screenshot)
+  const baselineImg = decode(baseline)
+  const actualImg = decode(screenshot)
   const { width, height } = baselineImg
 
   if (actualImg.width !== width || actualImg.height !== height) {
     expect.fail(`Screenshot size mismatch: expected ${width}x${height}, got ${actualImg.width}x${actualImg.height}. Actual saved to: ${resolve(currentDir, fileName)}`)
   }
 
-  const diffCount = pixelmatch(baselineImg.data, actualImg.data, undefined, width, height, {
+  const diffCount = pixelmatch(toRGBA(baselineImg), toRGBA(actualImg), undefined, width, height, {
     threshold: options?.threshold ?? 0.1,
   })
 
@@ -71,4 +71,19 @@ export async function compareScreenshot(page: NuxtPage, options?: CompareScreens
   }
 
   return true
+}
+
+// helper for bridging difference between Vitest PNG saving and fast-png encoding
+function toRGBA(img: DecodedPng): Uint8Array {
+  const { width, height, data, channels = 4 } = img
+  if (channels === 4) return data as Uint8Array
+  const pixels = width * height
+  const rgba = new Uint8Array(pixels * 4)
+  for (let i = 0; i < pixels; i++) {
+    rgba[i * 4] = data[i * 3]
+    rgba[i * 4 + 1] = data[i * 3 + 1]
+    rgba[i * 4 + 2] = data[i * 3 + 2]
+    rgba[i * 4 + 3] = 255
+  }
+  return rgba
 }
