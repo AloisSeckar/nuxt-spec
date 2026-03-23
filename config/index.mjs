@@ -2,6 +2,7 @@
 // based on https://nuxt.com/docs/4.x/getting-started/testing#setup
 // `projects=false` can be used to suspend the default usage of "projects" in Vitest config
 
+import { onConsoleLog } from './suppress-warnings.mjs' // filter out unnecessary logs
 import { mergeConfig } from './merge.js' // defu-based merge function
 import { defineConfig } from 'vitest/config'
 import { defineVitestProject } from '@nuxt/test-utils/config'
@@ -10,7 +11,12 @@ import vue from '@vitejs/plugin-vue'
 
 export async function loadVitestConfig(userVitestConfig, projects = true) {
   const baseConfig = {
-    test: {},
+    test: {
+      // filter-out unnecessary console logs coming from Vitest
+      // when the import is resolved, unnecessary stderr logs are also filtered-out
+      // as a side-effect
+      onConsoleLog,
+    },
   }
 
   if (projects === true) {
