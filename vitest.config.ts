@@ -2,7 +2,7 @@
 // to be merged with defaults provided by nuxt-spec package
 
 // this is the variant required to run tests locally during development
-// refer to /config/vitest.config.ts.template for the client variant
+// refer to /config/templates/vitest.config.ts.template for the client variant
 
 import { loadVitestConfig } from './config/index.mjs'
 

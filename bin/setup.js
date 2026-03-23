@@ -107,7 +107,7 @@ export async function specSetup(autoRun = false) {
       if (pathExists('pnpm-workspace.yaml')) {
         await updateTextFile('pnpm-workspace.yaml', ['shamefully-hoist=true'], isAutoRun, 'This will adjust \'pnpm-workspace.yaml\' file in your project. Continue?')
       } else {
-        await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.7/config/pnpm-workspace.yaml.template',
+        await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.7/config/templates/pnpm-workspace.yaml.template',
           'pnpm-workspace.yaml', isAutoRun, 'This will add \'pnpm-workspace.yaml\' file for your project. Continue?')
       }
     } catch (error) {
@@ -117,7 +117,7 @@ export async function specSetup(autoRun = false) {
 
   // 4) create vitest.config.ts
   try {
-    await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.7/config/vitest.config.ts.template',
+    await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0-alpha.7/config/templates/vitest.config.ts.template',
       'vitest.config.ts', isAutoRun, 'This will create a new \'vitest.config.ts\' file for your project. Continue?')
   } catch (error) {
     console.error('Error setting up \'vitest.config.ts\':\n', error.message)
