@@ -2,8 +2,8 @@
 // based on https://nuxt.com/docs/4.x/getting-started/testing#setup
 // `projects=false` can be used to suspend the default usage of "projects" in Vitest config
 
-import { onConsoleLog } from './suppress-warnings.mjs' // filter out unnecessary logs
-import { mergeConfig } from './merge.js' // defu-based merge function
+import { onConsoleLog } from './utils/warnings.mjs' // filter out unnecessary logs
+import { mergeConfig } from './utils/merge.mjs' // defu-based merge function
 import { defineConfig } from 'vitest/config'
 import { defineVitestProject } from '@nuxt/test-utils/config'
 import { playwright } from '@vitest/browser-playwright'

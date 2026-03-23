@@ -1,7 +1,7 @@
 // internal unit tests for "/config/merge.ts"
 
 import { describe, expect, test } from 'vitest'
-import { mergeConfig } from '../../config/merge.js'
+import { mergeConfig } from '../../config/utils/merge.mjs'
 import { defineConfig } from 'vitest/config'
 
 describe('Test `mergeConfig` function', () => {
