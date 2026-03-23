@@ -33,6 +33,10 @@
       "types": "./utils/index.d.ts",
       "import": "./utils/index.ts",
       "default": "./utils/index.ts"
+    },
+    "./components": {
+      "import": "./app/components/index.ts",
+      "default": "./app/components/index.ts"
     }
   },
   "files": [

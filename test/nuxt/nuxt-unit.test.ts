@@ -5,7 +5,8 @@ import { describe, test, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 
-import { NuxtSpecTestComponent } from '#components' // replace with your component (`nuxt dev` must run first to create the reference)
+ // replace with your component
+import { NuxtSpecTestComponent } from 'nuxt-spec/components'
 
 const text = 'custom-text'
 

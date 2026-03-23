@@ -3,10 +3,12 @@
 
 import { expect, test } from 'vitest'
 import { render } from 'vitest-browser-vue'
-import Component from '../../app/components/NuxtSpecTestComponent.vue'
+
+ // replace with your component
+import { NuxtSpecTestComponent } from 'nuxt-spec/components'
 
 test('properly handles v-model', async () => {
-  const screen = render(Component)
+  const screen = render(NuxtSpecTestComponent)
 
   await expect.element(screen.getByText('nuxt-spec')).toBeInTheDocument()
 })

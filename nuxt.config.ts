@@ -4,6 +4,11 @@ export default defineNuxtConfig({
     '@nuxt/test-utils/module',
   ],
 
+  // exclude file used for explicit exports (nuxt-spec/components) from Nuxt resolution
+  components: {
+    dirs: [{ path: '~/components', ignore: ['index.ts'] }],
+  },
+
   compatibilityDate: '2026-03-15',
 
   eslint: {
