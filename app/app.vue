@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Nuxt Spec</h1>
+    <NuxtWelcome />
     <div>
       Test-pack layer for <a href="https://nuxt.com/">Nuxt</a> applications
     </div>
