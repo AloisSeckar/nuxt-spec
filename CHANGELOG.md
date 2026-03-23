@@ -2,6 +2,13 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.2.0-alpha.8
+
+**2026-03-23**
+- feat: alter setup from creating `.npmrc` to `pnpm-workspace.yaml`
+- feat: filter-out unnecessary warning logs (#30)
+- refactor: re-organize `/config` directory
+
 ## 0.2.0-alpha.7
 
 **2026-03-19**
