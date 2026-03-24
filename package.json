@@ -47,7 +47,8 @@
     "bin",
     "config",
     "public",
-    "utils"
+    "utils",
+    "nuxt.config.ts"
   ],
   "dependencies": {
     "@nuxt/eslint": "1.15.2",
