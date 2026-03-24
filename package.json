@@ -2,7 +2,10 @@
   "name": "nuxt-spec",
   "version": "0.2.0-alpha.8",
   "description": "Test-pack layer for Nuxt Applications",
-  "repository": "github:AloisSeckar/nuxt-spec",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AloisSeckar/nuxt-spec.git"
+  },
   "license": "MIT",
   "type": "module",
   "main": "./nuxt.config.ts",
