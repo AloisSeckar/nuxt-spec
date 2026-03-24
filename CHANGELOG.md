@@ -2,6 +2,11 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.2.0
+
+**2026-03-24**
+- no changes from `0.2.0-alpha.10`
+
 ## 0.2.0-alpha.10
 
 **2026-03-24**
