@@ -5,7 +5,7 @@ import { describe, test, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 
- // replace with your component
+// replace with your component
 import { NuxtSpecTestComponent } from 'nuxt-spec/components'
 
 const text = 'custom-text'

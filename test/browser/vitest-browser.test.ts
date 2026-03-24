@@ -4,7 +4,7 @@
 import { expect, test } from 'vitest'
 import { render } from 'vitest-browser-vue'
 
- // replace with your component
+// replace with your component
 import { NuxtSpecTestComponent } from 'nuxt-spec/components'
 
 test('properly handles v-model', async () => {

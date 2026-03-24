@@ -8,7 +8,7 @@
 import { createDefu } from 'defu'
 
 // in real Vitest config, "name" is nested inside another "test" object
-const getProjectName = (project) => project?.name ?? project?.test?.name
+const getProjectName = project => project?.name ?? project?.test?.name
 
 export const mergeConfig = createDefu((obj, key, value) => {
   if (key === 'projects' && Array.isArray(obj[key]) && Array.isArray(value)) {

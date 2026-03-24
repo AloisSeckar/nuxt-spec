@@ -20,7 +20,7 @@ describe('Visual Regression', async () => {
 
     // no fileName specified - will use route as filename (or "index" for "/")
     expect(await compareScreenshot(page, { maxDiffPixels: 1500 })).toEqual(true)
-    
+
     // file name can be specified explicitly
     expect(await compareScreenshot(page, { fileName: 'homepage.png', maxDiffPixels: 1500 })).toEqual(true)
 

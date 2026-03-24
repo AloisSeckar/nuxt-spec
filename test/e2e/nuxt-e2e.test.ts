@@ -3,7 +3,7 @@
 
 import { setup, $fetch, createPage, url } from '@nuxt/test-utils/e2e'
 import { describe, expect, test } from 'vitest'
-import { getDataHtml, getAPIResultHtml } from 'nuxt-spec/utils'
+import { getDataHtml /* , getAPIResultHtml */ } from 'nuxt-spec/utils'
 
 describe('Nuxt Spec E2E test', async () => {
   // setup app.vue in headless browser

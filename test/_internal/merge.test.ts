@@ -106,7 +106,7 @@ describe('Test `mergeConfig` function', () => {
       },
     ])
   })
-  
+
   test('should merge real Vitest config with multiple projects correctly', () => {
     const defaultConfig = {
       test: {
