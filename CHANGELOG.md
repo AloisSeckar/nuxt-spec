@@ -2,6 +2,13 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.2.0-alpha.10
+
+**2026-03-24**
+- fix: correct `waitUntil` option in sample visual test (#33)
+- fix: export `nuxt.config.ts` in package for proper layer resolution (#34)
+- fix: filter-out unnecessary warning logs on `stdout` along with `stderr` (#36)
+
 ## 0.2.0-alpha.9
 
 **2026-03-24**
