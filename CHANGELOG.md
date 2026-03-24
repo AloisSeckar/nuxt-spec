@@ -2,6 +2,11 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.2.0-alpha.9
+
+**2026-03-24**
+- fix: repair sample test portability to target projects (#32)
+
 ## 0.2.0-alpha.8
 
 **2026-03-23**
