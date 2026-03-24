@@ -23,7 +23,7 @@
     "test-i": "vitest"
   },
   "bin": {
-    "nuxt-spec": "./bin/cli.js"
+    "nuxt-spec": "bin/cli.js"
   },
   "exports": {
     ".": "./nuxt.config.ts",
