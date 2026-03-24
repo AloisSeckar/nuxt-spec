@@ -15,7 +15,7 @@ describe('Visual Regression', async () => {
     // open a real browser page and navigate to the running Nuxt app
     const page = await createPage()
     await page.setViewportSize({ width: 1280, height: 720 }) // important for consistent results!
-    await page.goto(url('/'), { waitUntil: 'networkidle' })
+    await page.goto(url('/'), { waitUntil: 'domcontentloaded' })
 
     // maxDiffPixels or maxDiffPixelRatio can be set to mitigate cross-platform rendering differences
 
