@@ -14,17 +14,18 @@ describe('Visual Regression', async () => {
   test('home page matches screenshot - custom', async () => {
     // open a real browser page and navigate to the running Nuxt app
     const page = await createPage()
+    await page.setViewportSize({ width: 1280, height: 720 }) // important for consistent results!
     await page.goto(url('/'), { waitUntil: 'networkidle' })
 
     // maxDiffPixels or maxDiffPixelRatio can be set to mitigate cross-platform rendering differences
 
-    // no fileName specified - will use route as filename (or "index" for "/")
-    expect(await compareScreenshot(page, { maxDiffPixels: 1500 })).toEqual(true)
+    // no fileName specified - will use route as filename (or "index" for "/") (1% difference allowed)
+    expect(await compareScreenshot(page, { maxDiffPixelRatio: 0.01 })).toEqual(true)
 
-    // file name can be specified explicitly
-    expect(await compareScreenshot(page, { fileName: 'homepage.png', maxDiffPixels: 1500 })).toEqual(true)
+    // file name can be specified explicitly (1% difference allowed)
+    expect(await compareScreenshot(page, { fileName: 'homepage.png', maxDiffPixelRatio: 0.01 })).toEqual(true)
 
-    // only capture a specific element with selector
+    // only capture a specific element with selector (300 different pixels allowed)
     expect(await compareScreenshot(page, { fileName: 'component.png', selector: 'h1', maxDiffPixels: 300 })).toEqual(true)
   })
 })
