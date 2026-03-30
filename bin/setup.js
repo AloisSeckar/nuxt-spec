@@ -105,7 +105,7 @@ export async function specSetup(autoRun = false) {
   if (packageManager === 'pnpm') {
     try {
       if (pathExists('pnpm-workspace.yaml')) {
-        await updateTextFile('pnpm-workspace.yaml', ['shamefully-hoist=true'], isAutoRun, 'This will adjust \'pnpm-workspace.yaml\' file in your project. Continue?')
+        await updateTextFile('pnpm-workspace.yaml', ['shamefully-hoist: true'], isAutoRun, 'This will adjust \'pnpm-workspace.yaml\' file in your project. Continue?')
       } else {
         await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.0/config/templates/pnpm-workspace.yaml.template',
           'pnpm-workspace.yaml', isAutoRun, 'This will add \'pnpm-workspace.yaml\' file for your project. Continue?')
