@@ -2,6 +2,11 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.2.1
+
+**2026-03-30**
+- fix: augment existing pnpm-workspace.yaml correctly (#39)
+
 ## 0.2.0
 
 **2026-03-24**
