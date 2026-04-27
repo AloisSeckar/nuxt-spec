@@ -2,6 +2,19 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.2.2
+
+`2026-04-27`
+
+- build: updated dependencies
+  - `vitest` to `4.1.5`
+  - `@vue/test-utils` to `2.4.8`
+  - `@nuxt/test-utils` to `4.0.2`
+  - `happy-dom` to `20.9.0`
+  - `vue` to `3.5.33`
+  - `vue-router` to `5.0.6`
+  - `typescript` to `6.0.3`
+
 ## 0.2.1
 
 `2026-03-30`
