@@ -2,7 +2,7 @@
 
 ![Nuxt Spec](https://github.com/AloisSeckar/nuxt-spec/blob/main/public/nuxt-spec.png)
 
-**Nuxt Spec** (aka `nuxt-spec`) is a base layer for [Nuxt](https://nuxt.com/) applications incorporating together a couple of testing libraries and packages and providing some utility functions. I created this project in early 2025 because I was unable to find a convenient "one-dependency" way to start testing my Nuxt apps and I didn't want to repeat the same steps and maintain the same set of dependencies over and over. 
+**Nuxt Spec** (aka `nuxt-spec`) is a base layer for [Nuxt](https://nuxt.com/) applications incorporating together a couple of testing libraries and packages and providing some utility functions. I created this project in early 2025 because I was unable to find a convenient "one-dependency" way to start testing my Nuxt apps and I didn't want to repeat the same steps and maintain the same set of dependencies over and over.
 
 While Nuxt itself does have a [dedicated module for testing](https://nuxt.com/docs/getting-started/testing), to remain as versatile as possible, it has to be combined with other packages (which can be different based on your choice). I am trying to overcome this by defining "The Way". This is both the strength and the weakness of this project. You were warned.
 
@@ -13,6 +13,7 @@ The most important client of `nuxt-spec` is my [Nuxt Ignis](https://github.com/A
 Aside from being "forked" and used as you see fit, `nuxt-spec` is also available as an [NPM package](https://www.npmjs.com/package/nuxt-spec) that can be referenced as a single-import with all the features incoming.
 
 The `nuxt-spec` package comes with a built-in CLI tool that can help you:
+
 - setup the dependency in your project
 - scaffold the default `vitest.config.ts` (see [configuration](#configuration) section)
 - add a few test-related script shorthands into your `package.json` (see [running tests](#running-tests) section)
@@ -21,7 +22,7 @@ The `nuxt-spec` package comes with a built-in CLI tool that can help you:
 To use it, just run the CLI script in your terminal:
 
 | Manager | Command |
-|-----------------|---------|
+| ----------------- | --------- |
 | npm | `npx nuxt-spec setup` |
 | yarn | `yarn dlx nuxt-spec setup` |
 | pnpm | `pnpx nuxt-spec setup` |
@@ -34,27 +35,27 @@ First, the CLI tool will ask you whether you want to do the setup automatically.
 
 If you don't want to use the CLI tool, or you want to understand its flow better, here are the detailed steps:
 
-1) Add following dependency into your `package.json`:
+**1)** - Add following dependency into your `package.json`:
 
-```
+```json
 "nuxt-spec": "0.2.1"
 ```
 
-2) Add following section into your `nuxt.config.ts`:
+**2** - Add following section into your `nuxt.config.ts`:
 
-```
+```ts
 extends: [
   'nuxt-spec'
 ]
 ```
 
-3) Add `pnpm-workspace.yaml` file with following content (if you don't have it yet):
+**3)** - Add `pnpm-workspace.yaml` file with following content (if you don't have it yet):
 
-```
+```yaml
 shamefullyHoist: true
 ```
 
-4) Add `vitest.config.ts` file with following content (if you don't have it yet):
+1) Add `vitest.config.ts` file with following content (if you don't have it yet):
 
 ```ts
 import { loadVitestConfig } from 'nuxt-spec/config'
@@ -64,9 +65,9 @@ export default loadVitestConfig({
 })
 ```
 
-5) (Optional) Add following scripts into your `package.json`:
+**4)** - (Optional) Add following scripts into your `package.json`:
 
-```
+```json
 "scripts": {
   "test": "vitest run",
   "test-u": "vitest run -u",
@@ -74,9 +75,9 @@ export default loadVitestConfig({
 }
 ```
 
-6) (Optional) Setup file structures for tests as follows:
+**5)** - (Optional) Setup file structures for tests as follows:
 
-```
+```text
 test/
 ├── browser/
 │   └── vitest-browser.test.ts
@@ -95,29 +96,29 @@ You can use sample files from the [project repository](https://github.com/AloisS
 
 Whether you used the CLI tool or did the manual setup, you are ready to install and run the tests.
 
-1) Install the dependencies:
+**1)** -  Install the dependencies:
 
 <!-- tabs:start -->
 
-#### **npm**
+#### Install using **npm**
 
 ```bash
 npm install
 ```
 
-#### **yarn**
+#### Install using **yarn**
 
 ```bash
 yarn install
 ```
 
-#### **pnpm**
+#### Install using **pnpm**
 
 ```bash
 pnpm install
 ```
 
-#### **bun**
+#### Install using **bun**
 
 ```bash
 bun install
@@ -125,29 +126,29 @@ bun install
 
 <!-- tabs:end -->
 
-2) If you're prompted (for the first time when installing to a new machine), install headless browser runtimes:
+**2)** - If you're prompted (for the first time when installing to a new machine), install headless browser runtimes:
 
 <!-- tabs:start -->
 
-#### **npm**
+#### Setup runtime using **npm**
 
 ```bash
 npx playwright-core install
 ```
 
-#### **yarn**
+#### Setup runtime using **yarn**
 
 ```bash
 yarn dlx playwright-core install
 ```
 
-#### **pnpm**
+#### Setup runtime using **pnpm**
 
 ```bash
 pnpm exec playwright-core install
 ```
 
-#### **bun**
+#### Setup runtime using **bun**
 
 ```bash
 bunx playwright-core install
@@ -155,29 +156,29 @@ bunx playwright-core install
 
 <!-- tabs:end -->
 
-3) Start the development server of your awesome Nuxt project:
+**3)** -  Start the development server of your awesome Nuxt project:
 
 <!-- tabs:start -->
 
-#### **npm**
+#### Start server using **npm**
 
 ```bash
 npm run dev
 ```
 
-#### **yarn**
+#### Start server using **yarn**
 
 ```bash
 yarn dev
 ```
 
-#### **pnpm**
+#### Start server using **pnpm**
 
 ```bash
 pnpm dev
 ```
 
-#### **bun**
+#### Start server using **bun**
 
 ```bash
 bun run dev
@@ -190,6 +191,7 @@ bun run dev
 Once installed, Vitest automatically discovers all `*.test.ts` and `*.spec.ts` files in project and becomes capable of running them.
 
 You can use those three optional commands `package.json` file in `"scripts"` section in order to run tests easily:
+
 - `test: vitest run` - runs once and ends
 - `test-u: vitest run -u` - runs once and updates snapshots
 - `test-i: vitest` - runs and waits in HMR mode for test file changes
@@ -198,7 +200,7 @@ Then you can call in terminal in root of your project:
 
 <!-- tabs:start -->
 
-#### **npm**
+#### Testing using **npm**
 
 ```bash
 npm run test     # runs once and ends
@@ -206,7 +208,7 @@ npm run test-u   # runs once and updates snapshots
 npm run test-i   # runs and waits in HMR mode
 ```
 
-#### **yarn**
+#### Tsting using **yarn**
 
 ```bash
 yarn test        # runs once and ends
@@ -214,7 +216,7 @@ yarn test-u      # runs once and updates snapshots
 yarn test-i      # runs and waits in HMR mode
 ```
 
-#### **pnpm**
+#### Testing using **pnpm**
 
 ```bash
 pnpm test        # runs once and ends
@@ -222,7 +224,7 @@ pnpm test-u      # runs once and updates snapshots
 pnpm test-i      # runs and waits in HMR mode
 ```
 
-#### **bun**
+#### Testing using **bun**
 
 ```bash
 bun run test     # runs once and ends
@@ -237,6 +239,7 @@ Or you can use the `vitest` command directly with all its parameters. See [Vites
 ## Overview
 
 **Nuxt Spec** currently contains:
+
 - [vitest](https://www.npmjs.com/package/vitest) **v4** as the fundamental testing framework
 - [@vitest/browser](https://www.npmjs.com/package/@vitest/browser) as more advanced browser-native testing runner
 - [@vitest/ui](https://www.npmjs.com/package/@vitest/ui) as graphic UI above the Vitest test runner
@@ -246,6 +249,7 @@ Or you can use the `vitest` command directly with all its parameters. See [Vites
 - [@nuxt/test-utils](https://www.npmjs.com/package/@nuxt/test-utils) for testing Nuxt stuff
 
 Planned future development:
+
 - reason about (not) using Vitest browser mode (or make it optional)
 - solution for visual regression testing - (currently there is experimental custom solution)
 
@@ -282,11 +286,12 @@ export default loadVitestConfig({
 ```
 
 By default, Nuxt Spec built-in configuration establishes 4 `projects` + one fallback:
-- `unit` - for unit tests in `test/unit/**` - env is set to `node` 
-- `nuxt` - for Nuxt-related tests in `test/nuxt/**` - env is set to `nuxt` 
-- `e2e` - for end-to-end tests in `test/e2e/**` - env is set to `node` 
+
+- `unit` - for unit tests in `test/unit/**` - env is set to `node`
+- `nuxt` - for Nuxt-related tests in `test/nuxt/**` - env is set to `nuxt`
+- `e2e` - for end-to-end tests in `test/e2e/**` - env is set to `node`
 - `browser` - for browser-mode tests in `test/browser/**` - env is set to `node` (this is effectively an alternative to `nuxt` relying on `@vitest/browser` instead of `@nuxt/test-utils`)
-- `default` - fallback for all other tests in `test/**` and/or `tests/**` directories - env is set to `node` 
+- `default` - fallback for all other tests in `test/**` and/or `tests/**` directories - env is set to `node`
 
 Vitest will then expect at least one test defined in either of those directories. Any parts of the `test.projects` config may be altered and user-defined values will be logically merged with the defaults. Also you may add new custom projects' definitions to fit your needs. If your project uses significantly different configuration (i.e. your tests reside in completely different path), you can pass `false` as a second parameter to `loadVitestConfig()` function to exclude default `test.projects` values from being injected completely:
 
