@@ -52,28 +52,23 @@
   ],
   "dependencies": {
     "@nuxt/eslint": "1.15.2",
-    "@nuxt/test-utils": "4.0.2",
-    "@vitejs/plugin-vue": "6.0.6",
-    "@vitest/browser": "4.1.5",
-    "@vitest/browser-playwright": "4.1.5",
-    "@vitest/ui": "4.1.5",
-    "@vue/test-utils": "2.4.8",
-    "elrh-cosca": "0.3.5",
+    "@nuxt/test-utils": "4.0.3",
+    "@vitejs/plugin-vue": "6.0.7",
+    "@vitest/browser": "4.1.8",
+    "@vitest/browser-playwright": "4.1.8",
+    "@vitest/ui": "4.1.8",
+    "@vue/test-utils": "2.4.10",
+    "elrh-cosca": "0.3.6",
     "fast-png": "8.0.0",
     "happy-dom": "20.9.0",
-    "nuxt": "4.4.2",
-    "pixelmatch": "7.1.0",
-    "playwright-core": "1.59.1",
+    "nuxt": "4.4.6",
+    "pixelmatch": "7.2.0",
+    "playwright-core": "1.60.0",
     "typescript": "6.0.3",
-    "vitest": "4.1.5",
+    "vitest": "4.1.8",
     "vitest-browser-vue": "2.1.0",
-    "vue": "3.5.33",
-    "vue-router": "5.0.6"
+    "vue": "3.5.35",
+    "vue-router": "5.1.0"
   },
-  "pnpm": {
-    "overrides": {
-      "vite": "npm:vite@^8.0.10"
-    }
-  },
-  "packageManager": "pnpm@10.33.2"
+  "packageManager": "pnpm@11.5.0"
 }

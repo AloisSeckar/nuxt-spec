@@ -6,7 +6,15 @@ shamefullyHoist: true
 
 # migrated from package.json
 # https://pnpm.io/settings#onlybuiltdependencies
-onlyBuiltDependencies:
-  - "@parcel/watcher"
-  - "esbuild"
-  - "unrs-resolver"
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  unrs-resolver: true
+
+# use Vite 8
+overrides:
+  'vite': '^8.0.16'
+
+minimumReleaseAgeExclude:
+  # build @ 2026-06-02 13:45 GMT+2
+  - elrh-cosca@0.3.6
