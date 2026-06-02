@@ -41,7 +41,9 @@ If you don't want to use the CLI tool, or you want to understand its flow better
 "nuxt-spec": "0.2.2"
 ```
 
-**2** - Add following section into your `nuxt.config.ts`:
+It is advised to remove explicit `nuxt`, `vue` and `vue-router` dependencies, if present. The `nuxt-spec` layer brings them and there might be version clashes if defined in both places.
+
+**2)** - Add following section into your `nuxt.config.ts`:
 
 ```ts
 extends: [
@@ -49,13 +51,13 @@ extends: [
 ]
 ```
 
-**3)** - Add `pnpm-workspace.yaml` file with following content (if you don't have it yet):
+**3)** - If `pnpm` is used, add `pnpm-workspace.yaml` file with following content (if you don't have it yet):
 
 ```yaml
 shamefullyHoist: true
 ```
 
-1) Add `vitest.config.ts` file with following content (if you don't have it yet):
+**4)** Add `vitest.config.ts` file with following content (if you don't have it yet):
 
 ```ts
 import { loadVitestConfig } from 'nuxt-spec/config'
@@ -65,7 +67,7 @@ export default loadVitestConfig({
 })
 ```
 
-**4)** - (Optional) Add following scripts into your `package.json`:
+**5)** - (Optional) Add following scripts into your `package.json`:
 
 ```json
 "scripts": {
@@ -75,7 +77,7 @@ export default loadVitestConfig({
 }
 ```
 
-**5)** - (Optional) Setup file structures for tests as follows:
+**6)** - (Optional) Setup file structures for tests as follows:
 
 ```text
 test/
@@ -97,6 +99,8 @@ You can use sample files from the [project repository](https://github.com/AloisS
 Whether you used the CLI tool or did the manual setup, you are ready to install and run the tests.
 
 **1)** -  Install the dependencies:
+
+It is advised to remove `node_modules` and delete lock file first. Then proceed with fresh installation.
 
 <!-- tabs:start -->
 

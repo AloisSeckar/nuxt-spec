@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { execSync } from 'node:child_process'
 import {
   createFileFromWebTemplate, deletePath, getPackageManager, hasJsonKey,
   pathExists, promptUser, removeFromJsonFile, showMessage,
@@ -19,6 +20,7 @@ import {
  *  5) adds test-related scripts and pnpm approved build scripts (if using pnpm) in `package.json`
  *  6) creates sample test files
  *  7) clear node_modules and lock file(s)
+ *  8) run install command
  *
  * @param {boolean} autoRun - Whether to run the setup automatically without any prompts (defaults to false).
  */
@@ -233,10 +235,23 @@ export async function specSetup(autoRun = false) {
     }
   }
 
-  // 7) inform user
+  // 8) run install command
+  const runInstall = isAutoRun || await promptUser(`Fresh \`${packageManager} install\` is required. Do you want to run it now?`)
+  if (runInstall) {
+    try {
+      showMessage(`Running \`${packageManager} install\`...`)
+      execSync(`${packageManager} install`, { stdio: 'inherit' })
+    } catch (error) {
+      console.error(`Error running \`${packageManager} install\`:\n`, error.message)
+    }
+  }
+
+  // 9) inform user
   showMessage('')
   showMessage('NUXT SPEC SETUP COMPLETE', 2)
-  showMessage(`Proceed with \`${packageManager} install\` to get started.`)
+  if (!runInstall) {
+    showMessage(`Proceed with \`${packageManager} install\` to get started.`)
+  }
 
   // force exit to prevent #20
   process.exit(0)
