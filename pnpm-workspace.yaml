@@ -16,5 +16,10 @@ overrides:
   'vite': '^8.0.16'
 
 minimumReleaseAgeExclude:
-  # build @ 2026-06-02 13:45 GMT+2
-  - elrh-cosca@0.3.6
+  # build @ 2026-06-02 20:05 GMT+2
+  - '@nuxt/kit@4.4.7'
+  - '@nuxt/nitro-server@4.4.7'
+  - '@nuxt/schema@4.4.7'
+  - '@nuxt/vite-builder@4.4.7'
+  - 'nuxt@4.4.7'
+  - 'elrh-cosca@0.3.6'
