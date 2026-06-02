@@ -67,7 +67,13 @@ export default loadVitestConfig({
 })
 ```
 
-**5)** - (Optional) Add following scripts into your `package.json`:
+**5)** Add `.nuxtrc` file with following content (if you don't have it yet):
+
+```text
+setups.@nuxt/test-utils="4.0.3"
+```
+
+**6)** - (Optional) Add following scripts into your `package.json`:
 
 ```json
 "scripts": {
@@ -77,7 +83,7 @@ export default loadVitestConfig({
 }
 ```
 
-**6)** - (Optional) Setup file structures for tests as follows:
+**7)** - (Optional) Setup file structures for tests as follows:
 
 ```text
 test/

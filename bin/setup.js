@@ -17,10 +17,11 @@ import {
  *  2) adds `extends: ['nuxt-spec']` to `nuxt.config.ts`
  *  3) creates/updates `pnpm-workspace.yaml` file (only if pnpm is used)
  *  4) creates default `vitest.config.ts` file
- *  5) adds test-related scripts and pnpm approved build scripts (if using pnpm) in `package.json`
- *  6) creates sample test files
- *  7) clear node_modules and lock file(s)
- *  8) run install command
+ *  5) creates default `.nuxtrc` file
+ *  6) adds test-related scripts and pnpm approved build scripts (if using pnpm) in `package.json`
+ *  7) creates sample test files
+ *  8) clear node_modules and lock file(s)
+ *  9) run install command
  *
  * @param {boolean} autoRun - Whether to run the setup automatically without any prompts (defaults to false).
  */
@@ -125,7 +126,16 @@ export async function specSetup(autoRun = false) {
     console.error('Error setting up \'vitest.config.ts\':\n', error.message)
   }
 
-  // 5) modify package.json
+  // 5) create .nuxtrc to prevent @nuxt/test-utils setup from running automatically on first start
+  if (!pathExists('.nuxtrc')) {
+    try {
+      await createFileFromWebTemplate('https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v0.2.2/.nuxtrc', '.nuxtrc', isAutoRun, 'This will create a \'.nuxtrc\' file to prevent @nuxt/test-utils setup from running automatically when dev server starts. Continue?')
+    } catch (error) {
+      console.error('Error creating \'.nuxtrc\':\n', error.message)
+    }
+  }
+
+  // 6) modify package.json
 
   // add test scripts
   try {
@@ -153,7 +163,7 @@ export async function specSetup(autoRun = false) {
     }
   }
 
-  // 6) create sample test files
+  // 7) create sample test files
   const createSampleTests = isAutoRun || await promptUser('Do you want to create sample tests in \'/test\' folder?')
   if (createSampleTests) {
     try {
@@ -188,7 +198,7 @@ export async function specSetup(autoRun = false) {
     }
   }
 
-  // 7) clear node_modules and lock file(s)
+  // 8) clear node_modules and lock file(s)
   const prepareForReinstall = isAutoRun || await promptUser('Dependencies should be re-installed now. Do you want to remove node_modules and the lock file?')
   if (prepareForReinstall) {
     if (pathExists('node_modules')) {
@@ -235,7 +245,7 @@ export async function specSetup(autoRun = false) {
     }
   }
 
-  // 8) run install command
+  // 9) run install command
   const runInstall = isAutoRun || await promptUser(`Fresh \`${packageManager} install\` is required. Do you want to run it now?`)
   if (runInstall) {
     try {
@@ -246,7 +256,7 @@ export async function specSetup(autoRun = false) {
     }
   }
 
-  // 9) inform user
+  // 10) inform user
   showMessage('')
   showMessage('NUXT SPEC SETUP COMPLETE', 2)
   if (!runInstall) {
