@@ -1,12 +1,13 @@
 const messageFilters = [
-  // remove once @nuxt/test-utils starts depending on Vitest 4.1
-  // https://github.com/nuxt/test-utils/pull/1620
-  'Importing from "vitest/environments" is deprecated',
   // Node+Windows false positive
   // https://github.com/nuxt/icon/issues/140
   'Use of deprecated trailing slash pattern mapping',
   // remove once Vue stops considering <Suspense> experimental
   '<Suspense> is an experimental feature',
+  // merge defaults with user-defined filters from NUXT_SPEC_MESSAGE_FILTERS env variable
+  ...(process.env.NUXT_SPEC_MESSAGE_FILTERS
+    ? process.env.NUXT_SPEC_MESSAGE_FILTERS.split(',')
+    : []),
 ]
 
 // 1) filter-out unnecessary stderr/stdout logs coming from Vitest

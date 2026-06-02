@@ -309,6 +309,14 @@ export default loadVitestConfig({
 
 Alternatively, if you don't want to use any part of the `nuxt-spec` default configuration at all, you can override `vitest.config.ts` file completely and define your own [Vitest configuration](https://vitest.dev/config/) from scratch.
 
+### Filtering out log messages
+
+Some tedious and unrelevant log messages may keep appearing in running tests creating noise and hiding the real issues.
+
+Via `NUXT_SPEC_MESSAGE_FILTERS` env variable you may pass a comma-separated list of (plain) text patterns that should be omited.
+
+It only applies to logs processed by `vitest` though, so some messages might still prevail.
+
 ## Utilities
 
 Nuxt Spec offers a couple of utility functions that are exported via `nuxt-spec/utils` subpackage.
