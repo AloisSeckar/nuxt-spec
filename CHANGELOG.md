@@ -2,6 +2,24 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.2.3
+
+`2026-06-02`
+
+- feat: ability to install node_modules automatically in CLI setup (#37)
+- feat: allow custom log messages filtering (#38)
+- fix: creating `.nuxtrc` file in CLI setup to prevent `@nuxt/test-utils` auto-setup
+- build: updated dependencies
+  - `vitest` to `4.1.8`
+  - `@vue/test-utils` to `2.4.10`
+  - `@nuxt/test-utils` to `4.0.3`
+  - `playwright-core` to `1.60.0`
+  - `pixelmatch` to `7.2.0`
+  - `nuxt` to `4.4.7`
+  - `vue` to `3.5.35`
+  - `vue-router` to `5.1.0`
+  - `elrh-cosca` to `0.3.6`
+
 ## 0.2.2
 
 `2026-04-27`
