@@ -28,4 +28,29 @@ describe('Visual Regression', async () => {
     // only capture a specific element with selector (300 different pixels allowed)
     expect(await compareScreenshot(page, { fileName: 'component.png', selector: 'h1', maxDiffPixels: 300 })).toEqual(true)
   })
+
+  test('rejects path traversal attempts', async () => {
+    const page = await createPage()
+    await page.goto(url('/'), { waitUntil: 'domcontentloaded' })
+
+    // fileName that tries to climb out of its target directory is rejected
+    await expect(compareScreenshot(page, { fileName: '../escape.png' }))
+      .rejects.toThrow(/resolves outside/)
+
+    // absolute fileName is rejected (resolves outside the target directory)
+    await expect(compareScreenshot(page, { fileName: '/tmp/escape.png' }))
+      .rejects.toThrow(/resolves outside/)
+
+    // targetDir that tries to climb out of the project root is rejected
+    await expect(compareScreenshot(page, { targetDir: '../../etc' }))
+      .rejects.toThrow(/resolves outside/)
+
+    // absolute targetDir outside the project root is rejected
+    await expect(compareScreenshot(page, { targetDir: '/tmp/screenshots' }))
+      .rejects.toThrow(/resolves outside/)
+
+    // obscured path traversal is rejected
+    await expect(compareScreenshot(page, { fileName: 'valid/../../escape.png' }))
+      .rejects.toThrow(/resolves outside/)
+  })
 })

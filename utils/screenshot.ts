@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { resolve, sep } from 'node:path'
 import { expect } from 'vitest'
 import { decode, type DecodedPng } from 'fast-png'
 import pixelmatch from 'pixelmatch'
@@ -22,22 +22,32 @@ export interface CompareScreenshotOptions {
 
 // capture a browser screenshot and compare it against a stored baseline PNG
 export async function compareScreenshot(page: NuxtPage, options?: CompareScreenshotOptions): Promise<boolean> {
-  const dir = resolve(process.cwd(), options?.targetDir ?? 'test/e2e')
+  const root = process.cwd()
+  // ensure the target directory stays within the project root
+  const dir = resolveWithin(root, options?.targetDir ?? 'test/e2e')
+
   const baselineDir = resolve(dir, '__baseline__')
   const currentDir = resolve(dir, '__current__')
 
   const route = page.url().substring(page.url().lastIndexOf('/') + 1) || 'index'
   const fileName = options?.fileName ?? `${route}.png`
 
+  if (!fileName.toLowerCase().endsWith('.png')) {
+    console.warn(`Screenshots from \`compareScreenshot\` are always saved as PNG. Consider different file name than '${fileName}'.`)
+  }
+
+  // ensure the file name cannot escape its target directory
+  const baselinePath = resolveWithin(baselineDir, fileName)
+  const currentPath = resolveWithin(currentDir, fileName)
+
   // capture element specified by locator or a full-page screenshot as PNG
   const screenshot = options?.selector
     ? await page.locator(options.selector).screenshot()
     : await page.screenshot({ fullPage: true })
-  const baselinePath = resolve(baselineDir, fileName)
 
   // always save the current screenshot for inspection
   mkdirSync(currentDir, { recursive: true })
-  writeFileSync(resolve(currentDir, fileName), screenshot)
+  writeFileSync(currentPath, screenshot)
 
   // @ts-expect-error - this is reliable way of reading Vitest "update" flag
   const updating = expect.getState().snapshotState?._updateSnapshot === 'all'
@@ -55,7 +65,7 @@ export async function compareScreenshot(page: NuxtPage, options?: CompareScreens
   const { width, height } = baselineImg
 
   if (actualImg.width !== width || actualImg.height !== height) {
-    expect.fail(`Screenshot size mismatch: expected ${width}x${height}, got ${actualImg.width}x${actualImg.height}. Actual saved to: ${resolve(currentDir, fileName)}`)
+    expect.fail(`Screenshot size mismatch: expected ${width}x${height}, got ${actualImg.width}x${actualImg.height}. Actual saved to: ${currentPath}`)
   }
 
   const diffCount = pixelmatch(toRGBA(baselineImg), toRGBA(actualImg), undefined, width, height, {
@@ -67,10 +77,19 @@ export async function compareScreenshot(page: NuxtPage, options?: CompareScreens
 
   if (diffCount > maxAllowed) {
     const ratio = (diffCount / totalPixels * 100).toFixed(2)
-    expect.fail(`Screenshot mismatch: ${diffCount} pixels differ (${ratio}%), allowed ${maxAllowed}. Actual saved to: ${resolve(currentDir, fileName)}`)
+    expect.fail(`Screenshot mismatch: ${diffCount} pixels differ (${ratio}%), allowed ${maxAllowed}. Actual saved to: ${currentPath}`)
   }
 
   return true
+}
+
+// helper to make sure passed options are not escaping from cwd
+export function resolveWithin(base: string, segment: string): string {
+  const target = resolve(base, segment)
+  if (target !== base && !target.startsWith(base + sep)) {
+    throw new Error(`Invalid path: "${segment}" resolves outside of "${base}"`)
+  }
+  return target
 }
 
 // helper for bridging difference between Vitest PNG saving and fast-png encoding
