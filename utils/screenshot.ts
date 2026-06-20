@@ -1,6 +1,6 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve, sep } from 'node:path'
-import { expect } from 'vitest'
+import { expect, inject } from 'vitest'
 import { decode, type DecodedPng } from 'fast-png'
 import pixelmatch from 'pixelmatch'
 import type { NuxtPage } from '@nuxt/test-utils'
@@ -65,7 +65,9 @@ export async function compareScreenshot(page: NuxtPage, options?: CompareScreens
   const { width, height } = baselineImg
 
   if (actualImg.width !== width || actualImg.height !== height) {
-    expect.fail(`Screenshot size mismatch: expected ${width}x${height}, got ${actualImg.width}x${actualImg.height}. Actual saved to: ${currentPath}`)
+    const message = `Screenshot size mismatch: expected ${width}x${height}, got ${actualImg.width}x${actualImg.height}. Actual saved to: ${currentPath}`
+    appendToReport(fileName, message, baseline, screenshot)
+    expect.fail(message)
   }
 
   const diffCount = pixelmatch(toRGBA(baselineImg), toRGBA(actualImg), undefined, width, height, {
@@ -77,7 +79,9 @@ export async function compareScreenshot(page: NuxtPage, options?: CompareScreens
 
   if (diffCount > maxAllowed) {
     const ratio = (diffCount / totalPixels * 100).toFixed(2)
-    expect.fail(`Screenshot mismatch: ${diffCount} pixels differ (${ratio}%), allowed ${maxAllowed}. Actual saved to: ${currentPath}`)
+    const message = `Screenshot mismatch: ${diffCount} pixels differ (${ratio}%), allowed ${maxAllowed}. Actual saved to: ${currentPath}`
+    appendToReport(fileName, message, baseline, screenshot)
+    expect.fail(message)
   }
 
   return true
@@ -90,6 +94,49 @@ export function resolveWithin(base: string, segment: string): string {
     throw new Error(`Invalid path: "${segment}" resolves outside of "${base}"`)
   }
   return target
+}
+
+// resolve the report path created by the Vitest globalSetup helper
+// (provide/inject is preferred, with process.env kept as a fallback)
+function getReportPath(): string | undefined {
+  try {
+    const injected = inject('screenshotReportPath')
+    if (injected) return injected
+  } catch {
+    // `inject` is unavailable outside of the Vitest worker context
+  }
+  return process.env.SCREENSHOT_REPORT_PATH
+}
+
+// escape a string for safe interpolation into the HTML report
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    '\'': '&#39;',
+  }[char] ?? char))
+}
+
+// append a side-by-side baseline/actual comparison entry to the HTML report
+function appendToReport(fileName: string, message: string, baseline: Uint8Array, actual: Uint8Array): void {
+  const reportPath = getReportPath()
+  if (!reportPath || !existsSync(reportPath)) return
+
+  const baselineUri = `data:image/png;base64,${Buffer.from(baseline).toString('base64')}`
+  const actualUri = `data:image/png;base64,${Buffer.from(actual).toString('base64')}`
+
+  const entry = `<div class="failure">
+  <h2>${escapeHtml(fileName)}</h2>
+  <p class="meta">${escapeHtml(message)}</p>
+  <div class="pair">
+    <figure><figcaption>Baseline</figcaption><img src="${baselineUri}" alt="baseline screenshot"></figure>
+    <figure><figcaption>Actual</figcaption><img src="${actualUri}" alt="actual screenshot"></figure>
+  </div>
+</div>
+`
+  appendFileSync(reportPath, entry)
 }
 
 // helper for bridging difference between Vitest PNG saving and fast-png encoding

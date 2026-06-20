@@ -2,12 +2,16 @@
 // based on https://nuxt.com/docs/4.x/getting-started/testing#setup
 // `projects=false` can be used to suspend the default usage of "projects" in Vitest config
 
+import { fileURLToPath } from 'node:url'
 import { onConsoleLog } from './utils/warnings.mjs' // filter out unnecessary logs
 import { mergeConfig } from './utils/merge.mjs' // defu-based merge function
 import { defineConfig } from 'vitest/config'
 import { defineVitestProject } from '@nuxt/test-utils/config'
 import { playwright } from '@vitest/browser-playwright'
 import vue from '@vitejs/plugin-vue'
+
+// absolute path so it works from nuxt-ignis package
+const screenshotReportSetup = fileURLToPath(new URL('../utils/screenshot-report.ts', import.meta.url))
 
 export async function loadVitestConfig(userVitestConfig, projects = true) {
   const baseConfig = {
@@ -51,6 +55,8 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
           name: 'e2e',
           include: ['test/e2e/**/*.{test,spec}.ts'],
           environment: 'node',
+          // create report file for visual regression testing
+          globalSetup: [screenshotReportSetup],
         },
       },
       // proposed setup for browser component tests (with Playwright runner)
