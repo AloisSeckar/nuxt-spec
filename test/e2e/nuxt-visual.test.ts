@@ -29,6 +29,17 @@ describe('Visual Regression', async () => {
     expect(await compareScreenshot(page, { fileName: 'component.png', selector: 'h1', maxDiffPixels: 300 })).toEqual(true)
   })
 
+  test('visual regression test report generation', async () => {
+    // open a real browser page and navigate to the running Nuxt app
+    const page = await createPage()
+    await page.setViewportSize({ width: 1280, height: 720 }) // important for consistent results!
+    await page.goto(url('/'), { waitUntil: 'domcontentloaded' })
+
+    // test visual regression report tool by deliberately failing image
+    await expect(compareScreenshot(page, { fileName: 'wrong.png', selector: 'h1', maxDiffPixels: 0 }))
+      .rejects.toThrow(/Screenshot mismatch/)
+  })
+
   test('rejects path traversal attempts', async () => {
     const page = await createPage()
     await page.goto(url('/'), { waitUntil: 'domcontentloaded' })

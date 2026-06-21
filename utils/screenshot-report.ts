@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs'
+import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import type { TestProject } from 'vitest/node'
 
@@ -9,20 +9,20 @@ declare module 'vitest' {
   }
 }
 
-// build a timestamp string in the format YYYYMMDDHHMMSS
+// timestamp string in YYYYMMDDHHMMSS
 function reportTimestamp(date: Date): string {
-  const pad = (n: number) => String(n).padStart(2, '0')
+  const pad2 = (n: number) => String(n).padStart(2, '0')
   return [
     date.getFullYear(),
-    pad(date.getMonth() + 1),
-    pad(date.getDate()),
-    pad(date.getHours()),
-    pad(date.getMinutes()),
-    pad(date.getSeconds()),
+    pad2(date.getMonth() + 1),
+    pad2(date.getDate()),
+    pad2(date.getHours()),
+    pad2(date.getMinutes()),
+    pad2(date.getSeconds()),
   ].join('')
 }
 
-// minimal HTML document opening with styling; failure entries are appended later
+// minimal HTML document for visual regression failures
 function reportScaffold(date: Date): string {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -47,8 +47,7 @@ function reportScaffold(date: Date): string {
 }
 
 // create an empty HTML report scaffold for visual regression failures
-// returns the absolute path to the created report file
-// the report lives inside the `__current__` folder so it is not committed
+// the report is created inside the `__current__` folder
 export function createScreenshotReport(targetDir = 'test/e2e', date = new Date()): string {
   const dir = resolve(process.cwd(), targetDir, '__current__')
   mkdirSync(dir, { recursive: true })
@@ -58,16 +57,15 @@ export function createScreenshotReport(targetDir = 'test/e2e', date = new Date()
   return reportPath
 }
 
-// Vitest globalSetup entry point: create the report file once per run and
-// expose its path to the tests (and `compareScreenshot`) via provide/inject
+// Vitest globalSetup entry point
+// - creates the HTML report file once on startup
+// - exposes its path to `compareScreenshot` via provide/inject
+// / closes the HTML report via a callback once tests are finished
 export default function setup({ provide }: TestProject) {
   const reportPath = createScreenshotReport()
   provide('screenshotReportPath', reportPath)
 
-  // teardown: drop the report again if no failures were ever recorded
   return () => {
-    if (existsSync(reportPath) && !readFileSync(reportPath, 'utf8').includes('class="failure"')) {
-      unlinkSync(reportPath)
-    }
+    appendFileSync(reportPath, '</body>\n</html>\n')
   }
 }
