@@ -2,7 +2,6 @@ import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import type { TestProject } from 'vitest/node'
 
-// make the report path available to tests through Vitest's provide/inject
 declare module 'vitest' {
   interface ProvidedContext {
     screenshotReportPath: string

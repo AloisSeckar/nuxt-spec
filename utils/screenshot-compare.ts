@@ -5,6 +5,12 @@ import { decode, type DecodedPng } from 'fast-png'
 import pixelmatch from 'pixelmatch'
 import type { NuxtPage } from '@nuxt/test-utils'
 
+declare module 'vitest' {
+  interface ProvidedContext {
+    screenshotReportPath: string
+  }
+}
+
 export interface CompareScreenshotOptions {
   /** Name of the PNG file used for baseline storage and comparison (defaults to route and `index.png` for `/`) */
   fileName?: string
