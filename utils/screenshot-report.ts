@@ -1,4 +1,6 @@
+import { exec } from 'node:child_process'
 import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs'
+import { platform } from 'node:os'
 import { resolve } from 'node:path'
 import type { TestProject } from 'vitest/node'
 
@@ -66,5 +68,18 @@ export default function setup({ provide }: TestProject) {
 
   return () => {
     appendFileSync(reportPath, '</body>\n</html>\n')
+    console.log(`\n(nuxt-spec) Visual regression report available at:\nfile://${reportPath}`)
+
+    if (!process.env.CI) {
+      console.log('(nuxt-spec) Opening report in default browser...')
+      const openCmd = platform() === 'darwin' ? 'open' : platform() === 'win32' ? 'start' : 'xdg-open'
+      exec(`${openCmd} "${reportPath}"`, (err) => {
+        if (err) {
+          console.log('(nuxt-spec) Failed to automatically open report')
+        }
+      })
+    }
+
+    console.log('\n')
   }
 }
