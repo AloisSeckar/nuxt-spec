@@ -382,6 +382,8 @@ const html: string = await getAPIResultHtml(page, '#api-fetch', '/your-api', '#a
 
 For detailed description, see [utils.d.ts](https://github.com/AloisSeckar/nuxt-spec/blob/v0.2.3/utils/index.d.ts).
 
+The `compareScreenshot` function usage results into HTML report file being automatically created. The file is generated within the specified `__current__` directory as `report_YYYYMMDDHHMMSS.html`. It contains all failed screenshots comparison. When test suite is over, file is attempted to be opened in system default browser (unless Node operates in `CI` mode).
+
 ## Contact
 
 Use GitHub issues to report bugs or suggest improvements. I will be more than happy to address them.
