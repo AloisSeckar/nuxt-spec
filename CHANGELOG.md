@@ -2,6 +2,23 @@
 
 Overview of the newest features in Nuxt Spec.
 
+## 0.2.4-alpha
+
+`2026-07-01`
+
+- feat: HTML report for failed visual regression tests
+- feat: better validations of options passed into `compareScreenshot` function
+- fix: remove obsolete `onlyBuiltDependencies` from CLI setup (#41)
+- build: non-important dependencies are now loosen to `~`
+- build: updated dependencies
+  - `vitest` to `4.1.9`
+  - `@vue/test-utils` to `2.4.11`
+  - `happy-dom` to `20.10.6`
+  - `playwright-core` to `1.61.1`
+  - `nuxt` to `4.4.8`
+  - `vue` to `3.5.39`
+  - `@nuxt/eslint` to `1.16.0`
+
 ## 0.2.3
 
 `2026-06-02`

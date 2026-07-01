@@ -1,6 +1,6 @@
 {
   "name": "nuxt-spec",
-  "version": "0.2.3",
+  "version": "0.2.4-alpha",
   "description": "Test-pack layer for Nuxt Applications",
   "repository": {
     "type": "git",
