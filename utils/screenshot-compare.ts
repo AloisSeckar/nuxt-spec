@@ -137,8 +137,8 @@ function appendToReport(fileName: string, message: string, baseline: Uint8Array,
   <h2>${escapeHtml(fileName)}</h2>
   <p class="meta">${escapeHtml(message)}</p>
   <div class="pair">
-    <figure><figcaption>Baseline</figcaption><img src="${baselineUri}" alt="baseline screenshot"></figure>
-    <figure><figcaption>Actual</figcaption><img src="${actualUri}" alt="actual screenshot"></figure>
+    <figure><figcaption>Baseline image</figcaption><img src="${baselineUri}" alt="Baseline image for reference"></figure>
+    <figure><figcaption>Actual screenshot</figcaption><img src="${actualUri}" alt="Actual screenshot taken"></figure>
   </div>
 </div>
 `

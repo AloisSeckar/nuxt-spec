@@ -38,8 +38,12 @@ function reportScaffold(date: Date): string {
   .failure .meta { color: #b00; font-size: .85rem; margin: 0 0 .75rem; }
   .pair { display: flex; gap: 1rem; flex-wrap: wrap; }
   .pair figure { margin: 0; flex: 1 1 0; min-width: 240px; }
-  .pair figcaption { font-size: .8rem; color: #555; margin-bottom: .25rem; }
-  .pair img { max-width: 100%; border: 1px solid #ccc; background: #fff; }
+  .pair figcaption { font-size: .8rem; margin-bottom: .25rem; font-weight: bold; }
+  .pair figure:first-child figcaption { color: #0b0; }
+  .pair figure:last-child figcaption { color: #b00; }
+  .pair img { max-width: 100%; background: #fff; }
+  .pair figure:first-child img { border: 2px solid #0b0; }
+  .pair figure:last-child img { border: 2px solid #b00; }
 </style>
 </head>
 <body>
