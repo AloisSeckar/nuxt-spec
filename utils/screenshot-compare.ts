@@ -3,7 +3,7 @@ import { resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { decode, type DecodedPng } from 'fast-png'
 import { expect } from 'vitest'
-import { ensureReportCreated, getInjection } from './screenshot-report'
+import { ensureReportCreated } from './screenshot-report'
 import pixelmatch from 'pixelmatch'
 import type { NuxtPage } from '@nuxt/test-utils'
 
@@ -24,13 +24,13 @@ export interface CompareScreenshotOptions {
 
 // capture a browser screenshot and compare it against a stored baseline PNG
 export async function compareScreenshot(page: NuxtPage, options?: CompareScreenshotOptions): Promise<boolean> {
-  // create report file on first call
-  ensureReportCreated()
-
   const root = process.cwd()
 
   // ensure the target directory stays within the project root
   const dir = resolveWithin(root, options?.targetDir ?? 'test/e2e')
+
+  // create report file on first call
+  ensureReportCreated(dir)
 
   const baselineDir = resolve(dir, '__baseline__')
   const currentDir = resolve(dir, '__current__')
@@ -120,7 +120,7 @@ const REPORT_ENTRY = readFileSync(resolve(HTML_DIR, 'report-entry.html'), 'utf-8
 // template for screenshot comparison entry
 // append a side-by-side baseline/actual comparison entry to the HTML report
 function appendToReport(fileName: string, message: string, baseline: Uint8Array, actual: Uint8Array): void {
-  const reportPath = getInjection('screenshotReportPath')
+  const reportPath = process.env.SCREENSHOT_REPORT_PATH
   if (!reportPath || !existsSync(reportPath)) return
 
   const baselineUri = `data:image/png;base64,${Buffer.from(baseline).toString('base64')}`

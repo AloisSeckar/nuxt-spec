@@ -384,9 +384,9 @@ For detailed description, see [utils.d.ts](https://github.com/AloisSeckar/nuxt-s
 
 The `compareScreenshot` function usage results into HTML report file being automatically created. The file is generated within the specified `__current__` directory as `report_YYYYMMDDHHMMSS.html`. It contains all failed screenshots comparison. When test suite is over, file is attempted to be opened in system default browser (unless Node operates in `CI` mode).
 
-### Notice on non-standard setup
+### Notice on non-default setups
 
-The creation of the report file is ensured via `globalSetup` function passed into default Vitest E2E suite defined by Nuxt Spec. If you need to override the default `e2e` project, you also need to make sure to call the setup function manually.
+The creation of the report file and it's proper wrap-up at the end is ensured via `globalSetup` function passed into default Vitest E2E suite defined by Nuxt Spec. If you need to override the default `e2e` project, you also need to make sure to call the setup function manually.
 
 Add following into your `vitest.config.ts`:
 

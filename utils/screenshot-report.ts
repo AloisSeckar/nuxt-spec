@@ -1,20 +1,11 @@
 import { exec } from 'node:child_process'
-import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { appendFileSync, existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs'
 import { platform } from 'node:os'
-import { resolve } from 'node:path'
+import { resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { inject } from 'vitest'
-import type { ProvidedContext } from 'vitest'
-import type { TestProject } from 'vitest/node'
-
-declare module 'vitest' {
-  interface ProvidedContext {
-    screenshotReportPath: string
-    screenshotReportTitle: string
-  }
-}
 
 const templatesDir = resolve(fileURLToPath(import.meta.url), '..', 'html')
+const reportPathFile = resolve(process.cwd(), '.report-path')
 
 // timestamp string
 // separators=false produces YYYYMMDDHHMMSS for report file name
@@ -45,55 +36,51 @@ function reportScaffold(titleTimestamp: string): string {
   return template.replace('{{TIMESTAMP}}', titleTimestamp)
 }
 
-// resolve the value created in the Vitest globalSetup helper
-// (provide/inject is preferred, with process.env kept as a fallback)
-export function getInjection(key: keyof ProvidedContext): string | undefined {
-  try {
-    const injected = inject(key)
-    if (injected) return injected
-  } catch (e) {
-    // `inject` is unavailable outside of the Vitest worker context
-    console.debug(`(nuxt-spec) getInjection(${key}) - error during Vitest injection`)
-    console.error((e as Error).message || e)
+// helper to keep user-provided targetDir inside the current project root
+function resolveWithin(base: string, segment: string): string {
+  const target = resolve(base, segment)
+  if (target !== base && !target.startsWith(base + sep)) {
+    throw new Error(`Invalid path: "${segment}" resolves outside of "${base}"`)
   }
-
-  console.debug(`(nuxt-spec) getInjection(${key}) - falling back to process.env`)
-
-  // env variable fallbacks
-  switch (key) {
-    case 'screenshotReportPath':
-      return process.env.SCREENSHOT_REPORT_PATH
-    case 'screenshotReportTitle':
-      return process.env.SCREENSHOT_REPORT_TITLE
-    default:
-      return undefined
-  }
+  return target
 }
 
-// create report file on first call, using the path computed in setup()
-export function ensureReportCreated(): void {
-  const reportPath = getInjection('screenshotReportPath')
+// create report file on first call, using targetDir from compareScreenshot options
+export function ensureReportCreated(targetDir = 'test/e2e'): void {
+  const root = process.cwd()
+  const dir = resolveWithin(root, targetDir)
+  const fileTimestamp = process.env.SCREENSHOT_REPORT_TIMESTAMP ?? reportTimestamp(new Date())
+  const reportPath = resolve(dir, '__current__', `report-${fileTimestamp}.html`)
+
+  process.env.SCREENSHOT_REPORT_PATH = reportPath
+  writeFileSync(reportPathFile, reportPath)
   if (!reportPath || existsSync(reportPath)) return
 
-  const titleTimestamp = getInjection('screenshotReportTitle') ?? reportTimestamp(new Date(), true)
+  const titleTimestamp = process.env.SCREENSHOT_REPORT_TITLE ?? reportTimestamp(new Date(), true)
 
+  mkdirSync(resolve(dir, '__current__'), { recursive: true })
   writeFileSync(reportPath, reportScaffold(titleTimestamp))
 }
 
 // Vitest globalSetup entry point
-// - computes the report path and exposes it via provide/inject
-// - the report file is created lazily on first compareScreenshot call
-// - closes the HTML report via a callback once tests are finished (if it was created)
-export default function setup({ provide }: TestProject) {
-  const dir = resolve(process.cwd(), 'test/e2e', '__current__')
-  mkdirSync(dir, { recursive: true })
-
+// - computes stable timestamp values and exposes them via env variables
+// - the report file itself is created lazily on first compareScreenshot call
+// - provides a callback to close the HTML report once tests are finished (if it was created)
+export default function setup() {
   const NOW = new Date()
-  const reportPath = resolve(dir, `report-${reportTimestamp(NOW)}.html`)
-  provide('screenshotReportPath', reportPath)
-  provide('screenshotReportTitle', reportTimestamp(NOW, true))
+  const fileTimestamp = reportTimestamp(NOW)
+  const titleTimestamp = reportTimestamp(NOW, true)
+
+  process.env.SCREENSHOT_REPORT_TIMESTAMP = fileTimestamp
+  process.env.SCREENSHOT_REPORT_TITLE = titleTimestamp
 
   return () => {
+    if (!existsSync(reportPathFile)) return
+
+    const reportPath = readFileSync(reportPathFile, 'utf-8').trim()
+    unlinkSync(reportPathFile)
+
+    if (!reportPath) return
     if (!existsSync(reportPath)) return
 
     let footer = readFileSync(resolve(templatesDir, 'report-tail.html'), 'utf-8')
