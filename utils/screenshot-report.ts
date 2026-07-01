@@ -1,7 +1,8 @@
 import { exec } from 'node:child_process'
-import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs'
+import { appendFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { platform } from 'node:os'
 import { resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import type { TestProject } from 'vitest/node'
 
 declare module 'vitest' {
@@ -10,45 +11,35 @@ declare module 'vitest' {
   }
 }
 
-// timestamp string in YYYYMMDDHHMMSS
-function reportTimestamp(date: Date): string {
+const templatesDir = resolve(fileURLToPath(import.meta.url), '..', 'html')
+
+// timestamp string
+// separators=false produces YYYYMMDDHHMMSS for report file name
+// separators=true produces YYYY-MM-DD HH:MM:SS for report title
+function reportTimestamp(date: Date, separators = false): string {
   const pad2 = (n: number) => String(n).padStart(2, '0')
+  const dateSeparator = separators ? '-' : ''
+  const midSeparator = separators ? ' ' : ''
+  const timeSeparator = separators ? ':' : ''
   return [
     date.getFullYear(),
+    dateSeparator,
     pad2(date.getMonth() + 1),
+    dateSeparator,
     pad2(date.getDate()),
+    midSeparator,
     pad2(date.getHours()),
+    timeSeparator,
     pad2(date.getMinutes()),
+    timeSeparator,
     pad2(date.getSeconds()),
   ].join('')
 }
 
-// minimal HTML document for visual regression failures
-function reportScaffold(date: Date): string {
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Visual Regression Report</title>
-<style>
-  body { font-family: system-ui, sans-serif; margin: 2rem; background: #f5f5f5; color: #222; }
-  h1 { font-size: 1.4rem; }
-  .failure { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin: 1rem 0; box-shadow: 0 1px 3px rgba(0, 0, 0, .1); }
-  .failure h2 { font-size: 1rem; margin: 0 0 .5rem; }
-  .failure .meta { color: #b00; font-size: .85rem; margin: 0 0 .75rem; }
-  .pair { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .pair figure { margin: 0; flex: 1 1 0; min-width: 240px; }
-  .pair figcaption { font-size: .8rem; margin-bottom: .25rem; font-weight: bold; }
-  .pair figure:first-child figcaption { color: #0b0; }
-  .pair figure:last-child figcaption { color: #b00; }
-  .pair img { max-width: 100%; background: #fff; }
-  .pair figure:first-child img { border: 2px solid #0b0; }
-  .pair figure:last-child img { border: 2px solid #b00; }
-</style>
-</head>
-<body>
-<h1>Visual Regression Report &mdash; ${date.toISOString()}</h1>
-`
+// read the header template and replace the timestamp placeholder
+function reportScaffold(titleTimestamp: string): string {
+  const template = readFileSync(resolve(templatesDir, 'report-head.html'), 'utf-8')
+  return template.replace('{{TIMESTAMP}}', titleTimestamp)
 }
 
 // create an empty HTML report scaffold for visual regression failures
@@ -57,21 +48,26 @@ export function createScreenshotReport(targetDir = 'test/e2e', date = new Date()
   const dir = resolve(process.cwd(), targetDir, '__current__')
   mkdirSync(dir, { recursive: true })
 
-  const reportPath = resolve(dir, `report-${reportTimestamp(date)}.html`)
-  writeFileSync(reportPath, reportScaffold(date))
+  const fileTimestamp = reportTimestamp(date)
+  const titleTimestamp = reportTimestamp(date, true)
+
+  const reportPath = resolve(dir, `report-${fileTimestamp}.html`)
+  writeFileSync(reportPath, reportScaffold(titleTimestamp))
   return reportPath
 }
 
 // Vitest globalSetup entry point
 // - creates the HTML report file once on startup
 // - exposes its path to `compareScreenshot` via provide/inject
-// / closes the HTML report via a callback once tests are finished
+// - closes the HTML report via a callback once tests are finished
 export default function setup({ provide }: TestProject) {
   const reportPath = createScreenshotReport()
   provide('screenshotReportPath', reportPath)
 
   return () => {
-    appendFileSync(reportPath, '</body>\n</html>\n')
+    let footer = readFileSync(resolve(templatesDir, 'report-tail.html'), 'utf-8')
+    footer = footer.replace('{{TIMESTAMP}}', new Date().toISOString())
+    appendFileSync(reportPath, footer)
     console.log(`\n(nuxt-spec) Visual regression report available at:\nfile://${reportPath}`)
 
     if (!process.env.CI) {

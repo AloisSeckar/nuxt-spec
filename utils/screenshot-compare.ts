@@ -1,5 +1,6 @@
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve, sep } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { expect, inject } from 'vitest'
 import { decode, type DecodedPng } from 'fast-png'
 import pixelmatch from 'pixelmatch'
@@ -125,6 +126,10 @@ function escapeHtml(value: string): string {
   }[char] ?? char))
 }
 
+const entryTemplate = readFileSync(
+  resolve(fileURLToPath(import.meta.url), '..', 'html', 'report-entry.html'), 'utf-8',
+)
+
 // append a side-by-side baseline/actual comparison entry to the HTML report
 function appendToReport(fileName: string, message: string, baseline: Uint8Array, actual: Uint8Array): void {
   const reportPath = getReportPath()
@@ -133,15 +138,12 @@ function appendToReport(fileName: string, message: string, baseline: Uint8Array,
   const baselineUri = `data:image/png;base64,${Buffer.from(baseline).toString('base64')}`
   const actualUri = `data:image/png;base64,${Buffer.from(actual).toString('base64')}`
 
-  const entry = `<div class="failure">
-  <h2>${escapeHtml(fileName)}</h2>
-  <p class="meta">${escapeHtml(message)}</p>
-  <div class="pair">
-    <figure><figcaption>Baseline image</figcaption><img src="${baselineUri}" alt="Baseline image for reference"></figure>
-    <figure><figcaption>Actual screenshot</figcaption><img src="${actualUri}" alt="Actual screenshot taken"></figure>
-  </div>
-</div>
-`
+  const entry = entryTemplate
+    .replace('{{FILE_NAME}}', escapeHtml(fileName))
+    .replace('{{MESSAGE}}', escapeHtml(message))
+    .replace('{{BASELINE_URI}}', baselineUri)
+    .replace('{{ACTUAL_URI}}', actualUri)
+
   appendFileSync(reportPath, entry)
 }
 
