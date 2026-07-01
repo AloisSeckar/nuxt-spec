@@ -1,9 +1,9 @@
-import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { decode, type DecodedPng } from 'fast-png'
 import { expect } from 'vitest'
-import { ensureReportCreated } from './screenshot-report'
+import { appendToReportFile, ensureReportCreated } from './screenshot-report'
 import pixelmatch from 'pixelmatch'
 import type { NuxtPage } from '@nuxt/test-utils'
 
@@ -117,12 +117,9 @@ function escapeHtml(value: string): string {
 const HTML_DIR = resolve(fileURLToPath(import.meta.url), '..', 'html')
 const REPORT_ENTRY = readFileSync(resolve(HTML_DIR, 'report-entry.html'), 'utf-8')
 
-// template for screenshot comparison entry
-// append a side-by-side baseline/actual comparison entry to the HTML report
+// append a side-by-side baseline/actual comparison
+// to the HTML report if the screenshots don't match
 function appendToReport(fileName: string, message: string, baseline: Uint8Array, actual: Uint8Array): void {
-  const reportPath = process.env.SCREENSHOT_REPORT_PATH
-  if (!reportPath || !existsSync(reportPath)) return
-
   const baselineUri = `data:image/png;base64,${Buffer.from(baseline).toString('base64')}`
   const actualUri = `data:image/png;base64,${Buffer.from(actual).toString('base64')}`
 
@@ -132,7 +129,7 @@ function appendToReport(fileName: string, message: string, baseline: Uint8Array,
     .replace('{{BASELINE_URI}}', baselineUri)
     .replace('{{ACTUAL_URI}}', actualUri)
 
-  appendFileSync(reportPath, entry)
+  appendToReportFile(entry)
 }
 
 // helper for bridging difference between Vitest PNG saving and fast-png encoding
