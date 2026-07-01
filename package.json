@@ -15,7 +15,7 @@
     "build": "pnpm test && nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "prepublishOnly": "pnpm build",
+    "prepublishOnly": "node bin/prepublish-check.js",
     "preview": "nuxt preview",
     "start": "nuxt start",
     "test": "vitest run",
