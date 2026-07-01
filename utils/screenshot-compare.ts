@@ -1,16 +1,11 @@
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { expect, inject } from 'vitest'
 import { decode, type DecodedPng } from 'fast-png'
+import { expect } from 'vitest'
+import { ensureReportCreated, getInjection } from './screenshot-report'
 import pixelmatch from 'pixelmatch'
 import type { NuxtPage } from '@nuxt/test-utils'
-
-declare module 'vitest' {
-  interface ProvidedContext {
-    screenshotReportPath: string
-  }
-}
 
 export interface CompareScreenshotOptions {
   /** Name of the PNG file used for baseline storage and comparison (defaults to route and `index.png` for `/`) */
@@ -29,7 +24,11 @@ export interface CompareScreenshotOptions {
 
 // capture a browser screenshot and compare it against a stored baseline PNG
 export async function compareScreenshot(page: NuxtPage, options?: CompareScreenshotOptions): Promise<boolean> {
+  // create report file on first call
+  ensureReportCreated()
+
   const root = process.cwd()
+
   // ensure the target directory stays within the project root
   const dir = resolveWithin(root, options?.targetDir ?? 'test/e2e')
 
@@ -39,6 +38,7 @@ export async function compareScreenshot(page: NuxtPage, options?: CompareScreens
   const route = page.url().substring(page.url().lastIndexOf('/') + 1) || 'index'
   const fileName = options?.fileName ?? `${route}.png`
 
+  // warning on custom non-png file extensions
   if (!fileName.toLowerCase().endsWith('.png')) {
     console.warn(`Screenshots from \`compareScreenshot\` are always saved as PNG. Consider different file name than '${fileName}'.`)
   }
@@ -103,18 +103,6 @@ export function resolveWithin(base: string, segment: string): string {
   return target
 }
 
-// resolve the report path created by the Vitest globalSetup helper
-// (provide/inject is preferred, with process.env kept as a fallback)
-function getReportPath(): string | undefined {
-  try {
-    const injected = inject('screenshotReportPath')
-    if (injected) return injected
-  } catch {
-    // `inject` is unavailable outside of the Vitest worker context
-  }
-  return process.env.SCREENSHOT_REPORT_PATH
-}
-
 // escape a string for safe interpolation into the HTML report
 function escapeHtml(value: string): string {
   return value.replace(/[&<>"']/g, char => ({
@@ -126,19 +114,19 @@ function escapeHtml(value: string): string {
   }[char] ?? char))
 }
 
-const entryTemplate = readFileSync(
-  resolve(fileURLToPath(import.meta.url), '..', 'html', 'report-entry.html'), 'utf-8',
-)
+const HTML_DIR = resolve(fileURLToPath(import.meta.url), '..', 'html')
+const REPORT_ENTRY = readFileSync(resolve(HTML_DIR, 'report-entry.html'), 'utf-8')
 
+// template for screenshot comparison entry
 // append a side-by-side baseline/actual comparison entry to the HTML report
 function appendToReport(fileName: string, message: string, baseline: Uint8Array, actual: Uint8Array): void {
-  const reportPath = getReportPath()
+  const reportPath = getInjection('screenshotReportPath')
   if (!reportPath || !existsSync(reportPath)) return
 
   const baselineUri = `data:image/png;base64,${Buffer.from(baseline).toString('base64')}`
   const actualUri = `data:image/png;base64,${Buffer.from(actual).toString('base64')}`
 
-  const entry = entryTemplate
+  const entry = REPORT_ENTRY
     .replace('{{FILE_NAME}}', escapeHtml(fileName))
     .replace('{{MESSAGE}}', escapeHtml(message))
     .replace('{{BASELINE_URI}}', baselineUri)
