@@ -18,7 +18,7 @@ import {
  *  3) creates/updates `pnpm-workspace.yaml` file (only if pnpm is used)
  *  4) creates default `vitest.config.ts` file
  *  5) creates default `.nuxtrc` file
- *  6) adds test-related scripts and pnpm approved build scripts (if using pnpm) in `package.json`
+ *  6) adds test-related scripts in `package.json`
  *  7) creates sample test files
  *  8) clear node_modules and lock file(s)
  *  9) run install command
@@ -135,9 +135,7 @@ export async function specSetup(autoRun = false) {
     }
   }
 
-  // 6) modify package.json
-
-  // add test scripts
+  // 6) modify package.json with test scripts
   try {
     await updateJsonFile('package.json', 'scripts', {
       'test': 'vitest run',
@@ -146,21 +144,6 @@ export async function specSetup(autoRun = false) {
     }, isAutoRun, 'This will adjust the test-related commands in your \'package.json\'. Continue?')
   } catch (error) {
     console.error('Error adjusting scripts in \'package.json\':\n', error.message)
-  }
-
-  // add pnpm approved build scripts
-  if (packageManager === 'pnpm') {
-    try {
-      await updateJsonFile('package.json', 'pnpm', {
-        onlyBuiltDependencies: [
-          '@parcel/watcher',
-          'esbuild',
-          'unrs-resolver',
-        ],
-      }, isAutoRun, 'This will adjust pnpm approved build scripts in your \'package.json\'. Continue?')
-    } catch (error) {
-      console.error('Error adjusting pnpm approved build scripts in \'package.json\':\n', error.message)
-    }
   }
 
   // 7) create sample test files
