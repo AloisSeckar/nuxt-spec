@@ -11,7 +11,7 @@ import { playwright } from '@vitest/browser-playwright'
 import vue from '@vitejs/plugin-vue'
 
 // absolute path so it works from nuxt-ignis package
-const screenshotReportSetup = fileURLToPath(new URL('../utils/screenshot-report.ts', import.meta.url))
+const screenshotReportSetup = fileURLToPath(new URL('../utils/screenshot.ts', import.meta.url))
 
 export async function loadVitestConfig(userVitestConfig, projects = true) {
   const baseConfig = {

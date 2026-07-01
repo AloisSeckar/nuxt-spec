@@ -1,9 +1,8 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
-import { resolve, sep } from 'node:path'
-import { fileURLToPath } from 'node:url'
-import { decode, type DecodedPng } from 'fast-png'
+import { resolve } from 'node:path'
+import { decode } from 'fast-png'
 import { expect } from 'vitest'
-import { appendToReportFile, ensureReportCreated } from './screenshot-report'
+import { appendToReport, ensureReportCreated, resolveWithin, screenshotSetup, toRGBA } from './screenshot/report-utils'
 import pixelmatch from 'pixelmatch'
 import type { NuxtPage } from '@nuxt/test-utils'
 
@@ -94,55 +93,12 @@ export async function compareScreenshot(page: NuxtPage, options?: CompareScreens
   return true
 }
 
-// helper to make sure passed options are not escaping from cwd
-export function resolveWithin(base: string, segment: string): string {
-  const target = resolve(base, segment)
-  if (target !== base && !target.startsWith(base + sep)) {
-    throw new Error(`Invalid path: "${segment}" resolves outside of "${base}"`)
-  }
-  return target
-}
-
-// escape a string for safe interpolation into the HTML report
-function escapeHtml(value: string): string {
-  return value.replace(/[&<>"']/g, char => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    '\'': '&#39;',
-  }[char] ?? char))
-}
-
-const HTML_DIR = resolve(fileURLToPath(import.meta.url), '..', 'html')
-const REPORT_ENTRY = readFileSync(resolve(HTML_DIR, 'report-entry.html'), 'utf-8')
-
-// append a side-by-side baseline/actual comparison
-// to the HTML report if the screenshots don't match
-function appendToReport(fileName: string, message: string, baseline: Uint8Array, actual: Uint8Array): void {
-  const baselineUri = `data:image/png;base64,${Buffer.from(baseline).toString('base64')}`
-  const actualUri = `data:image/png;base64,${Buffer.from(actual).toString('base64')}`
-
-  const entry = REPORT_ENTRY
-    .replace('{{FILE_NAME}}', escapeHtml(fileName))
-    .replace('{{MESSAGE}}', escapeHtml(message))
-    .replace('{{BASELINE_URI}}', baselineUri)
-    .replace('{{ACTUAL_URI}}', actualUri)
-
-  appendToReportFile(entry)
-}
-
-// helper for bridging difference between Vitest PNG saving and fast-png encoding
-function toRGBA(img: DecodedPng): Uint8Array {
-  const { width, height, data, channels = 4 } = img
-  if (channels === 4) return data as Uint8Array
-  const pixels = width * height
-  const rgba = new Uint8Array(pixels * 4)
-  for (let i = 0; i < pixels; i++) {
-    rgba[i * 4] = data[i * 3]
-    rgba[i * 4 + 1] = data[i * 3 + 1]
-    rgba[i * 4 + 2] = data[i * 3 + 2]
-    rgba[i * 4 + 3] = 255
-  }
-  return rgba
+// Vitest globalSetup entry point
+// - computes stable timestamp values and exposes them via env variables
+// - the report file itself is created lazily on first compareScreenshot call
+// - provides a callback to close the HTML report once tests are finished (if it was created)
+export default function setup() {
+  // the function itself is defined in the helper file
+  // to avoid imports here and there
+  return screenshotSetup()
 }

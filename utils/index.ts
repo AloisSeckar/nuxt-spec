@@ -1,6 +1,6 @@
 import { gotoPage, getDataHtml, getAPIResultHtml } from './e2e'
-import { compareScreenshot } from './screenshot-compare'
-import type { CompareScreenshotOptions } from './screenshot-compare'
+import { compareScreenshot } from './screenshot'
+import type { CompareScreenshotOptions } from './screenshot'
 
 export {
   compareScreenshot,

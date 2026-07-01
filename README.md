@@ -395,7 +395,7 @@ Add following into your `vitest.config.ts`:
 import { loadVitestConfig } from 'nuxt-spec/config'
 
 // resolve path to Nuxt Spec's setup function
-const screenshotReportSetup = fileURLToPath(new URL('../utils/screenshot-report.ts', import.meta.resolve('nuxt-spec/config')))
+const screenshotReportSetup = fileURLToPath(new URL('../utils/screenshot.ts', import.meta.resolve('nuxt-spec/config')))
 
 export default loadVitestConfig({
   // whatever e2e test you are defining
