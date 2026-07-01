@@ -51,24 +51,24 @@
     "nuxt.config.ts"
   ],
   "dependencies": {
-    "@nuxt/eslint": "1.16.0",
+    "@nuxt/eslint": "~1.16.0",
     "@nuxt/test-utils": "4.0.3",
-    "@vitejs/plugin-vue": "6.0.7",
+    "@vitejs/plugin-vue": "~6.0.7",
     "@vitest/browser": "4.1.9",
     "@vitest/browser-playwright": "4.1.9",
     "@vitest/ui": "4.1.9",
     "@vue/test-utils": "2.4.11",
     "elrh-cosca": "0.3.6",
-    "fast-png": "8.0.0",
-    "happy-dom": "20.10.6",
+    "fast-png": "~8.0.0",
+    "happy-dom": "~20.10.6",
     "nuxt": "4.4.8",
-    "pixelmatch": "7.2.0",
-    "playwright-core": "1.61.1",
-    "typescript": "6.0.3",
+    "pixelmatch": "~7.2.0",
+    "playwright-core": "~1.61.1",
+    "typescript": "~6.0.3",
     "vitest": "4.1.9",
     "vitest-browser-vue": "2.1.0",
-    "vue": "3.5.39",
-    "vue-router": "5.1.0"
+    "vue": "~3.5.39",
+    "vue-router": "~5.1.0"
   },
   "packageManager": "pnpm@11.9.0"
 }
