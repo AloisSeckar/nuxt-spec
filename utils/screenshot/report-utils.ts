@@ -118,9 +118,10 @@ export function toRGBA(img: DecodedPng): Uint8Array {
   const pixels = width * height
   const rgba = new Uint8Array(pixels * 4)
   for (let i = 0; i < pixels; i++) {
-    rgba[i * 4] = data[i * 3]
-    rgba[i * 4 + 1] = data[i * 3 + 1]
-    rgba[i * 4 + 2] = data[i * 3 + 2]
+    const src = i * 3
+    rgba[i * 4 + 0] = data[src + 0] ?? 0
+    rgba[i * 4 + 1] = data[src + 1] ?? 0
+    rgba[i * 4 + 2] = data[src + 2] ?? 0
     rgba[i * 4 + 3] = 255
   }
   return rgba
