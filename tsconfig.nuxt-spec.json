@@ -1,0 +1,21 @@
+{
+  "extends": "./.nuxt/tsconfig.app.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "types": ["node"],
+    "checkJs": false,
+    "incremental": false,
+    "tsBuildInfoFile": "./.nuxt/tsconfig.nuxt-spec.tsbuildinfo"
+  },
+  "include": [
+    ".nuxt/nuxt.d.ts",
+    "app/components/**/*.d.ts",
+    "config/**/*.ts",
+    "config/**/*.d.ts",
+    "config/**/*.mjs",
+    "test/**/*.ts",
+    "test/**/*.d.ts",
+    "utils/**/*.ts",
+    "utils/**/*.d.ts",
+  ]
+}

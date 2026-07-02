@@ -12,6 +12,7 @@
   "scripts": {
     "analyze": "nuxt analyze",
     "eslint": "eslint .",
+    "typecheck": "nuxi typecheck",
     "build": "pnpm test && nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
@@ -68,7 +69,8 @@
     "vitest": "4.1.9",
     "vitest-browser-vue": "2.1.0",
     "vue": "~3.5.39",
-    "vue-router": "~5.1.0"
+    "vue-router": "~5.1.0",
+    "vue-tsc": "~3.3.6"
   },
   "packageManager": "pnpm@11.9.0"
 }
