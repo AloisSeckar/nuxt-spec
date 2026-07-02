@@ -7,8 +7,8 @@ import type { DecodedPng } from 'fast-png'
 
 const templatesDir = resolve(fileURLToPath(import.meta.url), '..')
 const REPORT_ENTRY = readFileSync(resolve(templatesDir, 'report-entry.html'), 'utf-8')
-const REPORT_PATH = resolve(process.cwd(), '.report-path')
-const REPORT_LOCK = resolve(process.cwd(), '.report-lock')
+const REPORT_PATH = resolve(process.cwd(), '.nuxt/.nuxt-spec-report-path')
+const REPORT_LOCK = resolve(process.cwd(), '.nuxt/.nuxt-spec-report-lock')
 
 // create report file on first call
 // protected from parallel execution issues
