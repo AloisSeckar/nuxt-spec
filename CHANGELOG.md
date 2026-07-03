@@ -2,9 +2,9 @@
 
 Overview of the newest features in Nuxt Spec.
 
-## 0.2.4-alpha
+## 0.2.4
 
-`2026-07-01`
+`2026-07-03`
 
 - feat: HTML report for failed visual regression tests
 - feat: better validations of options passed into `compareScreenshot` function
@@ -17,6 +17,7 @@ Overview of the newest features in Nuxt Spec.
   - `playwright-core` to `1.61.1`
   - `nuxt` to `4.4.8`
   - `vue` to `3.5.39`
+  - `vue-tsc` to `~3.3.6` (added)
   - `@nuxt/eslint` to `1.16.0`
 
 ## 0.2.3
