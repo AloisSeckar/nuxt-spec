@@ -2,7 +2,7 @@ import { exec } from 'node:child_process'
 import { appendFileSync, existsSync, mkdirSync, readFileSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 import { platform } from 'node:os'
 import { resolve, sep } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import type { DecodedPng } from 'fast-png'
 
 const templatesDir = resolve(fileURLToPath(import.meta.url), '..')
@@ -86,12 +86,15 @@ export function screenshotSetup() {
     let footer = readFileSync(resolve(templatesDir, 'report-tail.html'), 'utf-8')
     footer = footer.replace('{{TIMESTAMP}}', new Date().toISOString())
     appendFileSync(reportPath, footer)
-    console.log(`\n(nuxt-spec) Visual regression report available at:\nfile://${reportPath}`)
+    console.log(`\n(nuxt-spec) Visual regression report available at:\n${pathToFileURL(reportPath).href}`)
 
     if (!process.env.CI) {
       console.log('(nuxt-spec) Opening report in default browser...')
-      const openCmd = platform() === 'darwin' ? 'open' : platform() === 'win32' ? 'start' : 'xdg-open'
-      exec(`${openCmd} "${reportPath}"`, (err) => {
+      const openCmd = 
+        platform() === 'darwin' ? `open "${reportPath}"` : 
+        platform() === 'win32' ?  `start "" "${reportPath}"` :
+        `xdg-open "${reportPath}"`
+      exec(openCmd, (err) => {
         if (err) {
           console.log('(nuxt-spec) Failed to automatically open report')
         }
