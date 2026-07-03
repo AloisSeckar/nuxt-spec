@@ -90,10 +90,12 @@ export function screenshotSetup() {
 
     if (!process.env.CI) {
       console.log('(nuxt-spec) Opening report in default browser...')
-      const openCmd = 
-        platform() === 'darwin' ? `open "${reportPath}"` : 
-        platform() === 'win32' ?  `start "" "${reportPath}"` :
-        `xdg-open "${reportPath}"`
+      const openCmd
+        = platform() === 'darwin'
+          ? `open "${reportPath}"`
+          : platform() === 'win32'
+            ? `start "" "${reportPath}"`
+            : `xdg-open "${reportPath}"`
       exec(openCmd, (err) => {
         if (err) {
           console.log('(nuxt-spec) Failed to automatically open report')
