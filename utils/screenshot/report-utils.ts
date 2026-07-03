@@ -74,6 +74,7 @@ export function screenshotSetup() {
   process.env.SCREENSHOT_REPORT_TIMESTAMP = fileTimestamp
   process.env.SCREENSHOT_REPORT_TITLE = titleTimestamp
 
+  // callback that is executed upon Vitest teardown phase
   return () => {
     if (!existsSync(REPORT_PATH)) return
 
@@ -83,6 +84,16 @@ export function screenshotSetup() {
     if (!reportPath) return
     if (!existsSync(reportPath)) return
 
+    // add "success" / "error" message as a conclusion
+    const reportBody = readFileSync(reportPath, 'utf-8')
+    const hasFailure = reportBody.includes('<div class="failure"')
+    if (hasFailure) {
+      appendFileSync(reportPath, '<p style="color: #b00; font-weight: 700; font-size: 18px;">Tests finished with errors</p>\n')
+    } else {
+      appendFileSync(reportPath, '<p style="color: #0b0; font-weight: 700; font-size: 18px;">All tests have passed</p>\n')
+    }
+
+    // wrap the report up with a footer
     let footer = readFileSync(resolve(templatesDir, 'report-tail.html'), 'utf-8')
     footer = footer.replace('{{TIMESTAMP}}', new Date().toISOString())
     appendFileSync(reportPath, footer)
