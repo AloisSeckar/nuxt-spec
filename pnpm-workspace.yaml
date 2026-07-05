@@ -1,5 +1,9 @@
 # settings for Nuxt & pnpm
 
+packages:
+  - .
+  - docs
+
 # migrated from .npmrc
 # https://pnpm.io/settings#shamefullyhoist
 shamefullyHoist: true
