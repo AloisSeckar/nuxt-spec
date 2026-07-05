@@ -6,7 +6,7 @@ A _"testing done right"_ Nuxt base layer.
 
 ## How to use
 
-See [ONLINE DOCS](https://nuxt-spec.netlify.app/3-1-changelog.html) for all the necessary information.
+See [ONLINE DOCS](https://nuxt-spec.netlify.app) for all the necessary information.
 
 See [CHANGELOG](https://nuxt-spec.netlify.app/3-1-changelog.html) for the full list of changes.
 
