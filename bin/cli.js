@@ -24,7 +24,7 @@ const args = process.argv.slice(2);
         await (await import('./setup.js')).specSetup(args[1] || false)
         break
       default:
-        console.log(`Usage: \`${getCmd()} nuxt-spec setup [true|false]\``)
+        console.log(`Usage: \`${getCmd()} setup [true|false]\``)
         status = 1
     }
   } catch (error) {
@@ -37,17 +37,18 @@ const args = process.argv.slice(2);
 // try detecting what package manager was used
 // to give user appropriate usage hint
 function getCmd() {
+  const command = 'nuxt-spec'
   const packageManager = getPackageManager()
   switch (packageManager) {
     case 'pnpm':
-      return 'pnpx'
+      return `pnpx ${command}`
     case 'yarn':
-      return 'yarn dlx'
+      return `yarn dlx ${command}`
     case 'bun':
-      return 'bunx'
+      return `bunx ${command}`
     case 'deno':
-      return 'deno run --allow-run npm:npx'
+      return `deno run -A npm:${command}`
     default:
-      return 'npx'
+      return `npx ${command}`
   }
 }
