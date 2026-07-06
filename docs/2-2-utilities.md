@@ -1,14 +1,14 @@
 # Nuxt Spec utilities
 
-Nuxt Spec offers a couple of utility functions that are exported via `nuxt-spec/utils` subpackage.
+Nuxt Spec offers a couple of utility functions that are exported via the `nuxt-spec/utils` subpackage.
 
-For detailed type description, see [utils.d.ts](https://github.com/AloisSeckar/nuxt-spec/blob/v0.2.4/utils/index.d.ts).
+For a detailed type description, see [utils.d.ts](https://github.com/AloisSeckar/nuxt-spec/blob/v0.2.4/utils/index.d.ts).
 
 Currently, four E2E utilities are available:
 
 ## `gotoPage`
 
-Navigates to given URL and returns the instance of `NuxtPage` (from `@nuxt/test-utils`).
+Navigates to a given URL and returns the instance of `NuxtPage` (from `@nuxt/test-utils`).
 
 ```ts
 import { gotoPage } from 'nuxt-spec/utils'
@@ -16,7 +16,7 @@ import { gotoPage } from 'nuxt-spec/utils'
 const page: NuxtPage = await gotoPage('url')
 ```
 
-The function assumes there is a Nuxt app instance running. It will use `createPage` utility from Nuxt Test Utils, await navigation to given URL and return the instance for further processing.
+The function assumes there is a Nuxt app instance running. It will use the `createPage` utility from Nuxt Test Utils, await navigation to the given URL, and return the instance for further processing.
 
 ## `getDataHtml`
 
@@ -59,11 +59,11 @@ const html: string =
   await getAPIResultHtml(page, '#api-fetch', '/your-api', '#api-result')
 ```
 
-The function locales the action element, invokes the action and listens for the response. If response is received, it tests whether the returned data URL matches the expectedfragment and then returns the `innerHTML` of the result element.
+The function locates the action element, invokes the action, and listens for the response. If a response is received, it checks whether the returned data URL matches the expected fragment and then returns the `innerHTML` of the result element.
 
 ## `compareScreenshot`
 
-Accepts instance of `NuxtPage`. Takes a screenshot of current viewport and compares it with stored baseline. The comparison is done using `pixelmatch` library. If screenshot doesn't exist (or Vitest is configured to auto-update snapshots), it will be created in __baseline__ subfolder. Screenshot from current run is always captured into __current__ subfolder. If screenshots don't match, the method will cause Vitest test to fail.
+Accepts an instance of `NuxtPage`. Takes a screenshot of the current viewport and compares it with the stored baseline. The comparison is done using the `pixelmatch` library. If the screenshot doesn't exist (or Vitest is configured to auto-update snapshots), it will be created in the __baseline__ subfolder. The screenshot from the current run is always captured into the __current__ subfolder. If the screenshots don't match, the function will cause the Vitest test to fail.
 
 Additionally, the method accepts optional object with extra options:
 
@@ -116,11 +116,11 @@ await compareScreenshot(page, {
 
 ### HTML report file
 
-Any `compareScreenshot` function usage results in an HTML report file being automatically created. The file is generated within the specified `__current__` directory as `report_YYYYMMDDHHMMSS.html`. It contains all failed screenshots comparison. When the test suite is over, the file is attempted to be opened in the system default browser (unless Node operates in `CI` mode).
+Any use of the `compareScreenshot` function results in an HTML report file being created automatically. The file is generated within the specified `__current__` directory as `report_YYYYMMDDHHMMSS.html`. It contains all failed screenshot comparisons. When the test suite is over, an attempt is made to open the file in the system default browser (unless Node operates in `CI` mode).
 
 ### Notice on concurrent execution
 
-The default setting for `e2e` project sets `maxConcurrency: availableParallelism() / 2` which is based on function provided by `node:os` module. You should adjust your tests to match this value or override the default if needed.
+The default setting for the `e2e` project sets `maxConcurrency: availableParallelism() / 2`, which is based on a function provided by the `node:os` module. You should adjust your tests to match this value or override the default if needed.
 
 ### Notice on non-default setups
 
@@ -140,7 +140,7 @@ const screenshotReportSetup =
 export default loadVitestConfig({
   // whatever e2e test you are defining
   test: {
-    // provide it to your `compareScreenshot` using test suite
+    // provide it to the test suite that uses `compareScreenshot`
     globalSetup: [screenshotReportSetup],
     // other config
   },

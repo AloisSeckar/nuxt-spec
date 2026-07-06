@@ -12,7 +12,7 @@ hero:
       link: /1-1-overview
     - theme: alt
       text: Features
-      link: /2-1-features
+      link: /2-1-configuration
     - theme: alt
       text: Changelog
       link: /3-1-changelog
@@ -22,8 +22,8 @@ hero:
 
 features:
   - title: Nuxt Layer
-    details: Use it as base layer and extend from it to gain testing capabilities in your Nuxt apps
-  - title: Single dependency stack
+    details: Use it as a base layer and extend from it to gain testing capabilities in your Nuxt apps
+  - title: Simple dependency stack
     details: All packages required to run unit, component and E2E tests are included and pre-configured
   - title: Useful extra features
     details: Less boilerplate with convenient functions and helpers that automate repetitive tasks

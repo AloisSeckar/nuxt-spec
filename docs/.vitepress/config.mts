@@ -11,7 +11,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Overview', link: '/1-1-overview' },
-      { text: 'Configuration', link: '/2-1-configuration' },
+      { text: 'Features', link: '/2-1-configuration' },
       { text: 'Changelog', link: '/3-1-changelog' },
       { text: 'Contributing', link: '/4-1-contributing' },
     ],

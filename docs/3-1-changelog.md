@@ -1,15 +1,15 @@
 # Changelog
 
-Overview of the newest features in Nuxt Spec.
+Overview of the latest features in Nuxt Spec.
 
 ## 0.2.4
 
 `2026-07-03`
 
 - feat: HTML report for failed visual regression tests
-- feat: better validations of options passed into `compareScreenshot` function
+- feat: better validation of options passed into the `compareScreenshot` function
 - fix: remove obsolete `onlyBuiltDependencies` from CLI setup (#41)
-- build: non-important dependencies are now loosen to `~`
+- build: non-important dependencies are now loosened to `~`
 - build: updated dependencies
   - `vitest` to `4.1.9`
   - `@vue/test-utils` to `2.4.11`
@@ -143,7 +143,7 @@ Overview of the newest features in Nuxt Spec.
 - feat: included `@vitest/browser` and `@vitest/ui` packages
 - feat: added new `browser` project config for Vitest browser-mode tests
 - feat: introduced crude solution for visual regression testing (#2)
-- feat: introduced `compareScrenshot` util function for visual regression testing
+- feat: introduced `compareScreenshot` util function for visual regression testing
 - feat: introduced `gotoPage`, `getDataHtml` and `getAPIResultHtml` helpers for Nuxt E2E tests (#27)
 - fix: created proper custom merging strategy for `test.projects` config (#24)
 - docs: explained latest changes in `README.md`
