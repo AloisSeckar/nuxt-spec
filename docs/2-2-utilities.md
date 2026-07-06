@@ -18,6 +18,8 @@ const page: NuxtPage = await gotoPage('url')
 
 The function assumes there is a Nuxt app instance running. It will use the `createPage` utility from Nuxt Test Utils, await navigation to the given URL, and return the instance for further processing.
 
+A console warn will be produced, if URL param is not a non-empty string.
+
 ## `getDataHtml`
 
 Accepts a source (plain URL or instance of `NuxtPage`) and a CSS selector. Returns `innerHTML` of the element matching the selector.
@@ -32,6 +34,8 @@ const html: string = await getDataHtml('/', '#test')
 // Nuxt page instance
 const html: string = await getDataHtml(page, '#test')
 ```
+
+A console warn will be produced, if any of the params passed are empty or of invalid data type.
 
 ## `getAPIResultHtml`
 
@@ -60,6 +64,8 @@ const html: string =
 ```
 
 The function locates the action element, invokes the action, and listens for the response. If a response is received, it checks whether the returned data URL matches the expected fragment and then returns the `innerHTML` of the result element.
+
+A console warn will be produced, if any of the params passed are empty or of invalid data type.
 
 ## `compareScreenshot`
 
@@ -113,6 +119,8 @@ await compareScreenshot(page, {
   threshold: 0.5,
 }) 
 ```
+
+A console warn will be produced, if `page` is nullish or of wrong type.
 
 ### HTML report file
 

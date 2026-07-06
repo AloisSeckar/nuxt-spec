@@ -5,6 +5,7 @@ import { expect } from 'vitest'
 import { appendToReport, ensureReportCreated, resolveWithin, screenshotSetup, toRGBA } from './screenshot/report-utils'
 import pixelmatch from 'pixelmatch'
 import type { NuxtPage } from '@nuxt/test-utils'
+import { checkPageParam } from './helpers/check-params'
 
 export interface CompareScreenshotOptions {
   /** Name of the PNG file used for baseline storage and comparison (defaults to route and `index.png` for `/`) */
@@ -23,6 +24,8 @@ export interface CompareScreenshotOptions {
 
 // capture a browser screenshot and compare it against a stored baseline PNG
 export async function compareScreenshot(page: NuxtPage, options?: CompareScreenshotOptions): Promise<boolean> {
+  checkPageParam('compareScreenshot:page', page)
+
   const root = process.cwd()
 
   // ensure the target directory stays within the project root
