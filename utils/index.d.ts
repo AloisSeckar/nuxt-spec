@@ -4,7 +4,7 @@ import type { NuxtPage } from '@nuxt/test-utils'
  * Visit a specified URL and return the page instance for further interaction.
  *
  * @param pageName - Path segment appended to the base URL (e.g. `'about'` → `/<about>`)
- * @returns Playwright page instance after navigation and hydration
+ * @returns Playwright page instance after navigation and `hydration` event
  */
 export declare function gotoPage(pageName: string): Promise<NuxtPage>
 

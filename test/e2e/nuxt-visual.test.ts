@@ -15,7 +15,7 @@ describe('Visual Regression', async () => {
     // open a real browser page and navigate to the running Nuxt app
     const page = await createPage()
     await page.setViewportSize({ width: 1280, height: 720 }) // important for consistent results!
-    await page.goto(url('/'), { waitUntil: 'domcontentloaded' })
+    await page.goto(url('/'), { waitUntil: 'hydration' })
 
     // maxDiffPixels or maxDiffPixelRatio can be set to mitigate cross-platform rendering differences
 
@@ -33,7 +33,7 @@ describe('Visual Regression', async () => {
     // open a real browser page and navigate to the running Nuxt app
     const page = await createPage()
     await page.setViewportSize({ width: 1280, height: 720 }) // important for consistent results!
-    await page.goto(url('/'), { waitUntil: 'domcontentloaded' })
+    await page.goto(url('/'), { waitUntil: 'hydration' })
 
     // test visual regression report tool by deliberately failing image
     await expect(compareScreenshot(page, { fileName: 'wrong.png', selector: 'h1', maxDiffPixels: 0 }))
@@ -42,7 +42,7 @@ describe('Visual Regression', async () => {
 
   test('rejects path traversal attempts', async () => {
     const page = await createPage()
-    await page.goto(url('/'), { waitUntil: 'domcontentloaded' })
+    await page.goto(url('/'), { waitUntil: 'hydration' })
 
     // fileName that tries to climb out of its target directory is rejected
     await expect(compareScreenshot(page, { fileName: '../escape.png' }))
