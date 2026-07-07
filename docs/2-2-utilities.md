@@ -2,8 +2,6 @@
 
 Nuxt Spec offers a couple of utility functions that are exported via the `nuxt-spec/utils` subpackage.
 
-For a detailed type description, see [utils.d.ts](https://github.com/AloisSeckar/nuxt-spec/blob/v0.2.4/utils/index.d.ts).
-
 Currently, four E2E utilities are available:
 
 ## `gotoPage`

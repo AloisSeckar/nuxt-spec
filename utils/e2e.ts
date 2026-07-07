@@ -2,7 +2,12 @@ import { createPage, url } from '@nuxt/test-utils/e2e'
 import type { NuxtPage } from '@nuxt/test-utils'
 import { checkPageParam, checkStringParam } from './helpers/check-params'
 
-// visit a specified URL and return the page instance for further interaction
+/**
+ * Visit a specified URL and return the page instance for further interaction.
+ *
+ * @param pageName - Path segment appended to the base URL (e.g. `'about'` → `/<about>`)
+ * @returns Playwright page instance after navigation and `hydration` event
+ */
 export async function gotoPage(pageName: string): Promise<NuxtPage> {
   checkStringParam('gotoPage:pageName', pageName)
 
@@ -12,7 +17,13 @@ export async function gotoPage(pageName: string): Promise<NuxtPage> {
   return page
 }
 
-// extract HTML content from specified element on a given page
+/**
+ * Extract inner HTML content from a specified element on a given page.
+ *
+ * @param page - Playwright page instance, or a page name string (will call `gotoPage` internally)
+ * @param element - CSS selector identifying the target element
+ * @returns The inner HTML of the matched element
+ */
 export async function getDataHtml(page: NuxtPage | string, element: string): Promise<string> {
   const pageInstance = typeof page === 'string' ? await gotoPage(page) : page
 
@@ -23,9 +34,17 @@ export async function getDataHtml(page: NuxtPage | string, element: string): Pro
   return await dataDiv.innerHTML()
 }
 
-// execute an API call and extract HTML content from the result
-// (assumes clickable element that triggers the request
-// and separate element for displaying the response)
+/**
+ * Execute an API call by clicking a trigger element, wait for a successful
+ * response matching the target URL, then extract the inner HTML from the
+ * response element.
+ *
+ * @param page - Playwright page instance, or a page name string (will call `gotoPage` internally)
+ * @param triggerElement - CSS selector for the clickable element that triggers the API request
+ * @param targetUrl - Substring matched against the response URL to identify the expected API call
+ * @param responseElement - CSS selector for the element displaying the API response
+ * @returns The inner HTML of the response element
+ */
 export async function getAPIResultHtml(page: NuxtPage | string, triggerElement: string, targetUrl: string, responseElement: string) {
   const pageInstance = typeof page === 'string' ? await gotoPage(page) : page
 

@@ -34,7 +34,7 @@
       "default": "./config/index.mjs"
     },
     "./utils": {
-      "types": "./utils/index.d.ts",
+      "types": "./utils/index.ts",
       "import": "./utils/index.ts",
       "default": "./utils/index.ts"
     },
