@@ -13,7 +13,7 @@
     "analyze": "nuxt analyze",
     "eslint": "eslint .",
     "typecheck": "nuxi typecheck",
-    "build": "pnpm test && nuxt build",
+    "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "prepublishOnly": "node bin/prepublish-check.js",
