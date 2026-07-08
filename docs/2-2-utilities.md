@@ -16,54 +16,83 @@ const page: NuxtPage = await gotoPage('url')
 
 The function assumes there is a Nuxt app instance running. It will use the `createPage` utility from Nuxt Test Utils, await navigation to the given URL, and return the instance for further processing.
 
-A console warn will be produced, if URL param is not a non-empty string.
+An optional second argument accepts an object with following:
+
+- `waitUntil` - (optional) event to be awaited before the `NuxtPage` instance is returned (defaults to `'hydration'` if not set)
+
+```ts
+import { gotoPage } from 'nuxt-spec/utils'
+  
+// wait for a different event before returning NuxtPage instance
+const page: NuxtPage = await gotoPage('url', { waitUntil: 'domcontentloaded' })
+```
+
+A console warn will be produced, if URL param is not a non-empty string or if waitUntil option is passed and it is not a string.
 
 ## `getDataHtml`
 
-Accepts a source (plain URL or instance of `NuxtPage`) and a CSS selector. Returns `innerHTML` of the element matching the selector.
+Accepts a source (plain URL or instance of `NuxtPage`) and an optional options object. Returns `innerHTML` of the element matching the `element` selector (defaults to the `<body>` tag).
 
 ```ts
 import { getDataHtml } from 'nuxt-spec/utils'
 
 // plain string URL
-// will call `createPage` internally
-const html: string = await getDataHtml('/', '#test') 
+// return innerHTML of the whole <body>
+const html: string = await getDataHtml('/')
 
-// Nuxt page instance
-const html: string = await getDataHtml(page, '#test')
+// target a specific element
+const html: string = await getDataHtml('/', { element: '#test' })
+
+// target a specific element on already existing Nuxt page instance
+const html: string = await getDataHtml(page, { element: '#test' })
 ```
 
-A console warn will be produced, if any of the params passed are empty or of invalid data type.
+The options object accepts:
+
+- `waitUntil` - (optional) event to be awaited before the `NuxtPage` instance is returned (defaults to `'hydration'` if not set); only used when `page` is a string and new `NuxtPage` instance is being constructed internally
+- `element` - (optional) CSS selector identifying the target element (defaults to `<body>` tag if not set)
+
+A console warn will be produced, if page param is empty or any of the params passed are of invalid data type.
 
 ## `getAPIResultHtml`
 
 Accepts:
 
 1. a source (plain URL or instance of `NuxtPage`)
-2. a CSS selector for an element that triggers an API call when clicked (i.e., a button)
-3. a fragment of an API endpoint URL that should be called (to test the response)
-4. a CSS selector for an element where the API response should be rendered (i.e., a div)
+2. an options object describing the API interaction
+
+The options object accepts:
+
+- `triggerElement` (required) - CSS selector for an element that triggers an API call when clicked (i.e., a button)
+- `targetUrl` (required) - a fragment of an API endpoint URL that should be called (to test the response)
+- `responseElement` (required) - CSS selector for an element where the API response should be rendered (i.e., a div)
+- `waitUntil` - (optional) event to be awaited before the `NuxtPage` instance is returned (defaults to `'hydration'` if not set); only used when `page` is a string and new `NuxtPage` instance is being constructed internally
 
 Returns:
 
-- `innerHTML` of the element matching the result selector after the API call is made by Playwright runner
+- `innerHTML` of the element matching the `responseElement` selector after the API call is made by Playwright runner
 
 ```ts
 import { getAPIResultHtml } from 'nuxt-spec/utils'
 
 // plain string URL
-// will call `createPage` internally
-const html: string = 
-  await getAPIResultHtml('/', '#api-fetch', '/your-api', '#api-result')
+const html: string = await getAPIResultHtml('/', {
+  triggerElement: '#api-fetch',
+  targetUrl: '/your-api',
+  responseElement: '#api-result',
+})
 
 // Nuxt page instance
-const html: string = 
-  await getAPIResultHtml(page, '#api-fetch', '/your-api', '#api-result')
+const html: string = await getAPIResultHtml(page, {
+  triggerElement: '#api-fetch',
+  targetUrl: '/your-api',
+  responseElement: '#api-result',
+})
 ```
 
 The function locates the action element, invokes the action, and listens for the response. If a response is received, it checks whether the returned data URL matches the expected fragment and then returns the `innerHTML` of the result element.
 
-A console warn will be produced, if any of the params passed are empty or of invalid data type.
+A console warn will be produced, if any of the required params is empty or any of the params passed are of invalid data type.
 
 ## `compareScreenshot`
 

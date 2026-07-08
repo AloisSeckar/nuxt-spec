@@ -24,19 +24,23 @@ describe('Nuxt Spec E2E test', async () => {
 
     // test html extraction util function
     // 1 - pass existing page instance
-    const dataHtml1 = await getDataHtml(page, 'h1')
+    const dataHtml1 = await getDataHtml(page, { element: 'h1' })
     expect(dataHtml1).toContain('https://nuxt.com?utm_source=nuxt-welcome')
     // 2 - pass url string
-    const dataHtml2 = await getDataHtml('/', 'h1')
+    const dataHtml2 = await getDataHtml('/', { element: 'h1' })
     expect(dataHtml2).toContain('aria-label="Nuxt"')
 
     /*
     // NOTE: THIS WILL ONLY WORK, IF YOU ADD `<NuxtSpecApiTestComponent />`
-    // (or provide an alternative implemenation)
+    // (or provide an alternative implementation)
     // see `getAPIResultHtml` docs for detailed usage
     //
     // test API call and response extraction
-    const apiResultHtml = await getAPIResultHtml('/', '#api-fetch', 'jsonplaceholder.typicode.com/posts', '#api-result')
+    const apiResultHtml = await getAPIResultHtml('/', {
+      triggerElement: '#api-fetch',
+      targetUrl: 'jsonplaceholder.typicode.com/posts',
+      responseElement: '#api-result'
+    })
     expect(apiResultHtml).toContain('"userId": 1')
     expect(apiResultHtml).toContain('id": 1')
     */

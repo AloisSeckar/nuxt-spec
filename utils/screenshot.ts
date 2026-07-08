@@ -7,6 +7,10 @@ import pixelmatch from 'pixelmatch'
 import type { NuxtPage } from '@nuxt/test-utils'
 import { checkPageParam } from './helpers/check-params'
 
+/**
+ * Extra settings object for `compareScreenshot()` function.
+ * All properties are optional.
+ */
 export type CompareScreenshotOptions = {
   /** Name of the PNG file used for baseline storage and comparison (defaults to route and `index.png` for `/`) */
   fileName?: string
@@ -32,7 +36,7 @@ export type CompareScreenshotOptions = {
  * or `maxDiffPixels` to tolerate cross-platform rendering differences.
  *
  * @param page - Playwright page instance obtained from `createPage()`
- * @param options - extra options (see `CompareScreenshotOptions`)
+ * @param options - Optional extra settings (see `CompareScreenshotOptions`)
  * @returns `true` when the screenshot matches the baseline (or a new baseline was saved)
  * @throws Fails the current Vitest test when a mismatch is detected
  */
