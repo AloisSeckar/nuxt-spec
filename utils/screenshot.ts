@@ -79,13 +79,14 @@ export async function compareScreenshot(page: NuxtPage, options?: CompareScreens
   // always save the current screenshot for inspection
   writeFileSync(currentPath, screenshot)
 
-  // @ts-expect-error - this is reliable way of reading Vitest "update" flag
-  const updating = expect.getState().snapshotState?._updateSnapshot === 'all'
-  if (updating || !existsSync(baselinePath)) {
-    // save new baseline screenshot
+  // save baseline if not exist yet
+  if (!existsSync(baselinePath)) {
     writeFileSync(baselinePath, screenshot)
     return true
   }
+
+  // @ts-expect-error - this is reliable way of reading Vitest "update" flag
+  const updateFlag = expect.getState().snapshotState?._updateSnapshot === 'all'
 
   // compare against stored baseline PNG using pixelmatch
   const baseline = readFileSync(baselinePath)
@@ -94,6 +95,12 @@ export async function compareScreenshot(page: NuxtPage, options?: CompareScreens
   const { width, height } = baselineImg
 
   if (actualImg.width !== width || actualImg.height !== height) {
+    // overwrite baseline if Vitest update flag is set
+    if (updateFlag) {
+      writeFileSync(baselinePath, screenshot)
+      return true
+    }
+    // otherwise report failure
     const message = `Screenshot size mismatch: expected ${width}x${height}, got ${actualImg.width}x${actualImg.height}. Actual saved to: ${currentPath}`
     appendToReport(fileName, message, baseline, screenshot)
     expect.fail(message)
@@ -107,6 +114,12 @@ export async function compareScreenshot(page: NuxtPage, options?: CompareScreens
   const maxAllowed = options?.maxDiffPixels ?? Math.ceil(totalPixels * (options?.maxDiffPixelRatio ?? 0))
 
   if (diffCount > maxAllowed) {
+    // overwrite baseline if Vitest update flag is set
+    if (updateFlag) {
+      writeFileSync(baselinePath, screenshot)
+      return true
+    }
+    // otherwise report failure
     const ratio = (diffCount / totalPixels * 100).toFixed(2)
     const message = `Screenshot mismatch: ${diffCount} pixels differ (${ratio}%), allowed ${maxAllowed}. Actual saved to: ${currentPath}`
     appendToReport(fileName, message, baseline, screenshot)
