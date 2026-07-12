@@ -1,5 +1,5 @@
 import { exec } from 'node:child_process'
-import { appendFileSync, existsSync, mkdirSync, readFileSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
+import { appendFileSync, existsSync, readFileSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 import { platform } from 'node:os'
 import { resolve, sep } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
@@ -16,23 +16,32 @@ export function ensureReportCreated(targetDir = 'test/e2e'): void {
   withConcurrentLock(() => {
     let reportPath: string
 
+    if (!existsSync(targetDir)) {
+      throw new Error(`Target directory "${targetDir}" does not exist.`)
+    }
+
     if (existsSync(REPORT_PATH)) {
-      // Keep exactly one shared report per test run; first writer wins.
+      // report file was already created
       reportPath = readFileSync(REPORT_PATH, 'utf-8').trim()
+      // this shouldn't happen...
+      if (!existsSync(reportPath)) {
+        throw new Error(`Invalid data in "${REPORT_PATH}": Report file "${reportPath}" does not exist.`)
+      }
     } else {
-      const root = process.cwd()
-      const dir = resolveWithin(root, targetDir)
+      // for the first time, prepare and store new time-stamped file path
       const fileTimestamp = process.env.SCREENSHOT_REPORT_TIMESTAMP ?? reportTimestamp(new Date())
-      reportPath = resolve(dir, '__current__', `report-${fileTimestamp}.html`)
+      reportPath = resolve(targetDir, '__current__', `report-${fileTimestamp}.html`)
       writeFileSync(REPORT_PATH, reportPath)
     }
 
+    // store the path for `appendToReport`
     process.env.SCREENSHOT_REPORT_PATH = reportPath
-    if (!reportPath || existsSync(reportPath)) return
 
+    // report file was already created
+    if (existsSync(reportPath)) return
+
+    // create new report file from template
     const titleTimestamp = process.env.SCREENSHOT_REPORT_TITLE ?? reportTimestamp(new Date(), true)
-    mkdirSync(resolve(reportPath, '..'), { recursive: true })
-
     const template = readFileSync(resolve(templatesDir, 'report-head.html'), 'utf-8')
     const report = template.replace('{{TIMESTAMP}}', titleTimestamp)
     writeFileSync(reportPath, report)

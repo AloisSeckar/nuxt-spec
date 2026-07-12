@@ -47,13 +47,18 @@ export async function compareScreenshot(page: NuxtPage, options?: CompareScreens
 
   // ensure the target directory stays within the project root
   const dir = resolveWithin(root, options?.targetDir ?? 'test/e2e')
+  mkdirSync(dir, { recursive: true })
+
+  // ensure baseline/current directories exist
+  const baselineDir = resolve(dir, '__baseline__')
+  mkdirSync(baselineDir, { recursive: true })
+  const currentDir = resolve(dir, '__current__')
+  mkdirSync(currentDir, { recursive: true })
 
   // create report file on first call
   ensureReportCreated(dir)
 
-  const baselineDir = resolve(dir, '__baseline__')
-  const currentDir = resolve(dir, '__current__')
-
+  // compute screenshot file name
   const route = page.url().substring(page.url().lastIndexOf('/') + 1) || 'index'
   const fileName = options?.fileName ?? `${route}.png`
 
@@ -72,14 +77,12 @@ export async function compareScreenshot(page: NuxtPage, options?: CompareScreens
     : await page.screenshot({ fullPage: true })
 
   // always save the current screenshot for inspection
-  mkdirSync(currentDir, { recursive: true })
   writeFileSync(currentPath, screenshot)
 
   // @ts-expect-error - this is reliable way of reading Vitest "update" flag
   const updating = expect.getState().snapshotState?._updateSnapshot === 'all'
   if (updating || !existsSync(baselinePath)) {
     // save new baseline screenshot
-    mkdirSync(baselineDir, { recursive: true })
     writeFileSync(baselinePath, screenshot)
     return true
   }
