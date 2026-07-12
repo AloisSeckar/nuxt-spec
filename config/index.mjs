@@ -27,37 +27,53 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
     },
   }
 
-  if (projects === true) {
-    baseConfig.test.projects = [
-      // default fallback to catch tests directly in /test folder
-      {
+  // add proposed projects settings
+  // user can control the inclusion via `projects: ProjectsConfig` config object
+  // projects are included by default unless not explicitly disabled
+  if (projects !== false) {
+    baseConfig.test.projects = []
+
+    // default fallback to catch tests directly in /test folder
+    if (projects.default !== false) {
+      baseConfig.test.projects.push({
         extends: true,
         test: {
           name: 'default',
           include: ['{test,tests}/**/*.{test,spec}.ts', '!test/{browser,e2e,nuxt,unit}/**'],
           environment: 'node',
         },
-      },
-      // proposed setup for Unit tests
-      {
+      })
+    }
+
+    // proposed setup for Unit tests
+    if (projects.node !== false) {
+      baseConfig.test.projects.push({
         extends: true,
         test: {
           name: 'node',
           include: ['test/unit/**/*.{test,spec}.ts'],
           environment: 'node',
         },
-      },
-      // proposed setup for Nuxt component tests
-      await defineVitestProject({
-        extends: true,
-        test: {
-          name: 'nuxt',
-          include: ['test/nuxt/**/*.{test,spec}.ts'],
-          environment: 'nuxt',
-        },
-      }),
-      // proposed setup for classic E2E tests (node-based, using @nuxt/test-utils)
-      {
+      })
+    }
+
+    // proposed setup for Nuxt component tests
+    if (projects.nuxt !== false) {
+      baseConfig.test.projects.push(
+        await defineVitestProject({
+          extends: true,
+          test: {
+            name: 'nuxt',
+            include: ['test/nuxt/**/*.{test,spec}.ts'],
+            environment: 'nuxt',
+          },
+        }),
+      )
+    }
+
+    // proposed setup for classic E2E tests (node-based, using @nuxt/test-utils)
+    if (projects.e2e !== false) {
+      baseConfig.test.projects.push({
         extends: true,
         test: {
           name: 'e2e',
@@ -66,9 +82,12 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
           // create report file for visual regression testing
           globalSetup: [screenshotReportSetup],
         },
-      },
-      // proposed setup for browser component tests (with Playwright runner)
-      {
+      })
+    }
+
+    // proposed setup for browser component tests (with Playwright runner)
+    if (projects.browser !== false) {
+      baseConfig.test.projects.push({
         extends: true,
         // vue plugin is required for proper imports resolution
         plugins: [vue()],
@@ -87,8 +106,8 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
             }],
           },
         },
-      },
-    ]
+      })
+    }
   }
 
   return mergeConfig(userVitestConfig, defineConfig(baseConfig))
