@@ -2,6 +2,18 @@
 
 Overview of the latest features in Nuxt Spec.
 
+## 0.3.0
+
+`2026-07-13`
+
+- BREAKING CHANGE: signature changes to unify all utility methods to accept `page` and `options` param
+- feat: add runtime param guards to utility methods (warn will be emitted if wrong type passed)
+- feat: fine-grained control over default `test.projects` in `loadVitestConfig` function
+- fix: correct `compareScreenshot` implementation to only update baseline images if not exist or a change is detected (and Vitest allows update)
+- fix: adjust usage hints for Deno in CLI
+- refactor: more effective working with FS in utility methods
+- docs: new standalone Vitepress site at <https://nuxt-spec.netlify.app/>
+
 ## 0.2.4
 
 `2026-07-03`
