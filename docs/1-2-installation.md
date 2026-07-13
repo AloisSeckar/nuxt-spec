@@ -5,13 +5,14 @@
 The `nuxt-spec` package comes with a built-in CLI tool that can help you:
 
 - setup the dependency in your project
-- scaffold the default `vitest.config.ts` (see [configuration](#configuration) section)
+- scaffold the default `vitest.config.ts` (see [configuration](/2-1-configuration) section)
 - add some test-related shorthands in your `package.json` (see [running tests](#running-tests) section)
 - create demo test files in proposed file structure
 
 To use it, just run the CLI script in your terminal:
 
 ::: code-group
+
 ```sh [pnpm]
 pnpx nuxt-spec setup
 ```
@@ -25,17 +26,18 @@ yarn dlx nuxt-spec setup
 ```
 
 ```sh [bun]
-$ bunx nuxt-spec setup
+bunx nuxt-spec setup
 ```
 
 ```sh [deno]
-$ deno run -A npm:nuxt-spec setup
+deno run -A npm:nuxt-spec setup
 ```
+
 :::
 
 First, the CLI tool will ask you whether you want to do the setup automatically. If you choose `y`es, it will perform all the steps for you. If you choose `n`o, it will guide you through the manual setup step-by-step (see [manual setup](#manual-setup) section).
 
-Continue to [Install instructions](#)
+Continue to [Install instructions](#install-and-execute)
 
 ### Manual setup
 
@@ -125,6 +127,7 @@ Whether you used the CLI tool or did the manual setup, you are ready to install 
 It is advised to remove `node_modules` and delete the lock file first. Then proceed with a fresh installation.
 
 ::: code-group
+
 ```sh [pnpm]
 pnpm install
 ```
@@ -144,11 +147,13 @@ bun install
 ```sh [deno]
 deno install
 ```
+
 :::
 
 **2)** If you're prompted (for the first time when installing on a new machine, or after a version update), install the headless browser runtimes locally:
 
 ::: code-group
+
 ```sh [pnpm]
 pnpx playwright-core install
 ```
@@ -168,11 +173,13 @@ bunx playwright-core install
 ```sh [deno]
 deno run -A npm:playwright-core install
 ```
+
 :::
 
 **3)** Start the development server of your Nuxt project:
 
 ::: code-group
+
 ```sh [pnpm]
 pnpm dev
 ```
@@ -192,6 +199,7 @@ bun run dev
 ```sh [deno]
 deno task dev
 ```
+
 :::
 
 This is required so all auto-generated files are emitted and all the features and type inference work properly.
@@ -209,6 +217,7 @@ You can use those three optional commands in your `package.json` file in the `"s
 Then you can run them from the root of your project:
 
 ::: code-group
+
 ```sh [pnpm]
 pnpm test        # runs once and ends
 pnpm test-u      # runs once and updates snapshots
@@ -238,6 +247,7 @@ deno task test    # runs once and ends
 deno task test-u  # runs once and updates snapshots
 deno task test-i  # runs and waits in HMR mode
 ```
+
 :::
 
 Or you can use the `vitest` command directly with all its parameters. See [Vitest CLI documentation](https://vitest.dev/guide/cli.html) for more info.
