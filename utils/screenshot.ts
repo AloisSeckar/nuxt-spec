@@ -4,14 +4,17 @@ import { decode } from 'fast-png'
 import { expect } from 'vitest'
 import { appendToReport, ensureReportCreated, resolveWithin, screenshotSetup, toRGBA } from './screenshot/report-utils'
 import pixelmatch from 'pixelmatch'
-import type { NuxtPage } from '@nuxt/test-utils'
+import type { GotoOptions, NuxtPage } from '@nuxt/test-utils'
 import { checkPageParam } from './helpers/check-params'
+import { gotoPage } from './e2e'
 
 /**
  * Extra settings object for `compareScreenshot()` function.
  * All properties are optional.
  */
 export type CompareScreenshotOptions = {
+  /** Event to be awaited before NuxtPage instance is returned (defaults to `'hydration'`) */
+  waitUntil?: GotoOptions['waitUntil']
   /** Name of the PNG file used for baseline storage and comparison (defaults to route and `index.png` for `/`) */
   fileName?: string
   /** Directory for baseline/current screenshots, relative to project root (defaults to `test/e2e`) */
@@ -35,18 +38,22 @@ export type CompareScreenshotOptions = {
  * zero differing pixels are allowed (exact match). Set `maxDiffPixelRatio`
  * or `maxDiffPixels` to tolerate cross-platform rendering differences.
  *
- * @param page - Playwright page instance obtained from `createPage()`
+ * @param page - Playwright page instance, or a page name string (will call `gotoPage` internally)
  * @param options - Optional extra settings (see `CompareScreenshotOptions`)
  * @returns `true` when the screenshot matches the baseline (or a new baseline was saved)
  * @throws Fails the current Vitest test when a mismatch is detected
  */
-export async function compareScreenshot(page: NuxtPage, options?: CompareScreenshotOptions): Promise<boolean> {
-  checkPageParam('compareScreenshot:page', page)
+export async function compareScreenshot(page: NuxtPage | string, options?: CompareScreenshotOptions): Promise<boolean> {
+  const { waitUntil, fileName, targetDir, selector, maxDiffPixelRatio, maxDiffPixels, threshold } = options || {}
+
+  // get NuxtPage instance
+  const pageInstance = typeof page === 'string' ? await gotoPage(page, { waitUntil }) : page
+  checkPageParam('compareScreenshot:pageInstance', pageInstance)
 
   const root = process.cwd()
 
   // ensure the target directory stays within the project root
-  const dir = resolveWithin(root, options?.targetDir ?? 'test/e2e')
+  const dir = resolveWithin(root, targetDir ?? 'test/e2e')
   mkdirSync(dir, { recursive: true })
 
   // ensure baseline/current directories exist
@@ -59,22 +66,22 @@ export async function compareScreenshot(page: NuxtPage, options?: CompareScreens
   ensureReportCreated(dir)
 
   // compute screenshot file name
-  const route = page.url().substring(page.url().lastIndexOf('/') + 1) || 'index'
-  const fileName = options?.fileName ?? `${route}.png`
+  const route = pageInstance.url().substring(pageInstance.url().lastIndexOf('/') + 1) || 'index'
+  const screenshotFile = fileName ?? `${route}.png`
 
   // warning on custom non-png file extensions
-  if (!fileName.toLowerCase().endsWith('.png')) {
-    console.warn(`Screenshots from \`compareScreenshot\` are always saved as PNG. Consider different file name than '${fileName}'.`)
+  if (!screenshotFile.toLowerCase().endsWith('.png')) {
+    console.warn(`Screenshots from \`compareScreenshot\` are always saved as PNG. Consider different file name than '${screenshotFile}'.`)
   }
 
   // ensure the file name cannot escape its target directory
-  const baselinePath = resolveWithin(baselineDir, fileName)
-  const currentPath = resolveWithin(currentDir, fileName)
+  const baselinePath = resolveWithin(baselineDir, screenshotFile)
+  const currentPath = resolveWithin(currentDir, screenshotFile)
 
   // capture element specified by locator or a full-page screenshot as PNG
-  const screenshot = options?.selector
-    ? await page.locator(options.selector).screenshot()
-    : await page.screenshot({ fullPage: true })
+  const screenshot = selector
+    ? await pageInstance.locator(selector).screenshot()
+    : await pageInstance.screenshot({ fullPage: true })
 
   // always save the current screenshot for inspection
   writeFileSync(currentPath, screenshot)
@@ -102,16 +109,16 @@ export async function compareScreenshot(page: NuxtPage, options?: CompareScreens
     }
     // otherwise report failure
     const message = `Screenshot size mismatch: expected ${width}x${height}, got ${actualImg.width}x${actualImg.height}. Actual saved to: ${currentPath}`
-    appendToReport(fileName, message, baseline, screenshot)
+    appendToReport(screenshotFile, message, baseline, screenshot)
     expect.fail(message)
   }
 
   const diffCount = pixelmatch(toRGBA(baselineImg), toRGBA(actualImg), undefined, width, height, {
-    threshold: options?.threshold ?? 0.1,
+    threshold: threshold ?? 0.1,
   })
 
   const totalPixels = width * height
-  const maxAllowed = options?.maxDiffPixels ?? Math.ceil(totalPixels * (options?.maxDiffPixelRatio ?? 0))
+  const maxAllowed = maxDiffPixels ?? Math.ceil(totalPixels * (maxDiffPixelRatio ?? 0))
 
   if (diffCount > maxAllowed) {
     // overwrite baseline if Vitest update flag is set
@@ -122,7 +129,7 @@ export async function compareScreenshot(page: NuxtPage, options?: CompareScreens
     // otherwise report failure
     const ratio = (diffCount / totalPixels * 100).toFixed(2)
     const message = `Screenshot mismatch: ${diffCount} pixels differ (${ratio}%), allowed ${maxAllowed}. Actual saved to: ${currentPath}`
-    appendToReport(fileName, message, baseline, screenshot)
+    appendToReport(screenshotFile, message, baseline, screenshot)
     expect.fail(message)
   }
 

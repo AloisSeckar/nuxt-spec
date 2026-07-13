@@ -96,10 +96,11 @@ A console warn will be produced, if any of the required params is empty or any o
 
 ## `compareScreenshot`
 
-Accepts an instance of `NuxtPage`. Takes a screenshot of the current viewport and compares it with the stored baseline. The comparison is done using the `pixelmatch` library. If the screenshot doesn't exist (or Vitest is configured to auto-update snapshots), it will be created in the __baseline__ subfolder. The screenshot from the current run is always captured into the __current__ subfolder. If the screenshots don't match, the function will cause the Vitest test to fail.
+Accepts a source (plain URL string or instance of `NuxtPage`). Takes a screenshot of the current viewport and compares it with the stored baseline. The comparison is done using the `pixelmatch` library. If the screenshot doesn't exist (or Vitest is configured to auto-update snapshots), it will be created in the __baseline__ subfolder. The screenshot from the current run is always captured into the __current__ subfolder. If the screenshots don't match, the function will cause the Vitest test to fail.
 
 Additionally, the method accepts optional object with extra options:
 
+- `waitUntil` - (optional) event to be awaited before the `NuxtPage` instance is returned (defaults to `'hydration'` if not set); only used when `page` is a string and new `NuxtPage` instance is being constructed internally
 - `fileName` - name of the screenshot file (default is based on current route)
 - `selector` - CSS selector of the element to capture (default is full page)
 - `targetDir` - directory where the screenshots should be stored (default is `./test/e2e/`)
@@ -112,6 +113,9 @@ import { compareScreenshot } from 'nuxt-spec/utils'
 
 // will produce "index.png" file in `./test/e2e/` directory
 await compareScreenshot(page)
+
+// plain string URL - will call gotoPage internally
+await compareScreenshot('/')
 
 // will produce "homepage.png"
 await compareScreenshot(page, { 
