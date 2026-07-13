@@ -5,7 +5,7 @@ import { expect } from 'vitest'
 import { appendToReport, ensureReportCreated, resolveWithin, screenshotSetup, toRGBA } from './screenshot/report-utils'
 import pixelmatch from 'pixelmatch'
 import type { GotoOptions, NuxtPage } from '@nuxt/test-utils'
-import { checkPageParam } from './helpers/check-params'
+import { checkNumberParam, checkPageParam, checkStringParam } from './helpers/check-params'
 import { gotoPage } from './e2e'
 
 /**
@@ -50,9 +50,34 @@ export async function compareScreenshot(page: NuxtPage | string, options?: Compa
   const pageInstance = typeof page === 'string' ? await gotoPage(page, { waitUntil }) : page
   checkPageParam('compareScreenshot:pageInstance', pageInstance)
 
-  const root = process.cwd()
+  // verify params
+  if (typeof page === 'string') {
+    checkStringParam('compareScreenshot:page', page)
+  }
+  if (waitUntil) {
+    checkStringParam('compareScreenshot:options.waitUntil', waitUntil)
+  }
+  if (fileName) {
+    checkStringParam('compareScreenshot:options.fileName', fileName)
+  }
+  if (targetDir) {
+    checkStringParam('compareScreenshot:options.targetDir', targetDir)
+  }
+  if (selector) {
+    checkStringParam('compareScreenshot:options.selector', selector)
+  }
+  if (maxDiffPixelRatio !== undefined) {
+    checkNumberParam('compareScreenshot:options.maxDiffPixelRatio', maxDiffPixelRatio)
+  }
+  if (maxDiffPixels !== undefined) {
+    checkNumberParam('compareScreenshot:options.maxDiffPixels', maxDiffPixels)
+  }
+  if (threshold !== undefined) {
+    checkNumberParam('compareScreenshot:options.threshold', threshold)
+  }
 
   // ensure the target directory stays within the project root
+  const root = process.cwd()
   const dir = resolveWithin(root, targetDir ?? 'test/e2e')
   mkdirSync(dir, { recursive: true })
 

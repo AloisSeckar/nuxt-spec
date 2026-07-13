@@ -11,6 +11,16 @@ export function checkStringParam(paramName: string, paramValue?: string) {
   }
 }
 
+// given string param must be an actual number
+export function checkNumberParam(paramName: string, paramValue?: number) {
+  if (paramValue === undefined || paramValue === null) {
+    console.warn(`Passed value '${paramName}' is missing or empty.\n${locationHint()}`)
+  }
+  if (typeof paramValue !== 'number') {
+    console.warn(`Passed value '${paramName}' is not a number.\n${locationHint()}`)
+  }
+}
+
 // given NuxtPage param must be an actual non-nullish NuxtPage instance
 export function checkPageParam(paramName: string, paramValue?: NuxtPage) {
   if (!paramValue) {
