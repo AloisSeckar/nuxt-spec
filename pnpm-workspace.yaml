@@ -22,11 +22,6 @@ allowBuilds:
 
 # use Vite 8
 overrides:
-  'vite': '^8.0.16'
-  # 2026-07-02
-  # GHSA-g7r4-m6w7-qqqr
-  "esbuild": "~0.28.1"
-  # GHSA-vmf3-w455-68vh
-  "tar": "~7.5.16"
+  'vite': '^8.1.0'
 
 minimumReleaseAgeExclude:
