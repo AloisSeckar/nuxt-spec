@@ -25,3 +25,4 @@ overrides:
   'vite': '^8.1.0'
 
 minimumReleaseAgeExclude:
+  # in case some overrides are necessary...
