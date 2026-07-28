@@ -53,7 +53,7 @@
   ],
   "dependencies": {
     "@nuxt/eslint": "~1.16.0",
-    "@nuxt/test-utils": "4.0.3",
+    "@nuxt/test-utils": "4.1.0",
     "@vitejs/plugin-vue": "~6.0.8",
     "@vitest/browser": "4.1.10",
     "@vitest/browser-playwright": "4.1.10",
