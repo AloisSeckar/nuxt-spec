@@ -23,6 +23,24 @@ Overview of the latest features in Nuxt Spec.
   - `vue-tsc` to `3.3.8`
   - `@vitejs/plugin-vue` to `6.0.8`
 
+## 0.3.0-alpha.3
+
+`2026-07-27`
+
+- build: update deps (Nuxt `v4.5.1`)
+
+## 0.3.0-alpha.2
+
+`2026-07-27`
+
+- build: update deps (Nuxt `v4.5`)
+
+## 0.3.0-alpha
+
+`2026-07-13`
+
+- see `0.3.0`
+
 ## 0.2.4
 
 `2026-07-03`
