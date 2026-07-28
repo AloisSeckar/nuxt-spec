@@ -46,7 +46,7 @@ If you don't want to use the CLI tool, or you want to understand its flow better
 **1)** Add the following dependency to your `package.json`:
 
 ```json
-"nuxt-spec": "0.3.0-alpha"
+"nuxt-spec": "0.3.0"
 ```
 
 It is also advised to remove all explicit `nuxt`, `vue`, and `vue-router` dependencies, if present. The `nuxt-spec` layer includes all of them, and there might be version clashes if they are defined in both places.
@@ -114,7 +114,7 @@ test/
     └── vitest-unit.test.ts
 ```
 
-You can use sample files from the [project repository](https://github.com/AloisSeckar/nuxt-spec/tree/v0.3.0-alpha/test).
+You can use sample files from the [project repository](https://github.com/AloisSeckar/nuxt-spec/tree/v0.3.0/test).
 
 The structure matches the default [configuration](/2-1-configuration) of `nuxt-spec`.
 

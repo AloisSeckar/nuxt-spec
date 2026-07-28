@@ -4,7 +4,7 @@ Overview of the latest features in Nuxt Spec.
 
 ## 0.3.0
 
-`2026-07-13`
+`2026-07-28`
 
 - BREAKING CHANGE: signature changes to unify all utility methods to accept `page` and `options` param
 - feat: add runtime param guards to utility methods (warn will be emitted if wrong type passed)
@@ -13,6 +13,15 @@ Overview of the latest features in Nuxt Spec.
 - fix: adjust usage hints for Deno in CLI
 - refactor: more effective working with FS in utility methods
 - docs: new standalone Vitepress site at <https://nuxt-spec.netlify.app/>
+- build: updated dependencies
+  - `vitest` to `4.1.10`
+  - `happy-dom` to `20.11.0`
+  - `playwright-core` to `1.62.0`
+  - `nuxt` to `4.5.1`
+  - `vue` to `3.5.40`
+  - `vue-router` to `5.2.0`
+  - `vue-tsc` to `3.3.8`
+  - `@vitejs/plugin-vue` to `6.0.8`
 
 ## 0.2.4
 
