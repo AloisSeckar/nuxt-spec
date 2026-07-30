@@ -5,7 +5,7 @@
 The `nuxt-spec` package comes with a built-in CLI tool that can help you:
 
 - setup the dependency in your project
-- scaffold the default `vitest.config.ts` (see [configuration](/2-1-configuration) section)
+- scaffold the default `vitest.config.ts` (see [configuration](2-1-configuration.html) section)
 - add some test-related shorthands in your `package.json` (see [running tests](#running-tests) section)
 - create demo test files in proposed file structure
 
@@ -77,7 +77,7 @@ export default loadVitestConfig({
 })
 ```
 
-This is a wrapper around native Vitest config allowing to merge your custom configs with `nuxt-spec` defaults. See [configuration](/2-1-configuration) section for more info.
+This is a wrapper around native Vitest config allowing to merge your custom configs with `nuxt-spec` defaults. See [configuration](2-1-configuration.html) section for more info.
 
 **5)** Add a `.nuxtrc` file with the following content (if you don't have it yet):
 
@@ -116,7 +116,7 @@ test/
 
 You can use sample files from the [project repository](https://github.com/AloisSeckar/nuxt-spec/tree/v0.3.0/test).
 
-The structure matches the default [configuration](/2-1-configuration) of `nuxt-spec`.
+The structure matches the default [configuration](2-1-configuration.html) of `nuxt-spec`.
 
 ## Install and execute
 
@@ -254,6 +254,6 @@ Or you can use the `vitest` command directly with all its parameters. See [Vites
 
 ## More info
 
-- Continue to the [configuration](/2-1-configuration) to see how you can adjust the default settings.
-- See [changelog](/3-1-changelog.html) to display the latest changes.
-- Visit [contributing guide](/4-1-contributing.html) if you want to help with development.
+- Continue to the [configuration](2-1-configuration.html) to see how you can adjust the default settings.
+- See [changelog](3-1-changelog.html) to display the latest changes.
+- Visit [contributing guide](4-1-contributing.html) if you want to help with development.

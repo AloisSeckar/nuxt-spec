@@ -8,7 +8,7 @@ A _"testing done right"_ Nuxt base layer.
 
 Aside from being forked and adjusted as you see fit, `nuxt-spec` is also available as an [NPM package](https://www.npmjs.com/package/nuxt-spec) that can be referenced as a single-import with all the features incoming.
 
-Proceed to the [installation guide](1-2-installation.md) to see how to set it up in your project.
+Proceed to the [installation guide](1-2-installation.html) to see how to set it up in your project.
 
 ## Why?
 
@@ -35,10 +35,10 @@ Planned future development:
 - reason about (not) using Vitest browser mode (or make it optional)
 - a solution for visual regression testing (currently there is an experimental custom solution)
 
-See [CHANGELOG.md](/3-1-changelog.html) for the latest updates and features.
+See [CHANGELOG.html](3-1-changelog.html) for the latest updates and features.
 
 ## More info
 
-- Continue to the [configuration](/2-1-configuration) to see how you can adjust the default settings.
-- See [changelog](/3-1-changelog.html) to view the latest changes.
-- Visit [contributing guide](/4-1-contributing.html) if you want to help with development.
+- Continue to the [configuration](2-1-configuration.html) to see how you can adjust the default settings.
+- See [changelog](3-1-changelog.html) to view the latest changes.
+- Visit [contributing guide](4-1-contributing.html) if you want to help with development.

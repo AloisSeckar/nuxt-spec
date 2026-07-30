@@ -185,7 +185,7 @@ Overview of the latest features in Nuxt Spec.
 - feat: introduced `compareScreenshot` util function for visual regression testing
 - feat: introduced `gotoPage`, `getDataHtml` and `getAPIResultHtml` helpers for Nuxt E2E tests (#27)
 - fix: created proper custom merging strategy for `test.projects` config (#24)
-- docs: explained latest changes in `README.md`
+- docs: explained latest changes in `README.html`
 - build: updated dependencies
   - `@vitest/browser-playwright` to `4.0.18` (added)
   - `@vitest/ui` to `4.0.18` (added)
@@ -362,7 +362,7 @@ Overview of the latest features in Nuxt Spec.
 `2025-08-09`
 
 - feat: CLI tool for scaffolding `vitest.config.ts` and test-related scripts in `package.json`
-- docs: added `CHANGELOG.md` and fixed link to `playwright-core`
+- docs: added `CHANGELOG.html` and fixed link to `playwright-core`
 
 ## 0.1.0
 
