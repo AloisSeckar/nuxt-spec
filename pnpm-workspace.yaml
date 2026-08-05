@@ -4,12 +4,12 @@ packages:
   - .
   - docs
 
-# migrated from .npmrc
-# https://pnpm.io/settings#shamefullyhoist
+# moved from .npmrc
+# https://pnpm.io/settings/node-modules#shamefullyhoist
 shamefullyHoist: true
 
-# migrated from package.json
-# https://pnpm.io/settings#onlybuiltdependencies
+# moved from package.json
+# https://pnpm.io/settings/build#allowbuilds
 allowBuilds:
   # provides fallback repair of platform-specific Rust native engine
   'unrs-resolver': true
@@ -18,11 +18,12 @@ allowBuilds:
   '@parcel/watcher': false
   # optimization for CLI usage of 'esbuild'
   # disabled because its runtime resolves native binaries itself
-  esbuild: false
+  'esbuild': false
 
 # use Vite 8
 overrides:
   'vite': '^8.1.0'
 
+# https://pnpm.io/settings/dependency-resolution#minimumreleaseageexclude
 minimumReleaseAgeExclude:
   # in case some overrides are necessary...
