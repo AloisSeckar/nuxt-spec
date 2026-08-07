@@ -22,6 +22,7 @@ import {
  *  7) creates sample test files
  *  8) clear node_modules and lock file(s)
  *  9) run install command
+ * 10) run Playwright setup command
  *
  * @param {boolean} autoRun - Whether to run the setup automatically without any prompts (defaults to false).
  */
@@ -239,13 +240,44 @@ export async function specSetup(autoRun = false) {
     }
   }
 
-  // 10) inform user
+  // 10) run Playwright browser install command
+  const playwrightInstallCmd = getPlaywrightInstallCmd(packageManager)
+  const runPlaywrightInstall = isAutoRun || await promptUser(`Playwright browser runtimes might need to be installed locally for e2e tests. Do you want to run \`${playwrightInstallCmd}\` now?`)
+  if (runPlaywrightInstall) {
+    try {
+      showMessage(`Running \`${playwrightInstallCmd}\`...`)
+      execSync(playwrightInstallCmd, { stdio: 'inherit' })
+    } catch (error) {
+      console.error(`Error running \`${playwrightInstallCmd}\`:\n`, error.message)
+    }
+  }
+
+  // 11) inform user
   showMessage('')
   showMessage('NUXT SPEC SETUP COMPLETE', 2)
   if (!runInstall) {
-    showMessage(`Proceed with \`${packageManager} install\` to get started.`)
+    showMessage(`Proceed with \`${packageManager} install\` to install dependencies.`)
+  }
+  if (!runPlaywrightInstall) {
+    showMessage(`Run \`${playwrightInstallCmd}\` to setup the Playwright browser runtimes for e2e tests.`)
   }
 
   // force exit to prevent #20
   process.exit(0)
+}
+
+function getPlaywrightInstallCmd(packageManager) {
+  const command = 'playwright-core install'
+  switch (packageManager) {
+    case 'pnpm':
+      return `pnpm exec ${command}`
+    case 'yarn':
+      return `yarn ${command}`
+    case 'bun':
+      return `bunx ${command}`
+    case 'deno':
+      return `deno run -A npm:${command}`
+    default:
+      return `npx ${command}`
+  }
 }

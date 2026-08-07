@@ -8,6 +8,7 @@ The `nuxt-spec` package comes with a built-in CLI tool that can help you:
 - scaffold the default `vitest.config.ts` (see [configuration](2-1-configuration.html) section)
 - add some test-related shorthands in your `package.json` (see [running tests](#running-tests) section)
 - create demo test files in proposed file structure
+- install the Playwright browser runtimes needed to run the e2e tests
 
 To use it, just run the CLI script in your terminal:
 
@@ -150,12 +151,12 @@ deno install
 
 :::
 
-**2)** If you're prompted (for the first time when installing on a new machine, or after a version update), install the headless browser runtimes locally:
+**2)** If you're prompted (for the first time when installing on a new machine, or after a version update), install the headless browser runtimes locally (the CLI tool can do this for you as its last step):
 
 ::: code-group
 
 ```sh [pnpm]
-pnpx playwright-core install
+pnpm exec playwright-core install
 ```
 
 ```sh [npm]
@@ -163,7 +164,7 @@ npx playwright-core install
 ```
 
 ```sh [yarn]
-yarn dlx playwright-core install
+yarn playwright-core install
 ```
 
 ```sh [bun]
