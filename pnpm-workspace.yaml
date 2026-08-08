@@ -30,6 +30,12 @@ overrides:
   'js-yaml': '^4.3.1'
   # CVE-2026-69153
   'postcss': '^8.5.26'
+  # CVE-2026-13311
+  'shell-quote': '^1.9.0'
+  # GHSA-r292-9mhp-454m
+  'tar': '^7.5.21'
+  # GHSA-2p49-hgcm-8545
+  'svgo': '^4.0.2'
 
 # https://pnpm.io/settings/dependency-resolution#minimumreleaseageexclude
 minimumReleaseAgeExclude:
