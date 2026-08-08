@@ -8,7 +8,7 @@ import {
 } from 'elrh-cosca'
 import { getPlaywrightInstallCmd } from './helpers/commands'
 
-const TARGET_VERSION = '0.3.0'
+const TARGET_VERSION = '0.3.1-alpha.1'
 
 /**
  * CLI tool to scaffold necessary adjustments in project folder.

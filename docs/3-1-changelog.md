@@ -2,6 +2,25 @@
 
 Overview of the latest features in Nuxt Spec.
 
+## 0.3.1
+
+`2026-08-08`
+
+- feat: enhanced CLI `setup` script to handle `playwright-core` local setup (#44)
+- feat: new CLI `update` script to refresh existing installation (#44)
+- build: updated dependencies
+  - `happy-dom` to `20.11.2`
+  - `playwright-core` to `1.62.1`
+  - `nuxt` to `4.5.2`
+  - `vue-tsc` to `3.3.9`
+  - `@nuxt/eslint` to `1.17.0`
+
+## 0.3.1-alpha.1
+
+`2026-08-08`
+
+- see `0.3.1`
+
 ## 0.3.0
 
 `2026-07-28`

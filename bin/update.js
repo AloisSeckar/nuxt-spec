@@ -4,7 +4,7 @@ import { execSync } from 'node:child_process'
 import { getPackageManager, hasJsonKey, promptUser, showMessage } from 'elrh-cosca'
 import { getPlaywrightInstallCmd, getUpdateCmd } from './helpers/commands'
 
-const TARGET_VERSION = '0.3.0'
+const TARGET_VERSION = '0.3.1-alpha.1'
 
 /**
  * CLI tool to update existing `nuxt-spec` installation.
