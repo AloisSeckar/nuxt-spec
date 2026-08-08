@@ -2,7 +2,7 @@
 
 import { execSync } from 'node:child_process'
 import { getPackageManager, hasJsonKey, promptUser, showMessage } from 'elrh-cosca'
-import { getPlaywrightInstallCmd, getUpdateCmd } from './helpers/commands'
+import { getPlaywrightInstallCmd, getUpdateCmd } from './helpers/commands.js'
 
 const TARGET_VERSION = '0.3.1-alpha.1'
 

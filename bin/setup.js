@@ -6,7 +6,7 @@ import {
   pathExists, promptUser, removeFromJsonFile, showMessage,
   updateConfigFile, updateJsonFile, updateTextFile,
 } from 'elrh-cosca'
-import { getPlaywrightInstallCmd } from './helpers/commands'
+import { getPlaywrightInstallCmd } from './helpers/commands.js'
 
 const TARGET_VERSION = '0.3.1-alpha.1'
 
