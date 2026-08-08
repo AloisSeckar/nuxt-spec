@@ -24,8 +24,10 @@ overrides:
   # use Vite 8
   'vite': '^8.1.0'
   # CVE-2026-69152
-  'brace-expansion@2': '2.1.4'
-  'brace-expansion@5': '5.0.9'
+  'brace-expansion@2': '^2.1.4'
+  'brace-expansion@5': '^5.0.9'
+  # CVE-2026-59869
+  'js-yaml': '^4.3.1'
 
 # https://pnpm.io/settings/dependency-resolution#minimumreleaseageexclude
 minimumReleaseAgeExclude:
