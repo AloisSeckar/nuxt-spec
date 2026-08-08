@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     dirs: [{ path: '~/components', ignore: ['index.ts'] }],
   },
 
-  compatibilityDate: '2026-07-21',
+  compatibilityDate: '2026-08-08',
 
   eslint: {
     config: {
