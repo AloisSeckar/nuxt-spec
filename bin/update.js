@@ -2,6 +2,7 @@
 
 import { execSync } from 'node:child_process'
 import { getPackageManager, hasJsonKey, promptUser, showMessage } from 'elrh-cosca'
+import { getPlaywrightInstallCmd, getUpdateCmd } from './helpers/commands'
 
 const PACKAGE_NAME = 'nuxt-spec'
 const TARGET_VERSION = '0.3.0'
@@ -37,7 +38,7 @@ export async function specUpdate(autoRun = false) {
   const packageManager = getPackageManager()
 
   // 1) run 'update nuxt-spec'
-  const updateCmd = getUpdateCmd(packageManager)
+  const updateCmd = getUpdateCmd(packageManager, `${PACKAGE_NAME}@${TARGET_VERSION}`)
   const runUpdate = isAutoRun || await promptUser(`This will bump '${PACKAGE_NAME}' to version '${TARGET_VERSION}' by running \`${updateCmd}\`. Continue?`)
   if (runUpdate) {
     try {
@@ -49,7 +50,7 @@ export async function specUpdate(autoRun = false) {
   }
 
   // 2) run 'playwright-core install'
-  const playwrightUpdateCmd = getPlaywrightUpdateCmd(packageManager)
+  const playwrightUpdateCmd = getPlaywrightInstallCmd(packageManager)
   const runPlaywrightUpdate = isAutoRun || await promptUser(`Playwright browser runtimes might need to be updated for e2e tests. Do you want to run \`${playwrightUpdateCmd}\` now?`)
   if (runPlaywrightUpdate) {
     try {
@@ -72,36 +73,4 @@ export async function specUpdate(autoRun = false) {
 
   // force exit to prevent #20
   process.exit(0)
-}
-
-function getUpdateCmd(packageManager) {
-  const target = `${PACKAGE_NAME}@${TARGET_VERSION}`
-  switch (packageManager) {
-    case 'pnpm':
-      return `pnpm update ${target}`
-    case 'yarn':
-      return `yarn upgrade ${target}`
-    case 'bun':
-      return `bun update ${target}`
-    case 'deno':
-      return `deno add npm:${target}`
-    default:
-      return `npm update ${target}`
-  }
-}
-
-function getPlaywrightUpdateCmd(packageManager) {
-  const command = 'playwright-core install'
-  switch (packageManager) {
-    case 'pnpm':
-      return `pnpm exec ${command}`
-    case 'yarn':
-      return `yarn ${command}`
-    case 'bun':
-      return `bunx ${command}`
-    case 'deno':
-      return `deno run -A npm:${command}`
-    default:
-      return `npx ${command}`
-  }
 }

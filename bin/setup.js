@@ -6,6 +6,7 @@ import {
   pathExists, promptUser, removeFromJsonFile, showMessage,
   updateConfigFile, updateJsonFile, updateTextFile,
 } from 'elrh-cosca'
+import { getPlaywrightInstallCmd } from './helpers/commands'
 
 /**
  * CLI tool to scaffold necessary adjustments in project folder.
@@ -264,20 +265,4 @@ export async function specSetup(autoRun = false) {
 
   // force exit to prevent #20
   process.exit(0)
-}
-
-function getPlaywrightInstallCmd(packageManager) {
-  const command = 'playwright-core install'
-  switch (packageManager) {
-    case 'pnpm':
-      return `pnpm exec ${command}`
-    case 'yarn':
-      return `yarn ${command}`
-    case 'bun':
-      return `bunx ${command}`
-    case 'deno':
-      return `deno run -A npm:${command}`
-    default:
-      return `npx ${command}`
-  }
 }

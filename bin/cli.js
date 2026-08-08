@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { getPackageManager } from 'elrh-cosca'
+import { getCmd } from './helpers/commands.js'
 
 /**
  * CLI tool to scaffold necessary adjustments in project folder.
@@ -36,22 +36,3 @@ const args = process.argv.slice(2);
   }
   process.exit(status)
 })()
-
-// try detecting what package manager was used
-// to give user appropriate usage hint
-function getCmd() {
-  const command = 'nuxt-spec'
-  const packageManager = getPackageManager()
-  switch (packageManager) {
-    case 'pnpm':
-      return `pnpx ${command}`
-    case 'yarn':
-      return `yarn dlx ${command}`
-    case 'bun':
-      return `bunx ${command}`
-    case 'deno':
-      return `deno run -A npm:${command}`
-    default:
-      return `npx ${command}`
-  }
-}
