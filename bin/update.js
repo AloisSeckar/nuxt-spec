@@ -4,7 +4,6 @@ import { execSync } from 'node:child_process'
 import { getPackageManager, hasJsonKey, promptUser, showMessage } from 'elrh-cosca'
 import { getPlaywrightInstallCmd, getUpdateCmd } from './helpers/commands'
 
-const PACKAGE_NAME = 'nuxt-spec'
 const TARGET_VERSION = '0.3.0'
 
 /**
@@ -25,10 +24,10 @@ export async function specUpdate(autoRun = false) {
   showMessage('Refer to the documentation for more information.', 2)
 
   // fail fast if there is nothing to update
-  const isInstalled = hasJsonKey('package.json', `dependencies.${PACKAGE_NAME}`)
-    || hasJsonKey('package.json', `devDependencies.${PACKAGE_NAME}`)
+  const isInstalled = hasJsonKey('package.json', `dependencies.nuxt-spec`)
+    || hasJsonKey('package.json', `devDependencies.nuxt-spec`)
   if (!isInstalled) {
-    console.error(`'${PACKAGE_NAME}' was not found in your 'package.json'. Run the 'setup' command first.`)
+    console.error(`'nuxt-spec' was not found in your 'package.json'. Run the 'setup' command first.`)
     process.exit(1)
   }
 
@@ -38,8 +37,8 @@ export async function specUpdate(autoRun = false) {
   const packageManager = getPackageManager()
 
   // 1) run 'update nuxt-spec'
-  const updateCmd = getUpdateCmd(packageManager, `${PACKAGE_NAME}@${TARGET_VERSION}`)
-  const runUpdate = isAutoRun || await promptUser(`This will bump '${PACKAGE_NAME}' to version '${TARGET_VERSION}' by running \`${updateCmd}\`. Continue?`)
+  const updateCmd = getUpdateCmd(packageManager, `nuxt-spec@${TARGET_VERSION}`)
+  const runUpdate = isAutoRun || await promptUser(`This will bump 'nuxt-spec' to version '${TARGET_VERSION}' by running \`${updateCmd}\`. Continue?`)
   if (runUpdate) {
     try {
       showMessage(`Running \`${updateCmd}\`...`)
@@ -65,7 +64,7 @@ export async function specUpdate(autoRun = false) {
   showMessage('')
   showMessage('NUXT SPEC UPDATE COMPLETE', 2)
   if (!runUpdate) {
-    showMessage(`Run \`${updateCmd}\` to update '${PACKAGE_NAME}'.`)
+    showMessage(`Run \`${updateCmd}\` to update 'nuxt-spec'.`)
   }
   if (!runPlaywrightUpdate) {
     showMessage(`Run \`${playwrightUpdateCmd}\` to update the Playwright browser runtimes for e2e tests.`)
