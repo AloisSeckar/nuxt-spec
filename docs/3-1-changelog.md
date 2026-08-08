@@ -15,6 +15,12 @@ Overview of the latest features in Nuxt Spec.
   - `vue-tsc` to `3.3.9`
   - `@nuxt/eslint` to `1.17.0`
 
+## 0.3.1-alpha.2
+
+`2026-08-08`
+
+- fixed CLI script errors (JS file imports + GitHub links)
+
 ## 0.3.1-alpha.1
 
 `2026-08-08`
