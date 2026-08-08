@@ -205,6 +205,41 @@ deno task dev
 
 This is required so all auto-generated files are emitted and all the features and type inference work properly.
 
+## Updating
+
+If `nuxt-spec` is already installed in your project, you can use the same CLI tool with the `update` command to update the existing installation:
+
+::: code-group
+
+```sh [pnpm]
+pnpx nuxt-spec update
+```
+
+```sh [npm]
+npx nuxt-spec update
+```
+
+```sh [yarn]
+yarn dlx nuxt-spec update
+```
+
+```sh [bun]
+bunx nuxt-spec update
+```
+
+```sh [deno]
+deno run -A npm:nuxt-spec update
+```
+
+:::
+
+It works the same way as `setup` - first asking whether to run automatically, then either performing all the steps or asking for confirmation before each one. If `nuxt-spec` is not found in your `package.json`, it will fail and ask you to run `setup` first.
+
+The `update` command will:
+
+- run package manager's update command (e.g. `pnpm update nuxt-spec@0.3.0`) to bump `nuxt-spec` to the latest version
+- run the `playwright-core install` command to ensure the Playwright browser runtimes are up to date
+
 ## Running tests
 
 Once installed, Vitest automatically discovers all `*.test.ts` and `*.spec.ts` files in the project and becomes capable of running them.
