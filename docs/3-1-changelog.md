@@ -2,6 +2,14 @@
 
 Overview of the latest features in Nuxt Spec.
 
+## 0.3.2
+
+`2026-08-14`
+
+- feat: add `@nuxt/hints` integration (#45)
+- build: updated dependencies
+  - `@nuxt/hints` to `1.1.4` (added)
+
 ## 0.3.1
 
 `2026-08-08`
