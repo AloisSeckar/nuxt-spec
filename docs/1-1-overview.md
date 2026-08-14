@@ -29,6 +29,7 @@ The most important client of `nuxt-spec` is my [Nuxt Ignis](https://github.com/A
 - [playwright-core](https://www.npmjs.com/package/playwright-core) as the headless browser testing framework
 - [@vue/test-utils](https://www.npmjs.com/package/@vue/test-utils) for testing Vue stuff
 - [@nuxt/test-utils](https://www.npmjs.com/package/@nuxt/test-utils) for testing Nuxt stuff
+- [@nuxt/hints](https://nuxt.com/modules/hints) for DevTools performance, hydration, and security tips (enabled by default, can be opted-out via [configuration](2-1-configuration.html#nuxt-hints-integration))
 
 Planned future development:
 

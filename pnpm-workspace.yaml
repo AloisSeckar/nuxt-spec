@@ -39,5 +39,4 @@ overrides:
 
 # https://pnpm.io/settings/dependency-resolution#minimumreleaseageexclude
 minimumReleaseAgeExclude:
-  # build 2026-08-08 @ 16:10 CEST
-  - happy-dom@20.11.2
+  # none

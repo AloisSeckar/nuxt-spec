@@ -53,6 +53,7 @@
   ],
   "dependencies": {
     "@nuxt/eslint": "~1.17.0",
+    "@nuxt/hints": "1.1.4",
     "@nuxt/test-utils": "4.1.0",
     "@vitejs/plugin-vue": "~6.0.8",
     "@vitest/browser": "4.1.10",
@@ -72,5 +73,5 @@
     "vue-router": "~5.2.0",
     "vue-tsc": "~3.3.9"
   },
-  "packageManager": "pnpm@11.20.0"
+  "packageManager": "pnpm@11.21.0"
 }

@@ -57,3 +57,15 @@ Some tedious and irrelevant log messages may keep appearing in running tests, cr
 Via the `NUXT_SPEC_MESSAGE_FILTERS` env variable, you can pass a comma-separated list of plain text patterns that should be omitted.
 
 It only applies to logs processed by `vitest` though, so some messages might still prevail.
+
+## Nuxt Hints integration
+
+Nuxt Spec includes [@nuxt/hints](https://nuxt.com/modules/hints), a module that enhances DevTools with warnings about performance, hydration mismatches, third-party scripts, and other best practices, by default.
+
+If you don't want to use it, set the `NUXT_SPEC_HINTS_ENABLED` env variable to `false`:
+
+```sh
+NUXT_SPEC_HINTS_ENABLED=false
+```
+
+The module is served with its default configuration. See the [module documentation](https://nuxt.com/modules/hints#module-options) for additional config options of the module itself.
