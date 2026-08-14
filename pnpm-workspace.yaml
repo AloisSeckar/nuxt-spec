@@ -36,6 +36,8 @@ overrides:
   'tar': '^7.5.21'
   # GHSA-2p49-hgcm-8545
   'svgo': '^4.0.2'
+  # CVE-2026-67213
+  'nanoid': '^3.3.18'
 
 # https://pnpm.io/settings/dependency-resolution#minimumreleaseageexclude
 minimumReleaseAgeExclude:
