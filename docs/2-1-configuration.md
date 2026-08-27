@@ -1,5 +1,7 @@
 # Nuxt Spec configuration
 
+## Vitest setup
+
 By default, `nuxt-spec` uses Vitest configuration defined in [`/config/index.mjs`](https://github.com/AloisSeckar/nuxt-spec/blob/v0.3.2/config/index.mjs). The configuration is based on [Nuxt team recommendations](https://nuxt.com/docs/4.x/getting-started/testing) and our best judgement.
 
 To add/override your custom config, you can create (or scaffold via CLI tool) a file named `vitest.config.ts` in the root of your project with the following content:
@@ -38,7 +40,11 @@ By default, Nuxt Spec built-in configuration establishes 4 `projects` + one fall
 - `browser` - for browser-mode tests in `test/browser/**` - env is set to `node` (this is effectively an alternative to `nuxt` relying on `@vitest/browser` instead of `@nuxt/test-utils`)
 - `default` - fallback for all other tests in `test/**` and/or `tests/**` directories - env is set to `node`
 
-Vitest will then expect at least one test defined in either of those directories. Any part of the `test.projects` config may be altered, and user-defined values will be logically merged with the defaults. You may also add definitions for new custom projects to fit your needs. If your project uses a significantly different configuration (i.e. your tests reside in completely different paths), you can pass `false` as the second parameter to the `loadVitestConfig()` function to exclude the default `test.projects` values from being injected completely:
+Vitest will then expect at least one test defined in either of those directories. Any part of the `test.projects` config may be altered, and user-defined values will be logically merged with the defaults. You may also add definitions for new custom projects to fit your needs.
+
+### Configuring projects
+
+If your project uses a significantly different configuration (i.e. your tests reside in completely different paths), you can pass `false` as the second parameter to the `loadVitestConfig()` function to exclude the default `test.projects` values from being injected completely:
 
 ```ts [vitest.config.ts]
 import { loadVitestConfig } from 'nuxt-spec/config'
@@ -48,7 +54,19 @@ export default loadVitestConfig({
 }, false)
 ```
 
-Alternatively, if you don't want to use any part of the `nuxt-spec` default configuration at all, you can override `vitest.config.ts` file completely and define your own [Vitest configuration](https://vitest.dev/config/) from scratch.
+For fine-grained control over included projects, you can also use a [config object](https://github.com/AloisSeckar/nuxt-spec/blob/v0.3.2/config/index.d.ts#L16). When config object is used, only projects with explicitly passed `true` value will be included. For example, using this setting, only `unit` and `nuxt` will be activated:
+
+```ts [vitest.config.ts]
+import { loadVitestConfig } from 'nuxt-spec/config'
+
+export default loadVitestConfig({
+  // your custom config here
+}, { unit: true, nuxt: true })
+```
+
+## Opting-out from defaults
+
+If you don't want to use any part of the `nuxt-spec` default configuration at all, you can override `vitest.config.ts` file completely and define your own [Vitest configuration](https://vitest.dev/config/) from scratch.
 
 ## Filtering out log messages
 
