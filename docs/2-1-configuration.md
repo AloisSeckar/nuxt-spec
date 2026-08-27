@@ -4,7 +4,7 @@ By default, `nuxt-spec` uses Vitest configuration defined in [`/config/index.mjs
 
 To add/override your custom config, you can create (or scaffold via CLI tool) a file named `vitest.config.ts` in the root of your project with the following content:
 
-```ts
+```ts [vitest.config.ts]
 import { loadVitestConfig } from 'nuxt-spec/config'
 
 export default loadVitestConfig({
@@ -16,7 +16,7 @@ And pass whatever you want as a parameter object. It will be defu-merged with th
 
 **NOTE**: Based on the [Vitest documentation](https://main.vitest.dev/config/), it is possible to pass in **any configuration option** valid for [Vite](https://vite.dev/config/). Configuration related directly to Vitest must be passed under the `test` key, e.g.:
 
-```ts
+```ts [vitest.config.ts]
 import { loadVitestConfig } from 'nuxt-spec/config'
 
 export default loadVitestConfig({
@@ -40,7 +40,7 @@ By default, Nuxt Spec built-in configuration establishes 4 `projects` + one fall
 
 Vitest will then expect at least one test defined in either of those directories. Any part of the `test.projects` config may be altered, and user-defined values will be logically merged with the defaults. You may also add definitions for new custom projects to fit your needs. If your project uses a significantly different configuration (i.e. your tests reside in completely different paths), you can pass `false` as the second parameter to the `loadVitestConfig()` function to exclude the default `test.projects` values from being injected completely:
 
-```ts
+```ts [vitest.config.ts]
 import { loadVitestConfig } from 'nuxt-spec/config'
 
 export default loadVitestConfig({
@@ -64,7 +64,7 @@ Nuxt Spec includes [@nuxt/hints](https://nuxt.com/modules/hints), a module that 
 
 If you don't want to use it, set the `NUXT_SPEC_HINTS_ENABLED` env variable to `false`:
 
-```sh
+```sh [.env]
 NUXT_SPEC_HINTS_ENABLED=false
 ```
 

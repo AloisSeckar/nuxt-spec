@@ -46,7 +46,7 @@ If you don't want to use the CLI tool, or you want to understand its flow better
 
 **1)** Add the following dependency to your `package.json`:
 
-```json
+```json [package.json]
 "nuxt-spec": "0.3.2"
 ```
 
@@ -54,7 +54,7 @@ It is also advised to remove all explicit `nuxt`, `vue`, and `vue-router` depend
 
 **2)** Add the following section to your `nuxt.config.ts`:
 
-```ts
+```ts [nuxt.config.ts]
 extends: [
   'nuxt-spec'
 ]
@@ -62,7 +62,7 @@ extends: [
 
 **3)** If `pnpm` is used, add a `pnpm-workspace.yaml` file with the following content (if you don't have it yet):
 
-```yaml
+```yaml [pnpm-workspace.yaml]
 shamefullyHoist: true
 ```
 
@@ -70,7 +70,7 @@ This will ensure the dependencies will be pulled into your project without havin
 
 **4)** Add a `vitest.config.ts` file with the following content (if you don't have it yet):
 
-```ts
+```ts [vitest.config.ts]
 import { loadVitestConfig } from 'nuxt-spec/config'
 
 export default loadVitestConfig({
@@ -82,7 +82,7 @@ This is a wrapper around native Vitest config allowing to merge your custom conf
 
 **5)** Add a `.nuxtrc` file with the following content (if you don't have it yet):
 
-```text
+```text [.nuxtrc]
 setups.@nuxt/test-utils="4.0.3"
 ```
 
@@ -90,7 +90,7 @@ Nuxt will auto-generate the file anyway if you do not create it.
 
 **6)** (Optional) Add the following scripts to your `package.json`:
 
-```json
+```json [package.json]
 "scripts": {
   "test": "vitest run",
   "test-u": "vitest run -u",

@@ -8,7 +8,7 @@ Currently, four E2E utilities are available:
 
 Navigates to a given URL and returns the instance of `NuxtPage` (from `@nuxt/test-utils`).
 
-```ts
+```ts [your-file.ts]
 import { gotoPage } from 'nuxt-spec/utils'
 
 const page: NuxtPage = await gotoPage('url')
@@ -20,7 +20,7 @@ An optional second argument accepts an object with following:
 
 - `waitUntil` - (optional) event to be awaited before the `NuxtPage` instance is returned (defaults to `'hydration'` if not set)
 
-```ts
+```ts [your-file.ts]
 import { gotoPage } from 'nuxt-spec/utils'
   
 // wait for a different event before returning NuxtPage instance
@@ -33,7 +33,7 @@ A console warn will be produced, if URL param is not a non-empty string or if wa
 
 Accepts a source (plain URL or instance of `NuxtPage`) and an optional options object. Returns `innerHTML` of the element matching the `element` selector (defaults to the `<body>` tag).
 
-```ts
+```ts [your-file.ts]
 import { getDataHtml } from 'nuxt-spec/utils'
 
 // plain string URL
@@ -72,7 +72,7 @@ Returns:
 
 - `innerHTML` of the element matching the `responseElement` selector after the API call is made by Playwright runner
 
-```ts
+```ts [your-file.ts]
 import { getAPIResultHtml } from 'nuxt-spec/utils'
 
 // plain string URL
@@ -108,7 +108,7 @@ Additionally, the method accepts optional object with extra options:
 - `maxDiffPixels` - same but with exact max value of different pixels which overrides setting `maxDiffPixelRatio` (default 0)
 - `threshold` - allows adjusting the tolerance for "same" color on 0-1 scale (default 0.1)
 
-```ts
+```ts [your-file.ts]
 import { compareScreenshot } from 'nuxt-spec/utils'
 
 // will produce "index.png" file in `./test/e2e/` directory
@@ -167,7 +167,7 @@ The creation of the report file and its proper wrap-up at the end is ensured via
 
 Add the following into your `vitest.config.ts`:
 
-```ts
+```ts [your-file.ts]
 // vitest.config.ts
 import { loadVitestConfig } from 'nuxt-spec/config'
 
