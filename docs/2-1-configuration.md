@@ -68,6 +68,16 @@ export default loadVitestConfig({
 
 If you don't want to use any part of the `nuxt-spec` default configuration at all, you can override `vitest.config.ts` file completely and define your own [Vitest configuration](https://vitest.dev/config/) from scratch.
 
+## External Playwright server
+
+By default, Vitest will build local Playwright instance to run `e2e` and `browser` tests.
+
+By setting `NUXT_SPEC_EXTERNAL_PLAYWRIGHT` to an external WebSocket URL, you can reference an existing Playwright server instead.
+
+Nuxt Spec will automatically wire it up for `browser` Vitest project. For `e2e` project you'd need to add additional setup step in your test file (see [demo implementation](https://github.com/AloisSeckar/nuxt-spec/blob/v0.3.2/test/e2e/nuxt-visual.test.ts)).
+
+The connection will be established with  `exposeNetwork: '<loopback>'` setting by default. See [Vitest docs](https://vitest.dev/config/browser/playwright.html#connectoptions) for details.
+
 ## Filtering out log messages
 
 Some tedious and irrelevant log messages may keep appearing in running tests, creating noise and hiding the real issues.

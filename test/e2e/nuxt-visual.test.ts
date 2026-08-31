@@ -3,13 +3,26 @@
 // WIP - currently only capable of doing custom screenshot,
 //       not using the built-in snapshot testing of Vitest
 
-import { setup, createPage, url } from '@nuxt/test-utils/e2e'
+import { setup, createPage, url, useTestContext } from '@nuxt/test-utils/e2e'
+import { chromium } from 'playwright-core'
 import { describe, expect, test } from 'vitest'
 import { compareScreenshot } from 'nuxt-spec/utils'
 
 describe('Visual Regression', async () => {
   // start the Nuxt application
-  await setup()
+  // (with delayed browser initialization)
+  await setup({ browser: false })
+
+  // by default, @nuxt/test-utils will build up local Playwright instance upon first createPage()
+  // but it is possible to manually connect to an external Playwright instance like this
+  const externalPlaywright = process.env.NUXT_SPEC_EXTERNAL_PLAYWRIGHT
+  if (externalPlaywright) {
+    const ctx = useTestContext()
+    // inject Playwright connected via a WebSocket prior to automated setup
+    ctx.browser = await chromium.connect(externalPlaywright, {
+      exposeNetwork: '<loopback>',
+    })
+  }
 
   test('home page matches screenshot - custom', async () => {
     // open a real browser page and navigate to the running Nuxt app
