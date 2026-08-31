@@ -11,8 +11,9 @@ import { defineVitestProject } from '@nuxt/test-utils/config'
 import { playwright } from '@vitest/browser-playwright'
 import vue from '@vitejs/plugin-vue'
 
-// absolute path so it works from nuxt-ignis package
+// absolute paths so it works from within the nuxt-ignis package
 const screenshotReportSetup = fileURLToPath(new URL('../utils/screenshot.ts', import.meta.url))
+const externalPlaywrightSetup = fileURLToPath(new URL('../utils/playwright.ts', import.meta.url))
 
 // external Playwright instance (if configured)
 const externalPlaywright = process.env.NUXT_SPEC_EXTERNAL_PLAYWRIGHT
@@ -84,17 +85,23 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
           environment: 'node',
           // create report file for visual regression testing
           globalSetup: [screenshotReportSetup],
+          // allows connecting to an external Playwright instance,
+          // if NUXT_SPEC_EXTERNAL_PLAYWRIGHT is set
+          setupFiles: externalPlaywright ? [externalPlaywrightSetup] : [],
         },
       })
     }
 
     // proposed setup for browser component tests (with Playwright runner)
     if (projects.browser !== false) {
+      // allows connecting to an external Playwright instance,
+      // if NUXT_SPEC_EXTERNAL_PLAYWRIGHT is set
       const playwrightConfig = {}
       if (externalPlaywright) {
         console.log(`Using external Playwright instance at: ${externalPlaywright}`)
         playwrightConfig.connectOptions = {
           wsEndpoint: externalPlaywright,
+          // this allows reaching caller's localhost from within the external Playwright
           exposeNetwork: '<loopback>',
         }
       }
@@ -108,7 +115,6 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
           environment: 'node',
           // only chromium browser by default - add others manually if needed
           browser: {
-            // allows connecting to an external Playwright instance at NUXT_SPEC_EXTERNAL_PLAYWRIGHT if set
             provider: playwright(playwrightConfig),
             enabled: true,
             headless: true,
