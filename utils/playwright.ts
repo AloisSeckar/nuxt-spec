@@ -5,13 +5,14 @@
 import { chromium, firefox, webkit } from 'playwright-core'
 import type { Browser, BrowserType } from 'playwright-core'
 
-const wsEndpoint = process.env.NUXT_SPEC_EXTERNAL_PLAYWRIGHT
+const externalPlaywright = process.env.NUXT_SPEC_EXTERNAL_PLAYWRIGHT
 
-if (wsEndpoint) {
+if (externalPlaywright) {
   for (const browserType of [chromium, firefox, webkit] as BrowserType[]) {
+    console.log(`[Nuxt Spec - e2e] Using external Playwright instance at: ${externalPlaywright}`)
     // @nuxt/test-utils always calls `playwright[type].launch()` with no way to opt into
     // `connect()`, so the launch method is swapped for a connect against the WS endpoint
-    browserType.launch = (): Promise<Browser> => browserType.connect(wsEndpoint, {
+    browserType.launch = (): Promise<Browser> => browserType.connect(externalPlaywright, {
       // this allows reaching caller's localhost from within the external Playwright
       exposeNetwork: '<loopback>',
     })

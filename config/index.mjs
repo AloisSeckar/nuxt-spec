@@ -98,7 +98,7 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
       // if NUXT_SPEC_EXTERNAL_PLAYWRIGHT is set
       const playwrightConfig = {}
       if (externalPlaywright) {
-        console.log(`Using external Playwright instance at: ${externalPlaywright}`)
+        console.log(`[Nuxt Spec - browser] Using external Playwright instance at: ${externalPlaywright}`)
         playwrightConfig.connectOptions = {
           wsEndpoint: externalPlaywright,
           // this allows reaching caller's localhost from within the external Playwright
