@@ -10,5 +10,9 @@ import { NuxtSpecTestComponent } from 'nuxt-spec/components'
 test('properly handles v-model', async () => {
   const screen = render(NuxtSpecTestComponent)
 
+  // test by parsing HTML content
   await expect.element(screen.getByText('nuxt-spec')).toBeInTheDocument()
+
+  // screenshot capture for visual regression testing
+  await expect(screen.getByTestId('test-component')).toMatchScreenshot('test-component')
 })

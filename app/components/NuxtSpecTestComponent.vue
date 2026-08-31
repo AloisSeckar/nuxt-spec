@@ -1,5 +1,5 @@
 <template>
-  <div style="margin: 1rem 0; padding: 0.5rem; border: 1px solid black;">
+  <div data-testid="test-component" style="margin: 1rem 0; padding: 0.5rem; border: 1px solid black;">
     {{ text }}
   </div>
 </template>
