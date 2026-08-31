@@ -2,6 +2,23 @@
 
 Overview of the latest features in Nuxt Spec.
 
+## 0.3.3
+
+`2026-08-31`
+
+- feat: add support for external Playwright server in `e2e` and `browser` projects (#46)
+- feat: add example of visual regression testing in browser mode
+- docs: add file-name headers to code examples
+- build: `playwright` version aligned across all dependencies
+- build: updated dependencies
+  - `vitest` to `4.1.11`
+  - `happy-dom` to `20.12.0`
+  - `@nuxt/test-utils` to `4.2.0`
+  - `@vue/test-utils` to `2.5.0`
+  - `vue` to `3.5.42`
+  - `vue-router` to `5.3.0`
+  - `vue-tsc` to `3.3.11`
+
 ## 0.3.2
 
 `2026-08-14`

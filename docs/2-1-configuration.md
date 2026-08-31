@@ -2,7 +2,7 @@
 
 ## Vitest setup
 
-By default, `nuxt-spec` uses Vitest configuration defined in [`/config/index.mjs`](https://github.com/AloisSeckar/nuxt-spec/blob/v0.3.2/config/index.mjs). The configuration is based on [Nuxt team recommendations](https://nuxt.com/docs/4.x/getting-started/testing) and our best judgement.
+By default, `nuxt-spec` uses Vitest configuration defined in [`/config/index.mjs`](https://github.com/AloisSeckar/nuxt-spec/blob/v0.3.3/config/index.mjs). The configuration is based on [Nuxt team recommendations](https://nuxt.com/docs/4.x/getting-started/testing) and our best judgement.
 
 To add/override your custom config, you can create (or scaffold via CLI tool) a file named `vitest.config.ts` in the root of your project with the following content:
 
@@ -54,7 +54,7 @@ export default loadVitestConfig({
 }, false)
 ```
 
-For fine-grained control over included projects, you can also use a [config object](https://github.com/AloisSeckar/nuxt-spec/blob/v0.3.2/config/index.d.ts#L16). When config object is used, only projects with explicitly passed `true` value will be included. For example, using this setting, only `unit` and `nuxt` will be activated:
+For fine-grained control over included projects, you can also use a [config object](https://github.com/AloisSeckar/nuxt-spec/blob/v0.3.3/config/index.d.ts#L16). When config object is used, only projects with explicitly passed `true` value will be included. For example, using this setting, only `unit` and `nuxt` will be activated:
 
 ```ts [vitest.config.ts]
 import { loadVitestConfig } from 'nuxt-spec/config'
