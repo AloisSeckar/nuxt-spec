@@ -74,6 +74,8 @@ By default, local Playwright instance is being build when executing `e2e` and `b
 
 By setting `NUXT_SPEC_EXTERNAL_PLAYWRIGHT` to an external WebSocket URL, you can reference an existing Playwright server instead. Nuxt Spec will automatically wire it up. The connection will be established with  `exposeNetwork: '<loopback>'` setting by default. See [Vitest docs](https://vitest.dev/config/browser/playwright.html#connectoptions) for details.
 
+**NOTE that remote Playwright version must match `~1.62.0` to align with version used by Nuxt Spec.** Connection attempt to an older version will be rejected by Playwright built-in guard.
+
 ## Filtering out log messages
 
 Some tedious and irrelevant log messages may keep appearing in running tests, creating noise and hiding the real issues.
