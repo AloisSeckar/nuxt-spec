@@ -6,7 +6,7 @@ Overview of the latest features in Nuxt Spec.
 
 `2026-08-31`
 
-- feat: add support for external Playwright server in `e2e` and `browser` projects (#46)
+- feat: add support for external Playwright server in `e2e` and `browser` projects ([#46](https://github.com/AloisSeckar/nuxt-spec/issues/46))
 - feat: add example of visual regression testing in browser mode
 - docs: add file-name headers to code examples
 - build: `playwright` version aligned across all dependencies
@@ -23,7 +23,7 @@ Overview of the latest features in Nuxt Spec.
 
 `2026-08-14`
 
-- feat: add `@nuxt/hints` integration (#45)
+- feat: add `@nuxt/hints` integration ([#45](https://github.com/AloisSeckar/nuxt-spec/issues/45))
 - build: updated dependencies
   - `@nuxt/hints` to `1.1.4` (added)
 
@@ -31,8 +31,8 @@ Overview of the latest features in Nuxt Spec.
 
 `2026-08-08`
 
-- feat: enhanced CLI `setup` script to handle `playwright-core` local setup (#44)
-- feat: new CLI `update` script to refresh existing installation (#44)
+- feat: enhanced CLI `setup` script to handle `playwright-core` local setup ([#44](https://github.com/AloisSeckar/nuxt-spec/issues/44))
+- feat: new CLI `update` script to refresh existing installation ([#44](https://github.com/AloisSeckar/nuxt-spec/issues/44))
 - build: updated dependencies
   - `happy-dom` to `20.11.2`
   - `playwright-core` to `1.62.1`
@@ -97,7 +97,7 @@ Overview of the latest features in Nuxt Spec.
 
 - feat: HTML report for failed visual regression tests
 - feat: better validation of options passed into the `compareScreenshot` function
-- fix: remove obsolete `onlyBuiltDependencies` from CLI setup (#41)
+- fix: remove obsolete `onlyBuiltDependencies` from CLI setup ([#41](https://github.com/AloisSeckar/nuxt-spec/issues/41))
 - build: non-important dependencies are now loosened to `~`
 - build: updated dependencies
   - `vitest` to `4.1.9`
@@ -113,8 +113,8 @@ Overview of the latest features in Nuxt Spec.
 
 `2026-06-02`
 
-- feat: ability to install node_modules automatically in CLI setup (#37)
-- feat: allow custom log messages filtering (#38)
+- feat: ability to install node_modules automatically in CLI setup ([#37](https://github.com/AloisSeckar/nuxt-spec/issues/37))
+- feat: allow custom log messages filtering ([#38](https://github.com/AloisSeckar/nuxt-spec/issues/38))
 - fix: creating `.nuxtrc` file in CLI setup to prevent `@nuxt/test-utils` auto-setup
 - build: updated dependencies
   - `vitest` to `4.1.8`
@@ -144,7 +144,7 @@ Overview of the latest features in Nuxt Spec.
 
 `2026-03-30`
 
-- fix: augment existing pnpm-workspace.yaml correctly (#39)
+- fix: augment existing pnpm-workspace.yaml correctly ([#39](https://github.com/AloisSeckar/nuxt-spec/issues/39))
 
 ## 0.2.0
 
@@ -156,29 +156,29 @@ Overview of the latest features in Nuxt Spec.
 
 `2026-03-24`
 
-- fix: correct `waitUntil` option in sample visual test (#33)
-- fix: export `nuxt.config.ts` in package for proper layer resolution (#34)
-- fix: filter-out unnecessary warning logs on `stdout` along with `stderr` (#36)
+- fix: correct `waitUntil` option in sample visual test ([#33](https://github.com/AloisSeckar/nuxt-spec/issues/33))
+- fix: export `nuxt.config.ts` in package for proper layer resolution ([#34](https://github.com/AloisSeckar/nuxt-spec/issues/34))
+- fix: filter-out unnecessary warning logs on `stdout` along with `stderr` ([#36](https://github.com/AloisSeckar/nuxt-spec/issues/36))
 
 ## 0.2.0-alpha.9
 
 `2026-03-24`
 
-- fix: repair sample test portability to target projects (#32)
+- fix: repair sample test portability to target projects ([#32](https://github.com/AloisSeckar/nuxt-spec/issues/32))
 
 ## 0.2.0-alpha.8
 
 `2026-03-23`
 
 - feat: alter setup from creating `.npmrc` to `pnpm-workspace.yaml`
-- feat: filter-out unnecessary warning logs (#30)
+- feat: filter-out unnecessary warning logs ([#30](https://github.com/AloisSeckar/nuxt-spec/issues/30))
 - refactor: re-organize `/config` directory
 
 ## 0.2.0-alpha.7
 
 `2026-03-19`
 
-- fix: proper resolution of `project` config overrides (#29)
+- fix: proper resolution of `project` config overrides ([#29](https://github.com/AloisSeckar/nuxt-spec/issues/29))
 
 ## 0.2.0-alpha.6
 
@@ -231,10 +231,10 @@ Overview of the latest features in Nuxt Spec.
 
 - feat: included `@vitest/browser` and `@vitest/ui` packages
 - feat: added new `browser` project config for Vitest browser-mode tests
-- feat: introduced crude solution for visual regression testing (#2)
+- feat: introduced crude solution for visual regression testing ([#2](https://github.com/AloisSeckar/nuxt-spec/issues/2))
 - feat: introduced `compareScreenshot` util function for visual regression testing
-- feat: introduced `gotoPage`, `getDataHtml` and `getAPIResultHtml` helpers for Nuxt E2E tests (#27)
-- fix: created proper custom merging strategy for `test.projects` config (#24)
+- feat: introduced `gotoPage`, `getDataHtml` and `getAPIResultHtml` helpers for Nuxt E2E tests ([#27](https://github.com/AloisSeckar/nuxt-spec/issues/27))
+- fix: created proper custom merging strategy for `test.projects` config ([#24](https://github.com/AloisSeckar/nuxt-spec/issues/24))
 - docs: explained latest changes in `README.html`
 - build: updated dependencies
   - `@vitest/browser-playwright` to `4.0.18` (added)
@@ -250,7 +250,7 @@ Overview of the latest features in Nuxt Spec.
 
 `2026-02-08`
 
-- feat: update default config to support sub-directories (#26)
+- feat: update default config to support sub-directories ([#26](https://github.com/AloisSeckar/nuxt-spec/issues/26))
 - build: updated dependencies
   - `nuxt` to `4.3.1`
   - `vitest` to `4.0.18`
@@ -275,8 +275,8 @@ Overview of the latest features in Nuxt Spec.
 
 `2025-12-14`
 
-- fix: corrected typing for `loadVitestConfig` function (#23)
-- fix: native support for `#components` alias in `test/nuxt` folder via Nuxt `4.2.2` (#17)
+- fix: corrected typing for `loadVitestConfig` function ([#23](https://github.com/AloisSeckar/nuxt-spec/issues/23))
+- fix: native support for `#components` alias in `test/nuxt` folder via Nuxt `4.2.2` ([#17](https://github.com/AloisSeckar/nuxt-spec/issues/17))
 - build: updated dependencies
   - `nuxt` to `4.2.0`
   - `vitest` to `4.0.15`
@@ -290,7 +290,7 @@ Overview of the latest features in Nuxt Spec.
 
 `2025-11-06`
 
-- fix: add TS support for Nuxt aliases like `#components` in test files (#17)
+- fix: add TS support for Nuxt aliases like `#components` in test files ([#17](https://github.com/AloisSeckar/nuxt-spec/issues/17))
 - docs: added info about passing in Vite config into `loadVitestConfig`
 - build: updated dependencies
   - `vitest` to `4.0.7`
@@ -300,15 +300,15 @@ Overview of the latest features in Nuxt Spec.
 
 `2025-10-27`
 
-- fix: proper error handling in CLI (#20)
-- fix: loading vitest config during runtime (#21)
+- fix: proper error handling in CLI ([#20](https://github.com/AloisSeckar/nuxt-spec/issues/20))
+- fix: loading vitest config during runtime ([#21](https://github.com/AloisSeckar/nuxt-spec/issues/21))
 
 ## 0.1.13
 
 `2025-10-26`
 
-- feat: TS types in `nuxt-spec/config` (#18)
-- feat: option to exclude `projects` from vitest config (#19)
+- feat: TS types in `nuxt-spec/config` ([#18](https://github.com/AloisSeckar/nuxt-spec/issues/18))
+- feat: option to exclude `projects` from vitest config ([#19](https://github.com/AloisSeckar/nuxt-spec/issues/19))
 - build: updated dependencies
   - `nuxt` to `4.2.0`
   - `nuxt-test-utils` to `3.20.1`
@@ -321,17 +321,17 @@ Overview of the latest features in Nuxt Spec.
 
 `2025-10-16`
 
-- fix: allow proper extending from Nuxt Spec layer again (#16)
-- fix: update component import in Nuxt component test file (#15)
+- fix: allow proper extending from Nuxt Spec layer again ([#16](https://github.com/AloisSeckar/nuxt-spec/issues/16))
+- fix: update component import in Nuxt component test file ([#15](https://github.com/AloisSeckar/nuxt-spec/issues/15))
 - build: bump `happy-dom` to `20.0.2` (fix CVE-2025-62410)
 
 ## 0.1.11
 
 `2025-10-15`
 
-- feat: CLI scripts can scaffold sample test files (#8)
-- feat: CLI script also removes `deno.lock` file if present (#13)
-- feat: CLI scripts only set `shamefully-hoist=true` for `pnpm` (#14)
+- feat: CLI scripts can scaffold sample test files ([#8](https://github.com/AloisSeckar/nuxt-spec/issues/8))
+- feat: CLI script also removes `deno.lock` file if present ([#13](https://github.com/AloisSeckar/nuxt-spec/issues/13))
+- feat: CLI scripts only set `shamefully-hoist=true` for `pnpm` ([#14](https://github.com/AloisSeckar/nuxt-spec/issues/14))
 - feat: GitHub links now use specific version tags
 
 ## 0.1.10
@@ -386,26 +386,26 @@ Overview of the latest features in Nuxt Spec.
 
 `2025-08-16`
 
-- fix: invalid Vitest config + broken import path (#4)
+- fix: invalid Vitest config + broken import path ([#4](https://github.com/AloisSeckar/nuxt-spec/issues/4))
 - build: bump Vitest
 
 ## 0.1.4
 
 `2025-08-16`
 
-- fix: make loadVitestConfig available from root dir - solving issues from testing (#4)
+- fix: make loadVitestConfig available from root dir - solving issues from testing ([#4](https://github.com/AloisSeckar/nuxt-spec/issues/4))
 
 ## 0.1.3
 
 `2025-08-16`
 
-- fix: make loadVitestConfig available from root dir (#4)
+- fix: make loadVitestConfig available from root dir ([#4](https://github.com/AloisSeckar/nuxt-spec/issues/4))
 
 ## 0.1.2
 
 `2025-08-09`
 
-- fix: target path for scaffolded `vitest.config.ts` (#3)
+- fix: target path for scaffolded `vitest.config.ts` ([#3](https://github.com/AloisSeckar/nuxt-spec/issues/3))
 
 ## 0.1.1
 
