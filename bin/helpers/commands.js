@@ -34,7 +34,7 @@ export function getUpdateCmd(packageManager, target) {
   }
 }
 
-// generate Nuxt types and auto-imports without starting the dev server
+// generate Nuxt types and auto-imports
 export function getPrepareCmd(packageManager) {
   const command = 'nuxt prepare'
   switch (packageManager) {
