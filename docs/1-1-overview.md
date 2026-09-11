@@ -26,7 +26,7 @@ The most important client of `nuxt-spec` is my [Nuxt Ignis](https://github.com/A
 - [@vitest/browser](https://www.npmjs.com/package/@vitest/browser) as more advanced browser-native testing runner
 - [@vitest/ui](https://www.npmjs.com/package/@vitest/ui) as a graphical UI for the Vitest test runner
 - [happy-dom](https://www.npmjs.com/package/happy-dom) as the headless browser runtime
-- [playwright-core](https://www.npmjs.com/package/playwright-core) as the headless browser testing framework
+- [playwright](https://www.npmjs.com/package/playwright) as the headless browser testing framework
 - [@vue/test-utils](https://www.npmjs.com/package/@vue/test-utils) for testing Vue stuff
 - [@nuxt/test-utils](https://www.npmjs.com/package/@nuxt/test-utils) for testing Nuxt stuff
 - [@nuxt/hints](https://nuxt.com/modules/hints) for DevTools performance, hydration, and security tips (enabled by default, can be opted-out via [configuration](2-1-configuration.html#nuxt-hints-integration))

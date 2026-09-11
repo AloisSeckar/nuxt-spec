@@ -53,7 +53,7 @@ export function getPrepareCmd(packageManager) {
 
 // install/update playwright
 export function getPlaywrightInstallCmd(packageManager) {
-  const command = 'playwright-core install'
+  const command = 'playwright install'
   switch (packageManager) {
     case 'pnpm':
       return `pnpm exec ${command}`

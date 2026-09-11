@@ -15,7 +15,7 @@ const TARGET_VERSION = '0.3.3'
  *  1) verifies `nuxt-spec` is present in `package.json` (fails with a hint to run `setup` otherwise)
  *  2) runs the package manager's update command to bump `nuxt-spec` to the latest version
  *  3) run the `nuxt prepare` command to regenerate types and auto-imports
- *  4) run the `playwright-core install` command to ensure the Playwright browser runtimes are up to date
+ *  4) run the `playwright install` command to ensure the Playwright browser runtimes are up to date
  *
  * @param {boolean} autoRun - Whether to run the update automatically without any prompts (defaults to false).
  */
@@ -61,7 +61,7 @@ export async function specUpdate(autoRun = false) {
     }
   }
 
-  // 3) run 'playwright-core install'
+  // 3) run 'playwright install'
   const playwrightUpdateCmd = getPlaywrightInstallCmd(packageManager)
   const runPlaywrightUpdate = isAutoRun || await promptUser(`Playwright browser runtimes might need to be updated for e2e tests. Do you want to run \`${playwrightUpdateCmd}\` now?`)
   if (runPlaywrightUpdate) {

@@ -183,23 +183,23 @@ This is required so all auto-generated files are emitted and all the features an
 ::: code-group
 
 ```sh [pnpm]
-pnpm exec playwright-core install
+pnpm exec playwright install
 ```
 
 ```sh [npm]
-npx playwright-core install
+npx playwright install
 ```
 
 ```sh [yarn]
-yarn playwright-core install
+yarn playwright install
 ```
 
 ```sh [bun]
-bunx playwright-core install
+bunx playwright install
 ```
 
 ```sh [deno]
-deno run -A npm:playwright-core install
+deno run -A npm:playwright install
 ```
 
 :::
@@ -238,7 +238,7 @@ The `update` command will:
 
 - run package manager's update command (e.g. `pnpm update nuxt-spec@0.3.3`) to bump `nuxt-spec` to the latest version
 - run the `nuxt prepare` command to regenerate the Nuxt types and auto-imports
-- run the `playwright-core install` command to ensure the Playwright browser runtimes are up to date
+- run the `playwright install` command to ensure the Playwright browser runtimes are up to date
 
 ## Running tests
 
