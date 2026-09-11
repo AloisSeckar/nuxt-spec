@@ -288,6 +288,25 @@ deno task test-i  # runs and waits in HMR mode
 
 Or you can use the `vitest` command directly with all its parameters. See [Vitest CLI documentation](https://vitest.dev/guide/cli.html) for more info.
 
+## Known issues
+
+There are several situations that cannot be effectively solved from Nuxt Spec side and require manual action in target project.
+
+### `pnpm` with `trustPolicy: no-downgrade`
+
+Setting [`trustPolicy`](https://pnpm.io/settings/dependency-resolution#trustpolicy) is a security measure to prevent installing malicious versions of established packaging after attackers gain credentials to publish their own code, but fail to prove their identity at established trust level.
+
+Nuxt Ignis currently contains transitive dependency `undici-types@6.21.0` that fails to pass the check despite being legitimate (old) version. If your project uses `trustPolicy: no-downgrade`, installation will be rejected.
+
+The solution is to add following entry into your `pnpm-workspace.yaml`:
+
+```yaml[pnpm-workspace.yaml]
+trustPolicyExclude:
+  - undici-types@6.21.0
+```
+
+Hopefully, this will be soon fixed by bumping the deps in the chain.
+
 ## More info
 
 - Continue to the [configuration](2-1-configuration.html) to see how you can adjust the default settings.
