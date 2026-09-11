@@ -8,6 +8,7 @@ The `nuxt-spec` package comes with a built-in CLI tool that can help you:
 - scaffold the default `vitest.config.ts` (see [configuration](2-1-configuration.html) section)
 - add some test-related shorthands in your `package.json` (see [running tests](#running-tests) section)
 - create demo test files in proposed file structure
+- generate the Nuxt types and auto-imports (via `nuxt prepare`) so the project is ready to use
 - install the Playwright browser runtimes needed to run the e2e tests
 
 To use it, just run the CLI script in your terminal:
@@ -38,9 +39,9 @@ deno run -A npm:nuxt-spec setup
 
 First, the CLI tool will ask you whether you want to do the setup automatically. If you choose `y`es, it will perform all the steps for you. If you choose `n`o, it will guide you through the manual setup step-by-step (see [manual setup](#manual-setup) section).
 
-Continue to [last setup step](#finishing-setup)
-
 ### Manual setup
+
+> **TIP:** If you already ran the automated setup, you can skip this section.
 
 If you don't want to use the CLI tool, or you want to understand its flow better, here are detailed explanations of the required/recommended steps:
 
@@ -149,7 +150,35 @@ deno install
 
 :::
 
-**9)** If you're prompted (for the first time when installing on a new machine, or after a version update), install the headless browser runtimes locally:
+**9)** Run the Nuxt preparation step to generate the required types and auto-imports:
+
+::: code-group
+
+```sh [pnpm]
+pnpm exec nuxt prepare
+```
+
+```sh [npm]
+npx nuxt prepare
+```
+
+```sh [yarn]
+yarn nuxt prepare
+```
+
+```sh [bun]
+bunx nuxt prepare
+```
+
+```sh [deno]
+deno run -A npm:nuxt prepare
+```
+
+:::
+
+This is required so all auto-generated files are emitted and all the features and type inference work properly.
+
+**10)** If you're prompted (for the first time when installing on a new machine, or after a version update), install the headless browser runtimes locally:
 
 ::: code-group
 
@@ -174,36 +203,6 @@ deno run -A npm:playwright-core install
 ```
 
 :::
-
-## Finishing setup
-
-Whether you used the CLI tool or did the manual setup, start the development server of your Nuxt project:
-
-::: code-group
-
-```sh [pnpm]
-pnpm dev
-```
-
-```sh [npm]
-npm run dev
-```
-
-```sh [yarn]
-yarn dev
-```
-
-```sh [bun]
-bun run dev
-```
-
-```sh [deno]
-deno task dev
-```
-
-:::
-
-This is required so all auto-generated files are emitted and all the features and type inference work properly.
 
 ## Updating
 
@@ -238,6 +237,7 @@ It works the same way as `setup` - first asking whether to run automatically, th
 The `update` command will:
 
 - run package manager's update command (e.g. `pnpm update nuxt-spec@0.3.3`) to bump `nuxt-spec` to the latest version
+- run the `nuxt prepare` command to regenerate the Nuxt types and auto-imports
 - run the `playwright-core install` command to ensure the Playwright browser runtimes are up to date
 
 ## Running tests

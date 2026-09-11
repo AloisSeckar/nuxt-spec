@@ -6,7 +6,7 @@ import {
   pathExists, promptUser, removeFromJsonFile, showMessage,
   updateConfigFile, updateJsonFile, updateTextFile,
 } from 'elrh-cosca'
-import { getPlaywrightInstallCmd } from './helpers/commands.js'
+import { getPlaywrightInstallCmd, getPrepareCmd } from './helpers/commands.js'
 
 const TARGET_VERSION = '0.3.3'
 
@@ -25,7 +25,8 @@ const TARGET_VERSION = '0.3.3'
  *  7) creates sample test files
  *  8) clear node_modules and lock file(s)
  *  9) run install command
- * 10) run Playwright setup command
+ * 10) run Nuxt prepare command to generate types and auto-imports
+ * 11) run Playwright setup command
  *
  * @param {boolean} autoRun - Whether to run the setup automatically without any prompts (defaults to false).
  */
@@ -243,7 +244,19 @@ export async function specSetup(autoRun = false) {
     }
   }
 
-  // 10) run Playwright browser install command
+  // 10) run Nuxt prepare command to generate types and auto-imports
+  const prepareCmd = getPrepareCmd(packageManager)
+  const runPrepare = isAutoRun || await promptUser(`Nuxt needs to generate types and auto-imports before the project is fully usable. Do you want to run \`${prepareCmd}\` now?`)
+  if (runPrepare) {
+    try {
+      showMessage(`Running \`${prepareCmd}\`...`)
+      execSync(prepareCmd, { stdio: 'inherit' })
+    } catch (error) {
+      console.error(`Error running \`${prepareCmd}\`:\n`, error.message)
+    }
+  }
+
+  // 11) run Playwright browser install command
   const playwrightInstallCmd = getPlaywrightInstallCmd(packageManager)
   const runPlaywrightInstall = isAutoRun || await promptUser(`Playwright browser runtimes might need to be installed locally for e2e tests. Do you want to run \`${playwrightInstallCmd}\` now?`)
   if (runPlaywrightInstall) {
@@ -255,11 +268,14 @@ export async function specSetup(autoRun = false) {
     }
   }
 
-  // 11) inform user
+  // 12) inform user
   showMessage('')
   showMessage('NUXT SPEC SETUP COMPLETE', 2)
   if (!runInstall) {
     showMessage(`Proceed with \`${packageManager} install\` to install dependencies.`)
+  }
+  if (!runPrepare) {
+    showMessage(`Run \`${prepareCmd}\` to generate the required Nuxt types and auto-imports.`)
   }
   if (!runPlaywrightInstall) {
     showMessage(`Run \`${playwrightInstallCmd}\` to setup the Playwright browser runtimes for e2e tests.`)

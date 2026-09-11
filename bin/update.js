@@ -2,7 +2,7 @@
 
 import { execSync } from 'node:child_process'
 import { getPackageManager, hasJsonKey, promptUser, showMessage } from 'elrh-cosca'
-import { getPlaywrightInstallCmd, getUpdateCmd } from './helpers/commands.js'
+import { getPlaywrightInstallCmd, getPrepareCmd, getUpdateCmd } from './helpers/commands.js'
 
 const TARGET_VERSION = '0.3.3'
 
@@ -14,7 +14,8 @@ const TARGET_VERSION = '0.3.3'
  * Then it:
  *  1) verifies `nuxt-spec` is present in `package.json` (fails with a hint to run `setup` otherwise)
  *  2) runs the package manager's update command to bump `nuxt-spec` to the latest version
- *  3) run the `playwright-core install` command to ensure the Playwright browser runtimes are up to date
+ *  3) run the `nuxt prepare` command to regenerate types and auto-imports
+ *  4) run the `playwright-core install` command to ensure the Playwright browser runtimes are up to date
  *
  * @param {boolean} autoRun - Whether to run the update automatically without any prompts (defaults to false).
  */
@@ -48,7 +49,19 @@ export async function specUpdate(autoRun = false) {
     }
   }
 
-  // 2) run 'playwright-core install'
+  // 2) run 'nuxt prepare'
+  const prepareCmd = getPrepareCmd(packageManager)
+  const runPrepare = isAutoRun || await promptUser(`Nuxt types and auto-imports should be regenerated after the update. Do you want to run \`${prepareCmd}\` now?`)
+  if (runPrepare) {
+    try {
+      showMessage(`Running \`${prepareCmd}\`...`)
+      execSync(prepareCmd, { stdio: 'inherit' })
+    } catch (error) {
+      console.error(`Error running \`${prepareCmd}\`:\n`, error.message)
+    }
+  }
+
+  // 3) run 'playwright-core install'
   const playwrightUpdateCmd = getPlaywrightInstallCmd(packageManager)
   const runPlaywrightUpdate = isAutoRun || await promptUser(`Playwright browser runtimes might need to be updated for e2e tests. Do you want to run \`${playwrightUpdateCmd}\` now?`)
   if (runPlaywrightUpdate) {
@@ -60,11 +73,14 @@ export async function specUpdate(autoRun = false) {
     }
   }
 
-  // 3) inform user
+  // 4) inform user
   showMessage('')
   showMessage('NUXT SPEC UPDATE COMPLETE', 2)
   if (!runUpdate) {
     showMessage(`Run \`${updateCmd}\` to update 'nuxt-spec'.`)
+  }
+  if (!runPrepare) {
+    showMessage(`Run \`${prepareCmd}\` to regenerate the Nuxt types and auto-imports.`)
   }
   if (!runPlaywrightUpdate) {
     showMessage(`Run \`${playwrightUpdateCmd}\` to update the Playwright browser runtimes for e2e tests.`)

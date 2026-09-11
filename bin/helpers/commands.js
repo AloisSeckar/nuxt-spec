@@ -34,6 +34,23 @@ export function getUpdateCmd(packageManager, target) {
   }
 }
 
+// generate Nuxt types and auto-imports without starting the dev server
+export function getPrepareCmd(packageManager) {
+  const command = 'nuxt prepare'
+  switch (packageManager) {
+    case 'pnpm':
+      return `pnpm exec ${command}`
+    case 'yarn':
+      return `yarn ${command}`
+    case 'bun':
+      return `bunx ${command}`
+    case 'deno':
+      return `deno run -A npm:${command}`
+    default:
+      return `npx ${command}`
+  }
+}
+
 // install/update playwright
 export function getPlaywrightInstallCmd(packageManager) {
   const command = 'playwright-core install'
