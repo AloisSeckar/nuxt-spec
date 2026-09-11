@@ -24,13 +24,13 @@ export function getUpdateCmd(packageManager, target) {
     case 'pnpm':
       return `pnpm update ${target}`
     case 'yarn':
-      return `yarn upgrade ${target}`
+      return `yarn up ${target}`
     case 'bun':
       return `bun update ${target}`
     case 'deno':
       return `deno add npm:${target}`
     default:
-      return `npm update ${target}`
+      return `npm install ${target}`
   }
 }
 
