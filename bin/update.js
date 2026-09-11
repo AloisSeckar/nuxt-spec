@@ -1,8 +1,12 @@
 #!/usr/bin/env node
 
 import { execSync } from 'node:child_process'
-import { getPackageManager, hasJsonKey, promptUser, showMessage } from 'elrh-cosca'
-import { getPlaywrightInstallCmd, getPrepareCmd, getUpdateCmd } from './helpers/commands.js'
+import {
+  hasJsonKey, promptUser, showMessage,
+} from 'elrh-cosca'
+import {
+  getPlaywrightInstallCmd, getPrepareCmd, getUpdateCmd,
+} from './helpers/commands.js'
 
 const TARGET_VERSION = '0.3.3'
 
@@ -18,8 +22,9 @@ const TARGET_VERSION = '0.3.3'
  *  4) run the `playwright install` command to ensure the Playwright browser runtimes are up to date
  *
  * @param {boolean} autoRun - Whether to run the update automatically without any prompts (defaults to false).
+ * @param {string} [packageManager] - Package manager to be used (`npm`, `pnpm`, `yarn`, `bun` or `deno`).
  */
-export async function specUpdate(autoRun = false) {
+export async function specUpdate(autoRun = false, packageManager) {
   showMessage('NUXT SPEC UPDATE')
   showMessage('This CLI tool will help you update Nuxt Spec in your project.')
   showMessage('Refer to the documentation for more information.', 2)
@@ -34,8 +39,6 @@ export async function specUpdate(autoRun = false) {
 
   const isAutoRun = autoRun || await promptUser('Do you want to update everything automatically (no more prompts)?')
   showMessage('')
-
-  const packageManager = getPackageManager()
 
   // 1) run 'update nuxt-spec'
   const updateCmd = getUpdateCmd(packageManager, `nuxt-spec@${TARGET_VERSION}`)

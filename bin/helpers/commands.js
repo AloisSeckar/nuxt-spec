@@ -1,9 +1,22 @@
 import { getPackageManager } from 'elrh-cosca'
 
+export const SUPPORTED_PACKAGE_MANAGERS = ['npm', 'pnpm', 'yarn', 'bun', 'deno']
+
+// get the package manager name for usage in commands
+// explicit override takes precedence over auto-detection
+export function resolvePackageManager(override) {
+  if (override) {
+    if (!SUPPORTED_PACKAGE_MANAGERS.includes(override)) {
+      throw new Error(`Unsupported package manager '${override}'. Use one of: ${SUPPORTED_PACKAGE_MANAGERS.join(', ')}`)
+    }
+    return override
+  }
+  return getPackageManager()
+}
+
 // use nuxt-spec CLI tool
-export function getCmd() {
+export function getCmd(packageManager) {
   const command = 'nuxt-spec'
-  const packageManager = getPackageManager()
   switch (packageManager) {
     case 'pnpm':
       return `pnpx ${command}`

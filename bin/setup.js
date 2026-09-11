@@ -2,11 +2,13 @@
 
 import { execSync } from 'node:child_process'
 import {
-  createFileFromWebTemplate, deletePath, getPackageManager, hasJsonKey,
+  createFileFromWebTemplate, deletePath, hasJsonKey,
   pathExists, promptUser, removeFromJsonFile, showMessage,
   updateConfigFile, updateJsonFile, updateTextFile,
 } from 'elrh-cosca'
-import { getPlaywrightInstallCmd, getPrepareCmd } from './helpers/commands.js'
+import {
+  getPlaywrightInstallCmd, getPrepareCmd,
+} from './helpers/commands.js'
 
 const TARGET_VERSION = '0.3.3'
 
@@ -29,16 +31,15 @@ const TARGET_VERSION = '0.3.3'
  * 11) run Playwright setup command
  *
  * @param {boolean} autoRun - Whether to run the setup automatically without any prompts (defaults to false).
+ * @param {string} [packageManager] - Package manager to be used (`npm`, `pnpm`, `yarn`, `bun` or `deno`).
  */
-export async function specSetup(autoRun = false) {
+export async function specSetup(autoRun = false, packageManager) {
   showMessage('NUXT SPEC SETUP')
   showMessage('This CLI tool will help you include Nuxt Spec in your project.')
   showMessage('Refer to the documentation for more information.', 2)
 
   const isAutoRun = autoRun || await promptUser('Do you want to set everything up automatically (no more prompts)?')
   showMessage('')
-
-  const packageManager = getPackageManager()
 
   // 1) manage dependencies in package.json
 
