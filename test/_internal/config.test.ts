@@ -7,7 +7,7 @@ import { loadVitestConfig } from '../../config/index.mjs'
 // the object form without suppressing errors globally.
 type ProjectsConfig = boolean | {
   default?: boolean
-  node?: boolean
+  unit?: boolean
   nuxt?: boolean
   e2e?: boolean
   browser?: boolean
@@ -67,7 +67,7 @@ describe('Test `loadVitestConfig` function', () => {
     const config = await loadConfig({}, {})
     const names = projectNames(config)
     expect(names).toContain('default')
-    expect(names).toContain('node')
+    expect(names).toContain('unit')
     expect(names).toContain('nuxt')
     expect(names).toContain('e2e')
     expect(names).toContain('browser')
@@ -78,16 +78,16 @@ describe('Test `loadVitestConfig` function', () => {
     const config = await loadConfig({}, { default: false })
     const names = projectNames(config)
     expect(names).not.toContain('default')
-    expect(names).toContain('node')
+    expect(names).toContain('unit')
     expect(names).toContain('nuxt')
     expect(names).toContain('e2e')
     expect(names).toContain('browser')
   })
 
-  test('should exclude `node` project when `projects.node` is false', async () => {
-    const config = await loadConfig({}, { node: false })
+  test('should exclude `unit` project when `projects.unit` is false', async () => {
+    const config = await loadConfig({}, { unit: false })
     const names = projectNames(config)
-    expect(names).not.toContain('node')
+    expect(names).not.toContain('unit')
     expect(names).toContain('default')
     expect(names).toContain('nuxt')
     expect(names).toContain('e2e')
@@ -99,7 +99,7 @@ describe('Test `loadVitestConfig` function', () => {
     const names = projectNames(config)
     expect(names).not.toContain('nuxt')
     expect(names).toContain('default')
-    expect(names).toContain('node')
+    expect(names).toContain('unit')
     expect(names).toContain('e2e')
     expect(names).toContain('browser')
   })
@@ -109,7 +109,7 @@ describe('Test `loadVitestConfig` function', () => {
     const names = projectNames(config)
     expect(names).not.toContain('e2e')
     expect(names).toContain('default')
-    expect(names).toContain('node')
+    expect(names).toContain('unit')
     expect(names).toContain('nuxt')
     expect(names).toContain('browser')
   })
@@ -119,7 +119,7 @@ describe('Test `loadVitestConfig` function', () => {
     const names = projectNames(config)
     expect(names).not.toContain('browser')
     expect(names).toContain('default')
-    expect(names).toContain('node')
+    expect(names).toContain('unit')
     expect(names).toContain('nuxt')
     expect(names).toContain('e2e')
   })
@@ -130,13 +130,13 @@ describe('Test `loadVitestConfig` function', () => {
     expect(names).not.toContain('nuxt')
     expect(names).not.toContain('browser')
     expect(names).toContain('default')
-    expect(names).toContain('node')
+    expect(names).toContain('unit')
     expect(names).toContain('e2e')
     expect(names).toHaveLength(3)
   })
 
   test('should result in an empty `projects` array when all projects are disabled', async () => {
-    const config = await loadConfig({}, { default: false, node: false, nuxt: false, e2e: false, browser: false })
+    const config = await loadConfig({}, { default: false, unit: false, nuxt: false, e2e: false, browser: false })
     expect(config.test?.projects).toBeDefined()
     expect(config.test?.projects).toHaveLength(0)
   })

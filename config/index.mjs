@@ -50,11 +50,11 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
     }
 
     // proposed setup for Unit tests
-    if (projects.node !== false) {
+    if (projects.unit !== false) {
       baseConfig.test.projects.push({
         extends: true,
         test: {
-          name: 'node',
+          name: 'unit',
           include: ['test/unit/**/*.{test,spec}.ts'],
           environment: 'node',
         },

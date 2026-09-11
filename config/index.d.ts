@@ -15,7 +15,7 @@ type ExtendedUserConfig = UserConfig & {
  */
 type ProjectsConfig = boolean | {
   default?: boolean
-  node?: boolean
+  unit?: boolean
   nuxt?: boolean
   e2e?: boolean
   browser?: boolean
