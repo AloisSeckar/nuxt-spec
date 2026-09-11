@@ -38,7 +38,7 @@ deno run -A npm:nuxt-spec setup
 
 First, the CLI tool will ask you whether you want to do the setup automatically. If you choose `y`es, it will perform all the steps for you. If you choose `n`o, it will guide you through the manual setup step-by-step (see [manual setup](#manual-setup) section).
 
-Continue to [Install instructions](#install-and-execute)
+Continue to [last setup step](#finishing-setup)
 
 ### Manual setup
 
@@ -119,13 +119,11 @@ You can use sample files from the [project repository](https://github.com/AloisS
 
 The structure matches the default [configuration](2-1-configuration.html) of `nuxt-spec`.
 
-## Install and execute
+**8)** Install the dependencies:
 
-Whether you used the CLI tool or did the manual setup, you are ready to install and run the tests.
+It is advised to remove `node_modules` and delete the lock file first to avoid resolution issues.
 
-**1)** Install the dependencies:
-
-It is advised to remove `node_modules` and delete the lock file first. Then proceed with a fresh installation.
+Then proceed with a fresh installation:
 
 ::: code-group
 
@@ -151,7 +149,7 @@ deno install
 
 :::
 
-**2)** If you're prompted (for the first time when installing on a new machine, or after a version update), install the headless browser runtimes locally (the CLI tool can do this for you as its last step):
+**9)** If you're prompted (for the first time when installing on a new machine, or after a version update), install the headless browser runtimes locally:
 
 ::: code-group
 
@@ -177,7 +175,9 @@ deno run -A npm:playwright-core install
 
 :::
 
-**3)** Start the development server of your Nuxt project:
+## Finishing setup
+
+Whether you used the CLI tool or did the manual setup, start the development server of your Nuxt project:
 
 ::: code-group
 
