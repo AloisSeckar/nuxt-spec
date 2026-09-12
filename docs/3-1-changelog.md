@@ -2,6 +2,26 @@
 
 Overview of the latest features in Nuxt Spec.
 
+## 0.3.4
+
+`2026-09-12`
+
+- feat: run `nuxt prepare` in CLI scripts ([#53](https://github.com/AloisSeckar/nuxt-spec/issues/53))
+- feat: allow passing explicit package manager to CLI scripts ([#54](https://github.com/AloisSeckar/nuxt-spec/issues/54))
+- fix: add explicit allowBuilds to pnpm settings ([#48](https://github.com/AloisSeckar/nuxt-spec/issues/48))
+- fix: (BREAKING) rename `node` Vitest project to more logical `unit` ([#49](https://github.com/AloisSeckar/nuxt-spec/issues/49))
+- fix: expose `h3-next` alias resolution ([#50](https://github.com/AloisSeckar/nuxt-spec/issues/50))
+- fix: declare explicit version of `playwright` aligned with `playwright-core`
+- fix: correct update commands for npm and yarn
+- docs: add info about trustPolicy issue ([#47](https://github.com/AloisSeckar/nuxt-spec/issues/47))
+- docs: document difference between `mount` and `mountSuspended` in example test ([#51](https://github.com/AloisSeckar/nuxt-spec/issues/51))
+- docs: update install instructions
+- docs: fix links to GitHub issues
+- build: bump `pnpm` to `v12`
+- build: updated dependencies
+  - `happy-dom` to `20.14.0`
+  - `vue-router` to `5.3.1`
+
 ## 0.3.3
 
 `2026-08-31`

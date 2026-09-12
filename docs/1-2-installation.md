@@ -48,7 +48,7 @@ If you don't want to use the CLI tool, or you want to understand its flow better
 **1)** Add the following dependency to your `package.json`:
 
 ```json [package.json]
-"nuxt-spec": "0.3.3"
+"nuxt-spec": "0.3.4"
 ```
 
 It is also advised to remove all explicit `nuxt`, `vue`, and `vue-router` dependencies, if present. The `nuxt-spec` layer includes all of them, and there might be version clashes if they are defined in both places.
@@ -116,7 +116,7 @@ test/
     └── vitest-unit.test.ts
 ```
 
-You can use sample files from the [project repository](https://github.com/AloisSeckar/nuxt-spec/tree/v0.3.3/test).
+You can use sample files from the [project repository](https://github.com/AloisSeckar/nuxt-spec/tree/v0.3.4/test).
 
 The structure matches the default [configuration](2-1-configuration.html) of `nuxt-spec`.
 
@@ -236,7 +236,7 @@ It works the same way as `setup` - first asking whether to run automatically, th
 
 The `update` command will:
 
-- run package manager's update command (e.g. `pnpm update nuxt-spec@0.3.3`) to bump `nuxt-spec` to the latest version
+- run package manager's update command (e.g. `pnpm update nuxt-spec@0.3.4`) to bump `nuxt-spec` to the latest version
 - run the `nuxt prepare` command to regenerate the Nuxt types and auto-imports
 - run the `playwright install` command to ensure the Playwright browser runtimes are up to date
 

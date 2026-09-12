@@ -10,7 +10,7 @@ import {
   getPlaywrightInstallCmd, getPrepareCmd,
 } from './helpers/commands.js'
 
-const TARGET_VERSION = '0.3.3'
+const TARGET_VERSION = '0.3.4'
 
 /**
  * CLI tool to scaffold necessary adjustments in project folder.
