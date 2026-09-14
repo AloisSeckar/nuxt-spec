@@ -14,3 +14,7 @@ docs/.vitepress/.temp
 
 # nuxt-spec screenshots folder
 __current__
+
+# Vitest browser screenshots folder
+# (deliberately ignored during development)
+__screenshots__
