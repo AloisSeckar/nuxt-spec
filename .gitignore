@@ -1,9 +1,6 @@
 .env
 .nuxt
 .output
-.vitest-attachments
-.vitest/attachments
-__current__
 dist
 node_modules
 
@@ -11,3 +8,9 @@ node_modules
 docs/.vitepress/dist
 docs/.vitepress/cache
 docs/.vitepress/.temp
+
+# vitest output folder
+.vitest
+
+# nuxt-spec screenshots folder
+__current__
