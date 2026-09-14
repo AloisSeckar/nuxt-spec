@@ -22,7 +22,7 @@ The most important client of `nuxt-spec` is my [Nuxt Ignis](https://github.com/A
 
 **Nuxt Spec** currently contains:
 
-- [vitest](https://www.npmjs.com/package/vitest) **v4** as the fundamental testing framework
+- [vitest](https://www.npmjs.com/package/vitest) **v5** as the fundamental testing framework
 - [@vitest/browser](https://www.npmjs.com/package/@vitest/browser) as more advanced browser-native testing runner
 - [@vitest/ui](https://www.npmjs.com/package/@vitest/ui) as a graphical UI for the Vitest test runner
 - [happy-dom](https://www.npmjs.com/package/happy-dom) as the headless browser runtime

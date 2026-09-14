@@ -8,7 +8,7 @@ import { render } from 'vitest-browser-vue'
 import { NuxtSpecTestComponent } from 'nuxt-spec/components'
 
 test('properly handles v-model', async () => {
-  const screen = render(NuxtSpecTestComponent)
+  const screen = await render(NuxtSpecTestComponent)
 
   // test by parsing HTML content
   await expect.element(screen.getByText('nuxt-spec')).toBeInTheDocument()

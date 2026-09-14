@@ -84,7 +84,7 @@ This is a wrapper around native Vitest config allowing to merge your custom conf
 **5)** Add a `.nuxtrc` file with the following content (if you don't have it yet):
 
 ```text [.nuxtrc]
-setups.@nuxt/test-utils="4.0.3"
+setups.@nuxt/test-utils="4.3.2"
 ```
 
 Nuxt will auto-generate the file anyway if you do not create it.
