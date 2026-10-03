@@ -6,13 +6,13 @@ import { availableParallelism } from 'node:os'
 import { fileURLToPath } from 'node:url'
 import { onConsoleLog } from './utils/warnings.mjs' // filter out unnecessary logs
 import { mergeConfig } from './utils/merge.mjs' // defu-based merge function
+import { nuxtSpecReportPlugin } from './utils/reporter.mjs' // HTML test report
 import { defineConfig } from 'vitest/config'
 import { defineVitestProject } from '@nuxt/test-utils/config'
 import { playwright } from '@vitest/browser-playwright'
 import vue from '@vitejs/plugin-vue'
 
 // absolute paths so it works from within the nuxt-ignis package
-const screenshotReportSetup = fileURLToPath(new URL('../utils/screenshot.ts', import.meta.url))
 const externalPlaywrightSetup = fileURLToPath(new URL('../utils/playwright.ts', import.meta.url))
 
 // external Playwright instance (if configured)
@@ -29,6 +29,14 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
       // if the host machine can support more
       maxConcurrency: availableParallelism() / 2,
     },
+  }
+
+  // HTML test report for all projects
+  // (can be disabled by setting NUXT_SPEC_HTML_REPORT=false)
+  // the plugin appends the reporter to whatever reporters are in effect
+  // (CLI `--reporter`, user config or Vitest defaults)
+  if (process.env.NUXT_SPEC_HTML_REPORT !== 'false') {
+    baseConfig.plugins = [nuxtSpecReportPlugin()]
   }
 
   // add proposed projects settings
@@ -83,8 +91,6 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
           name: 'e2e',
           include: ['test/e2e/**/*.{test,spec}.ts'],
           environment: 'node',
-          // create report file for visual regression testing
-          globalSetup: [screenshotReportSetup],
           // allows connecting to an external Playwright instance,
           // if NUXT_SPEC_EXTERNAL_PLAYWRIGHT is set
           setupFiles: externalPlaywright ? [externalPlaywrightSetup] : [],

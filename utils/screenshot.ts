@@ -1,12 +1,32 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { decode } from 'fast-png'
-import { expect } from 'vitest'
-import { appendToReport, ensureReportCreated, resolveWithin, screenshotSetup, toRGBA } from './screenshot/report-utils'
+import { expect, recordArtifact, TestRunner } from 'vitest'
+import type { TestArtifactBase, TestAttachment } from 'vitest'
+import { resolveWithin, toRGBA } from './helpers/screenshot-utils'
 import pixelmatch from 'pixelmatch'
 import type { GotoOptions, NuxtPage } from '@nuxt/test-utils'
 import { checkNumberParam, checkPageParam, checkStringParam } from './helpers/check-params'
 import { gotoPage } from './e2e'
+
+/**
+ * Test artifact recorded by `compareScreenshot()` on mismatch.
+ * It is consumed by the Nuxt Spec HTML reporter.
+ */
+export interface NuxtSpecScreenshotArtifact extends TestArtifactBase {
+  type: 'nuxt-spec:screenshot'
+  /** Name of the compared PNG file */
+  fileName: string
+  /** Description of the mismatch */
+  message: string
+  attachments: Array<TestAttachment & { name: 'baseline' | 'actual' }>
+}
+
+declare module 'vitest' {
+  interface TestArtifactRegistry {
+    'nuxt-spec:screenshot': NuxtSpecScreenshotArtifact
+  }
+}
 
 /**
  * Extra settings object for `compareScreenshot()` function.
@@ -87,9 +107,6 @@ export async function compareScreenshot(page: NuxtPage | string, options?: Compa
   const currentDir = resolve(dir, '__current__')
   mkdirSync(currentDir, { recursive: true })
 
-  // create report file on first call
-  ensureReportCreated(dir)
-
   // compute screenshot file name
   const route = pageInstance.url().substring(pageInstance.url().lastIndexOf('/') + 1) || 'index'
   const screenshotFile = fileName ?? `${route}.png`
@@ -134,7 +151,7 @@ export async function compareScreenshot(page: NuxtPage | string, options?: Compa
     }
     // otherwise report failure
     const message = `Screenshot size mismatch: expected ${width}x${height}, got ${actualImg.width}x${actualImg.height}. Actual saved to: ${currentPath}`
-    appendToReport(screenshotFile, message, baseline, screenshot)
+    await reportMismatch(screenshotFile, message, baseline, screenshot)
     expect.fail(message)
   }
 
@@ -154,19 +171,31 @@ export async function compareScreenshot(page: NuxtPage | string, options?: Compa
     // otherwise report failure
     const ratio = (diffCount / totalPixels * 100).toFixed(2)
     const message = `Screenshot mismatch: ${diffCount} pixels differ (${ratio}%), allowed ${maxAllowed}. Actual saved to: ${currentPath}`
-    appendToReport(screenshotFile, message, baseline, screenshot)
+    await reportMismatch(screenshotFile, message, baseline, screenshot)
     expect.fail(message)
   }
 
   return true
 }
 
-// Vitest globalSetup entry point
-// - computes stable timestamp values and exposes them via env variables
-// - the report file itself is created lazily on first compareScreenshot call
-// - provides a callback to close the HTML report once tests are finished (if it was created)
-export default function setup() {
-  // the function itself is defined in the helper file
-  // to avoid imports here and there
-  return screenshotSetup()
+// pass the baseline/actual pair to the Nuxt Spec HTML reporter via Vitest test artifacts
+// best-effort only - it must never mask the actual assertion failure
+async function reportMismatch(fileName: string, message: string, baseline: Uint8Array, actual: Uint8Array): Promise<void> {
+  // undefined when called outside of a running test (e.g. in `beforeAll`)
+  const test = TestRunner.getCurrentTest()
+  if (!test) return
+
+  try {
+    await recordArtifact(test, {
+      type: 'nuxt-spec:screenshot',
+      fileName,
+      message,
+      attachments: [
+        { name: 'baseline', contentType: 'image/png', body: baseline },
+        { name: 'actual', contentType: 'image/png', body: actual },
+      ],
+    })
+  } catch {
+    // reporting is optional
+  }
 }

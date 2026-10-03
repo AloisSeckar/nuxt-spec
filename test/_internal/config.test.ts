@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
 import { loadVitestConfig } from '../../config/index.mjs'
 
 // TypeScript infers `projects` as `boolean` from the .mjs source instead of
@@ -25,6 +25,13 @@ function loadConfig(
 function projectNames(config: Awaited<ReturnType<typeof loadVitestConfig>>): string[] {
   return ((config.test?.projects as Array<{ test?: { name?: string } }>) ?? [])
     .map(p => p?.test?.name)
+    .filter((n): n is string => typeof n === 'string')
+}
+
+/** Extract the names of root-level Vite plugins. */
+function pluginNames(config: Awaited<ReturnType<typeof loadVitestConfig>>): string[] {
+  return ((config.plugins ?? []) as unknown[]).flat(Infinity)
+    .map(p => (p as { name?: string } | null)?.name)
     .filter((n): n is string => typeof n === 'string')
 }
 
@@ -139,5 +146,39 @@ describe('Test `loadVitestConfig` function', () => {
     const config = await loadConfig({}, { default: false, unit: false, nuxt: false, e2e: false, browser: false })
     expect(config.test?.projects).toBeDefined()
     expect(config.test?.projects).toHaveLength(0)
+  })
+
+  // HTML report plugin
+
+  test('should include HTML report plugin by default', async () => {
+    const config = await loadVitestConfig({})
+    expect(pluginNames(config)).toContain('nuxt-spec:html-report')
+  })
+
+  test('should include HTML report plugin when `projects` are excluded', async () => {
+    const config = await loadVitestConfig({}, false)
+    expect(pluginNames(config)).toContain('nuxt-spec:html-report')
+  })
+
+  test('should keep user-defined plugins alongside HTML report plugin', async () => {
+    const config = await loadVitestConfig({ plugins: [{ name: 'user-plugin' }] })
+    const names = pluginNames(config)
+    expect(names).toContain('user-plugin')
+    expect(names).toContain('nuxt-spec:html-report')
+  })
+
+  test('should not touch `reporters` setting', async () => {
+    const config = await loadVitestConfig({})
+    expect(config.test?.reporters).toBeUndefined()
+  })
+
+  test('should exclude HTML report plugin when NUXT_SPEC_HTML_REPORT=false', async () => {
+    vi.stubEnv('NUXT_SPEC_HTML_REPORT', 'false')
+    try {
+      const config = await loadVitestConfig({})
+      expect(pluginNames(config)).not.toContain('nuxt-spec:html-report')
+    } finally {
+      vi.unstubAllEnvs()
+    }
   })
 })

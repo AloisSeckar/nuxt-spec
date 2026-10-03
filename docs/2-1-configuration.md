@@ -76,6 +76,36 @@ By setting `NUXT_SPEC_EXTERNAL_PLAYWRIGHT` to an external WebSocket URL, you can
 
 **NOTE that remote Playwright version must match `~1.63.0` to align with version used by Nuxt Spec.** Connection attempt to an older version will be rejected by Playwright built-in guard.
 
+## HTML test report
+
+After each test run, Nuxt Spec generates a self-contained HTML report file in `test/__reports__/report-YYYYMMDDHHMMSS.html` (relative to the Vitest root). It covers all test projects. Old report files are kept, so you should add the folder to your `.gitignore`:
+
+```sh [.gitignore]
+__reports__
+```
+
+The report always contains a summary line (e.g. `5/5 tests passed`). Details are only rendered for failed tests (error message, diff, stack trace, and for failed [`compareScreenshot`](./2-2-utilities.md#comparescreenshot) calls also the baseline and the actual screenshot), as well as for errors that happened outside of tests (failed test modules, failed `beforeAll`/`afterAll` hooks and unhandled errors).
+
+The report is produced by a custom Vitest reporter. It is registered via a Vite plugin that appends it to whatever reporters are in effect, so it works together with the default Vitest reporters, with `reporters` set in your config, as well as with the `--reporter` CLI option.
+
+To disable the report completely, set the `NUXT_SPEC_HTML_REPORT` env variable to `false`:
+
+```sh [.env]
+NUXT_SPEC_HTML_REPORT=false
+```
+
+By default, the report is automatically opened in the system default browser when at least one test fails. This can be changed via the `NUXT_SPEC_HTML_REPORT_OPEN` env variable:
+
+- `on-failure` - (default) open only if the test run failed
+- `always` - open after each test run
+- `never` - never open, only print the path into the console
+
+```sh [.env]
+NUXT_SPEC_HTML_REPORT_OPEN=always
+```
+
+Regardless of this setting, the report is never opened when Node operates in `CI` mode or when Vitest runs in watch mode (a fresh report is still generated after each re-run).
+
 ## Filtering out log messages
 
 Some tedious and irrelevant log messages may keep appearing in running tests, creating noise and hiding the real issues.
