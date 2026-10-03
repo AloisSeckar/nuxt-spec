@@ -60,7 +60,7 @@
     "@vitest/browser-playwright": "5.0.0",
     "@vitest/ui": "5.0.0",
     "@vue/test-utils": "2.5.0",
-    "elrh-cosca": "0.3.6",
+    "elrh-cosca": "0.4.0",
     "fast-png": "~8.0.0",
     "h3-next": "npm:h3@~2.0.1-rc.31",
     "happy-dom": "~20.14.0",

@@ -203,8 +203,8 @@ importers:
         specifier: 2.5.0
         version: 2.5.0(@vue/compiler-dom@3.5.42)(@vue/server-renderer@3.5.42)(vue@3.5.42(typescript@6.0.3))
       elrh-cosca:
-        specifier: 0.3.6
-        version: 0.3.6
+        specifier: 0.4.0
+        version: 0.4.0
       fast-png:
         specifier: ~8.0.0
         version: 8.0.0
@@ -2656,8 +2656,8 @@ packages:
   electron-to-chromium@1.5.395:
     resolution: {integrity: sha512-7zt9Aw+SrmxLWLN0zhaTWZQiCdryLVrYTq5R7iZakLvi2UQPYMMsROYV/2qVCzMeCiSXHwKOU+sZ4zOVVlrtKA==}
 
-  elrh-cosca@0.3.6:
-    resolution: {integrity: sha512-3lf1LQF/6nJv/CpQzVoU52GybH4IDEYAeo3GNc9W+BO4ooT93ISKywICRdty+zlkUJWdg+ZSnT42z1i2XSui+w==}
+  elrh-cosca@0.4.0:
+    resolution: {integrity: sha512-Z0g4vXqeuaIuNI+JOa/gIiGEl2DQJC3ZVK5JH4cmKNe1LNFp4Y2FQMCunKNn8UjnqCfXoQk4rwSHxuvtftwPPg==}
     hasBin: true
 
   emoji-regex@10.6.0:
@@ -7901,7 +7901,7 @@ snapshots:
 
   electron-to-chromium@1.5.395: {}
 
-  elrh-cosca@0.3.6: {}
+  elrh-cosca@0.4.0: {}
 
   emoji-regex@10.6.0: {}
 
