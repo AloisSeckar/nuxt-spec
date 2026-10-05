@@ -4,11 +4,16 @@ const messageFilters = [
   'Use of deprecated trailing slash pattern mapping',
   // remove once Vue stops considering <Suspense> experimental
   '<Suspense> is an experimental feature',
-  // merge defaults with user-defined filters from NUXT_SPEC_MESSAGE_FILTERS env variable
-  ...(process.env.NUXT_SPEC_MESSAGE_FILTERS
-    ? process.env.NUXT_SPEC_MESSAGE_FILTERS.split(',')
-    : []),
 ]
+
+// merge user-defined filters (`spec.messageFilters` / NUXT_SPEC_MESSAGE_FILTERS) with defaults
+export function addMessageFilters(filters) {
+  for (const filter of filters) {
+    if (filter && !messageFilters.includes(filter)) {
+      messageFilters.push(filter)
+    }
+  }
+}
 
 // 1) filter-out unnecessary stderr/stdout logs coming from Vitest
 // (applied as side-effect on import)

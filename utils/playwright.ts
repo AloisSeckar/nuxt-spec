@@ -1,11 +1,19 @@
 // Vitest setup file for the `e2e` project
 // allows connecting to an external Playwright instance,
-// if NUXT_SPEC_EXTERNAL_PLAYWRIGHT is set
+// if `spec.externalPlaywright` or NUXT_SPEC_EXTERNAL_PLAYWRIGHT is set
 
+import { inject } from 'vitest'
 import { chromium, firefox, webkit } from 'playwright-core'
 import type { Browser, BrowserType } from 'playwright-core'
 
-const externalPlaywright = process.env.NUXT_SPEC_EXTERNAL_PLAYWRIGHT
+declare module 'vitest' {
+  interface ProvidedContext {
+    nuxtSpecExternalPlaywright?: string
+  }
+}
+
+// resolved and provided by `loadVitestConfig` (config/index.mjs)
+const externalPlaywright = inject('nuxtSpecExternalPlaywright')
 
 if (externalPlaywright) {
   for (const browserType of [chromium, firefox, webkit] as BrowserType[]) {

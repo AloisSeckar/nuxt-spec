@@ -252,6 +252,16 @@ describe('Test HTML report plugin', () => {
     addReporter(config)
     expect(config.reporters).toHaveLength(1)
   })
+
+  test('should pass `open` option to the reporter', () => {
+    const config: { reporters?: unknown[] } = {}
+    addReporter(config, { open: 'never' })
+    expect((config.reporters?.[0] as NuxtSpecHtmlReporter).open).toBe('never')
+
+    const vitest = { config: { reporters: [] as unknown[] } }
+    nuxtSpecReportPlugin({ open: 'always' }).configureVitest({ vitest })
+    expect((vitest.config.reporters[0] as NuxtSpecHtmlReporter).open).toBe('always')
+  })
 })
 
 describe('Test `NuxtSpecHtmlReporter` output', () => {

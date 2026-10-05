@@ -4,8 +4,9 @@
 
 import { availableParallelism } from 'node:os'
 import { fileURLToPath } from 'node:url'
-import { onConsoleLog } from './utils/warnings.mjs' // filter out unnecessary logs
+import { addMessageFilters, onConsoleLog } from './utils/warnings.mjs' // filter out unnecessary logs
 import { mergeConfig } from './utils/merge.mjs' // defu-based merge function
+import { loadSpecOptions } from './utils/options.mjs' // `spec` key from nuxt.config.ts + NUXT_SPEC_* env variables
 import { nuxtSpecReportPlugin } from './utils/reporter.mjs' // HTML test report
 import { defineConfig } from 'vitest/config'
 import { defineVitestProject } from '@nuxt/test-utils/config'
@@ -15,10 +16,13 @@ import vue from '@vitejs/plugin-vue'
 // absolute paths so it works from within the nuxt-ignis package
 const externalPlaywrightSetup = fileURLToPath(new URL('../utils/playwright.ts', import.meta.url))
 
-// external Playwright instance (if configured)
-const externalPlaywright = process.env.NUXT_SPEC_EXTERNAL_PLAYWRIGHT
-
 export async function loadVitestConfig(userVitestConfig, projects = true) {
+  const { externalPlaywright, htmlReport, messageFilters } = await loadSpecOptions()
+
+  // extend array of messages that will be filtered out from the output
+  // with values passed by the user (if any)
+  addMessageFilters(messageFilters)
+
   const baseConfig = {
     test: {
       // filter-out unnecessary console logs coming from Vitest
@@ -33,8 +37,8 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
 
   // HTML test report for all projects
   // report is generated unless explicitly disabled
-  if (process.env.NUXT_SPEC_HTML_REPORT !== 'false') {
-    baseConfig.plugins = [nuxtSpecReportPlugin()]
+  if (htmlReport.enabled) {
+    baseConfig.plugins = [nuxtSpecReportPlugin({ open: htmlReport.open })]
   }
 
   // add proposed projects settings
@@ -89,17 +93,17 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
           name: 'e2e',
           include: ['test/e2e/**/*.{test,spec}.ts'],
           environment: 'node',
-          // allows connecting to an external Playwright instance,
-          // if NUXT_SPEC_EXTERNAL_PLAYWRIGHT is set
+          // allows connecting to an external Playwright instance (if configured)
           setupFiles: externalPlaywright ? [externalPlaywrightSetup] : [],
+          // setup file will just read the value via `inject()`
+          provide: externalPlaywright ? { nuxtSpecExternalPlaywright: externalPlaywright } : {},
         },
       })
     }
 
     // proposed setup for browser component tests (with Playwright runner)
     if (projects.browser !== false) {
-      // allows connecting to an external Playwright instance,
-      // if NUXT_SPEC_EXTERNAL_PLAYWRIGHT is set
+      // allows connecting to an external Playwright instance (if configured)
       const playwrightConfig = {}
       if (externalPlaywright) {
         console.log(`[Nuxt Spec - browser] Using external Playwright instance at: ${externalPlaywright}`)

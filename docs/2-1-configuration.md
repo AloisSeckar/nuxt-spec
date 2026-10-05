@@ -68,15 +68,55 @@ export default loadVitestConfig({
 
 If you don't want to use any part of the `nuxt-spec` default configuration at all, you can override `vitest.config.ts` file completely and define your own [Vitest configuration](https://vitest.dev/config/) from scratch.
 
-## External Playwright server
+## Nuxt Spec options
+
+Behavior of Nuxt Spec itself can be adjusted via the `spec` key in your `nuxt.config.ts`:
+
+```ts [nuxt.config.ts]
+export default defineNuxtConfig({
+  extends: ['nuxt-spec'],
+  spec: {
+    // include @nuxt/hints module (default: true)
+    hints: true,
+    // WebSocket endpoint of an external Playwright server (default: not set => not used)
+    externalPlaywright: 'ws://localhost:3000/',
+    htmlReport: {
+      // generate HTML test report (default: true)
+      enabled: true,
+      // when to open the report file in browser - 'always' | 'failed' | 'never' (default: 'failed')
+      open: 'failed',
+    },
+    // additional log messages to omit (default: [])
+    messageFilters: ['some tedious message'],
+  },
+})
+```
+
+Each option can also be set via an env variable:
+
+| `spec` option | env variable |
+| --- | --- |
+| `hints` | `NUXT_SPEC_HINTS_ENABLED` |
+| `externalPlaywright` | `NUXT_SPEC_EXTERNAL_PLAYWRIGHT` |
+| `htmlReport.enabled` | `NUXT_SPEC_HTML_REPORT` |
+| `htmlReport.open` | `NUXT_SPEC_HTML_REPORT_OPEN` |
+| `messageFilters` | `NUXT_SPEC_MESSAGE_FILTERS` (comma-separated) |
+
+If both are set, the env variable takes precedence. The only exception is `messageFilters`, where values from both sources are combined. Boolean env variables only disable the feature with an explicit `false` value. Env variables can be also defined in the `.env` file in the root of your project.
+
+The `spec` key is typed automatically once Nuxt types are generated (e.g. via `nuxt prepare`).
+
+The values are read from `nuxt.config.ts` located in the current working directory once Vitest config is loaded. When you change them, restart Vitest to apply the changes (this also applies for the watch mode).
+
+### External Playwright server
 
 By default, local Playwright instance is being build when executing `e2e` and `browser` tests.
 
-By setting `NUXT_SPEC_EXTERNAL_PLAYWRIGHT` to an external WebSocket URL, you can reference an existing Playwright server instead. Nuxt Spec will automatically wire it up. The connection will be established with  `exposeNetwork: '<loopback>'` setting by default. See [Vitest docs](https://vitest.dev/config/browser/playwright.html#connectoptions) for details.
+By setting `spec.externalPlaywright` (or the `NUXT_SPEC_EXTERNAL_PLAYWRIGHT` env variable) to an external WebSocket URL, you can reference an existing Playwright server instead. Nuxt Spec will automatically wire it up. The connection will be established with  `exposeNetwork: '<loopback>'` setting by default. See [Vitest docs](https://vitest.dev/config/browser/playwright.html#connectoptions) for details.
 
 **NOTE that remote Playwright version must match `~1.63.0` to align with version used by Nuxt Spec.** Connection attempt to an older version will be rejected by Playwright built-in guard.
 
-## HTML test report
+### HTML test report
 
 After each test run, Nuxt Spec generates a self-contained HTML report file in `test/__reports__/report-YYYYMMDDHHMMSS.html` (relative to the Vitest root). It covers all test projects. Old report files are kept, so you should add the folder to your `.gitignore`:
 
@@ -88,17 +128,31 @@ The report always contains a summary line (e.g. `5/5 tests passed`). Details are
 
 The report is produced by a custom Vitest reporter. It is registered via a Vite plugin that appends it to whatever reporters are in effect, so it works together with the default Vitest reporters, with `reporters` set in your config, as well as with the `--reporter` CLI option.
 
-To disable the report completely, set the `NUXT_SPEC_HTML_REPORT` env variable to `false`:
+To disable the report completely, set `spec.htmlReport.enabled` to `false`:
+
+```ts [nuxt.config.ts]
+spec: {
+  htmlReport: { enabled: false },
+}
+```
+
+or set the `NUXT_SPEC_HTML_REPORT` env variable to `false`:
 
 ```sh [.env]
 NUXT_SPEC_HTML_REPORT=false
 ```
 
-By default, the report is automatically opened in the system default browser when at least one test fails. This can be changed via the `NUXT_SPEC_HTML_REPORT_OPEN` env variable:
+By default, the report is automatically opened in the system default browser when at least one test fails. This can be changed via `spec.htmlReport.open` (or the `NUXT_SPEC_HTML_REPORT_OPEN` env variable):
 
 - `failed` - (default) open only if the test run failed
 - `always` - open after each test run
 - `never` - never open, only print the path into the console
+
+```ts [nuxt.config.ts]
+spec: {
+  htmlReport: { open: 'always' },
+}
+```
 
 ```sh [.env]
 NUXT_SPEC_HTML_REPORT_OPEN=always
@@ -106,19 +160,27 @@ NUXT_SPEC_HTML_REPORT_OPEN=always
 
 Regardless of this setting, the report is never opened when Node operates in `CI` mode or when Vitest runs in watch mode (a fresh report is still generated after each re-run).
 
-## Filtering out log messages
+### Filtering out log messages
 
 Some tedious and irrelevant log messages may keep appearing in running tests, creating noise and hiding the real issues.
 
-Via the `NUXT_SPEC_MESSAGE_FILTERS` env variable, you can pass a comma-separated list of plain text patterns that should be omitted.
+Via `spec.messageFilters` (an array) or the `NUXT_SPEC_MESSAGE_FILTERS` env variable (a comma-separated list), you can pass plain text patterns that should be omitted. Patterns from both sources are combined.
 
 It only applies to logs processed by `vitest` though, so some messages might still prevail.
 
-## Nuxt Hints integration
+### Nuxt Hints integration
 
 Nuxt Spec includes [@nuxt/hints](https://nuxt.com/modules/hints), a module that enhances DevTools with warnings about performance, hydration mismatches, third-party scripts, and other best practices, by default.
 
-If you don't want to use it, set the `NUXT_SPEC_HINTS_ENABLED` env variable to `false`:
+If you don't want to use it, set `spec.hints` to `false`:
+
+```ts [nuxt.config.ts]
+spec: {
+  hints: false,
+}
+```
+
+or set the `NUXT_SPEC_HINTS_ENABLED` env variable to `false`:
 
 ```sh [.env]
 NUXT_SPEC_HINTS_ENABLED=false

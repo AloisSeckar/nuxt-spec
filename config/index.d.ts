@@ -1,6 +1,8 @@
 import type { UserConfig } from 'vite'
 import type { TestUserConfig } from 'vitest/config'
 
+export type { HtmlReportOpenMode, NuxtSpecOptions } from './utils/options.mjs'
+
 /** Typed Vite configuration object for tests */
 type ExtendedUserConfig = UserConfig & {
   test?: TestUserConfig
@@ -23,6 +25,7 @@ type ProjectsConfig = boolean | {
 
 /**
  * Prepare Vitest configuration object - user config merged with nuxt-spec defaults
+ * (defaults are adjusted by `spec` key from nuxt.config.ts and NUXT_SPEC_* env variables)
  * @param userVitestConfig - custom Vitest config passed from the user
  * @param projects - allows fine-grained control over default `test.projects` - see `ProjectsConfig` for details
  * @returns Promise resolving to defu-merged Vitest configuration

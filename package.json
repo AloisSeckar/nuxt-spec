@@ -47,6 +47,7 @@
     "app",
     "bin",
     "config",
+    "modules",
     "public",
     "utils",
     "nuxt.config.ts"

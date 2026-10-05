@@ -3,7 +3,7 @@
 //   into `<root>/test/__reports__/report-YYYYMMDDHHMMSS.html` after each test run
 // - `nuxtSpecReportPlugin` is a Vite plugin that appends the reporter to whatever reporters
 //   are in effect (CLI `--reporter`, user config or Vitest defaults)
-// - NUXT_SPEC_HTML_REPORT_OPEN=always|failed|never controls opening the report in browser
+// - `open` option (always|failed|never) controls opening the report in browser
 
 import { exec } from 'node:child_process'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -29,12 +29,13 @@ const loadTemplate = name => readFileSync(resolve(templatesDir, name), 'utf-8')
  * Vite plugin that registers `NuxtSpecHtmlReporter`.
  * The `configureVitest` hook runs after Vitest merged CLI and config reporters,
  * but before reporters are instantiated, so the HTML reporter is always appended.
+ * @param {ReporterOptions} [options] - reporter options
  */
-export function nuxtSpecReportPlugin() {
+export function nuxtSpecReportPlugin(options = {}) {
   return {
     name: 'nuxt-spec:html-report',
     configureVitest({ vitest }) {
-      addReporter(vitest.config)
+      addReporter(vitest.config, options)
     },
   }
 }
@@ -43,15 +44,25 @@ export function nuxtSpecReportPlugin() {
  * Append the Nuxt Spec HTML reporter into resolved Vitest config.
  * The hook is called once per project, so duplicates must be avoided.
  * @param {{ reporters?: unknown[] }} config - resolved Vitest config
+ * @param {ReporterOptions} [options] - reporter options
  */
-export function addReporter(config) {
+export function addReporter(config, options = {}) {
   config.reporters ??= []
   if (config.reporters.some(r => r?.[REPORTER_MARK])) return
-  config.reporters.push(new NuxtSpecHtmlReporter())
+  config.reporters.push(new NuxtSpecHtmlReporter(options))
 }
+
+/**
+ * @typedef {{ open?: string }} ReporterOptions
+ */
 
 export class NuxtSpecHtmlReporter {
   [REPORTER_MARK] = true
+
+  /** @param {ReporterOptions} [options] */
+  constructor({ open } = {}) {
+    this.open = open
+  }
 
   onInit(vitest) {
     this.vitest = vitest
@@ -86,7 +97,7 @@ export class NuxtSpecHtmlReporter {
     log(`\n(nuxt-spec) Test report available at:\n${pathToFileURL(reportPath).href}`)
 
     const shouldOpen = shouldOpenReport({
-      mode: process.env.NUXT_SPEC_HTML_REPORT_OPEN,
+      mode: this.open,
       hasFailure: data.hasFailure,
       ci: !!process.env.CI,
       watch,
