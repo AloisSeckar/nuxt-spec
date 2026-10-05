@@ -81,4 +81,11 @@ describe('Test `checkXYParam` functions', () => {
     // with correct hint
     expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('_internal/hints.test.ts:78:5'))
   })
+
+  test('should warn about null NuxtPage without throwing', () => {
+    // @ts-expect-error intentional wrong type
+    expect(() => checkPageParam('testParam', null)).not.toThrow()
+    expect(warnSpy).toHaveBeenCalledOnce()
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('is missing or empty'))
+  })
 })
