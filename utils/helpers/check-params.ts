@@ -5,6 +5,7 @@ import { locationHint } from './location-hint'
 export function checkStringParam(paramName: string, paramValue?: string) {
   if (!paramValue) {
     console.warn(`[Nuxt Spec] Passed value '${paramName}' is missing or empty.\n${locationHint()}`)
+    return
   }
   if (typeof paramValue !== 'string') {
     console.warn(`[Nuxt Spec] Passed value '${paramName}' is not a string.\n${locationHint()}`)
@@ -15,6 +16,7 @@ export function checkStringParam(paramName: string, paramValue?: string) {
 export function checkNumberParam(paramName: string, paramValue?: number) {
   if (paramValue === undefined || paramValue === null) {
     console.warn(`[Nuxt Spec] Passed value '${paramName}' is missing or empty.\n${locationHint()}`)
+    return
   }
   if (typeof paramValue !== 'number') {
     console.warn(`[Nuxt Spec] Passed value '${paramName}' is not a number.\n${locationHint()}`)
@@ -25,6 +27,7 @@ export function checkNumberParam(paramName: string, paramValue?: number) {
 export function checkPageParam(paramName: string, paramValue?: NuxtPage) {
   if (!paramValue) {
     console.warn(`[Nuxt Spec] Passed value '${paramName}' is missing or empty.\n${locationHint()}`)
+    return
   }
   if (typeof paramValue !== 'object') {
     console.warn(`[Nuxt Spec] Passed value '${paramName}' is not a NuxtPage.\n${locationHint()}`)

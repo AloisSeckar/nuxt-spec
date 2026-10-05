@@ -41,7 +41,7 @@ describe('Test `checkXYParam` functions', () => {
 
   test('should warn about empty string', () => {
     checkStringParam('testParam', '')
-    expect(warnSpy).toHaveBeenCalled()
+    expect(warnSpy).toHaveBeenCalledOnce()
     expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('is missing or empty'))
     // with correct hint
     expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('_internal/hints.test.ts:43:5'))
@@ -58,7 +58,7 @@ describe('Test `checkXYParam` functions', () => {
 
   test('should warn about empty NuxtPage', () => {
     checkPageParam('testParam', undefined)
-    expect(warnSpy).toHaveBeenCalled()
+    expect(warnSpy).toHaveBeenCalledOnce()
     expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('is missing or empty'))
     // with correct hint
     expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('_internal/hints.test.ts:60:5'))
