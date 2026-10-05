@@ -96,7 +96,7 @@ NUXT_SPEC_HTML_REPORT=false
 
 By default, the report is automatically opened in the system default browser when at least one test fails. This can be changed via the `NUXT_SPEC_HTML_REPORT_OPEN` env variable:
 
-- `on-failure` - (default) open only if the test run failed
+- `failed` - (default) open only if the test run failed
 - `always` - open after each test run
 - `never` - never open, only print the path into the console
 

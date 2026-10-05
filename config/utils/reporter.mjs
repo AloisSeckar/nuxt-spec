@@ -3,7 +3,7 @@
 //   into `<root>/test/__reports__/report-YYYYMMDDHHMMSS.html` after each test run
 // - `nuxtSpecReportPlugin` is a Vite plugin that appends the reporter to whatever reporters
 //   are in effect (CLI `--reporter`, user config or Vitest defaults)
-// - NUXT_SPEC_HTML_REPORT_OPEN=always|on-failure|never controls opening the report in browser
+// - NUXT_SPEC_HTML_REPORT_OPEN=always|failed|never controls opening the report in browser
 
 import { exec } from 'node:child_process'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -17,7 +17,7 @@ export const SCREENSHOT_ARTIFACT_TYPE = 'nuxt-spec:screenshot'
 /** Relative path (from Vitest root) where report files are stored */
 export const REPORT_DIR = 'test/__reports__'
 
-const OPEN_MODES = ['always', 'on-failure', 'never']
+const OPEN_MODES = ['always', 'failed', 'never']
 
 // marker used to identify the reporter instance even if this module is loaded more than once
 const REPORTER_MARK = Symbol.for('nuxt-spec:html-reporter')
@@ -100,13 +100,13 @@ export class NuxtSpecHtmlReporter {
 
 /**
  * Decide whether the report should be opened in the default browser.
- * Never opens in CI or watch mode. Invalid `mode` falls back to `on-failure`.
+ * Never opens in CI or watch mode. Invalid `mode` falls back to `failed`.
  * @param {{ mode?: string, hasFailure: boolean, ci: boolean, watch: boolean }} options
  */
 export function shouldOpenReport({ mode, hasFailure, ci, watch }) {
   if (ci || watch) return false
-  const normalized = mode?.trim().toLowerCase() || 'on-failure'
-  const effective = OPEN_MODES.includes(normalized) ? normalized : 'on-failure'
+  const normalized = mode?.trim().toLowerCase() || 'failed'
+  const effective = OPEN_MODES.includes(normalized) ? normalized : 'failed'
   if (effective === 'always') return true
   if (effective === 'never') return false
   return hasFailure

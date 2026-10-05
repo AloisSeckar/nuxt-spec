@@ -218,7 +218,7 @@ describe('Test `shouldOpenReport` function', () => {
     expect(shouldOpenReport({ mode: 'NEVER', hasFailure: true, ci: false, watch: false })).toBe(false)
   })
 
-  test('should fall back to `on-failure` for invalid mode', () => {
+  test('should fall back to `failed` for invalid mode', () => {
     expect(shouldOpenReport({ mode: 'sometimes', hasFailure: false, ci: false, watch: false })).toBe(false)
     expect(shouldOpenReport({ mode: 'sometimes', hasFailure: true, ci: false, watch: false })).toBe(true)
   })

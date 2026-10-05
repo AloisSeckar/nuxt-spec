@@ -32,16 +32,14 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
   }
 
   // HTML test report for all projects
-  // (can be disabled by setting NUXT_SPEC_HTML_REPORT=false)
-  // the plugin appends the reporter to whatever reporters are in effect
-  // (CLI `--reporter`, user config or Vitest defaults)
+  // report is generated unless explicitly disabled
   if (process.env.NUXT_SPEC_HTML_REPORT !== 'false') {
     baseConfig.plugins = [nuxtSpecReportPlugin()]
   }
 
   // add proposed projects settings
   // user can control the inclusion via `projects: ProjectsConfig` config object
-  // projects are included by default unless not explicitly disabled
+  // projects are included by default unless explicitly disabled
   if (projects !== false) {
     baseConfig.test.projects = []
 
