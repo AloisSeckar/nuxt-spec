@@ -90,11 +90,11 @@ export class NuxtSpecHtmlReporter {
       mkdirSync(reportDir, { recursive: true })
       writeFileSync(reportPath, html)
     } catch (error) {
-      log(`\n(nuxt-spec) Failed to write HTML report: ${error?.message ?? error}`)
+      log(`\n[Nuxt Spec] Failed to write HTML report: ${error?.message ?? error}`)
       return
     }
 
-    log(`\n(nuxt-spec) Test report available at:\n${pathToFileURL(reportPath).href}`)
+    log(`\n[Nuxt Spec] Test report available at:\n${pathToFileURL(reportPath).href}`)
 
     const shouldOpen = shouldOpenReport({
       mode: this.open,
@@ -103,8 +103,8 @@ export class NuxtSpecHtmlReporter {
       watch,
     })
     if (shouldOpen) {
-      log('(nuxt-spec) Opening report in default browser...')
-      openInBrowser(reportPath, () => log('(nuxt-spec) Failed to automatically open report'))
+      log('[Nuxt Spec] Opening report in default browser...')
+      openInBrowser(reportPath, () => log('[Nuxt Spec] Failed to automatically open report'))
     }
   }
 }

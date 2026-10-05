@@ -113,7 +113,7 @@ export async function compareScreenshot(page: NuxtPage | string, options?: Compa
 
   // warning on custom non-png file extensions
   if (!screenshotFile.toLowerCase().endsWith('.png')) {
-    console.warn(`Screenshots from \`compareScreenshot\` are always saved as PNG. Consider different file name than '${screenshotFile}'.`)
+    console.warn(`[Nuxt Spec] Screenshots from \`compareScreenshot\` are always saved as PNG. Consider different file name than '${screenshotFile}'.`)
   }
 
   // ensure the file name cannot escape its target directory

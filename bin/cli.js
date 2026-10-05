@@ -33,11 +33,11 @@ const args = process.argv.slice(2);
         await (await import('./update.js')).specUpdate(autoRun, packageManager)
         break
       default:
-        console.log(`Usage: \`${getCmd(packageManager)} setup [true|false] [npm|pnpm|yarn|bun|deno]\` or \`${getCmd(packageManager)} update [true|false] [npm|pnpm|yarn|bun|deno]\``)
+        console.log(`[Nuxt Spec] Usage: \`${getCmd(packageManager)} setup [true|false] [npm|pnpm|yarn|bun|deno]\` or \`${getCmd(packageManager)} update [true|false] [npm|pnpm|yarn|bun|deno]\``)
         status = 1
     }
   } catch (error) {
-    console.error('nuxt-spec CLI failed:', error.message)
+    console.error('[Nuxt Spec] CLI failed:', error.message)
     status = 1
   }
   process.exit(status)

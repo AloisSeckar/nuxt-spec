@@ -33,46 +33,46 @@ export async function specUpdate(autoRun = false, packageManager) {
   const isInstalled = hasJsonKey({ targetFile: 'package.json', jsonKey: `dependencies.nuxt-spec` })
     || hasJsonKey({ targetFile: 'package.json', jsonKey: `devDependencies.nuxt-spec` })
   if (!isInstalled) {
-    console.error(`'nuxt-spec' was not found in your 'package.json'. Run the 'setup' command first.`)
+    console.error(`[Nuxt Spec] 'nuxt-spec' was not found in your 'package.json'. Run the 'setup' command first.`)
     process.exit(1)
   }
 
-  const isAutoRun = autoRun || await promptUser({ question: 'Do you want to update everything automatically (no more prompts)?' })
+  const isAutoRun = autoRun || await promptUser({ question: '[Nuxt Spec] Do you want to update everything automatically (no more prompts)?' })
   showMessage({ message: '' })
 
   // 1) run 'update nuxt-spec'
   const updateCmd = getUpdateCmd(packageManager, `nuxt-spec@${TARGET_VERSION}`)
-  const runUpdate = isAutoRun || await promptUser({ question: `This will bump 'nuxt-spec' to version '${TARGET_VERSION}' by running \`${updateCmd}\`. Continue?` })
+  const runUpdate = isAutoRun || await promptUser({ question: `[Nuxt Spec] This will bump 'nuxt-spec' to version '${TARGET_VERSION}' by running \`${updateCmd}\`. Continue?` })
   if (runUpdate) {
     try {
       showMessage({ message: `Running \`${updateCmd}\`...` })
       execSync(updateCmd, { stdio: 'inherit' })
     } catch (error) {
-      console.error(`Error running \`${updateCmd}\`:\n`, error.message)
+      console.error(`[Nuxt Spec] Error running \`${updateCmd}\`:\n`, error.message)
     }
   }
 
   // 2) run 'nuxt prepare'
   const prepareCmd = getPrepareCmd(packageManager)
-  const runPrepare = isAutoRun || await promptUser({ question: `Nuxt types and auto-imports should be regenerated after the update. Do you want to run \`${prepareCmd}\` now?` })
+  const runPrepare = isAutoRun || await promptUser({ question: `[Nuxt Spec] Nuxt types and auto-imports should be regenerated after the update. Do you want to run \`${prepareCmd}\` now?` })
   if (runPrepare) {
     try {
       showMessage({ message: `Running \`${prepareCmd}\`...` })
       execSync(prepareCmd, { stdio: 'inherit' })
     } catch (error) {
-      console.error(`Error running \`${prepareCmd}\`:\n`, error.message)
+      console.error(`[Nuxt Spec] Error running \`${prepareCmd}\`:\n`, error.message)
     }
   }
 
   // 3) run 'playwright install'
   const playwrightUpdateCmd = getPlaywrightInstallCmd(packageManager)
-  const runPlaywrightUpdate = isAutoRun || await promptUser({ question: `Playwright browser runtimes might need to be updated for e2e tests. Do you want to run \`${playwrightUpdateCmd}\` now?` })
+  const runPlaywrightUpdate = isAutoRun || await promptUser({ question: `[Nuxt Spec] Playwright browser runtimes might need to be updated for e2e tests. Do you want to run \`${playwrightUpdateCmd}\` now?` })
   if (runPlaywrightUpdate) {
     try {
       showMessage({ message: `Running \`${playwrightUpdateCmd}\`...` })
       execSync(playwrightUpdateCmd, { stdio: 'inherit' })
     } catch (error) {
-      console.error(`Error running \`${playwrightUpdateCmd}\`:\n`, error.message)
+      console.error(`[Nuxt Spec] Error running \`${playwrightUpdateCmd}\`:\n`, error.message)
     }
   }
 

@@ -16,8 +16,8 @@ declare module 'vitest' {
 const externalPlaywright = inject('nuxtSpecExternalPlaywright')
 
 if (externalPlaywright) {
+  console.log(`[Nuxt Spec] Using external Playwright instance for e2e tests at: ${externalPlaywright}`)
   for (const browserType of [chromium, firefox, webkit] as BrowserType[]) {
-    console.log(`[Nuxt Spec - e2e] Using external Playwright instance at: ${externalPlaywright}`)
     // @nuxt/test-utils always calls `playwright[type].launch()` with no way to opt into
     // `connect()`, so the launch method is swapped for a connect against the WS endpoint
     browserType.launch = (): Promise<Browser> => browserType.connect(externalPlaywright, {

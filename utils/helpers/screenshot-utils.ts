@@ -5,7 +5,7 @@ import type { DecodedPng } from 'fast-png'
 export function resolveWithin(base: string, segment: string): string {
   const target = resolve(base, segment)
   if (target !== base && !target.startsWith(base + sep)) {
-    throw new Error(`Invalid path: "${segment}" resolves outside of "${base}"`)
+    throw new Error(`[Nuxt Spec] Invalid path: "${segment}" resolves outside of "${base}"`)
   }
   return target
 }

@@ -38,7 +38,7 @@ export async function specSetup(autoRun = false, packageManager) {
   showMessage({ message: 'This CLI tool will help you include Nuxt Spec in your project.' })
   showMessage({ message: 'Refer to the documentation for more information.', linesAfter: 2 })
 
-  const isAutoRun = autoRun || await promptUser({ question: 'Do you want to set everything up automatically (no more prompts)?' })
+  const isAutoRun = autoRun || await promptUser({ question: '[Nuxt Spec] Do you want to set everything up automatically (no more prompts)?' })
   showMessage({ message: '' })
 
   // 1) manage dependencies in package.json
@@ -52,55 +52,55 @@ export async function specSetup(autoRun = false, packageManager) {
         ['nuxt-spec']: TARGET_VERSION,
       },
       force: isAutoRun,
-      prompt: `This will add 'nuxt-spec' dependency to your 'package.json'. Continue?`,
+      prompt: `[Nuxt Spec] This will add 'nuxt-spec' dependency to your 'package.json'. Continue?`,
     })
   } catch (error) {
-    console.error(`Error adding 'nuxt-spec' dependency:\n`, error.message)
+    console.error(`[Nuxt Spec] Error adding 'nuxt-spec' dependency:\n`, error.message)
   }
 
   // remove now obsolete nuxt, vue and vue-router
-  const removeDeps = isAutoRun || await promptUser({ question: `As 'nuxt-spec' provides 'nuxt', 'vue' and 'vue-router' dependencies out of the box, do you want to remove them from your 'package.json' to avoid duplications and possible version clashes?` })
+  const removeDeps = isAutoRun || await promptUser({ question: `[Nuxt Spec] As 'nuxt-spec' provides 'nuxt', 'vue' and 'vue-router' dependencies out of the box, do you want to remove them from your 'package.json' to avoid duplications and possible version clashes?` })
   if (removeDeps) {
     if (hasJsonKey({ targetFile: 'package.json', jsonKey: 'dependencies.nuxt' })) {
       try {
         await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'dependencies.nuxt', force: true })
       } catch (error) {
-        console.error('Error removing \'nuxt\' dependency:\n', error.message)
+        console.error('[Nuxt Spec] Error removing \'nuxt\' dependency:\n', error.message)
       }
     }
     if (hasJsonKey({ targetFile: 'package.json', jsonKey: 'dependencies.vue' })) {
       try {
         await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'dependencies.vue', force: true })
       } catch (error) {
-        console.error('Error removing \'vue\' dependency:\n', error.message)
+        console.error('[Nuxt Spec] Error removing \'vue\' dependency:\n', error.message)
       }
     }
     if (hasJsonKey({ targetFile: 'package.json', jsonKey: 'dependencies.vue-router' })) {
       try {
         await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'dependencies.vue-router', force: true })
       } catch (error) {
-        console.error('Error removing \'vue-router\' dependency:\n', error.message)
+        console.error('[Nuxt Spec] Error removing \'vue-router\' dependency:\n', error.message)
       }
     }
     if (hasJsonKey({ targetFile: 'package.json', jsonKey: 'devDependencies.nuxt' })) {
       try {
         await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'devDependencies.nuxt', force: true })
       } catch (error) {
-        console.error('Error removing \'nuxt\' devDependency:\n', error.message)
+        console.error('[Nuxt Spec] Error removing \'nuxt\' devDependency:\n', error.message)
       }
     }
     if (hasJsonKey({ targetFile: 'package.json', jsonKey: 'devDependencies.vue' })) {
       try {
         await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'devDependencies.vue', force: true })
       } catch (error) {
-        console.error('Error removing \'vue\' devDependency:\n', error.message)
+        console.error('[Nuxt Spec] Error removing \'vue\' devDependency:\n', error.message)
       }
     }
     if (hasJsonKey({ targetFile: 'package.json', jsonKey: 'devDependencies.vue-router' })) {
       try {
         await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'devDependencies.vue-router', force: true })
       } catch (error) {
-        console.error('Error removing \'vue-router\' devDependency:\n', error.message)
+        console.error('[Nuxt Spec] Error removing \'vue-router\' devDependency:\n', error.message)
       }
     }
   }
@@ -115,10 +115,10 @@ export async function specSetup(autoRun = false, packageManager) {
         ],
       },
       force: isAutoRun,
-      prompt: `This will add 'nuxt-spec' module to your 'nuxt.config.ts'. Continue?`,
+      prompt: `[Nuxt Spec] This will add 'nuxt-spec' module to your 'nuxt.config.ts'. Continue?`,
     })
   } catch (error) {
-    console.error('Error updating \'nuxt.config.ts\':\n', error.message)
+    console.error('[Nuxt Spec] Error updating \'nuxt.config.ts\':\n', error.message)
   }
 
   // 3) `pnpm-workspace.yaml` file (only if pnpm is used)
@@ -129,18 +129,18 @@ export async function specSetup(autoRun = false, packageManager) {
           targetFile: 'pnpm-workspace.yaml',
           rowsToAdd: ['shamefully-hoist: true'],
           force: isAutoRun,
-          prompt: 'This will adjust \'pnpm-workspace.yaml\' file in your project. Continue?',
+          prompt: '[Nuxt Spec] This will adjust \'pnpm-workspace.yaml\' file in your project. Continue?',
         })
       } else {
         await createFileFromWebTemplate({
           url: `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${TARGET_VERSION}/config/templates/pnpm-workspace.yaml.template`,
           targetFile: 'pnpm-workspace.yaml',
           force: isAutoRun,
-          prompt: 'This will add \'pnpm-workspace.yaml\' file for your project. Continue?',
+          prompt: '[Nuxt Spec] This will add \'pnpm-workspace.yaml\' file for your project. Continue?',
         })
       }
     } catch (error) {
-      console.error('Error setting up \'pnpm-workspace.yaml\':\n', error.message)
+      console.error('[Nuxt Spec] Error setting up \'pnpm-workspace.yaml\':\n', error.message)
     }
   }
 
@@ -150,10 +150,10 @@ export async function specSetup(autoRun = false, packageManager) {
       url: `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${TARGET_VERSION}/config/templates/vitest.config.ts.template`,
       targetFile: 'vitest.config.ts',
       force: isAutoRun,
-      prompt: 'This will create a new \'vitest.config.ts\' file for your project. Continue?',
+      prompt: '[Nuxt Spec] This will create a new \'vitest.config.ts\' file for your project. Continue?',
     })
   } catch (error) {
-    console.error('Error setting up \'vitest.config.ts\':\n', error.message)
+    console.error('[Nuxt Spec] Error setting up \'vitest.config.ts\':\n', error.message)
   }
 
   // 5) create .nuxtrc to prevent @nuxt/test-utils setup from running automatically on first start
@@ -163,10 +163,10 @@ export async function specSetup(autoRun = false, packageManager) {
         url: `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${TARGET_VERSION}/.nuxtrc`,
         targetFile: '.nuxtrc',
         force: isAutoRun,
-        prompt: 'This will create a \'.nuxtrc\' file to prevent @nuxt/test-utils setup from running automatically when dev server starts. Continue?',
+        prompt: '[Nuxt Spec] This will create a \'.nuxtrc\' file to prevent @nuxt/test-utils setup from running automatically when dev server starts. Continue?',
       })
     } catch (error) {
-      console.error('Error creating \'.nuxtrc\':\n', error.message)
+      console.error('[Nuxt Spec] Error creating \'.nuxtrc\':\n', error.message)
     }
   }
 
@@ -181,14 +181,14 @@ export async function specSetup(autoRun = false, packageManager) {
         'test-i': 'vitest',
       },
       force: isAutoRun,
-      prompt: 'This will adjust the test-related commands in your \'package.json\'. Continue?',
+      prompt: '[Nuxt Spec] This will adjust the test-related commands in your \'package.json\'. Continue?',
     })
   } catch (error) {
-    console.error('Error adjusting scripts in \'package.json\':\n', error.message)
+    console.error('[Nuxt Spec] Error adjusting scripts in \'package.json\':\n', error.message)
   }
 
   // 7) create sample test files
-  const createSampleTests = isAutoRun || await promptUser({ question: 'Do you want to create sample tests in \'/test\' folder?' })
+  const createSampleTests = isAutoRun || await promptUser({ question: '[Nuxt Spec] Do you want to create sample tests in \'/test\' folder?' })
   if (createSampleTests) {
     try {
       await createFileFromWebTemplate({
@@ -197,7 +197,7 @@ export async function specSetup(autoRun = false, packageManager) {
         force: true,
       })
     } catch (error) {
-      console.error('Error setting up \'vitest-browser.test.ts\':\n', error.message)
+      console.error('[Nuxt Spec] Error setting up \'vitest-browser.test.ts\':\n', error.message)
     }
     try {
       await createFileFromWebTemplate({
@@ -206,7 +206,7 @@ export async function specSetup(autoRun = false, packageManager) {
         force: true,
       })
     } catch (error) {
-      console.error('Error setting up \'nuxt-e2e.test.ts\':\n', error.message)
+      console.error('[Nuxt Spec] Error setting up \'nuxt-e2e.test.ts\':\n', error.message)
     }
     try {
       await createFileFromWebTemplate({
@@ -215,7 +215,7 @@ export async function specSetup(autoRun = false, packageManager) {
         force: true,
       })
     } catch (error) {
-      console.error('Error setting up \'nuxt-visual.test.ts\':\n', error.message)
+      console.error('[Nuxt Spec] Error setting up \'nuxt-visual.test.ts\':\n', error.message)
     }
     try {
       await createFileFromWebTemplate({
@@ -224,7 +224,7 @@ export async function specSetup(autoRun = false, packageManager) {
         force: true,
       })
     } catch (error) {
-      console.error('Error setting up \'nuxt-unit.test.ts\':\n', error.message)
+      console.error('[Nuxt Spec] Error setting up \'nuxt-unit.test.ts\':\n', error.message)
     }
     try {
       await createFileFromWebTemplate({
@@ -233,89 +233,89 @@ export async function specSetup(autoRun = false, packageManager) {
         force: true,
       })
     } catch (error) {
-      console.error('Error setting up \'vitest-unit.test.ts\':\n', error.message)
+      console.error('[Nuxt Spec] Error setting up \'vitest-unit.test.ts\':\n', error.message)
     }
   }
 
   // 8) clear node_modules and lock file(s)
-  const prepareForReinstall = isAutoRun || await promptUser({ question: 'Dependencies should be re-installed now. Do you want to remove node_modules and the lock file?' })
+  const prepareForReinstall = isAutoRun || await promptUser({ question: '[Nuxt Spec] Dependencies should be re-installed now. Do you want to remove node_modules and the lock file?' })
   if (prepareForReinstall) {
     if (pathExists({ targetPath: 'node_modules' })) {
       try {
         await deletePath({ targetPath: 'node_modules', force: true })
       } catch (error) {
-        console.error('Error deleting \'node_modules\':\n', error.message)
+        console.error('[Nuxt Spec] Error deleting \'node_modules\':\n', error.message)
       }
     }
     if (pathExists({ targetPath: 'package-lock.json' })) {
       try {
         await deletePath({ targetPath: 'package-lock.json', force: true })
       } catch (error) {
-        console.error('Error deleting \'package-lock.json\':\n', error.message)
+        console.error('[Nuxt Spec] Error deleting \'package-lock.json\':\n', error.message)
       }
     }
     if (pathExists({ targetPath: 'pnpm-lock.yaml' })) {
       try {
         await deletePath({ targetPath: 'pnpm-lock.yaml', force: true })
       } catch (error) {
-        console.error('Error deleting \'pnpm-lock.yaml\':\n', error.message)
+        console.error('[Nuxt Spec] Error deleting \'pnpm-lock.yaml\':\n', error.message)
       }
     }
     if (pathExists({ targetPath: 'yarn.lock' })) {
       try {
         await deletePath({ targetPath: 'yarn.lock', force: true })
       } catch (error) {
-        console.error('Error deleting \'yarn.lock\':\n', error.message)
+        console.error('[Nuxt Spec] Error deleting \'yarn.lock\':\n', error.message)
       }
     }
     if (pathExists({ targetPath: 'bun.lockb' })) {
       try {
         await deletePath({ targetPath: 'bun.lockb', force: true })
       } catch (error) {
-        console.error('Error deleting \'bun.lockb\':\n', error.message)
+        console.error('[Nuxt Spec] Error deleting \'bun.lockb\':\n', error.message)
       }
     }
     if (pathExists({ targetPath: 'deno.lock' })) {
       try {
         await deletePath({ targetPath: 'deno.lock', force: true })
       } catch (error) {
-        console.error('Error deleting \'deno.lock\':\n', error.message)
+        console.error('[Nuxt Spec] Error deleting \'deno.lock\':\n', error.message)
       }
     }
   }
 
   // 9) run install command
-  const runInstall = isAutoRun || await promptUser({ question: `Fresh \`${packageManager} install\` is required. Do you want to run it now?` })
+  const runInstall = isAutoRun || await promptUser({ question: `[Nuxt Spec] Fresh \`${packageManager} install\` is required. Do you want to run it now?` })
   if (runInstall) {
     try {
       showMessage({ message: `Running \`${packageManager} install\`...` })
       execSync(`${packageManager} install`, { stdio: 'inherit' })
     } catch (error) {
-      console.error(`Error running \`${packageManager} install\`:\n`, error.message)
+      console.error(`[Nuxt Spec] Error running \`${packageManager} install\`:\n`, error.message)
     }
   }
 
   // 10) run Nuxt prepare command to generate types and auto-imports
   const prepareCmd = getPrepareCmd(packageManager)
-  const runPrepare = isAutoRun || await promptUser({ question: `Nuxt needs to generate types and auto-imports before the project is fully usable. Do you want to run \`${prepareCmd}\` now?` })
+  const runPrepare = isAutoRun || await promptUser({ question: `[Nuxt Spec] Nuxt needs to generate types and auto-imports before the project is fully usable. Do you want to run \`${prepareCmd}\` now?` })
   if (runPrepare) {
     try {
       showMessage({ message: `Running \`${prepareCmd}\`...` })
       execSync(prepareCmd, { stdio: 'inherit' })
     } catch (error) {
-      console.error(`Error running \`${prepareCmd}\`:\n`, error.message)
+      console.error(`[Nuxt Spec] Error running \`${prepareCmd}\`:\n`, error.message)
     }
   }
 
   // 11) run Playwright browser install command
   const playwrightInstallCmd = getPlaywrightInstallCmd(packageManager)
-  const runPlaywrightInstall = isAutoRun || await promptUser({ question: `Playwright browser runtimes might need to be installed locally for e2e tests. Do you want to run \`${playwrightInstallCmd}\` now?` })
+  const runPlaywrightInstall = isAutoRun || await promptUser({ question: `[Nuxt Spec] Playwright browser runtimes might need to be installed locally for e2e tests. Do you want to run \`${playwrightInstallCmd}\` now?` })
   if (runPlaywrightInstall) {
     try {
       showMessage({ message: `Running \`${playwrightInstallCmd}\`...` })
       execSync(playwrightInstallCmd, { stdio: 'inherit' })
     } catch (error) {
-      console.error(`Error running \`${playwrightInstallCmd}\`:\n`, error.message)
+      console.error(`[Nuxt Spec] Error running \`${playwrightInstallCmd}\`:\n`, error.message)
     }
   }
 
