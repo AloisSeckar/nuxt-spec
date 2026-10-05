@@ -2,12 +2,22 @@
 // - "/config/utils/options.mjs"
 // - "/modules/spec-options.ts"
 
-import { afterEach, describe, expect, test, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import type { Nuxt } from 'nuxt/schema'
 import { NUXT_SPEC_DEFAULTS, resolveSpecOptions } from '../../config/utils/options.mjs'
 import specOptionsModule from '../../modules/spec-options'
 
 describe('Test `resolveSpecOptions` function', () => {
+  let warnSpy: ReturnType<typeof vi.spyOn>
+
+  beforeEach(() => {
+    warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    warnSpy.mockRestore()
+  })
+
   test('should return defaults when nothing is set', () => {
     expect(resolveSpecOptions(undefined, {})).toEqual(NUXT_SPEC_DEFAULTS)
     expect(resolveSpecOptions({}, {})).toEqual(NUXT_SPEC_DEFAULTS)
@@ -88,6 +98,63 @@ describe('Test `resolveSpecOptions` function', () => {
       { NUXT_SPEC_MESSAGE_FILTERS: ',env,,' },
     )
     expect(options.messageFilters).toEqual(['valid', 'env'])
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('Invalid value 42 for `messageFilters`'))
+  })
+
+  test('should not warn about valid values', () => {
+    resolveSpecOptions({
+      hints: true,
+      externalPlaywright: 'ws://config:3000/',
+      htmlReport: { enabled: true, open: 'never' },
+      messageFilters: ['filter'],
+    }, {})
+    expect(warnSpy).not.toHaveBeenCalled()
+  })
+
+  test('should normalize `htmlReport.open` value', () => {
+    expect(resolveSpecOptions({}, { NUXT_SPEC_HTML_REPORT_OPEN: ' Always ' }).htmlReport.open).toBe('always')
+    expect(warnSpy).not.toHaveBeenCalled()
+  })
+
+  test('should fall back to default on invalid `htmlReport.open` value', () => {
+    // @ts-expect-error intentional wrong value
+    expect(resolveSpecOptions({ htmlReport: { open: 'sometimes' } }, {}).htmlReport.open).toBe('failed')
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('Invalid value "sometimes" for `htmlReport.open`'))
+    expect(resolveSpecOptions({}, { NUXT_SPEC_HTML_REPORT_OPEN: 'often' }).htmlReport.open).toBe('failed')
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('Invalid value "often" for `NUXT_SPEC_HTML_REPORT_OPEN`'))
+  })
+
+  test('should fall back to defaults on invalid value types', () => {
+    const options = resolveSpecOptions({
+      // @ts-expect-error intentional wrong type
+      hints: 'no',
+      // @ts-expect-error intentional wrong type
+      externalPlaywright: 3000,
+      // @ts-expect-error intentional wrong type
+      messageFilters: 'filter',
+    }, {})
+    expect(options).toEqual(NUXT_SPEC_DEFAULTS)
+    expect(warnSpy).toHaveBeenCalledTimes(3)
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('for `hints` (expected boolean)'))
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('for `externalPlaywright` (expected string)'))
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('for `messageFilters` (expected array)'))
+  })
+
+  test('should fall back to defaults on invalid `htmlReport` values', () => {
+    // @ts-expect-error intentional wrong type
+    expect(resolveSpecOptions({ htmlReport: false }, {}).htmlReport).toEqual(NUXT_SPEC_DEFAULTS.htmlReport)
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('for `htmlReport` (expected object)'))
+    // @ts-expect-error intentional wrong type
+    expect(resolveSpecOptions({ htmlReport: { enabled: 'off' } }, {}).htmlReport.enabled).toBe(true)
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('for `htmlReport.enabled` (expected boolean)'))
+  })
+
+  test('should report the same invalid value only once', () => {
+    // @ts-expect-error intentional wrong value
+    resolveSpecOptions({ htmlReport: { open: 'twice' } }, {})
+    // @ts-expect-error intentional wrong value
+    resolveSpecOptions({ htmlReport: { open: 'twice' } }, {})
+    expect(warnSpy).toHaveBeenCalledOnce()
   })
 
   test('should not mutate defaults', () => {

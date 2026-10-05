@@ -14,8 +14,13 @@ export const NUXT_SPEC_DEFAULTS = {
   messageFilters: [],
 }
 
+const HTML_REPORT_OPEN_MODES = ['always', 'failed', 'never']
+
 // raw `spec` values per cwd - nuxt.config.ts is only loaded once
 const specCache = new Map()
+
+// options are resolved by both the Nuxt module and the Vitest config in the same process
+const reportedWarnings = new Set()
 
 /**
  * Resolve final Nuxt Spec options.
@@ -25,27 +30,31 @@ const specCache = new Map()
  */
 export function resolveSpecOptions(fromConfig, env = process.env) {
   const config = isObject(fromConfig) ? fromConfig : {}
-  const htmlReport = isObject(config.htmlReport) ? config.htmlReport : {}
+  const htmlReport = checkType('htmlReport', config.htmlReport, 'object') ?? {}
   return {
     hints: toBoolean(env.NUXT_SPEC_HINTS_ENABLED)
-      ?? config.hints
+      ?? checkType('hints', config.hints, 'boolean')
       ?? NUXT_SPEC_DEFAULTS.hints,
     externalPlaywright: env.NUXT_SPEC_EXTERNAL_PLAYWRIGHT
-      || config.externalPlaywright
+      || checkType('externalPlaywright', config.externalPlaywright, 'string')
       || NUXT_SPEC_DEFAULTS.externalPlaywright,
     htmlReport: {
       enabled: toBoolean(env.NUXT_SPEC_HTML_REPORT)
-        ?? htmlReport.enabled
+        ?? checkType('htmlReport.enabled', htmlReport.enabled, 'boolean')
         ?? NUXT_SPEC_DEFAULTS.htmlReport.enabled,
       open: env.NUXT_SPEC_HTML_REPORT_OPEN
-        || htmlReport.open
-        || NUXT_SPEC_DEFAULTS.htmlReport.open,
+        ? toOpenMode('NUXT_SPEC_HTML_REPORT_OPEN', env.NUXT_SPEC_HTML_REPORT_OPEN)
+        : toOpenMode('htmlReport.open', htmlReport.open),
     },
     messageFilters: [
-      ...(Array.isArray(config.messageFilters) ? config.messageFilters : []),
+      ...(checkType('messageFilters', config.messageFilters, 'array') ?? []),
       ...(env.NUXT_SPEC_MESSAGE_FILTERS?.split(',') ?? []),
     ]
-      .filter(f => typeof f === 'string')
+      .filter((f) => {
+        if (typeof f === 'string') return true
+        warnInvalid('messageFilters', f, 'string', 'Value is ignored.')
+        return false
+      })
       .map(f => f.trim())
       // empty pattern would match (and swallow) every message
       .filter(Boolean),
@@ -71,7 +80,33 @@ export async function loadSpecOptions(cwd = process.cwd()) {
 }
 
 function isObject(value) {
-  return typeof value === 'object' && value !== null
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+// returns the value if it matches the expected type, otherwise warns and returns undefined
+function checkType(option, value, type) {
+  if (value === undefined) return undefined
+  const matches = type === 'object'
+    ? isObject(value)
+    : type === 'array' ? Array.isArray(value) : typeof value === type
+  if (matches) return value
+  warnInvalid(option, value, type)
+  return undefined
+}
+
+function toOpenMode(option, value) {
+  if (value === undefined) return NUXT_SPEC_DEFAULTS.htmlReport.open
+  const normalized = typeof value === 'string' ? value.trim().toLowerCase() : value
+  if (HTML_REPORT_OPEN_MODES.includes(normalized)) return normalized
+  warnInvalid(option, value, HTML_REPORT_OPEN_MODES.map(m => `'${m}'`).join(' | '))
+  return NUXT_SPEC_DEFAULTS.htmlReport.open
+}
+
+function warnInvalid(option, value, expected, outcome = 'Falling back to default.') {
+  const message = `[Nuxt Spec] Invalid value ${JSON.stringify(value) ?? String(value)} for \`${option}\` (expected ${expected}). ${outcome}`
+  if (reportedWarnings.has(message)) return
+  reportedWarnings.add(message)
+  console.warn(message)
 }
 
 // unset or empty = not defined, only explicit 'false' disables

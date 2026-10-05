@@ -44,8 +44,7 @@ export interface ResolvedNuxtSpecOptions {
   externalPlaywright: string | undefined
   htmlReport: {
     enabled: boolean
-    /** not validated here, invalid values fall back to `failed` when the report is evaluated */
-    open: string
+    open: HtmlReportOpenMode
   }
   messageFilters: string[]
 }

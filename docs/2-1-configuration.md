@@ -104,6 +104,8 @@ Each option can also be set via an env variable:
 
 If both are set, the env variable takes precedence. The only exception is `messageFilters`, where values from both sources are combined. Boolean env variables only disable the feature with an explicit `false` value. Env variables can be also defined in the `.env` file in the root of your project.
 
+Values of unexpected type (or unsupported `htmlReport.open` values) are reported with a console warning and replaced by the default value.
+
 The `spec` key is typed automatically once Nuxt types are generated (e.g. via `nuxt prepare`).
 
 The values are read from `nuxt.config.ts` located in the current working directory once Vitest config is loaded. When you change them, restart Vitest to apply the changes (this also applies for the watch mode).
