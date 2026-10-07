@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { execSync } from 'node:child_process'
+import { readFileSync } from 'node:fs'
 import {
   createFileFromWebTemplate, deletePath, hasJsonKey,
   pathExists, promptUser, removeFromJsonFile, showMessage,
@@ -25,10 +26,11 @@ const TARGET_VERSION = '0.3.4'
  *  5) creates default `.nuxtrc` file
  *  6) adds test-related scripts in `package.json`
  *  7) creates sample test files
- *  8) clear node_modules and lock file(s)
- *  9) run install command
- * 10) run Nuxt prepare command to generate types and auto-imports
- * 11) run Playwright setup command
+ *  8) adds nuxt-spec related entries to `.gitignore`
+ *  9) clear node_modules and lock file(s)
+ * 10) run install command
+ * 11) run Nuxt prepare command to generate types and auto-imports
+ * 12) run Playwright setup command
  *
  * @param {boolean} autoRun - Whether to run the setup automatically without any prompts (defaults to false).
  * @param {string} [packageManager] - Package manager to be used (`npm`, `pnpm`, `yarn`, `bun` or `deno`).
@@ -247,7 +249,36 @@ export async function specSetup(autoRun = false, packageManager) {
     }
   }
 
-  // 8) clear node_modules and lock file(s)
+  // 8) add nuxt-spec related entries to .gitignore
+  try {
+    const gitignoreEntries = [
+      ['# vitest output folder', '.vitest'],
+      ['# nuxt-spec screenshots folder', '__current__'],
+      ['# nuxt-spec HTML test reports folder', '__reports__'],
+    ]
+    // if .gitignore exists, we rather check for duplicates
+    const gitignoreExists = pathExists({ targetPath: '.gitignore' })
+    const gitignoreRows = gitignoreExists ? readFileSync('.gitignore', 'utf8').split(/\r?\n/) : []
+    const rowsToAdd = gitignoreEntries
+      .filter(([, entry]) => !gitignoreRows.includes(entry))
+      .flatMap(([comment, entry]) => ['', comment, entry])
+      .slice(gitignoreExists ? 0 : 1)
+    //
+    if (rowsToAdd.length > 0) {
+      await updateTextFile({
+        targetFile: '.gitignore',
+        rowsToAdd,
+        allowDuplicates: true,
+        createMissing: true,
+        force: isAutoRun,
+        prompt: '[Nuxt Spec] This will add nuxt-spec related entries to your \'.gitignore\' file. Continue?',
+      })
+    }
+  } catch (error) {
+    console.error('[Nuxt Spec] Error updating \'.gitignore\':\n', error.message)
+  }
+
+  // 9) clear node_modules and lock file(s)
   const prepareForReinstall = isAutoRun || await promptUser({ question: '[Nuxt Spec] Dependencies should be re-installed now. Do you want to remove node_modules and the lock file?' })
   if (prepareForReinstall) {
     if (pathExists({ targetPath: 'node_modules' })) {
@@ -294,7 +325,7 @@ export async function specSetup(autoRun = false, packageManager) {
     }
   }
 
-  // 9) run install command
+  // 10) run install command
   const runInstall = isAutoRun || await promptUser({ question: `[Nuxt Spec] Fresh \`${packageManager} install\` is required. Do you want to run it now?` })
   if (runInstall) {
     try {
@@ -305,7 +336,7 @@ export async function specSetup(autoRun = false, packageManager) {
     }
   }
 
-  // 10) run Nuxt prepare command to generate types and auto-imports
+  // 11) run Nuxt prepare command to generate types and auto-imports
   const prepareCmd = getPrepareCmd(packageManager)
   const runPrepare = isAutoRun || await promptUser({ question: `[Nuxt Spec] Nuxt needs to generate types and auto-imports before the project is fully usable. Do you want to run \`${prepareCmd}\` now?` })
   if (runPrepare) {
@@ -317,7 +348,7 @@ export async function specSetup(autoRun = false, packageManager) {
     }
   }
 
-  // 11) run Playwright browser install command
+  // 12) run Playwright browser install command
   const playwrightInstallCmd = getPlaywrightInstallCmd(packageManager)
   const runPlaywrightInstall = isAutoRun || await promptUser({ question: `[Nuxt Spec] Playwright browser runtimes might need to be installed locally for e2e tests. Do you want to run \`${playwrightInstallCmd}\` now?` })
   if (runPlaywrightInstall) {
@@ -329,7 +360,7 @@ export async function specSetup(autoRun = false, packageManager) {
     }
   }
 
-  // 12) inform user
+  // 13) inform user
   showMessage({ message: '' })
   showMessage({ message: 'NUXT SPEC SETUP COMPLETE', linesAfter: 2 })
   if (!runInstall) {

@@ -8,6 +8,7 @@ The `nuxt-spec` package comes with a built-in CLI tool that can help you:
 - scaffold the default `vitest.config.ts` (see [configuration](2-1-configuration.html) section)
 - add some test-related shorthands in your `package.json` (see [running tests](#running-tests) section)
 - create demo test files in proposed file structure
+- add nuxt-spec related entries to your `.gitignore`
 - generate the Nuxt types and auto-imports (via `nuxt prepare`) so the project is ready to use
 - install the Playwright browser runtimes needed to run the e2e tests
 
@@ -120,7 +121,22 @@ You can use sample files from the [project repository](https://github.com/AloisS
 
 The structure matches the default [configuration](2-1-configuration.html) of `nuxt-spec`.
 
-**8)** Install the dependencies:
+**8)** Add the following entries to your `.gitignore`:
+
+```sh [.gitignore]
+# vitest output folder
+.vitest
+
+# nuxt-spec screenshots folder
+__current__
+
+# nuxt-spec HTML test reports folder
+__reports__
+```
+
+Those folders contain files generated during test runs that are not necessary to be committed.
+
+**9)** Install the dependencies:
 
 It is advised to remove `node_modules` and delete the lock file first to avoid resolution issues.
 
@@ -150,7 +166,7 @@ deno install
 
 :::
 
-**9)** Run the Nuxt preparation step to generate the required types and auto-imports:
+**10)** Run the Nuxt preparation step to generate the required types and auto-imports:
 
 ::: code-group
 
@@ -178,7 +194,7 @@ deno run -A npm:nuxt prepare
 
 This is required so all auto-generated files are emitted and all the features and type inference work properly.
 
-**10)** If you're prompted (for the first time when installing on a new machine, or after a version update), install the headless browser runtimes locally:
+**11)** If you're prompted (for the first time when installing on a new machine, or after a version update), install the headless browser runtimes locally:
 
 ::: code-group
 
