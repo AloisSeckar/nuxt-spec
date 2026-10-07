@@ -61,7 +61,7 @@
     "@vitest/browser-playwright": "5.0.3",
     "@vitest/ui": "5.0.3",
     "@vue/test-utils": "2.5.1",
-    "elrh-cosca": "0.4.0",
+    "elrh-cosca": "0.4.1",
     "fast-png": "~8.0.0",
     "happy-dom": "~20.14.5",
     "nuxt": "4.6.0",

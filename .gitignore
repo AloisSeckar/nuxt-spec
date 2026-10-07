@@ -21,8 +21,3 @@ __reports__
 # Vitest browser screenshots folder
 # (deliberately ignored during development)
 __screenshots__
-
-# local playground app
-playground/test
-playground/pnpm-lock.yaml
-playground/pnpm-workspace.yaml

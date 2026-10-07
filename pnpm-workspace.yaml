@@ -27,4 +27,6 @@ overrides:
   'playwright': '~1.63.0'
 
 # https://pnpm.io/settings/dependency-resolution#minimumreleaseageexclude
-# minimumReleaseAgeExclude:
+minimumReleaseAgeExclude:
+  # build 2026-10-07@13:00:00 CEST
+  - elrh-cosca@0.4.1

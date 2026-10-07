@@ -217,6 +217,16 @@ export async function specSetup(autoRun = false, packageManager) {
     } catch (error) {
       console.error('[Nuxt Spec] Error setting up \'nuxt-visual.test.ts\':\n', error.message)
     }
+    // pre-existing baseline ensures the sample "wrong" visual test fails as intended
+    try {
+      await createFileFromWebTemplate({
+        url: `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${TARGET_VERSION}/test/e2e/__baseline__/wrong.png`,
+        targetFile: 'test/e2e/__baseline__/wrong.png',
+        force: true,
+      })
+    } catch (error) {
+      console.error('[Nuxt Spec] Error setting up \'wrong.png\':\n', error.message)
+    }
     try {
       await createFileFromWebTemplate({
         url: `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${TARGET_VERSION}/test/nuxt/nuxt-unit.test.ts`,
