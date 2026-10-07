@@ -127,7 +127,7 @@ export async function specSetup(autoRun = false, packageManager) {
       if (pathExists({ targetPath: 'pnpm-workspace.yaml' })) {
         await updateTextFile({
           targetFile: 'pnpm-workspace.yaml',
-          rowsToAdd: ['shamefully-hoist: true'],
+          rowsToAdd: ['shamefullyHoist: true'],
           force: isAutoRun,
           prompt: '[Nuxt Spec] This will adjust \'pnpm-workspace.yaml\' file in your project. Continue?',
         })
