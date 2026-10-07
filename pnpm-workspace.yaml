@@ -3,7 +3,6 @@
 packages:
   - .
   - docs
-  - playground
 
 # moved from .npmrc
 # https://pnpm.io/settings/node-modules#shamefullyhoist
