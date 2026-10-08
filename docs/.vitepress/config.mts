@@ -35,6 +35,7 @@ export default defineConfig({
         text: 'Changelog',
         items: [
           { text: 'Changelog', link: '/3-1-changelog' },
+          { text: 'Dependencies', link: '/3-2-dependencies' },
         ],
       },
       {
