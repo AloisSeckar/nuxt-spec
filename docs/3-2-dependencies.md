@@ -2,7 +2,9 @@
 
 Overview of the packages Nuxt Spec currently consists of.
 
-Versions are listed as defined in Nuxt Spec's `package.json`. Versions prefixed with `~` allow patch updates.
+Versions are listed as defined in Nuxt Spec's `package.json`.
+
+Loose versions prefixed with `~` allow patch updates.
 
 ## Basic Vue/Nuxt infrastructure
 
@@ -39,7 +41,6 @@ Versions are listed as defined in Nuxt Spec's `package.json`. Versions prefixed 
 
 | Package | Description | Version |
 | --- | --- | --- |
-
 | [typescript](https://npmx.dev/package/typescript) | TypeScript language support | `~6.0.3` |
 | [vue-tsc](https://npmx.dev/package/vue-tsc) | Type-checking for Vue components | `~3.3.12` |
 | [vue-router](https://npmx.dev/package/vue-router) | Official router for Vue.js | `~5.3.1` |
