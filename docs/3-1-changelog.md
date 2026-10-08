@@ -2,6 +2,25 @@
 
 Overview of the latest features in Nuxt Spec.
 
+## 0.4.0-alpha.1
+
+`2026-10-08`
+
+- feat: (BREAKING) update to Vitest v5 ([#55](https://github.com/AloisSeckar/nuxt-spec/issues/55))
+- feat: enhanced HTML reporting of all tests ([#59](https://github.com/AloisSeckar/nuxt-spec/issues/59))
+- feat: more flexible configuration via `nuxt.config.ts` ([#60](https://github.com/AloisSeckar/nuxt-spec/issues/60))
+- feat: add nuxt-spec related entries into .gitignore from CLI ([#57](https://github.com/AloisSeckar/nuxt-spec/issues/57))
+- feat: unify log messages with `[Nuxt Spec]` prefix
+- fix: `wrong.png` image must also be copied to sample test suite via CLI setup
+- fix: avoid duplicate warning when `undefined` param is passed to built-in functions
+- fix: incorrect pnpm setting syntax in CLI setup
+- refactor: drop unnecessary key presence checks in CLI setup
+- docs: move dependency bumps from changelog to separate docs page ([#62](https://github.com/AloisSeckar/nuxt-spec/issues/62))
+- docs: document Vitest browser screenshots behavior (via comment in sample test file)
+- docs: grammar checks and polishing
+- build: bump to Nuxt v4.6
+- build: updated dependencies (see the [overview](3-2-dependencies.html))
+
 ## 0.3.4
 
 `2026-09-12`

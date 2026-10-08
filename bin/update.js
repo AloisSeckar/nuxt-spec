@@ -8,7 +8,7 @@ import {
   getPlaywrightInstallCmd, getPrepareCmd, getUpdateCmd,
 } from './helpers/commands.js'
 
-const TARGET_VERSION = '0.3.4'
+const TARGET_VERSION = '0.4.0-alpha.1'
 
 /**
  * CLI tool to update existing `nuxt-spec` installation.
