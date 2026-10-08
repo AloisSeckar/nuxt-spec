@@ -306,22 +306,10 @@ Or you can use the `vitest` command directly with all its parameters. See [Vites
 
 ## Known issues
 
-There are several situations that cannot be effectively solved on the Nuxt Spec side and require manual action in the target project.
+There might be situations that cannot be effectively solved on the Nuxt Spec side and require manual action in the target project.
 
-### `pnpm` with `trustPolicy: no-downgrade`
-
-Setting [`trustPolicy`](https://pnpm.io/settings/dependency-resolution#trustpolicy) is a security measure to prevent installing malicious versions of established packages after attackers gain credentials to publish their own code but fail to prove their identity at the established trust level.
-
-Nuxt Ignis currently contains the transitive dependency `undici-types@6.21.0` that fails to pass the check despite being a legitimate (old) version. If your project uses `trustPolicy: no-downgrade`, installation will be rejected.
-
-The solution is to add the following entry to your `pnpm-workspace.yaml`:
-
-```yaml [pnpm-workspace.yaml]
-trustPolicyExclude:
-  - undici-types@6.21.0
-```
-
-Hopefully, this will soon be fixed by bumping the deps in the chain.
+- Currently, there are no known problems.
+- Open [an issue](https://github.com/AloisSeckar/nuxt-spec/issues), if you encounter one.
 
 ## More info
 
