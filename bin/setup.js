@@ -3,7 +3,7 @@
 import { execSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
 import {
-  createFileFromWebTemplate, deletePath, hasJsonKey,
+  createFileFromWebTemplate, deletePath,
   pathExists, promptUser, removeFromJsonFile, showMessage,
   updateConfigFile, updateJsonFile, updateTextFile,
 } from 'elrh-cosca'
@@ -63,47 +63,35 @@ export async function specSetup(autoRun = false, packageManager) {
   // remove now obsolete nuxt, vue and vue-router
   const removeDeps = isAutoRun || await promptUser({ question: `[Nuxt Spec] As 'nuxt-spec' provides 'nuxt', 'vue' and 'vue-router' dependencies out of the box, do you want to remove them from your 'package.json' to avoid duplications and possible version clashes?` })
   if (removeDeps) {
-    if (hasJsonKey({ targetFile: 'package.json', jsonKey: 'dependencies.nuxt' })) {
-      try {
-        await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'dependencies.nuxt', force: true })
-      } catch (error) {
-        console.error('[Nuxt Spec] Error removing \'nuxt\' dependency:\n', error.message)
-      }
+    try {
+      await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'dependencies.nuxt', force: true })
+    } catch (error) {
+      console.error('[Nuxt Spec] Error removing \'nuxt\' dependency:\n', error.message)
     }
-    if (hasJsonKey({ targetFile: 'package.json', jsonKey: 'dependencies.vue' })) {
-      try {
-        await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'dependencies.vue', force: true })
-      } catch (error) {
-        console.error('[Nuxt Spec] Error removing \'vue\' dependency:\n', error.message)
-      }
+    try {
+      await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'dependencies.vue', force: true })
+    } catch (error) {
+      console.error('[Nuxt Spec] Error removing \'vue\' dependency:\n', error.message)
     }
-    if (hasJsonKey({ targetFile: 'package.json', jsonKey: 'dependencies.vue-router' })) {
-      try {
-        await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'dependencies.vue-router', force: true })
-      } catch (error) {
-        console.error('[Nuxt Spec] Error removing \'vue-router\' dependency:\n', error.message)
-      }
+    try {
+      await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'dependencies.vue-router', force: true })
+    } catch (error) {
+      console.error('[Nuxt Spec] Error removing \'vue-router\' dependency:\n', error.message)
     }
-    if (hasJsonKey({ targetFile: 'package.json', jsonKey: 'devDependencies.nuxt' })) {
-      try {
-        await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'devDependencies.nuxt', force: true })
-      } catch (error) {
-        console.error('[Nuxt Spec] Error removing \'nuxt\' devDependency:\n', error.message)
-      }
+    try {
+      await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'devDependencies.nuxt', force: true })
+    } catch (error) {
+      console.error('[Nuxt Spec] Error removing \'nuxt\' devDependency:\n', error.message)
     }
-    if (hasJsonKey({ targetFile: 'package.json', jsonKey: 'devDependencies.vue' })) {
-      try {
-        await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'devDependencies.vue', force: true })
-      } catch (error) {
-        console.error('[Nuxt Spec] Error removing \'vue\' devDependency:\n', error.message)
-      }
+    try {
+      await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'devDependencies.vue', force: true })
+    } catch (error) {
+      console.error('[Nuxt Spec] Error removing \'vue\' devDependency:\n', error.message)
     }
-    if (hasJsonKey({ targetFile: 'package.json', jsonKey: 'devDependencies.vue-router' })) {
-      try {
-        await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'devDependencies.vue-router', force: true })
-      } catch (error) {
-        console.error('[Nuxt Spec] Error removing \'vue-router\' devDependency:\n', error.message)
-      }
+    try {
+      await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'devDependencies.vue-router', force: true })
+    } catch (error) {
+      console.error('[Nuxt Spec] Error removing \'vue-router\' devDependency:\n', error.message)
     }
   }
 
