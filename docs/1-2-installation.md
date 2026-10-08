@@ -4,11 +4,11 @@
 
 The `nuxt-spec` package comes with a built-in CLI tool that can help you:
 
-- setup the dependency in your project
+- set up the dependency in your project
 - scaffold the default `vitest.config.ts` (see [configuration](2-1-configuration.html) section)
 - add some test-related shorthands in your `package.json` (see [running tests](#running-tests) section)
-- create demo test files in proposed file structure
-- add nuxt-spec related entries to your `.gitignore`
+- create demo test files in the proposed file structure
+- add `nuxt-spec`-related entries to your `.gitignore`
 - generate the Nuxt types and auto-imports (via `nuxt prepare`) so the project is ready to use
 - install the Playwright browser runtimes needed to run the e2e tests
 
@@ -80,7 +80,7 @@ export default loadVitestConfig({
 })
 ```
 
-This is a wrapper around native Vitest config allowing to merge your custom configs with `nuxt-spec` defaults. See [configuration](2-1-configuration.html) section for more info.
+This is a wrapper around the native Vitest config, allowing you to merge your custom configs with `nuxt-spec` defaults. See [configuration](2-1-configuration.html) section for more info.
 
 **5)** Add a `.nuxtrc` file with the following content (if you don't have it yet):
 
@@ -252,7 +252,7 @@ It works the same way as `setup` - first asking whether to run automatically, th
 
 The `update` command will:
 
-- run package manager's update command (e.g. `pnpm update nuxt-spec@0.3.4`) to bump `nuxt-spec` to the latest version
+- run the package manager's update command (e.g. `pnpm update nuxt-spec@0.3.4`) to bump `nuxt-spec` to the latest version
 - run the `nuxt prepare` command to regenerate the Nuxt types and auto-imports
 - run the `playwright install` command to ensure the Playwright browser runtimes are up to date
 
@@ -306,25 +306,25 @@ Or you can use the `vitest` command directly with all its parameters. See [Vites
 
 ## Known issues
 
-There are several situations that cannot be effectively solved from Nuxt Spec side and require manual action in target project.
+There are several situations that cannot be effectively solved on the Nuxt Spec side and require manual action in the target project.
 
 ### `pnpm` with `trustPolicy: no-downgrade`
 
-Setting [`trustPolicy`](https://pnpm.io/settings/dependency-resolution#trustpolicy) is a security measure to prevent installing malicious versions of established packaging after attackers gain credentials to publish their own code, but fail to prove their identity at established trust level.
+Setting [`trustPolicy`](https://pnpm.io/settings/dependency-resolution#trustpolicy) is a security measure to prevent installing malicious versions of established packages after attackers gain credentials to publish their own code but fail to prove their identity at the established trust level.
 
-Nuxt Ignis currently contains transitive dependency `undici-types@6.21.0` that fails to pass the check despite being legitimate (old) version. If your project uses `trustPolicy: no-downgrade`, installation will be rejected.
+Nuxt Ignis currently contains the transitive dependency `undici-types@6.21.0` that fails to pass the check despite being a legitimate (old) version. If your project uses `trustPolicy: no-downgrade`, installation will be rejected.
 
-The solution is to add following entry into your `pnpm-workspace.yaml`:
+The solution is to add the following entry to your `pnpm-workspace.yaml`:
 
-```yaml[pnpm-workspace.yaml]
+```yaml [pnpm-workspace.yaml]
 trustPolicyExclude:
   - undici-types@6.21.0
 ```
 
-Hopefully, this will be soon fixed by bumping the deps in the chain.
+Hopefully, this will soon be fixed by bumping the deps in the chain.
 
 ## More info
 
 - Continue to the [configuration](2-1-configuration.html) to see how you can adjust the default settings.
-- See [changelog](3-1-changelog.html) to display the latest changes.
-- Visit [contributing guide](4-1-contributing.html) if you want to help with development.
+- See the [changelog](3-1-changelog.html) to view the latest changes.
+- Visit the [contributing guide](4-1-contributing.html) if you want to help with development.

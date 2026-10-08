@@ -16,7 +16,7 @@ const page: NuxtPage = await gotoPage('url')
 
 The function assumes there is a Nuxt app instance running. It will use the `createPage` utility from Nuxt Test Utils, await navigation to the given URL, and return the instance for further processing.
 
-An optional second argument accepts an object with following:
+An optional second argument accepts an object with the following options:
 
 - `waitUntil` - (optional) event to be awaited before the `NuxtPage` instance is returned (defaults to `'hydration'` if not set)
 
@@ -27,7 +27,7 @@ import { gotoPage } from 'nuxt-spec/utils'
 const page: NuxtPage = await gotoPage('url', { waitUntil: 'domcontentloaded' })
 ```
 
-A console warn will be produced, if URL param is not a non-empty string or if waitUntil option is passed and it is not a string.
+A console warning will be produced if the URL param is not a non-empty string or if the `waitUntil` option is passed and it is not a string.
 
 ## `getDataHtml`
 
@@ -43,16 +43,16 @@ const html: string = await getDataHtml('/')
 // target a specific element
 const html: string = await getDataHtml('/', { element: '#test' })
 
-// target a specific element on already existing Nuxt page instance
+// target a specific element on an already existing Nuxt page instance
 const html: string = await getDataHtml(page, { element: '#test' })
 ```
 
 The options object accepts:
 
-- `waitUntil` - (optional) event to be awaited before the `NuxtPage` instance is returned (defaults to `'hydration'` if not set); only used when `page` is a string and new `NuxtPage` instance is being constructed internally
+- `waitUntil` - (optional) event to be awaited before the `NuxtPage` instance is returned (defaults to `'hydration'` if not set); only used when `page` is a string and a new `NuxtPage` instance is being constructed internally
 - `element` - (optional) CSS selector identifying the target element (defaults to `<body>` tag if not set)
 
-A console warn will be produced, if page param is empty or any of the params passed are of invalid data type.
+A console warning will be produced if the `page` param is empty or any of the params passed are of an invalid data type.
 
 ## `getAPIResultHtml`
 
@@ -63,10 +63,10 @@ Accepts:
 
 The options object accepts:
 
-- `triggerElement` (required) - CSS selector for an element that triggers an API call when clicked (i.e., a button)
+- `triggerElement` (required) - CSS selector for an element that triggers an API call when clicked (e.g., a button)
 - `targetUrl` (required) - a fragment of an API endpoint URL that should be called (to test the response)
-- `responseElement` (required) - CSS selector for an element where the API response should be rendered (i.e., a div)
-- `waitUntil` - (optional) event to be awaited before the `NuxtPage` instance is returned (defaults to `'hydration'` if not set); only used when `page` is a string and new `NuxtPage` instance is being constructed internally
+- `responseElement` (required) - CSS selector for an element where the API response should be rendered (e.g., a div)
+- `waitUntil` - (optional) event to be awaited before the `NuxtPage` instance is returned (defaults to `'hydration'` if not set); only used when `page` is a string and a new `NuxtPage` instance is being constructed internally
 
 Returns:
 
@@ -92,20 +92,20 @@ const html: string = await getAPIResultHtml(page, {
 
 The function locates the action element, invokes the action, and listens for the response. If a response is received, it checks whether the returned data URL matches the expected fragment and then returns the `innerHTML` of the result element.
 
-A console warn will be produced, if any of the required params is empty or any of the params passed are of invalid data type.
+A console warning will be produced if any of the required params is empty or any of the params passed are of an invalid data type.
 
 ## `compareScreenshot`
 
-Accepts a source (plain URL string or instance of `NuxtPage`). Takes a screenshot of the current viewport and compares it with the stored baseline. The comparison is done using the `pixelmatch` library. If the screenshot doesn't exist (or Vitest is configured to auto-update snapshots), it will be created in the __baseline__ subfolder. The screenshot from the current run is always captured into the __current__ subfolder. If the screenshots don't match, the function will cause the Vitest test to fail.
+Accepts a source (plain URL string or instance of `NuxtPage`). Takes a screenshot of the current viewport and compares it with the stored baseline. The comparison is done using the `pixelmatch` library. If the screenshot doesn't exist (or Vitest is configured to auto-update snapshots), it will be created in the `__baseline__` subfolder. The screenshot from the current run is always captured into the `__current__` subfolder. If the screenshots don't match, the function will cause the Vitest test to fail.
 
-Additionally, the method accepts optional object with extra options:
+Additionally, the method accepts an optional object with extra options:
 
-- `waitUntil` - (optional) event to be awaited before the `NuxtPage` instance is returned (defaults to `'hydration'` if not set); only used when `page` is a string and new `NuxtPage` instance is being constructed internally
+- `waitUntil` - (optional) event to be awaited before the `NuxtPage` instance is returned (defaults to `'hydration'` if not set); only used when `page` is a string and a new `NuxtPage` instance is being constructed internally
 - `fileName` - name of the screenshot file (default is based on current route)
 - `selector` - CSS selector of the element to capture (default is full page)
 - `targetDir` - directory where the screenshots should be stored (default is `./test/e2e/`)
 - `maxDiffPixelRatio` - allows mitigating cross-platform rendering differences by setting a 0-1 scale tolerance (default 0)
-- `maxDiffPixels` - same but with exact max value of different pixels which overrides setting `maxDiffPixelRatio` (default 0)
+- `maxDiffPixels` - same, but with an exact maximum number of differing pixels; overrides the `maxDiffPixelRatio` setting (default 0)
 - `threshold` - allows adjusting the tolerance for "same" color on 0-1 scale (default 0.1)
 
 ```ts [your-file.ts]
@@ -151,7 +151,7 @@ await compareScreenshot(page, {
 }) 
 ```
 
-A console warn will be produced, if `page` is nullish or of wrong type.
+A console warning will be produced if `page` is nullish or of the wrong type.
 
 ### HTML report file
 

@@ -6,7 +6,7 @@ A _"testing done right"_ Nuxt base layer.
 
 ## How to use?
 
-Aside from being forked and adjusted as you see fit, `nuxt-spec` is also available as an [NPM package](https://www.npmjs.com/package/nuxt-spec) that can be referenced as a single-import with all the features incoming.
+Aside from being forked and adjusted as you see fit, `nuxt-spec` is also available as an [NPM package](https://www.npmjs.com/package/nuxt-spec) that can be referenced as a single import with all the features included.
 
 Proceed to the [installation guide](1-2-installation.html) to see how to set it up in your project.
 
@@ -16,30 +16,30 @@ Proceed to the [installation guide](1-2-installation.html) to see how to set it 
 
 While Nuxt itself does have a [dedicated module for testing](https://nuxt.com/docs/getting-started/testing), to remain as versatile as possible, it has to be combined with other packages (which can be different based on your choice). I am trying to overcome this by defining **"The Way"**. This is both the strength and the weakness of this project. You were warned.
 
-The most important client of `nuxt-spec` is my [Nuxt Ignis](https://github.com/AloisSeckar/nuxt-ignis) template starter that adds up even more ready-to-use cool stuff for your future awesome Nuxt websites.
+The most important client of `nuxt-spec` is my [Nuxt Ignis](https://github.com/AloisSeckar/nuxt-ignis) template starter that adds even more ready-to-use cool stuff for your future awesome Nuxt websites.
 
 ## Stack
 
 **Nuxt Spec** currently contains:
 
 - [vitest](https://www.npmjs.com/package/vitest) **v5** as the fundamental testing framework
-- [@vitest/browser](https://www.npmjs.com/package/@vitest/browser) as more advanced browser-native testing runner
+- [@vitest/browser](https://www.npmjs.com/package/@vitest/browser) as a more advanced browser-native test runner
 - [@vitest/ui](https://www.npmjs.com/package/@vitest/ui) as a graphical UI for the Vitest test runner
 - [happy-dom](https://www.npmjs.com/package/happy-dom) as the headless browser runtime
 - [playwright](https://www.npmjs.com/package/playwright) as the headless browser testing framework
 - [@vue/test-utils](https://www.npmjs.com/package/@vue/test-utils) for testing Vue stuff
 - [@nuxt/test-utils](https://www.npmjs.com/package/@nuxt/test-utils) for testing Nuxt stuff
-- [@nuxt/hints](https://nuxt.com/modules/hints) for DevTools performance, hydration, and security tips (enabled by default, can be opted-out via [configuration](2-1-configuration.html#nuxt-hints-integration))
+- [@nuxt/hints](https://nuxt.com/modules/hints) for DevTools performance, hydration, and security tips (enabled by default, can be opted out of via [configuration](2-1-configuration.html#nuxt-hints-integration))
 
 Planned future development:
 
 - reason about (not) using Vitest browser mode (or make it optional)
 - a solution for visual regression testing (currently there is an experimental custom solution)
 
-See [CHANGELOG.html](3-1-changelog.html) for the latest updates and features.
+See the [changelog](3-1-changelog.html) for the latest updates and features.
 
 ## More info
 
 - Continue to the [configuration](2-1-configuration.html) to see how you can adjust the default settings.
-- See [changelog](3-1-changelog.html) to view the latest changes.
-- Visit [contributing guide](4-1-contributing.html) if you want to help with development.
+- See the [changelog](3-1-changelog.html) to view the latest changes.
+- Visit the [contributing guide](4-1-contributing.html) if you want to help with development.

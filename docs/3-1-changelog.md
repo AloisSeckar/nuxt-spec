@@ -79,10 +79,10 @@ Overview of the latest features in Nuxt Spec.
 - BREAKING CHANGE: signature changes to unify all utility methods to accept `page` and `options` param
 - feat: add runtime param guards to utility methods (warn will be emitted if wrong type passed)
 - feat: fine-grained control over default `test.projects` in `loadVitestConfig` function
-- fix: correct `compareScreenshot` implementation to only update baseline images if not exist or a change is detected (and Vitest allows update)
+- fix: correct `compareScreenshot` implementation to only update baseline images if they do not exist or a change is detected (and Vitest allows update)
 - fix: adjust usage hints for Deno in CLI
-- refactor: more effective working with FS in utility methods
-- docs: new standalone Vitepress site at <https://nuxt-spec.netlify.app/>
+- refactor: more efficient work with FS in utility methods
+- docs: new standalone VitePress site at <https://nuxt-spec.netlify.app/>
 - build: updated dependencies
   - `vitest` to `4.1.10`
   - `happy-dom` to `20.11.0`
@@ -178,7 +178,7 @@ Overview of the latest features in Nuxt Spec.
 
 - fix: correct `waitUntil` option in sample visual test ([#33](https://github.com/AloisSeckar/nuxt-spec/issues/33))
 - fix: export `nuxt.config.ts` in package for proper layer resolution ([#34](https://github.com/AloisSeckar/nuxt-spec/issues/34))
-- fix: filter-out unnecessary warning logs on `stdout` along with `stderr` ([#36](https://github.com/AloisSeckar/nuxt-spec/issues/36))
+- fix: filter out unnecessary warning logs on `stdout` along with `stderr` ([#36](https://github.com/AloisSeckar/nuxt-spec/issues/36))
 
 ## 0.2.0-alpha.9
 
@@ -191,7 +191,7 @@ Overview of the latest features in Nuxt Spec.
 `2026-03-23`
 
 - feat: alter setup from creating `.npmrc` to `pnpm-workspace.yaml`
-- feat: filter-out unnecessary warning logs ([#30](https://github.com/AloisSeckar/nuxt-spec/issues/30))
+- feat: filter out unnecessary warning logs ([#30](https://github.com/AloisSeckar/nuxt-spec/issues/30))
 - refactor: re-organize `/config` directory
 
 ## 0.2.0-alpha.7
@@ -255,7 +255,7 @@ Overview of the latest features in Nuxt Spec.
 - feat: introduced `compareScreenshot` util function for visual regression testing
 - feat: introduced `gotoPage`, `getDataHtml` and `getAPIResultHtml` helpers for Nuxt E2E tests ([#27](https://github.com/AloisSeckar/nuxt-spec/issues/27))
 - fix: created proper custom merging strategy for `test.projects` config ([#24](https://github.com/AloisSeckar/nuxt-spec/issues/24))
-- docs: explained latest changes in `README.html`
+- docs: explained latest changes in `README.md`
 - build: updated dependencies
   - `@vitest/browser-playwright` to `4.0.18` (added)
   - `@vitest/ui` to `4.0.18` (added)
@@ -298,20 +298,20 @@ Overview of the latest features in Nuxt Spec.
 - fix: corrected typing for `loadVitestConfig` function ([#23](https://github.com/AloisSeckar/nuxt-spec/issues/23))
 - fix: native support for `#components` alias in `test/nuxt` folder via Nuxt `4.2.2` ([#17](https://github.com/AloisSeckar/nuxt-spec/issues/17))
 - build: updated dependencies
-  - `nuxt` to `4.2.0`
+  - `nuxt` to `4.2.2`
   - `vitest` to `4.0.15`
   - `happy-dom` to `20.0.11`
   - `playwright-core` to `1.57.0`
   - `@nuxt/eslint` to `1.12.1`
   - `@nuxt/test-utils` to `3.21.0`
-  - `vue-router` to `4.6.5`
+  - `vue-router` to `4.6.4`
 
 ## 0.1.15
 
 `2025-11-06`
 
 - fix: add TS support for Nuxt aliases like `#components` in test files ([#17](https://github.com/AloisSeckar/nuxt-spec/issues/17))
-- docs: added info about passing in Vite config into `loadVitestConfig`
+- docs: added info about passing Vite config into `loadVitestConfig`
 - build: updated dependencies
   - `vitest` to `4.0.7`
   - `happy-dom` to `20.0.10`
@@ -331,7 +331,7 @@ Overview of the latest features in Nuxt Spec.
 - feat: option to exclude `projects` from vitest config ([#19](https://github.com/AloisSeckar/nuxt-spec/issues/19))
 - build: updated dependencies
   - `nuxt` to `4.2.0`
-  - `nuxt-test-utils` to `3.20.1`
+  - `@nuxt/test-utils` to `3.20.1`
   - `vitest` to `4.0.3`
   - `happy-dom` to `20.0.8`
   - `playwright-core` to `1.56.1`
@@ -358,7 +358,7 @@ Overview of the latest features in Nuxt Spec.
 
 `2025-10-10`
 
-- feat: CLI script now try-catches each step and will finish even if errors encountered
+- feat: CLI script now try-catches each step and will finish even if errors are encountered
 - feat: CLI script now accepts external `autoRun` parameter to avoid even the initial prompt
 - feat: CLI script now guesses executing package manager to give more accurate usage hints
 - feat: CLI script now scaffolds `"pnpm": "onlyBuiltDependencies"` if `pnpm` is used
@@ -432,7 +432,7 @@ Overview of the latest features in Nuxt Spec.
 `2025-08-09`
 
 - feat: CLI tool for scaffolding `vitest.config.ts` and test-related scripts in `package.json`
-- docs: added `CHANGELOG.html` and fixed link to `playwright-core`
+- docs: added `CHANGELOG.md` and fixed link to `playwright-core`
 
 ## 0.1.0
 

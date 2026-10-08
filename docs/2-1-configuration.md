@@ -40,11 +40,11 @@ By default, Nuxt Spec built-in configuration establishes 4 `projects` + one fall
 - `browser` - for browser-mode tests in `test/browser/**` - env is set to `node` (this is effectively an alternative to `nuxt` relying on `@vitest/browser` instead of `@nuxt/test-utils`)
 - `default` - fallback for all other tests in `test/**` and/or `tests/**` directories - env is set to `node`
 
-Vitest will then expect at least one test defined in either of those directories. Any part of the `test.projects` config may be altered, and user-defined values will be logically merged with the defaults. You may also add definitions for new custom projects to fit your needs.
+Vitest will then expect at least one test defined in any of those directories. Any part of the `test.projects` config may be altered, and user-defined values will be logically merged with the defaults. You may also add definitions for new custom projects to fit your needs.
 
 ### Configuring projects
 
-If your project uses a significantly different configuration (i.e. your tests reside in completely different paths), you can pass `false` as the second parameter to the `loadVitestConfig()` function to exclude the default `test.projects` values from being injected completely:
+If your project uses a significantly different configuration (e.g. your tests reside in completely different paths), you can pass `false` as the second parameter to the `loadVitestConfig()` function to exclude the default `test.projects` values from being injected completely:
 
 ```ts [vitest.config.ts]
 import { loadVitestConfig } from 'nuxt-spec/config'
@@ -54,7 +54,7 @@ export default loadVitestConfig({
 }, false)
 ```
 
-For fine-grained control over included projects, you can also use a [config object](https://github.com/AloisSeckar/nuxt-spec/blob/v0.3.4/config/index.d.ts#L16). When config object is used, only projects with explicitly passed `true` value will be included. For example, using this setting, only `unit` and `nuxt` will be activated:
+For fine-grained control over included projects, you can also use a [config object](https://github.com/AloisSeckar/nuxt-spec/blob/v0.3.4/config/index.d.ts#L16). When a config object is used, only projects with explicitly passed `true` value will be included. For example, using this setting, only `unit` and `nuxt` will be activated:
 
 ```ts [vitest.config.ts]
 import { loadVitestConfig } from 'nuxt-spec/config'
@@ -66,7 +66,7 @@ export default loadVitestConfig({
 
 ## Opting-out from defaults
 
-If you don't want to use any part of the `nuxt-spec` default configuration at all, you can override `vitest.config.ts` file completely and define your own [Vitest configuration](https://vitest.dev/config/) from scratch.
+If you don't want to use any part of the `nuxt-spec` default configuration at all, you can override the `vitest.config.ts` file completely and define your own [Vitest configuration](https://vitest.dev/config/) from scratch.
 
 ## Nuxt Spec options
 
@@ -102,21 +102,21 @@ Each option can also be set via an env variable:
 | `htmlReport.open` | `NUXT_SPEC_HTML_REPORT_OPEN` |
 | `messageFilters` | `NUXT_SPEC_MESSAGE_FILTERS` (comma-separated) |
 
-If both are set, the env variable takes precedence. The only exception is `messageFilters`, where values from both sources are combined. Boolean env variables only disable the feature with an explicit `false` value. Env variables can be also defined in the `.env` file in the root of your project.
+If both are set, the env variable takes precedence. The only exception is `messageFilters`, where values from both sources are combined. Boolean env variables only disable the feature with an explicit `false` value. Env variables can also be defined in the `.env` file in the root of your project.
 
 Values of unexpected type (or unsupported `htmlReport.open` values) are reported with a console warning and replaced by the default value.
 
 The `spec` key is typed automatically once Nuxt types are generated (e.g. via `nuxt prepare`).
 
-The values are read from `nuxt.config.ts` located in the current working directory once Vitest config is loaded. When you change them, restart Vitest to apply the changes (this also applies for the watch mode).
+The values are read from `nuxt.config.ts` located in the current working directory when the Vitest config is loaded. When you change them, restart Vitest to apply the changes (this also applies to watch mode).
 
 ### External Playwright server
 
-By default, local Playwright instance is being build when executing `e2e` and `browser` tests.
+By default, a local Playwright instance is built when executing `e2e` and `browser` tests.
 
-By setting `spec.externalPlaywright` (or the `NUXT_SPEC_EXTERNAL_PLAYWRIGHT` env variable) to an external WebSocket URL, you can reference an existing Playwright server instead. Nuxt Spec will automatically wire it up. The connection will be established with  `exposeNetwork: '<loopback>'` setting by default. See [Vitest docs](https://vitest.dev/config/browser/playwright.html#connectoptions) for details.
+By setting `spec.externalPlaywright` (or the `NUXT_SPEC_EXTERNAL_PLAYWRIGHT` env variable) to an external WebSocket URL, you can reference an existing Playwright server instead. Nuxt Spec will automatically wire it up. The connection will be established with the `exposeNetwork: '<loopback>'` setting by default. See [Vitest docs](https://vitest.dev/config/browser/playwright.html#connectoptions) for details.
 
-**NOTE that remote Playwright version must match `~1.63.0` to align with version used by Nuxt Spec.** Connection attempt to an older version will be rejected by Playwright built-in guard.
+**NOTE that the remote Playwright version must match `~1.63.0` to align with the version used by Nuxt Spec.** Connection attempts to an older version will be rejected by Playwright's built-in guard.
 
 ### HTML test report
 
@@ -172,7 +172,7 @@ It only applies to logs processed by `vitest` though, so some messages might sti
 
 ### Nuxt Hints integration
 
-Nuxt Spec includes [@nuxt/hints](https://nuxt.com/modules/hints), a module that enhances DevTools with warnings about performance, hydration mismatches, third-party scripts, and other best practices, by default.
+By default, Nuxt Spec includes [@nuxt/hints](https://nuxt.com/modules/hints), a module that enhances DevTools with warnings about performance, hydration mismatches, third-party scripts, and other best practices.
 
 If you don't want to use it, set `spec.hints` to `false`:
 
