@@ -26,6 +26,7 @@ Loose versions prefixed with `~` allow patch updates.
 | [playwright-core](https://npmx.dev/package/playwright-core) | Core Playwright browser API used by Nuxt Spec utilities | `~1.63.0` |
 | [@vue/test-utils](https://npmx.dev/package/@vue/test-utils) | Utilities for testing Vue stuff | `2.5.1` |
 | [@nuxt/test-utils](https://npmx.dev/package/@nuxt/test-utils) | Utilities for testing Nuxt stuff | `4.3.3` |
+| [@nuxt/devtools](https://npmx.dev/package/@nuxt/devtools) | Development browser console for Nuxt | `4.0.0-beta.4` |
 | [@nuxt/hints](https://npmx.dev/package/@nuxt/hints) | DevTools performance, hydration, and security tips (can be opted out of via [configuration](2-1-configuration.html#nuxt-hints-integration)) | `1.1.4` |
 
 ## Test supporting features

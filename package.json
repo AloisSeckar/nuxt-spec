@@ -53,6 +53,7 @@
     "nuxt.config.ts"
   ],
   "dependencies": {
+    "@nuxt/devtools": "4.0.0-beta.4",
     "@nuxt/eslint": "~1.17.0",
     "@nuxt/hints": "1.1.4",
     "@nuxt/test-utils": "4.3.3",
