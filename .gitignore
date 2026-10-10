@@ -12,6 +12,9 @@ docs/.vitepress/.temp
 # vitest output folder
 .vitest
 
+# vitest coverage output folder
+coverage
+
 # nuxt-spec screenshots folder
 __current__
 

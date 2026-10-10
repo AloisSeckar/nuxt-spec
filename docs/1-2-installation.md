@@ -127,6 +127,9 @@ The structure matches the default [configuration](2-1-configuration.html) of `nu
 # vitest output folder
 .vitest
 
+# vitest coverage output folder
+coverage
+
 # nuxt-spec screenshots folder
 __current__
 

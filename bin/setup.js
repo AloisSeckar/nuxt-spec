@@ -241,6 +241,7 @@ export async function specSetup(autoRun = false, packageManager) {
   try {
     const gitignoreEntries = [
       ['# vitest output folder', '.vitest'],
+      ['# vitest coverage output folder', 'coverage'],
       ['# nuxt-spec screenshots folder', '__current__'],
       ['# nuxt-spec HTML test reports folder', '__reports__'],
     ]

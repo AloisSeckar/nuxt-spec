@@ -64,6 +64,28 @@ export default loadVitestConfig({
 }, { unit: true, nuxt: true })
 ```
 
+## Code coverage
+
+Both [Vitest coverage providers](https://vitest.dev/guide/coverage.html) - `@vitest/coverage-v8` and `@vitest/coverage-istanbul` - are included in Nuxt Spec dependencies, so nothing needs to be installed.
+
+To start collecting test coverage, pass the Vitest [coverage config](https://vitest.dev/config/coverage.html) via `test.coverage` into `loadVitestConfig()`:
+
+```ts [vitest.config.ts]
+import { loadVitestConfig } from 'nuxt-spec/config'
+
+export default loadVitestConfig({
+  test: {
+    coverage: {
+      enabled: true,
+      // 'v8' (Vitest default) or 'istanbul'
+      provider: 'v8',
+    },
+  },
+})
+```
+
+By default, the report is written into the `coverage` folder, which is added to your `.gitignore` by the CLI [setup](1-2-installation.html).
+
 ## Opting-out from defaults
 
 If you don't want to use any part of the `nuxt-spec` default configuration at all, you can override the `vitest.config.ts` file completely and define your own [Vitest configuration](https://vitest.dev/config/) from scratch.
