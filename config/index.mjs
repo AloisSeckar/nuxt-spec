@@ -32,6 +32,13 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
       // Vitest defaults to 5 which might be unnecessarily restrictive
       // if the host machine can support more
       maxConcurrency: availableParallelism() / 2,
+      // coverage is NOT enabled by default
+      // (use `test-c` command or `--coverage` flag)
+      // Bun runtime lacks support for the V8 provider
+      // (`bun run` without `--bun` still runs Vitest in Node, where V8 works)
+      coverage: {
+        provider: process.versions.bun ? 'istanbul' : 'v8',
+      },
     },
   }
 

@@ -181,4 +181,51 @@ describe('Test `loadVitestConfig` function', () => {
       vi.unstubAllEnvs()
     }
   })
+
+  // coverage
+
+  function stubBunRuntime() {
+    Object.defineProperty(process.versions, 'bun', { value: '1.2.0', configurable: true })
+  }
+
+  function unstubBunRuntime() {
+    delete (process.versions as Record<string, string | undefined>).bun
+  }
+
+  test('should preconfigure `v8` coverage provider without enabling coverage', async () => {
+    const config = await loadVitestConfig({})
+    expect(config.test?.coverage?.provider).toBe('v8')
+    expect(config.test?.coverage?.enabled).toBeUndefined()
+  })
+
+  test('should keep `v8` coverage provider when only bun package manager is detected', async () => {
+    vi.stubEnv('npm_config_user_agent', 'bun/1.2.0 npm/? node/v24.0.0 linux x64')
+    try {
+      const config = await loadVitestConfig({})
+      expect(config.test?.coverage?.provider).toBe('v8')
+    } finally {
+      vi.unstubAllEnvs()
+    }
+  })
+
+  test('should use `istanbul` coverage provider in Bun runtime', async () => {
+    stubBunRuntime()
+    try {
+      const config = await loadVitestConfig({})
+      expect(config.test?.coverage?.provider).toBe('istanbul')
+    } finally {
+      unstubBunRuntime()
+    }
+  })
+
+  test('should respect user-defined coverage settings', async () => {
+    stubBunRuntime()
+    try {
+      const config = await loadVitestConfig({ test: { coverage: { enabled: true, provider: 'v8' } } })
+      expect(config.test?.coverage?.provider).toBe('v8')
+      expect(config.test?.coverage?.enabled).toBe(true)
+    } finally {
+      unstubBunRuntime()
+    }
+  })
 })

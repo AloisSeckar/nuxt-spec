@@ -267,7 +267,7 @@ You can use those three optional commands in your `package.json` file in the `"s
 
 - `test: vitest run` - runs once and ends
 - `test-u: vitest run -u` - runs once and updates snapshots
-- `test-c: vitest run -c` - runs once and displays [coverage](https://vitest.dev/guide/coverage) report
+- `test-c: vitest run --coverage` - runs once and displays [coverage](https://vitest.dev/guide/coverage) report (see [code coverage](2-1-configuration.html#code-coverage))
 - `test-i: vitest` - runs and waits in HMR mode for test file changes
 
 Then you can run them from the root of your project:

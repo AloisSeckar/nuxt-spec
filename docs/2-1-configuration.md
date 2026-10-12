@@ -66,9 +66,11 @@ export default loadVitestConfig({
 
 ## Code coverage
 
-Both [Vitest coverage providers](https://vitest.dev/guide/coverage.html) - `@vitest/coverage-v8` and `@vitest/coverage-istanbul` - are included in Nuxt Spec dependencies, so nothing needs to be installed.
+Both [Vitest coverage providers](https://vitest.dev/guide/coverage.html) - `@vitest/coverage-v8` and `@vitest/coverage-istanbul` - are included in Nuxt Spec dependencies, so nothing needs to be installed. Coverage is only collected when requested via the `--coverage` CLI flag (used by the `test-c` script - see [running tests](1-2-installation.html#running-tests)).
 
-To start collecting test coverage, pass the Vitest [coverage config](https://vitest.dev/config/coverage.html) via `test.coverage` into `loadVitestConfig()`:
+Coverage is preconfigured with `test.coverage.provider` to `v8` (the Vitest default) for most of the cases, but if Vitest runs in the Bun runtime (e.g. `bun --bun vitest`) then `istanbul` is used instead, because the Bun runtime lacks support for the V8 coverage provider. Note that `bun run test` (without the `--bun` flag ) still executes Vitest in Node.js, so `v8` is kept as default in such case.
+
+To adjust default settings, pass your [coverage config](https://vitest.dev/config/coverage.html) via `test.coverage` into `loadVitestConfig()`:
 
 ```ts [vitest.config.ts]
 import { loadVitestConfig } from 'nuxt-spec/config'
@@ -76,13 +78,16 @@ import { loadVitestConfig } from 'nuxt-spec/config'
 export default loadVitestConfig({
   test: {
     coverage: {
+      // collect coverage on every run, even without `--coverage`
       enabled: true,
-      // 'v8' (Vitest default) or 'istanbul'
-      provider: 'v8',
+      // 'v8' (default) or 'istanbul' (default in Bun runtime)
+      provider: 'istanbul',
     },
   },
 })
 ```
+
+To turn coverage off completely, set `test.coverage.enabled` to `false` in your `vitest.config.ts` and remove the `test-c` script from your `package.json`.
 
 By default, the report is written into the `coverage` folder, which is added to your `.gitignore` by the CLI [setup](1-2-installation.html).
 
