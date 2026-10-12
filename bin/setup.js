@@ -168,6 +168,7 @@ export async function specSetup(autoRun = false, packageManager) {
       patch: {
         'test': 'vitest run',
         'test-u': 'vitest run -u',
+        'test-c': 'vitest run --coverage',
         'test-i': 'vitest',
       },
       force: isAutoRun,

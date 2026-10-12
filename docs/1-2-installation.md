@@ -267,6 +267,7 @@ You can use those three optional commands in your `package.json` file in the `"s
 
 - `test: vitest run` - runs once and ends
 - `test-u: vitest run -u` - runs once and updates snapshots
+- `test-c: vitest run -c` - runs once and displays [coverage](https://vitest.dev/guide/coverage) report
 - `test-i: vitest` - runs and waits in HMR mode for test file changes
 
 Then you can run them from the root of your project:
@@ -276,30 +277,35 @@ Then you can run them from the root of your project:
 ```sh [pnpm]
 pnpm test        # runs once and ends
 pnpm test-u      # runs once and updates snapshots
+pnpm test-c      # runs once and displays coverage
 pnpm test-i      # runs and waits in HMR mode
 ```
 
 ```sh [npm]
 npm run test     # runs once and ends
 npm run test-u   # runs once and updates snapshots
+npm run test-c   # runs once and displays coverage
 npm run test-i   # runs and waits in HMR mode
 ```
 
 ```sh [yarn]
 yarn test        # runs once and ends
 yarn test-u      # runs once and updates snapshots
+yarn test-c      # runs once and displays coverage
 yarn test-i      # runs and waits in HMR mode
 ```
 
 ```sh [bun]
 bun run test     # runs once and ends
 bun run test-u   # runs once and updates snapshots
+bun run test-c   # runs once and displays coverage
 bun run test-i   # runs and waits in HMR mode
 ```
 
 ```sh [deno]
 deno task test    # runs once and ends
 deno task test-u  # runs once and updates snapshots
+deno task test-c  # runs once and displays coverage
 deno task test-i  # runs and waits in HMR mode
 ```
 
