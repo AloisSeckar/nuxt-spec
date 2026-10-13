@@ -8,7 +8,7 @@ import {
 import { CI_TEMPLATES } from './ci.js'
 import {
   getPlaywrightInstallCmd, getPrepareCmd, getUpdateCmd,
-} from './helpers/commands.js'
+} from '../helpers/commands.js'
 
 const TARGET_VERSION = '0.4.0-alpha.1'
 const PLAYWRIGHT_VERSION = '1.63.0'

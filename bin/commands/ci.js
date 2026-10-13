@@ -4,7 +4,7 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import {
   createFileFromWebTemplate, pathExists, promptUser, showMessage, updateYamlFile,
 } from 'elrh-cosca'
-import { isGitRepo, resolveDefaultBranch } from './helpers/git.js'
+import { isGitRepo, resolveDefaultBranch } from '../helpers/git.js'
 
 const TARGET_VERSION = '0.4.0-alpha.1'
 const PLAYWRIGHT_VERSION = '1.63.0'

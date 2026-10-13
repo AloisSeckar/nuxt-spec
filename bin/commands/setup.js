@@ -9,7 +9,7 @@ import {
 } from 'elrh-cosca'
 import {
   getPlaywrightInstallCmd, getPrepareCmd,
-} from './helpers/commands.js'
+} from '../helpers/commands.js'
 
 const TARGET_VERSION = '0.4.0-alpha.1'
 

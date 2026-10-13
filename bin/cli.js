@@ -33,13 +33,13 @@ const args = process.argv.slice(2);
     const autoRun = autoRunArg === 'true'
     switch (command) {
       case 'setup':
-        await (await import('./setup.js')).specSetup(autoRun, packageManager)
+        await (await import('./commands/setup.js')).specSetup(autoRun, packageManager)
         break
       case 'update':
-        await (await import('./update.js')).specUpdate(autoRun, packageManager)
+        await (await import('./commands/update.js')).specUpdate(autoRun, packageManager)
         break
       case 'ci':
-        await (await import('./ci.js')).specCi(host, autoRun)
+        await (await import('./commands/ci.js')).specCi(host, autoRun)
         break
       default:
         console.log(`[Nuxt Spec] Usage: \`${getCmd(packageManager)} setup [true|false] [npm|pnpm|yarn|bun|deno]\`, \`${getCmd(packageManager)} update [true|false] [npm|pnpm|yarn|bun|deno]\` or \`${getCmd(packageManager)} ci <github|gitlab> [true|false]\``)
