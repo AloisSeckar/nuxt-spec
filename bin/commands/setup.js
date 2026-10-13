@@ -10,8 +10,7 @@ import {
 import {
   getPlaywrightInstallCmd, getPrepareCmd,
 } from '../helpers/commands.js'
-
-const TARGET_VERSION = '0.4.0-alpha.1'
+import { COSCA_VERSION, COSCA_URL } from '../helpers/constants.js'
 
 /**
  * CLI tool to scaffold necessary adjustments in project folder.
@@ -51,7 +50,7 @@ export async function specSetup(autoRun = false, packageManager) {
       targetFile: 'package.json',
       jsonKey: 'dependencies',
       patch: {
-        ['nuxt-spec']: TARGET_VERSION,
+        ['nuxt-spec']: COSCA_VERSION,
       },
       force: isAutoRun,
       prompt: `[Nuxt Spec] This will add 'nuxt-spec' dependency to your 'package.json'. Continue?`,
@@ -123,7 +122,7 @@ export async function specSetup(autoRun = false, packageManager) {
         })
       } else {
         await createFileFromWebTemplate({
-          url: `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${TARGET_VERSION}/config/templates/pnpm-workspace.yaml.template`,
+          url: `${COSCA_URL}/config/templates/pnpm-workspace.yaml.template`,
           targetFile: 'pnpm-workspace.yaml',
           force: isAutoRun,
           prompt: '[Nuxt Spec] This will add \'pnpm-workspace.yaml\' file for your project. Continue?',
@@ -137,7 +136,7 @@ export async function specSetup(autoRun = false, packageManager) {
   // 4) create vitest.config.ts
   try {
     await createFileFromWebTemplate({
-      url: `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${TARGET_VERSION}/config/templates/vitest.config.ts.template`,
+      url: `${COSCA_URL}/config/templates/vitest.config.ts.template`,
       targetFile: 'vitest.config.ts',
       force: isAutoRun,
       prompt: '[Nuxt Spec] This will create a new \'vitest.config.ts\' file for your project. Continue?',
@@ -150,7 +149,7 @@ export async function specSetup(autoRun = false, packageManager) {
   if (!pathExists({ targetPath: '.nuxtrc' })) {
     try {
       await createFileFromWebTemplate({
-        url: `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${TARGET_VERSION}/.nuxtrc`,
+        url: `${COSCA_URL}/.nuxtrc`,
         targetFile: '.nuxtrc',
         force: isAutoRun,
         prompt: '[Nuxt Spec] This will create a \'.nuxtrc\' file to prevent @nuxt/test-utils setup from running automatically when dev server starts. Continue?',
@@ -183,7 +182,7 @@ export async function specSetup(autoRun = false, packageManager) {
   if (createSampleTests) {
     try {
       await createFileFromWebTemplate({
-        url: `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${TARGET_VERSION}/test/browser/vitest-browser.test.ts`,
+        url: `${COSCA_URL}/test/browser/vitest-browser.test.ts`,
         targetFile: 'test/browser/vitest-browser.test.ts',
         force: true,
       })
@@ -192,7 +191,7 @@ export async function specSetup(autoRun = false, packageManager) {
     }
     try {
       await createFileFromWebTemplate({
-        url: `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${TARGET_VERSION}/test/e2e/nuxt-e2e.test.ts`,
+        url: `${COSCA_URL}/test/e2e/nuxt-e2e.test.ts`,
         targetFile: 'test/e2e/nuxt-e2e.test.ts',
         force: true,
       })
@@ -201,7 +200,7 @@ export async function specSetup(autoRun = false, packageManager) {
     }
     try {
       await createFileFromWebTemplate({
-        url: `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${TARGET_VERSION}/test/e2e/nuxt-visual.test.ts`,
+        url: `${COSCA_URL}/test/e2e/nuxt-visual.test.ts`,
         targetFile: 'test/e2e/nuxt-visual.test.ts',
         force: true,
       })
@@ -211,7 +210,7 @@ export async function specSetup(autoRun = false, packageManager) {
     // pre-existing baseline ensures the sample "wrong" visual test fails as intended
     try {
       await createFileFromWebTemplate({
-        url: `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${TARGET_VERSION}/test/e2e/__baseline__/wrong.png`,
+        url: `${COSCA_URL}/test/e2e/__baseline__/wrong.png`,
         targetFile: 'test/e2e/__baseline__/wrong.png',
         force: true,
       })
@@ -220,7 +219,7 @@ export async function specSetup(autoRun = false, packageManager) {
     }
     try {
       await createFileFromWebTemplate({
-        url: `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${TARGET_VERSION}/test/nuxt/nuxt-unit.test.ts`,
+        url: `${COSCA_URL}/test/nuxt/nuxt-unit.test.ts`,
         targetFile: 'test/nuxt/nuxt-unit.test.ts',
         force: true,
       })
@@ -229,7 +228,7 @@ export async function specSetup(autoRun = false, packageManager) {
     }
     try {
       await createFileFromWebTemplate({
-        url: `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${TARGET_VERSION}/test/unit/vitest-unit.test.ts`,
+        url: `${COSCA_URL}/test/unit/vitest-unit.test.ts`,
         targetFile: 'test/unit/vitest-unit.test.ts',
         force: true,
       })

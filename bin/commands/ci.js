@@ -5,11 +5,7 @@ import {
   createFileFromWebTemplate, pathExists, promptUser, showMessage, updateYamlFile,
 } from 'elrh-cosca'
 import { isGitRepo, resolveDefaultBranch } from '../helpers/git.js'
-
-const TARGET_VERSION = '0.4.0-alpha.1'
-const PLAYWRIGHT_VERSION = '1.63.0'
-
-const TEMPLATES_URL = `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${TARGET_VERSION}/config/templates`
+import { COSCA_URL, PLAYWRIGHT_VERSION } from '../helpers/constants.js'
 
 const SUPPORTED_CI_HOSTS = ['github', 'gitlab']
 
@@ -83,7 +79,7 @@ export async function specCi(host, autoRun = false) {
       console.log(`[Nuxt Spec] Existing '${targetFile}' kept.`)
       continue
     }
-    await createFileFromWebTemplate({ url: `${TEMPLATES_URL}/${template}`, targetFile, force: true })
+    await createFileFromWebTemplate({ url: `${COSCA_URL}/config/templates/${template}`, targetFile, force: true })
 
     // 2) fill in placeholders
     let content = readFileSync(targetFile, 'utf8').replaceAll('__PLAYWRIGHT_VERSION__', PLAYWRIGHT_VERSION)
@@ -107,7 +103,7 @@ export async function specCi(host, autoRun = false) {
       })
     } else {
       await createFileFromWebTemplate({
-        url: `${TEMPLATES_URL}/${GITLAB_ROOT_FILE}.template`,
+        url: `${COSCA_URL}/config/templates/${GITLAB_ROOT_FILE}.template`,
         targetFile: GITLAB_ROOT_FILE,
         force: isAutoRun,
         prompt: `[Nuxt Spec] This will create '${GITLAB_ROOT_FILE}' file including the CI files. Continue?`,

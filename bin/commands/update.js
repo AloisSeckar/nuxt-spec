@@ -9,9 +9,7 @@ import { CI_TEMPLATES } from './ci.js'
 import {
   getPlaywrightInstallCmd, getPrepareCmd, getUpdateCmd,
 } from '../helpers/commands.js'
-
-const TARGET_VERSION = '0.4.0-alpha.1'
-const PLAYWRIGHT_VERSION = '1.63.0'
+import { COSCA_VERSION, PLAYWRIGHT_VERSION } from '../helpers/constants.js'
 
 // for automated version patching in CI workflow files
 const PLAYWRIGHT_IMAGE_REGEX = /(mcr\.microsoft\.com\/playwright:v)\d+\.\d+\.\d+/g
@@ -48,8 +46,8 @@ export async function specUpdate(autoRun = false, packageManager) {
   showMessage({ message: '' })
 
   // 1) run 'update nuxt-spec'
-  const updateCmd = getUpdateCmd(packageManager, `nuxt-spec@${TARGET_VERSION}`)
-  const runUpdate = isAutoRun || await promptUser({ question: `[Nuxt Spec] This will bump 'nuxt-spec' to version '${TARGET_VERSION}' by running \`${updateCmd}\`. Continue?` })
+  const updateCmd = getUpdateCmd(packageManager, `nuxt-spec@${COSCA_VERSION}`)
+  const runUpdate = isAutoRun || await promptUser({ question: `[Nuxt Spec] This will bump 'nuxt-spec' to version '${COSCA_VERSION}' by running \`${updateCmd}\`. Continue?` })
   if (runUpdate) {
     try {
       showMessage({ message: `Running \`${updateCmd}\`...` })
