@@ -10,7 +10,7 @@ Loose versions prefixed with `~` allow patch updates.
 
 | Package | Description | Version |
 | --- | --- | --- |
-| [nuxt](https://npmx.dev/package/nuxt) | The Nuxt framework itself | `4.6.0` |
+| [nuxt](https://npmx.dev/package/nuxt) | The Nuxt framework itself | `4.6.1` |
 | [vue](https://npmx.dev/package/vue) | The Vue.js framework | `~3.5.43` |
 
 ## Core test features
@@ -24,8 +24,8 @@ Loose versions prefixed with `~` allow patch updates.
 | [@vitest/coverage-istanbul](https://npmx.dev/package/@vitest/coverage-istanbul) | Istanbul-based code coverage provider for Vitest (see [Code coverage](2-1-configuration.html#code-coverage)) | `5.0.3` |
 | [@vitest/ui](https://npmx.dev/package/@vitest/ui) | Graphical UI for the Vitest test runner | `5.0.3` |
 | [happy-dom](https://npmx.dev/package/happy-dom) | Headless browser runtime | `~20.14.5` |
-| [playwright](https://npmx.dev/package/playwright) | Headless browser testing framework | `~1.63.0` |
-| [playwright-core](https://npmx.dev/package/playwright-core) | Core Playwright browser API used by Nuxt Spec utilities | `~1.63.0` |
+| [playwright](https://npmx.dev/package/playwright) | Headless browser testing framework | `~1.64.0` |
+| [playwright-core](https://npmx.dev/package/playwright-core) | Core Playwright browser API used by Nuxt Spec utilities | `~1.64.0` |
 | [@vue/test-utils](https://npmx.dev/package/@vue/test-utils) | Utilities for testing Vue stuff | `2.5.1` |
 | [@nuxt/test-utils](https://npmx.dev/package/@nuxt/test-utils) | Utilities for testing Nuxt stuff | `4.3.3` |
 | [@nuxt/devtools](https://npmx.dev/package/@nuxt/devtools) | Development browser console for Nuxt | `4.0.0-beta.4` |
