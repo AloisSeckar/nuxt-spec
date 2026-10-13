@@ -68,7 +68,7 @@
     "elrh-cosca": "0.4.3",
     "fast-png": "~8.0.0",
     "happy-dom": "~20.14.5",
-    "nuxt": "4.6.0",
+    "nuxt": "4.6.1",
     "pixelmatch": "~7.2.0",
     "playwright": "~1.63.0",
     "playwright-core": "~1.63.0",
@@ -79,5 +79,5 @@
     "vue-router": "~5.3.1",
     "vue-tsc": "~3.3.12"
   },
-  "packageManager": "pnpm@12.9.1"
+  "packageManager": "pnpm@12.11.2"
 }

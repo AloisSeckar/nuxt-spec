@@ -10,12 +10,7 @@ export default defineNuxtConfig({
     dirs: [{ path: '~/components', ignore: ['index.ts'] }],
   },
 
-  compatibilityDate: '2026-10-07',
-
-  // temporary workaround for https://github.com/nuxt/nuxt/issues/36467
-  nitro: {
-    externals: { inline: [(id: string) => id.replace(/\\/g, '/').includes('/node_modules/nuxt/dist/')] },
-  },
+  compatibilityDate: '2026-10-13',
 
   eslint: {
     config: {
