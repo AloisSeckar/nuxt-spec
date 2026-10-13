@@ -145,6 +145,8 @@ By setting `spec.externalPlaywright` (or the `NUXT_SPEC_EXTERNAL_PLAYWRIGHT` env
 
 **NOTE that the remote Playwright version must match `~1.63.0` to align with the version used by Nuxt Spec.** Connection attempts to an older version will be rejected by Playwright's built-in guard.
 
+See [CI integration](2-3-ci.html#external-playwright-server) for how to use an external server in CI.
+
 ### HTML test report
 
 After each test run, Nuxt Spec generates a self-contained HTML report file in `test/__reports__/report-YYYYMMDDHHMMSS.html` (relative to the Vitest root). It covers all test projects. Old report files are kept, so you should add the folder to your `.gitignore`:

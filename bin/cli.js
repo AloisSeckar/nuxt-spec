@@ -5,12 +5,15 @@ import { getCmd, resolvePackageManager } from './helpers/commands.js'
 /**
  * CLI tool to scaffold necessary adjustments in project folder.
  *
- * Allows `setup` or `update` to be passed as parameter.
+ * Allows `setup`, `update` or `ci` to be passed as parameter.
  *
- * Second (optional) parameter might be a boolean to indicate auto mode
+ * `ci` requires the target Git host (`github` or `gitlab`) as the next parameter,
+ * the remaining optional parameters are shifted by one position (package manager is not used yet).
+ *
+ * Next (optional) parameter might be a boolean to indicate auto mode
  * (no prompts, force = true) or manual mode (with prompts, force = false).
  *
- * Third (optional) parameter allows explicitly passing the package manager
+ * Next (optional) parameter allows explicitly passing the package manager
  * (`npm`, `pnpm`, `yarn`, `bun` or `deno`), bypassing auto-detection.
  */
 
@@ -22,18 +25,24 @@ const args = process.argv.slice(2);
 (async () => {
   let status = 0
   try {
-    const packageManager = resolvePackageManager(args[2])
+    const command = args[0]
+    const host = command === 'ci' ? args[1] : undefined
+    const [autoRunArg, packageManagerArg] = args.slice(command === 'ci' ? 2 : 1)
+    const packageManager = resolvePackageManager(packageManagerArg)
     // CLI args are always strings, so 'false' must be parsed explicitly rather than treated as truthy
-    const autoRun = args[1] === 'true'
-    switch (args[0]) {
+    const autoRun = autoRunArg === 'true'
+    switch (command) {
       case 'setup':
         await (await import('./setup.js')).specSetup(autoRun, packageManager)
         break
       case 'update':
         await (await import('./update.js')).specUpdate(autoRun, packageManager)
         break
+      case 'ci':
+        await (await import('./ci.js')).specCi(host, autoRun)
+        break
       default:
-        console.log(`[Nuxt Spec] Usage: \`${getCmd(packageManager)} setup [true|false] [npm|pnpm|yarn|bun|deno]\` or \`${getCmd(packageManager)} update [true|false] [npm|pnpm|yarn|bun|deno]\``)
+        console.log(`[Nuxt Spec] Usage: \`${getCmd(packageManager)} setup [true|false] [npm|pnpm|yarn|bun|deno]\`, \`${getCmd(packageManager)} update [true|false] [npm|pnpm|yarn|bun|deno]\` or \`${getCmd(packageManager)} ci <github|gitlab> [true|false]\``)
         status = 1
     }
   } catch (error) {

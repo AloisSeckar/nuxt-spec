@@ -28,5 +28,6 @@ overrides:
 
 # https://pnpm.io/settings/dependency-resolution#minimumreleaseageexclude
 minimumReleaseAgeExclude:
-  # build 2026-10-07@13:00:00 CEST
-  - elrh-cosca@0.4.1
+  # build 2026-10-13@09:45:00 CEST
+  - elrh-cosca@0.4.2
+  - elrh-cosca@0.4.3

@@ -1,0 +1,69 @@
+# GitLab CI/CD job (scaffolded by Nuxt Spec) to update test baselines (manually triggered).
+# Start it via "Build > Pipelines > Run pipeline" on selected branch with `NUXT_SPEC_UPDATE_BASELINES` set to `true`.
+# Runs in the same pinned Playwright container as "verify" job.
+# Updated baselines (`__baseline__`, `__screenshots__`) and snapshots (`__snapshots__`) are committed back to the selected branch.
+# If the push is rejected (e.g. protected branch), a new branch with a merge request is created instead.
+# PREREQUISITE: project access token with `write_repository` scope stored as masked CI/CD variable `NUXT_SPEC_CI_TOKEN`
+#   (CI_JOB_TOKEN cannot be used for pushing; the token role decides whether it may push into protected branches).
+
+variables:
+  NUXT_SPEC_UPDATE_BASELINES:
+    value: "false"
+    options: ["false", "true"]
+    description: Set to "true" to regenerate and commit test baselines (Nuxt Spec).
+
+ci-test-update:
+  stage: test
+  # must match `playwright` dependency version
+  image: mcr.microsoft.com/playwright:v__PLAYWRIGHT_VERSION__-jammy
+  resource_group: ci-test-update-$CI_COMMIT_REF_SLUG
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web" && $NUXT_SPEC_UPDATE_BASELINES == "true" && $CI_COMMIT_BRANCH
+  variables:
+    PNPM_STORE_DIR: $CI_PROJECT_DIR/.pnpm-store
+  cache:
+    key:
+      prefix: pnpm
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store/
+  before_script:
+    - ': "${NUXT_SPEC_CI_TOKEN:?CI/CD variable NUXT_SPEC_CI_TOKEN (project access token with write_repository scope) is required}"'
+    - corepack enable
+    - pnpm install --frozen-lockfile --store-dir "$PNPM_STORE_DIR"
+    - pnpm store prune --store-dir "$PNPM_STORE_DIR"
+  script:
+    - pnpm test-u
+    - |
+      set -eu
+
+      git config user.name "$GITLAB_USER_NAME"
+      git config user.email "$GITLAB_USER_EMAIL"
+
+      # `git add` fails on a glob without matches, `git ls-files` doesn't
+      git ls-files -z -m -d -o --exclude-standard -- \
+        ':(glob)**/__baseline__/**' \
+        ':(glob)**/__screenshots__/**' \
+        ':(glob)**/__snapshots__/**' \
+        | xargs -0 -r git add -A --
+      if git diff --cached --quiet; then
+        echo "No baseline changes to commit."
+        exit 0
+      fi
+
+      git commit -m "test(ci): update test baselines"
+
+      PUSH_URL="${CI_SERVER_PROTOCOL}://oauth2:${NUXT_SPEC_CI_TOKEN}@${CI_SERVER_HOST}:${CI_SERVER_PORT}/${CI_PROJECT_PATH}.git"
+      if git push "$PUSH_URL" "HEAD:refs/heads/$CI_COMMIT_BRANCH"; then
+        echo "Updated baselines pushed to '$CI_COMMIT_BRANCH'."
+        exit 0
+      fi
+
+      echo "Push to '$CI_COMMIT_BRANCH' was rejected (e.g. protected branch) - creating merge request..."
+      NEW_BRANCH="ci-test/update-$(date +%Y%m%d%H%M%S)"
+      git push "$PUSH_URL" "HEAD:refs/heads/$NEW_BRANCH" \
+        -o merge_request.create \
+        -o merge_request.target="$CI_COMMIT_BRANCH" \
+        -o merge_request.title="test(ci): update test baselines" \
+        -o merge_request.description="Test baselines update triggered by pipeline #$CI_PIPELINE_IID against branch \`$CI_COMMIT_BRANCH\`."

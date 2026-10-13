@@ -40,6 +40,8 @@ deno run -A npm:nuxt-spec setup
 
 First, the CLI tool will ask you whether you want to do the setup automatically. If you choose `y`es, it will perform all the steps for you. If you choose `n`o, it will guide you through the manual setup step-by-step (see [manual setup](#manual-setup) section).
 
+The CLI tool can also scaffold CI workflows for GitHub or GitLab via the separate `ci` command. See [CI integration](2-3-ci.html) for details.
+
 ### Manual setup
 
 > **TIP:** If you already ran the automated setup, you can skip this section.
@@ -258,6 +260,7 @@ The `update` command will:
 - run the package manager's update command (e.g. `pnpm update nuxt-spec@0.4.0-alpha.1`) to bump `nuxt-spec` to the latest version
 - run the `nuxt prepare` command to regenerate the Nuxt types and auto-imports
 - run the `playwright install` command to ensure the Playwright browser runtimes are up to date
+- bump the Playwright container image version in CI files scaffolded by the `ci` command (see [CI integration](2-3-ci.html#playwright-version))
 
 ## Running tests
 
@@ -323,5 +326,6 @@ There might be situations that cannot be effectively solved on the Nuxt Spec sid
 ## More info
 
 - Continue to the [configuration](2-1-configuration.html) to see how you can adjust the default settings.
+- See [CI integration](2-3-ci.html) to run your tests in GitHub Actions or GitLab CI/CD.
 - See the [changelog](3-1-changelog.html) to view the latest changes.
 - Visit the [contributing guide](4-1-contributing.html) if you want to help with development.

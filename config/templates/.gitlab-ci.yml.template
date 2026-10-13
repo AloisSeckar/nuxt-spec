@@ -1,0 +1,6 @@
+# GitLab CI/CD configuration (scaffolded by Nuxt Spec).
+# Nuxt Spec test jobs are defined in the included files.
+
+include:
+  - local: .gitlab/ci/ci-test-verify.yml
+  - local: .gitlab/ci/ci-test-update.yml

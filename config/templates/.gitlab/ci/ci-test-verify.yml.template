@@ -1,0 +1,41 @@
+# GitLab CI/CD job (scaffolded by Nuxt Spec) to run test suite in a pinned Playwright container for reproducible results.
+# Triggered automatically on push to default branch and on merge requests targeting it.
+# Can be started manually via "Build > Pipelines > Run pipeline" (with `NUXT_SPEC_UPDATE_BASELINES` left as `false`).
+# Uses pnpm - the pnpm store is cached so subsequent `pnpm install` runs reuse downloaded deps.
+# If tests fail, artifacts (HTML report, current screenshots, Vitest attachments) are kept for inspection.
+
+ci-test-verify:
+  stage: test
+  # must match `playwright` dependency version
+  image: mcr.microsoft.com/playwright:v__PLAYWRIGHT_VERSION__-jammy
+  interruptible: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "web" && $NUXT_SPEC_UPDATE_BASELINES != "true"
+  variables:
+    PNPM_STORE_DIR: $CI_PROJECT_DIR/.pnpm-store
+  cache:
+    key:
+      prefix: pnpm
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store/
+  before_script:
+    - corepack enable
+    - pnpm install --frozen-lockfile --store-dir "$PNPM_STORE_DIR"
+    - pnpm store prune --store-dir "$PNPM_STORE_DIR"
+  script:
+    - pnpm test
+  artifacts:
+    name: ci-test-report-$CI_PIPELINE_ID
+    when: on_failure
+    expire_in: 14 days
+    paths:
+      - test/__reports__/
+      - "**/__current__/"
+      - .vitest/attachments/
+    exclude:
+      - node_modules/**/*
+      - .pnpm-store/**/*

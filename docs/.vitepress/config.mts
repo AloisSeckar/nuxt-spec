@@ -29,6 +29,7 @@ export default defineConfig({
         items: [
           { text: 'Configuration', link: '/2-1-configuration' },
           { text: 'Utilities', link: '/2-2-utilities' },
+          { text: 'CI integration', link: '/2-3-ci' },
         ],
       },
       {
