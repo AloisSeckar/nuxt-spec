@@ -2,6 +2,18 @@
 
 Overview of the latest features in Nuxt Spec.
 
+## 0.4.0-alpha.2
+
+`2026-10-13`
+
+- feat: include @nuxt/devtools v4 dependency ([#63](https://github.com/AloisSeckar/nuxt-spec/issues/63))
+- feat: add support for Vitest coverage mode ([#64](https://github.com/AloisSeckar/nuxt-spec/issues/64))
+- feat: add example workflows for CI/CD testing ([#65](https://github.com/AloisSeckar/nuxt-spec/issues/65))
+- docs: new dedicated page for CI/CD testing workflows
+- build: bump `nuxt` to `4.6.1`
+- build: bump `playwright` to `1.64.0`
+- build: updated dependencies (see the [overview](3-2-dependencies.html))
+
 ## 0.4.0-alpha.1
 
 `2026-10-08`

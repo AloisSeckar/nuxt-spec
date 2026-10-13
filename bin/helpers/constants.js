@@ -1,5 +1,5 @@
 // current elrh-cosca version for usage in CLI scripts
-export const COSCA_VERSION = '0.4.0-alpha.1'
+export const COSCA_VERSION = '0.4.0-alpha.2'
 
 // URL to current tag in GitHub repository to fetch template files in CLI scripts
 export const COSCA_URL = `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${COSCA_VERSION}`
