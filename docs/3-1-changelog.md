@@ -2,6 +2,14 @@
 
 Overview of the latest features in Nuxt Spec.
 
+## 0.4.0-alpha.3
+
+`2026-10-16`
+
+- feat: CLI scripts carved out into a separate `nuxt-spec-cli` package
+- feat: add current version into CLI scripts output
+- chore: fix variable names in CLI scripts
+
 ## 0.4.0-alpha.2
 
 `2026-10-13`

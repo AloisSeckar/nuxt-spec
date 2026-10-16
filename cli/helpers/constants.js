@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs'
 
-// `nuxt-spec-cli` is released in lockstep with `nuxt-spec`, so its own version is the target `nuxt-spec` version
+// current `nuxt-spec` version (derived from package.json entry)
 export const SPEC_VERSION = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version
 
 // URL to current tag in GitHub repository to fetch template files in CLI scripts
