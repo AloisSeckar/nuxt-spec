@@ -5,7 +5,7 @@ import {
   createFileFromWebTemplate, pathExists, promptUser, showMessage, updateYamlFile,
 } from 'elrh-cosca'
 import { isGitRepo, resolveDefaultBranch } from '../helpers/git.js'
-import { COSCA_URL, PLAYWRIGHT_VERSION } from '../helpers/constants.js'
+import { SPEC_URL, PLAYWRIGHT_VERSION } from '../helpers/constants.js'
 
 const SUPPORTED_CI_HOSTS = ['github', 'gitlab']
 
@@ -49,7 +49,6 @@ function getDefaultBranch() {
  * @param {boolean} autoRun - Whether to run the scaffolding automatically without any prompts (defaults to false).
  */
 export async function specCi(host, autoRun = false) {
-  showMessage({ message: 'NUXT SPEC CI' })
   showMessage({ message: `This CLI tool will help you scaffold CI test workflows for '${host}'.` })
   showMessage({ message: 'Refer to the documentation for more information.', linesAfter: 2 })
 
@@ -79,7 +78,7 @@ export async function specCi(host, autoRun = false) {
       console.log(`[Nuxt Spec] Existing '${targetFile}' kept.`)
       continue
     }
-    await createFileFromWebTemplate({ url: `${COSCA_URL}/config/templates/${template}`, targetFile, force: true })
+    await createFileFromWebTemplate({ url: `${SPEC_URL}/config/templates/${template}`, targetFile, force: true })
 
     // 2) fill in placeholders
     let content = readFileSync(targetFile, 'utf8').replaceAll('__PLAYWRIGHT_VERSION__', PLAYWRIGHT_VERSION)
@@ -103,7 +102,7 @@ export async function specCi(host, autoRun = false) {
       })
     } else {
       await createFileFromWebTemplate({
-        url: `${COSCA_URL}/config/templates/${GITLAB_ROOT_FILE}.template`,
+        url: `${SPEC_URL}/config/templates/${GITLAB_ROOT_FILE}.template`,
         targetFile: GITLAB_ROOT_FILE,
         force: isAutoRun,
         prompt: `[Nuxt Spec] This will create '${GITLAB_ROOT_FILE}' file including the CI files. Continue?`,
