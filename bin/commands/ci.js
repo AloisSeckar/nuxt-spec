@@ -49,6 +49,7 @@ function getDefaultBranch() {
  * @param {boolean} autoRun - Whether to run the scaffolding automatically without any prompts (defaults to false).
  */
 export async function specCi(host, autoRun = false) {
+  showMessage({ message: 'NUXT SPEC CI' })
   showMessage({ message: `This CLI tool will help you scaffold CI test workflows for '${host}'.` })
   showMessage({ message: 'Refer to the documentation for more information.', linesAfter: 2 })
 

@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
+import { showMessage } from 'elrh-cosca'
 import { getCmd, resolvePackageManager } from './helpers/commands.js'
+import { SPEC_VERSION } from './helpers/constants.js'
 
 /**
  * CLI tool to scaffold necessary adjustments in project folder.
@@ -25,6 +27,9 @@ const args = process.argv.slice(2);
 (async () => {
   let status = 0
   try {
+    showMessage({ message: 'NUXT SPEC CLI' })
+    showMessage({ message: `version ${SPEC_VERSION}`, linesAfter: 2 })
+
     const command = args[0]
     const host = command === 'ci' ? args[1] : undefined
     const [autoRunArg, packageManagerArg] = args.slice(command === 'ci' ? 2 : 1)
