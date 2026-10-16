@@ -37,8 +37,9 @@ export default withNuxt([
   // ensure linting of custom nuxt-spec folders
   {
     files: [
-      'bin/**/*.{js,mjs,cjs,ts,mts,cts}',
+      'cli/**/*.{js,mjs,cjs,ts,mts,cts}',
       'config/**/*.{js,mjs,cjs,ts,mts,cts}',
+      'scripts/**/*.{js,mjs,cjs,ts,mts,cts}',
       'utils/**/*.{js,mjs,cjs,ts,mts,cts}',
     ],
   },

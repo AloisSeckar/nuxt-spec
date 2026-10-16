@@ -1,0 +1,27 @@
+{
+  "name": "nuxt-spec-cli",
+  "version": "0.4.0-alpha.2",
+  "description": "CLI tool for setting up and maintaining Nuxt Spec in Nuxt Applications",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AloisSeckar/nuxt-spec.git",
+    "directory": "cli"
+  },
+  "homepage": "https://nuxt-spec.netlify.app/",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "prepublishOnly": "node ../scripts/prepublish-check.js"
+  },
+  "bin": {
+    "nuxt-spec-cli": "nuxt-spec.js"
+  },
+  "files": [
+    "nuxt-spec.js",
+    "commands",
+    "helpers"
+  ],
+  "dependencies": {
+    "elrh-cosca": "0.4.3"
+  }
+}

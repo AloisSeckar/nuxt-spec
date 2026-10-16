@@ -16,6 +16,15 @@ A playground app is included in the `/playground` folder. It is nothing but a Nu
 
 ```sh
 cd playground
-node ../bin/cli.js setup true pnpm  # test setting nuxt-spec up
-node ../bin/cli.js update true pnpm # test updating existing project
+node ../cli/nuxt-spec.js setup true pnpm  # test setting nuxt-spec up
+node ../cli/nuxt-spec.js update true pnpm # test updating existing project
 ```
+
+## Publishing
+
+The CLI tool lives in the `/cli` folder as a separate `nuxt-spec-cli` package. Both packages are always released together under the same version:
+
+1. bump `version` in both `package.json` and `cli/package.json` to the same value
+2. run `pnpm release` (extra args are passed to `pnpm publish`, e.g. `pnpm release --tag alpha`)
+
+The release script verifies the versions match and runs `pnpm -r publish`, which publishes both packages in one go. Running `pnpm publish` directly is blocked.

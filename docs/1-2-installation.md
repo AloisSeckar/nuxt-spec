@@ -2,7 +2,7 @@
 
 ## From CLI
 
-The `nuxt-spec` package comes with a built-in CLI tool that can help you:
+Nuxt Spec comes with a lightweight CLI tool `nuxt-spec-cli` that can help you:
 
 - set up the dependency in your project
 - scaffold the default `vitest.config.ts` (see [configuration](2-1-configuration.html) section)
@@ -17,23 +17,23 @@ To use it, just run the CLI script in your terminal:
 ::: code-group
 
 ```sh [pnpm]
-pnpx nuxt-spec setup
+pnpx nuxt-spec-cli setup
 ```
 
 ```sh [npm]
-npx nuxt-spec setup
+npx nuxt-spec-cli setup
 ```
 
 ```sh [yarn]
-yarn dlx nuxt-spec setup
+yarn dlx nuxt-spec-cli setup
 ```
 
 ```sh [bun]
-bunx nuxt-spec setup
+bunx nuxt-spec-cli setup
 ```
 
 ```sh [deno]
-deno run -A npm:nuxt-spec setup
+deno run -A npm:nuxt-spec-cli setup
 ```
 
 :::
@@ -232,23 +232,23 @@ If `nuxt-spec` is already installed in your project, you can use the same CLI to
 ::: code-group
 
 ```sh [pnpm]
-pnpx nuxt-spec update
+pnpx nuxt-spec-cli update
 ```
 
 ```sh [npm]
-npx nuxt-spec update
+npx nuxt-spec-cli update
 ```
 
 ```sh [yarn]
-yarn dlx nuxt-spec update
+yarn dlx nuxt-spec-cli update
 ```
 
 ```sh [bun]
-bunx nuxt-spec update
+bunx nuxt-spec-cli update
 ```
 
 ```sh [deno]
-deno run -A npm:nuxt-spec update
+deno run -A npm:nuxt-spec-cli update
 ```
 
 :::

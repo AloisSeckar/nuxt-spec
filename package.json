@@ -16,16 +16,14 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "prepublishOnly": "node bin/_internal/prepublish-check.js",
+    "prepublishOnly": "node scripts/prepublish-check.js",
     "preview": "nuxt preview",
+    "release": "node scripts/release.js",
     "start": "nuxt start",
     "test": "vitest run",
     "test-u": "vitest run -u",
     "test-c": "vitest run --coverage",
     "test-i": "vitest"
-  },
-  "bin": {
-    "nuxt-spec": "bin/cli.js"
   },
   "exports": {
     ".": "./nuxt.config.ts",
@@ -46,7 +44,6 @@
   },
   "files": [
     "app",
-    "bin",
     "config",
     "modules",
     "public",
@@ -65,7 +62,6 @@
     "@vitest/coverage-v8": "5.0.3",
     "@vitest/ui": "5.0.3",
     "@vue/test-utils": "2.5.1",
-    "elrh-cosca": "0.4.3",
     "fast-png": "~8.0.0",
     "happy-dom": "~20.14.5",
     "nuxt": "4.6.1",

@@ -48,4 +48,3 @@ Loose versions prefixed with `~` allow patch updates.
 | [vue-tsc](https://npmx.dev/package/vue-tsc) | Type-checking for Vue components | `~3.3.12` |
 | [vue-router](https://npmx.dev/package/vue-router) | Official router for Vue.js | `~5.3.1` |
 | [@nuxt/eslint](https://npmx.dev/package/@nuxt/eslint) | ESLint integration for Nuxt | `~1.17.0` |
-| [elrh-cosca](https://npmx.dev/package/elrh-cosca) | CLI scripting helpers powering the `nuxt-spec` CLI | `0.4.1` |

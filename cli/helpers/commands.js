@@ -16,7 +16,7 @@ export function resolvePackageManager(override) {
 
 // use nuxt-spec CLI tool
 export function getCmd(packageManager) {
-  const command = 'nuxt-spec'
+  const command = 'nuxt-spec-cli'
   switch (packageManager) {
     case 'pnpm':
       return `pnpx ${command}`
