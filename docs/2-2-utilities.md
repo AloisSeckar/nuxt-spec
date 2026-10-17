@@ -163,6 +163,20 @@ Failed screenshot comparisons are included in the [HTML test report](./2-1-confi
 
 The images are passed to the report via Vitest's [`recordArtifact`](https://vitest.dev/api/advanced/artifacts) API. Therefore, they are only available when `compareScreenshot` is called from within a running test (not from hooks like `beforeAll`). The test failure itself is reported regardless.
 
+> **Note:** The reporter file is being created via a Vite plugin that is baked into Nuxt Spec default settings. Those settings are applied to projects via `extends: true` directive. If you override [default projects](2-1-configuration.html#default-projects) and/or using your own custom project(s), you should set the `extends: true` manually. Because this would also pull other default configuration, you may alternatively just set the plugin up in your Vite configuration directly:
+>
+> ```ts
+> // vitest.config.ts
+> import { loadVitestConfig, nuxtSpecReportPlugin } from 'nuxt-spec/config'
+>
+> export default loadVitestConfig({
+>   // other config
+>   plugins: [
+>     nuxtSpecReportPlugin({ open: 'failed' })
+>   ]
+> })
+> ```
+
 ### Notice on concurrent execution
 
 The default setting for the `e2e` project sets `maxConcurrency: availableParallelism() / 2`, which is based on a function provided by the `node:os` module. You should adjust your tests to match this value or override the default if needed.

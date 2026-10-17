@@ -16,6 +16,10 @@ import vue from '@vitejs/plugin-vue'
 // absolute paths so it works from within the nuxt-ignis package
 const externalPlaywrightSetup = fileURLToPath(new URL('../utils/playwright.ts', import.meta.url))
 
+// re-export Vite plugin for scaffolding HTML report file
+export { nuxtSpecReportPlugin }
+
+// function to merge user Vitest config with nuxt-spec defaults
 export async function loadVitestConfig(userVitestConfig, projects = true) {
   const { externalPlaywright, htmlReport, messageFilters } = await loadSpecOptions()
 

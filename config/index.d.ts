@@ -1,5 +1,6 @@
-import type { UserConfig } from 'vite'
+import type { Plugin, UserConfig } from 'vite'
 import type { TestUserConfig } from 'vitest/config'
+import type { HtmlReportOpenMode } from './utils/options.mjs'
 
 export type { HtmlReportOpenMode, NuxtSpecOptions } from './utils/options.mjs'
 
@@ -34,3 +35,10 @@ export declare function loadVitestConfig(
   userVitestConfig: ExtendedUserConfig,
   projects?: ProjectsConfig,
 ): Promise<ExtendedUserConfig>
+
+/**
+ * Vite plugin that appends the Nuxt Spec HTML reporter to the effective Vitest reporters.
+ * This allows manually adding the plugin without having to rely on other default configuration.
+ * @param options - `open` controls when the report is opened in browser (default `failed`)
+ */
+export declare function nuxtSpecReportPlugin(options?: { open?: HtmlReportOpenMode }): Plugin
