@@ -12,6 +12,7 @@ export const NUXT_SPEC_DEFAULTS = {
     open: 'failed',
   },
   messageFilters: [],
+  ignoreBaseConfig: false,
 }
 
 const HTML_REPORT_OPEN_MODES = ['always', 'failed', 'never']
@@ -58,6 +59,9 @@ export function resolveSpecOptions(fromConfig, env = process.env) {
       .map(f => f.trim())
       // empty pattern would match (and swallow) every message
       .filter(Boolean),
+    ignoreBaseConfig: toBoolean(env.NUXT_SPEC_IGNORE_BASE_CONFIG)
+      ?? checkType('ignoreBaseConfig', config.ignoreBaseConfig, 'boolean')
+      ?? NUXT_SPEC_DEFAULTS.ignoreBaseConfig,
   }
 }
 

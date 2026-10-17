@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { loadVitestConfig } from '../../config/index.mjs'
 
 // TypeScript infers `projects` as `boolean` from the .mjs source instead of
@@ -146,6 +146,44 @@ describe('Test `loadVitestConfig` function', () => {
     const config = await loadConfig({}, { default: false, unit: false, nuxt: false, e2e: false, browser: false })
     expect(config.test?.projects).toBeDefined()
     expect(config.test?.projects).toHaveLength(0)
+  })
+
+  // base config extension check
+
+  describe('projects should extend the base config', () => {
+    const baseConfigWarning = expect.stringContaining('should extend the base config')
+    let warnSpy: ReturnType<typeof vi.spyOn>
+
+    beforeEach(() => {
+      vi.stubEnv('NUXT_SPEC_IGNORE_BASE_CONFIG', undefined)
+      warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    })
+
+    afterEach(() => {
+      warnSpy.mockRestore()
+      vi.unstubAllEnvs()
+    })
+
+    test('should not warn with default projects', async () => {
+      await loadVitestConfig({ test: { projects: [{ extends: true, test: { name: 'custom' } }] } })
+      expect(warnSpy).not.toHaveBeenCalledWith(baseConfigWarning)
+    })
+
+    test('should warn about overridden `extends` in default project', async () => {
+      await loadVitestConfig({ test: { projects: [{ extends: false, test: { name: 'unit' } }] } })
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/should extend the base config.*: unit\./))
+    })
+
+    test('should warn about custom projects without `extends: true`', async () => {
+      await loadVitestConfig({ test: { projects: [{ test: { name: 'custom' } }, { test: {} }] } }, false)
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/should extend the base config.*: custom, \(unnamed\)\./))
+    })
+
+    test('should not warn when `ignoreBaseConfig` is set', async () => {
+      vi.stubEnv('NUXT_SPEC_IGNORE_BASE_CONFIG', 'true')
+      await loadVitestConfig({ test: { projects: [{ test: { name: 'custom' } }] } }, false)
+      expect(warnSpy).not.toHaveBeenCalledWith(baseConfigWarning)
+    })
   })
 
   // HTML report plugin

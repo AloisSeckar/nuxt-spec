@@ -64,6 +64,14 @@ export default loadVitestConfig({
 }, { unit: true, nuxt: true })
 ```
 
+### Extending base config
+
+The intended Nuxt Spec setup assumes a base configuration that is extended by all projects (if projects are defined). For example, the base config defines a Vite plugin for scaffolding [HTML report file](#html-report-file) which might otherwise be skipped. All default projects are thus defined with `extends: true` to make sure the base configuration is applied to them. 
+
+To keep users aware of this assumption, resolved config object is checked after user configuration is merged with defaults. If any of the resulting projects doesn't have `extends: true` (e.g. you overrode the value or added a custom project without it), a warning is produced.
+
+On the other hand, if this is intentional because you don't want to rely on Nuxt Spec defaults, you can suppress the warning by [setting](#nuxt-spec-options) `spec.ignoreBaseConfig` to `true` in your `nuxt.config.ts` (or the `NUXT_SPEC_IGNORE_BASE_CONFIG` env variable to `true`).
+
 ## Code coverage
 
 Both [Vitest coverage providers](https://vitest.dev/guide/coverage.html) - `@vitest/coverage-v8` and `@vitest/coverage-istanbul` - are included in Nuxt Spec dependencies, so nothing needs to be installed. Coverage is only collected when requested via the `--coverage` CLI flag (used by the `test-c` script - see [running tests](1-2-installation.html#running-tests)).
@@ -115,6 +123,8 @@ export default defineNuxtConfig({
     },
     // additional log messages to omit (default: [])
     messageFilters: ['some tedious message'],
+    // skip the check for projects not extending the base config (default: false)
+    ignoreBaseConfig: false,
   },
 })
 ```
@@ -128,6 +138,7 @@ Each option can also be set via an env variable:
 | `htmlReport.enabled` | `NUXT_SPEC_HTML_REPORT` |
 | `htmlReport.open` | `NUXT_SPEC_HTML_REPORT_OPEN` |
 | `messageFilters` | `NUXT_SPEC_MESSAGE_FILTERS` (comma-separated) |
+| `ignoreBaseConfig` | `NUXT_SPEC_IGNORE_BASE_CONFIG` |
 
 If both are set, the env variable takes precedence. The only exception is `messageFilters`, where values from both sources are combined. Boolean env variables only disable the feature with an explicit `false` value. Env variables can also be defined in the `.env` file in the root of your project.
 
@@ -190,6 +201,20 @@ NUXT_SPEC_HTML_REPORT_OPEN=always
 ```
 
 Regardless of this setting, the report is never opened when Node operates in `CI` mode or when Vitest runs in watch mode (a fresh report is still generated after each re-run).
+
+> **Note:** The reporter file is being created via a Vite plugin that is baked into Nuxt Spec default settings. Those settings are applied to projects via `extends: true` directive. If you override [default projects](2-1-configuration.html#default-projects) and/or using your own custom project(s), you should set the `extends: true` manually. Because this would also pull other default configuration, you may alternatively just set the plugin up in your Vite configuration directly:
+>
+> ```ts
+> // vitest.config.ts
+> import { loadVitestConfig, nuxtSpecReportPlugin } from 'nuxt-spec/config'
+>
+> export default loadVitestConfig({
+>   // other config
+>   plugins: [
+>     nuxtSpecReportPlugin({ open: 'failed' })
+>   ]
+> })
+> ```
 
 ### Filtering out log messages
 

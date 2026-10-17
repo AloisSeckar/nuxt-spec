@@ -37,6 +37,12 @@ export interface NuxtSpecOptions {
    * Env: `NUXT_SPEC_MESSAGE_FILTERS` (comma-separated, added to values from nuxt.config.ts)
    */
   messageFilters?: string[]
+  /**
+   * Skip the warning about Vitest projects not extending the base config (`extends: true`).
+   * Env: `NUXT_SPEC_IGNORE_BASE_CONFIG`
+   * @default false
+   */
+  ignoreBaseConfig?: boolean
 }
 
 export interface ResolvedNuxtSpecOptions {
@@ -47,6 +53,7 @@ export interface ResolvedNuxtSpecOptions {
     open: HtmlReportOpenMode
   }
   messageFilters: string[]
+  ignoreBaseConfig: boolean
 }
 
 export declare const NUXT_SPEC_DEFAULTS: ResolvedNuxtSpecOptions

@@ -31,12 +31,14 @@ describe('Test `resolveSpecOptions` function', () => {
       externalPlaywright: 'ws://config:3000/',
       htmlReport: { enabled: false, open: 'never' },
       messageFilters: ['config-filter'],
+      ignoreBaseConfig: true,
     }, {})
     expect(options).toEqual({
       hints: false,
       externalPlaywright: 'ws://config:3000/',
       htmlReport: { enabled: false, open: 'never' },
       messageFilters: ['config-filter'],
+      ignoreBaseConfig: true,
     })
   })
 
@@ -65,6 +67,11 @@ describe('Test `resolveSpecOptions` function', () => {
     expect(resolveSpecOptions({}, { NUXT_SPEC_HINTS_ENABLED: 'false' }).hints).toBe(false)
     expect(resolveSpecOptions({}, { NUXT_SPEC_HTML_REPORT: 'false' }).htmlReport.enabled).toBe(false)
     expect(resolveSpecOptions({}, { NUXT_SPEC_HTML_REPORT: '0' }).htmlReport.enabled).toBe(true)
+  })
+
+  test('should resolve `ignoreBaseConfig` from env variable', () => {
+    expect(resolveSpecOptions({}, { NUXT_SPEC_IGNORE_BASE_CONFIG: 'true' }).ignoreBaseConfig).toBe(true)
+    expect(resolveSpecOptions({ ignoreBaseConfig: true }, { NUXT_SPEC_IGNORE_BASE_CONFIG: 'false' }).ignoreBaseConfig).toBe(false)
   })
 
   test('should ignore empty env variables', () => {
@@ -132,12 +139,15 @@ describe('Test `resolveSpecOptions` function', () => {
       externalPlaywright: 3000,
       // @ts-expect-error intentional wrong type
       messageFilters: 'filter',
+      // @ts-expect-error intentional wrong type
+      ignoreBaseConfig: 'yes',
     }, {})
     expect(options).toEqual(NUXT_SPEC_DEFAULTS)
-    expect(warnSpy).toHaveBeenCalledTimes(3)
+    expect(warnSpy).toHaveBeenCalledTimes(4)
     expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('for `hints` (expected boolean)'))
     expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('for `externalPlaywright` (expected string)'))
     expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('for `messageFilters` (expected array)'))
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('for `ignoreBaseConfig` (expected boolean)'))
   })
 
   test('should fall back to defaults on invalid `htmlReport` values', () => {

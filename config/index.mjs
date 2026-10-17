@@ -8,6 +8,7 @@ import { addMessageFilters, onConsoleLog } from './utils/warnings.mjs' // filter
 import { mergeConfig } from './utils/merge.mjs' // defu-based merge function
 import { loadSpecOptions } from './utils/options.mjs' // `spec` key from nuxt.config.ts + NUXT_SPEC_* env variables
 import { nuxtSpecReportPlugin } from './utils/reporter.mjs' // HTML test report
+import { warnNotExtendingProjects } from './utils/projects.mjs' // check `extends: true` settings for Vitest projects
 import { defineConfig } from 'vitest/config'
 import { defineVitestProject } from '@nuxt/test-utils/config'
 import { playwright } from '@vitest/browser-playwright'
@@ -21,7 +22,7 @@ export { nuxtSpecReportPlugin }
 
 // function to merge user Vitest config with nuxt-spec defaults
 export async function loadVitestConfig(userVitestConfig, projects = true) {
-  const { externalPlaywright, htmlReport, messageFilters } = await loadSpecOptions()
+  const { externalPlaywright, htmlReport, messageFilters, ignoreBaseConfig } = await loadSpecOptions()
 
   // extend array of messages that will be filtered out from the output
   // with values passed by the user (if any)
@@ -147,5 +148,14 @@ export async function loadVitestConfig(userVitestConfig, projects = true) {
     }
   }
 
-  return mergeConfig(userVitestConfig, defineConfig(baseConfig))
+  const config = mergeConfig(userVitestConfig, defineConfig(baseConfig))
+
+  // check if all projects are extending base configuration
+  // - only inline project objects can be checked
+  // - (string paths and functions are resolved by Vitest later)
+  if (!ignoreBaseConfig) {
+    warnNotExtendingProjects(config.test?.projects)
+  }
+
+  return config
 }
