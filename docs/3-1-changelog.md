@@ -2,6 +2,16 @@
 
 Overview of the latest features in Nuxt Spec.
 
+## 0.4.0-alpha.4
+
+`2026-10-19`
+
+- feat: make `nuxtSpecReportPlugin` Vite plugin available as standalone import
+- feat: add warning if Vitest project is not extending the base config
+- build: bump `nuxt` to `4.6.2`
+- build: bump `vitest` to `5.0.5`
+- build: updated dependencies (see the [overview](3-2-dependencies.html))
+
 ## 0.4.0-alpha.3
 
 `2026-10-16`

@@ -1,6 +1,6 @@
 {
   "name": "nuxt-spec-cli",
-  "version": "0.4.0-alpha.3",
+  "version": "0.4.0-alpha.4",
   "description": "CLI tool for setting up and maintaining Nuxt Spec in Nuxt Applications",
   "repository": {
     "type": "git",

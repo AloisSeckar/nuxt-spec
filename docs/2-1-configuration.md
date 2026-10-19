@@ -2,7 +2,7 @@
 
 ## Vitest setup
 
-By default, `nuxt-spec` uses Vitest configuration defined in [`/config/index.mjs`](https://github.com/AloisSeckar/nuxt-spec/blob/v0.4.0-alpha.3/config/index.mjs). The configuration is based on [Nuxt team recommendations](https://nuxt.com/docs/4.x/getting-started/testing) and our best judgement.
+By default, `nuxt-spec` uses Vitest configuration defined in [`/config/index.mjs`](https://github.com/AloisSeckar/nuxt-spec/blob/v0.4.0-alpha.4/config/index.mjs). The configuration is based on [Nuxt team recommendations](https://nuxt.com/docs/4.x/getting-started/testing) and our best judgement.
 
 To add/override your custom config, you can create (or scaffold via CLI tool) a file named `vitest.config.ts` in the root of your project with the following content:
 
@@ -54,7 +54,7 @@ export default loadVitestConfig({
 }, false)
 ```
 
-For fine-grained control over included projects, you can also use a [config object](https://github.com/AloisSeckar/nuxt-spec/blob/v0.4.0-alpha.3/config/index.d.ts#L16). When a config object is used, only projects with explicitly passed `true` value will be included. For example, using this setting, only `unit` and `nuxt` will be activated:
+For fine-grained control over included projects, you can also use a [config object](https://github.com/AloisSeckar/nuxt-spec/blob/v0.4.0-alpha.4/config/index.d.ts#L16). When a config object is used, only projects with explicitly passed `true` value will be included. For example, using this setting, only `unit` and `nuxt` will be activated:
 
 ```ts [vitest.config.ts]
 import { loadVitestConfig } from 'nuxt-spec/config'
@@ -66,7 +66,7 @@ export default loadVitestConfig({
 
 ### Extending base config
 
-The intended Nuxt Spec setup assumes a base configuration that is extended by all projects (if projects are defined). For example, the base config defines a Vite plugin for scaffolding [HTML report file](#html-report-file) which might otherwise be skipped. All default projects are thus defined with `extends: true` to make sure the base configuration is applied to them. 
+The intended Nuxt Spec setup assumes a base configuration that is extended by all projects (if projects are defined). For example, the base config defines a Vite plugin for scaffolding [HTML report file](2-2-utilities.html#html-report-file) which might otherwise be skipped. All default projects are thus defined with `extends: true` to make sure the base configuration is applied to them.
 
 To keep users aware of this assumption, resolved config object is checked after user configuration is merged with defaults. If any of the resulting projects doesn't have `extends: true` (e.g. you overrode the value or added a custom project without it), a warning is produced.
 
