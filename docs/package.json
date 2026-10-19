@@ -16,5 +16,5 @@
       "esbuild"
     ]
   },
-  "packageManager": "pnpm@12.11.2"
+  "packageManager": "pnpm@12.14.0"
 }

@@ -10,19 +10,19 @@ Loose versions prefixed with `~` allow patch updates.
 
 | Package | Description | Version |
 | --- | --- | --- |
-| [nuxt](https://npmx.dev/package/nuxt) | The Nuxt framework itself | `4.6.1` |
-| [vue](https://npmx.dev/package/vue) | The Vue.js framework | `~3.5.43` |
+| [nuxt](https://npmx.dev/package/nuxt) | The Nuxt framework itself | `4.6.2` |
+| [vue](https://npmx.dev/package/vue) | The Vue.js framework | `~3.5.44` |
 
 ## Core test features
 
 | Package | Description | Version |
 | --- | --- | --- |
-| [vitest](https://npmx.dev/package/vitest) | The fundamental testing framework | `5.0.3` |
-| [@vitest/browser](https://npmx.dev/package/@vitest/browser) | More advanced browser-native test runner | `5.0.3` |
-| [@vitest/browser-playwright](https://npmx.dev/package/@vitest/browser-playwright) | Playwright provider for Vitest browser mode | `5.0.3` |
-| [@vitest/coverage-v8](https://npmx.dev/package/@vitest/coverage-v8) | V8-based code coverage provider for Vitest (see [Code coverage](2-1-configuration.html#code-coverage)) | `5.0.3` |
-| [@vitest/coverage-istanbul](https://npmx.dev/package/@vitest/coverage-istanbul) | Istanbul-based code coverage provider for Vitest (see [Code coverage](2-1-configuration.html#code-coverage)) | `5.0.3` |
-| [@vitest/ui](https://npmx.dev/package/@vitest/ui) | Graphical UI for the Vitest test runner | `5.0.3` |
+| [vitest](https://npmx.dev/package/vitest) | The fundamental testing framework | `5.0.5` |
+| [@vitest/browser](https://npmx.dev/package/@vitest/browser) | More advanced browser-native test runner | `5.0.5` |
+| [@vitest/browser-playwright](https://npmx.dev/package/@vitest/browser-playwright) | Playwright provider for Vitest browser mode | `5.0.5` |
+| [@vitest/coverage-v8](https://npmx.dev/package/@vitest/coverage-v8) | V8-based code coverage provider for Vitest (see [Code coverage](2-1-configuration.html#code-coverage)) | `5.0.5` |
+| [@vitest/coverage-istanbul](https://npmx.dev/package/@vitest/coverage-istanbul) | Istanbul-based code coverage provider for Vitest (see [Code coverage](2-1-configuration.html#code-coverage)) | `5.0.5` |
+| [@vitest/ui](https://npmx.dev/package/@vitest/ui) | Graphical UI for the Vitest test runner | `5.0.5` |
 | [happy-dom](https://npmx.dev/package/happy-dom) | Headless browser runtime | `~20.14.5` |
 | [playwright](https://npmx.dev/package/playwright) | Headless browser testing framework | `~1.64.0` |
 | [playwright-core](https://npmx.dev/package/playwright-core) | Core Playwright browser API used by Nuxt Spec utilities | `~1.64.0` |
@@ -46,5 +46,5 @@ Loose versions prefixed with `~` allow patch updates.
 | --- | --- | --- |
 | [typescript](https://npmx.dev/package/typescript) | TypeScript language support | `~6.0.3` |
 | [vue-tsc](https://npmx.dev/package/vue-tsc) | Type-checking for Vue components | `~3.3.12` |
-| [vue-router](https://npmx.dev/package/vue-router) | Official router for Vue.js | `~5.3.1` |
+| [vue-router](https://npmx.dev/package/vue-router) | Official router for Vue.js | `~5.4.0` |
 | [@nuxt/eslint](https://npmx.dev/package/@nuxt/eslint) | ESLint integration for Nuxt | `~1.17.0` |
