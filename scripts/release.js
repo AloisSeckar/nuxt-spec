@@ -5,7 +5,21 @@ import { readFileSync } from 'node:fs'
 import { createInterface } from 'node:readline'
 
 // publishes `nuxt-spec` and `nuxt-spec-cli` together
-// extra args are passed to `pnpm publish` (e.g. `--tag alpha`)
+// extra args are passed to `<pm> publish` (e.g. `--tag alpha`)
+// the package manager defaults to `pnpm` and can be overridden with `--pm <name>`
+
+const args = process.argv.slice(2)
+let packageManager = 'pnpm'
+const pmIndex = args.indexOf('--pm')
+if (pmIndex !== -1) {
+  const value = args[pmIndex + 1]
+  if (!value) {
+    console.error('Publish aborted. Option \'--pm\' requires a package manager name.')
+    process.exit(1)
+  }
+  packageManager = value
+  args.splice(pmIndex, 2)
+}
 
 const readVersion = path => JSON.parse(readFileSync(new URL(path, import.meta.url), 'utf8')).version
 const specVersion = readVersion('../package.json')
@@ -23,11 +37,24 @@ rl.question(`Are you sure the current solution (v${specVersion}) was properly te
     console.error('Publish aborted. Please run the tests and try again.')
     process.exit(1)
   }
+
   console.log('Proceeding with publish...')
-  const result = spawnSync('pnpm', ['-r', 'publish', ...process.argv.slice(2)], {
-    stdio: 'inherit',
-    shell: process.platform === 'win32',
-    env: { ...process.env, NUXT_SPEC_RELEASE: 'true' },
-  })
-  process.exit(result.status ?? 1)
+
+  // pnpm publish reads pnpm-workspace.yaml to get projects
+  // npm must explicitly list projects to release
+  const runs = packageManager === 'pnpm'
+    ? [{ args: ['-r', 'publish', ...args], cwd: undefined }]
+    : ['..', '../cli'].map(dir => ({ args: ['publish', ...args], cwd: new URL(dir, import.meta.url) }))
+
+  for (const run of runs) {
+    const result = spawnSync(packageManager, run.args, {
+      cwd: run.cwd,
+      stdio: 'inherit',
+      shell: process.platform === 'win32',
+      env: { ...process.env, NUXT_SPEC_RELEASE: 'true' },
+    })
+    if (result.status !== 0) {
+      process.exit(result.status ?? 1)
+    }
+  }
 })
