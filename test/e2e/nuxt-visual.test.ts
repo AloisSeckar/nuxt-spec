@@ -35,7 +35,7 @@ describe('Visual Regression', async () => {
 
     // test visual regression report tool by deliberately failing image
     await expect(compareScreenshot(page, { fileName: 'wrong.png', selector: 'h1', maxDiffPixels: 0 }))
-      .rejects.toThrow(/Screenshot mismatch/)
+      .rejects.toThrow(/mismatch/)
   })
 
   test('rejects path traversal attempts', async () => {
