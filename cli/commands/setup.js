@@ -19,7 +19,9 @@ import { SPEC_VERSION, SPEC_URL } from '../helpers/constants.js'
  *
  * Then it:
  *  1) adds `nuxt-spec` into `package.json` dependencies and removes `nuxt`, `vue` and `vue-router` if present
+ *     (creates default `package.json`, if missing)
  *  2) adds `extends: ['nuxt-spec']` to `nuxt.config.ts`
+ *     (creates default `nuxt.config.ts`, if missing)
  *  3) creates/updates `pnpm-workspace.yaml` file (only if pnpm is used)
  *  4) creates default `vitest.config.ts` file
  *  5) creates default `.nuxtrc` file
@@ -43,6 +45,20 @@ export async function specSetup(autoRun = false, packageManager) {
   showMessage({ message: '' })
 
   // 1) manage dependencies in package.json
+
+  // create package.json if missing
+  if (!pathExists({ targetPath: 'package.json' })) {
+    try {
+      await createFileFromWebTemplate({
+        url: `${SPEC_URL}/config/templates/package.json.template`,
+        targetFile: 'package.json',
+        force: isAutoRun,
+        prompt: '[Nuxt Spec] No \'package.json\' found. This will create a default one for your project. Continue?',
+      })
+    } catch (error) {
+      console.error('[Nuxt Spec] Error creating \'package.json\':\n', error.message)
+    }
+  }
 
   // add nuxt-spec
   try {
@@ -95,6 +111,22 @@ export async function specSetup(autoRun = false, packageManager) {
   }
 
   // 2) modify nuxt.config.ts
+
+  // create nuxt.config.ts if missing
+  if (!pathExists({ targetPath: 'nuxt.config.ts' })) {
+    try {
+      await createFileFromWebTemplate({
+        url: `${SPEC_URL}/config/templates/nuxt.config.ts.template`,
+        targetFile: 'nuxt.config.ts',
+        force: isAutoRun,
+        prompt: '[Nuxt Spec] No \'nuxt.config.ts\' found. This will create a default one for your project. Continue?',
+      })
+    } catch (error) {
+      console.error('[Nuxt Spec] Error creating \'nuxt.config.ts\':\n', error.message)
+    }
+  }
+
+  // add nuxt-spec layer
   try {
     await updateConfigFile({
       targetFile: 'nuxt.config.ts',

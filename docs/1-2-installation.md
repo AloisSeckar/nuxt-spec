@@ -38,6 +38,8 @@ deno run -A npm:nuxt-spec-cli setup
 
 :::
 
+> TIP: You can run the CLI tool in an existing Nuxt project or even in a completely empty folder. If `package.json` and/or `nuxt.config.ts` is missing, the CLI tool creates a minimal defaults, so you can start a new project with Nuxt Spec from scratch.
+
 First, the CLI tool will ask you whether you want to do the setup automatically. If you choose `y`es, it will perform all the steps for you. If you choose `n`o, it will guide you through the manual setup step-by-step (see [manual setup](#manual-setup) section).
 
 The CLI tool can also scaffold CI workflows for GitHub or GitLab via the separate `ci` command. See [CI integration](2-3-ci.html) for details.
@@ -54,6 +56,8 @@ If you don't want to use the CLI tool, or you want to understand its flow better
 "nuxt-spec": "0.4.0-alpha.4"
 ```
 
+> Nuxt Spec CLI setup will create a default `package.json` if it doesn't exist yet.
+
 It is also advised to remove all explicit `nuxt`, `vue`, and `vue-router` dependencies, if present. The `nuxt-spec` layer includes all of them, and there might be version clashes if they are defined in both places.
 
 **2)** Add the following section to your `nuxt.config.ts`:
@@ -63,6 +67,8 @@ extends: [
   'nuxt-spec'
 ]
 ```
+
+> Nuxt Spec CLI setup will create a default `package.json` if it doesn't exist yet.
 
 **3)** If `pnpm` is used, add a `pnpm-workspace.yaml` file with the following content (if you don't have it yet):
 
