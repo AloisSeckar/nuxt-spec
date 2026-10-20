@@ -29,9 +29,7 @@ overrides:
 
 # https://pnpm.io/settings/dependency-resolution#minimumreleaseageexclude
 minimumReleaseAgeExclude:
-  # build 2026-10-13@09:45:00 CEST
-  - elrh-cosca@0.4.2
-  - elrh-cosca@0.4.3
-  # build 2026-10-13@12:30:00 CEST
-  - playwright@1.64.0
-  - playwright-core@1.64.0
+  # build 2026-10-20@19:20:00 CEST
+  - '@nuxt/devtools-assets@4.0.0-beta.7'
+  - '@nuxt/devtools-kit@4.0.0-beta.7'
+  - '@nuxt/devtools@4.0.0-beta.7'

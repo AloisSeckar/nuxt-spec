@@ -51,11 +51,11 @@
     "nuxt.config.ts"
   ],
   "dependencies": {
-    "@nuxt/devtools": "4.0.0-beta.4",
+    "@nuxt/devtools": "4.0.0-beta.7",
     "@nuxt/eslint": "~1.17.0",
-    "@nuxt/hints": "1.1.4",
-    "@nuxt/test-utils": "4.3.3",
-    "@vitejs/plugin-vue": "~6.0.9",
+    "@nuxt/hints": "1.1.5",
+    "@nuxt/test-utils": "4.3.4",
+    "@vitejs/plugin-vue": "~6.0.10",
     "@vitest/browser": "5.0.5",
     "@vitest/browser-playwright": "5.0.5",
     "@vitest/coverage-istanbul": "5.0.5",
@@ -63,7 +63,7 @@
     "@vitest/ui": "5.0.5",
     "@vue/test-utils": "2.5.1",
     "fast-png": "~8.0.0",
-    "happy-dom": "~20.14.5",
+    "happy-dom": "~21.0.0",
     "nuxt": "4.6.2",
     "pixelmatch": "~7.2.0",
     "playwright": "~1.64.0",
@@ -73,7 +73,7 @@
     "vitest-browser-vue": "3.1.0",
     "vue": "~3.5.44",
     "vue-router": "~5.4.0",
-    "vue-tsc": "~3.3.12"
+    "vue-tsc": "~3.3.13"
   },
   "packageManager": "pnpm@12.14.0"
 }

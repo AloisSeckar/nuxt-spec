@@ -9,12 +9,7 @@
   },
   "dependencies": {
     "vitepress": "2.0.0-alpha.20",
-    "vitepress-plugin-group-icons": "^1.7.6"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
+    "vitepress-plugin-group-icons": "^1.8.1"
   },
   "packageManager": "pnpm@12.14.0"
 }
