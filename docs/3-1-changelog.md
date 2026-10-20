@@ -2,6 +2,13 @@
 
 Overview of the latest features in Nuxt Spec.
 
+## 0.4.0-alpha.5
+
+`2026-10-20`
+
+- feat: scaffold `package.json` and `nuxt.config.ts` in an empty project ([#67](https://github.com/AloisSeckar/nuxt-spec/issues/67))
+- build: updated dependencies (see the [overview](3-2-dependencies.html))
+
 ## 0.4.0-alpha.4
 
 `2026-10-19`
@@ -16,7 +23,7 @@ Overview of the latest features in Nuxt Spec.
 
 `2026-10-16`
 
-- feat: CLI scripts carved out into a separate `nuxt-spec-cli` package
+- feat: CLI scripts carved out into a separate `nuxt-spec-cli` package ([#66](https://github.com/AloisSeckar/nuxt-spec/issues/66))
 - feat: add current version into CLI scripts output
 - chore: fix variable names in CLI scripts
 

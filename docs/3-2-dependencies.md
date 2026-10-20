@@ -23,19 +23,19 @@ Loose versions prefixed with `~` allow patch updates.
 | [@vitest/coverage-v8](https://npmx.dev/package/@vitest/coverage-v8) | V8-based code coverage provider for Vitest (see [Code coverage](2-1-configuration.html#code-coverage)) | `5.0.5` |
 | [@vitest/coverage-istanbul](https://npmx.dev/package/@vitest/coverage-istanbul) | Istanbul-based code coverage provider for Vitest (see [Code coverage](2-1-configuration.html#code-coverage)) | `5.0.5` |
 | [@vitest/ui](https://npmx.dev/package/@vitest/ui) | Graphical UI for the Vitest test runner | `5.0.5` |
-| [happy-dom](https://npmx.dev/package/happy-dom) | Headless browser runtime | `~20.14.5` |
+| [happy-dom](https://npmx.dev/package/happy-dom) | Headless browser runtime | `~21.0.0` |
 | [playwright](https://npmx.dev/package/playwright) | Headless browser testing framework | `~1.64.0` |
 | [playwright-core](https://npmx.dev/package/playwright-core) | Core Playwright browser API used by Nuxt Spec utilities | `~1.64.0` |
 | [@vue/test-utils](https://npmx.dev/package/@vue/test-utils) | Utilities for testing Vue stuff | `2.5.1` |
-| [@nuxt/test-utils](https://npmx.dev/package/@nuxt/test-utils) | Utilities for testing Nuxt stuff | `4.3.3` |
-| [@nuxt/devtools](https://npmx.dev/package/@nuxt/devtools) | Development browser console for Nuxt | `4.0.0-beta.4` |
-| [@nuxt/hints](https://npmx.dev/package/@nuxt/hints) | DevTools performance, hydration, and security tips (can be opted out of via [configuration](2-1-configuration.html#nuxt-hints-integration)) | `1.1.4` |
+| [@nuxt/test-utils](https://npmx.dev/package/@nuxt/test-utils) | Utilities for testing Nuxt stuff | `4.3.4` |
+| [@nuxt/devtools](https://npmx.dev/package/@nuxt/devtools) | Development browser console for Nuxt | `4.0.0-beta.7` |
+| [@nuxt/hints](https://npmx.dev/package/@nuxt/hints) | DevTools performance, hydration, and security tips (can be opted out of via [configuration](2-1-configuration.html#nuxt-hints-integration)) | `1.1.5` |
 
 ## Test supporting features
 
 | Package | Description | Version |
 | --- | --- | --- |
-| [@vitejs/plugin-vue](https://npmx.dev/package/@vitejs/plugin-vue) | Vite plugin for processing Vue SFCs in Vitest | `~6.0.9` |
+| [@vitejs/plugin-vue](https://npmx.dev/package/@vitejs/plugin-vue) | Vite plugin for processing Vue SFCs in Vitest | `~6.0.10` |
 | [vitest-browser-vue](https://npmx.dev/package/vitest-browser-vue) | Rendering Vue components in Vitest browser mode | `3.1.0` |
 | [pixelmatch](https://npmx.dev/package/pixelmatch) | Pixel-level image comparison for visual regression testing | `~7.2.0` |
 | [fast-png](https://npmx.dev/package/fast-png) | PNG decoding for visual regression testing | `~8.0.0` |
@@ -45,6 +45,6 @@ Loose versions prefixed with `~` allow patch updates.
 | Package | Description | Version |
 | --- | --- | --- |
 | [typescript](https://npmx.dev/package/typescript) | TypeScript language support | `~6.0.3` |
-| [vue-tsc](https://npmx.dev/package/vue-tsc) | Type-checking for Vue components | `~3.3.12` |
+| [vue-tsc](https://npmx.dev/package/vue-tsc) | Type-checking for Vue components | `~3.3.13` |
 | [vue-router](https://npmx.dev/package/vue-router) | Official router for Vue.js | `~5.4.0` |
 | [@nuxt/eslint](https://npmx.dev/package/@nuxt/eslint) | ESLint integration for Nuxt | `~1.17.0` |
