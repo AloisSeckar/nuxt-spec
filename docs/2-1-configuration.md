@@ -166,7 +166,7 @@ After each test run, Nuxt Spec generates a self-contained HTML report file in `t
 __reports__
 ```
 
-The report always contains a summary line (e.g. `5/5 tests passed`). Details are only rendered for failed tests (error message, diff, stack trace, and for failed [`compareScreenshot`](./2-2-utilities.md#comparescreenshot) calls also the baseline and the actual screenshot), as well as for errors that happened outside of tests (failed test modules, failed `beforeAll`/`afterAll` hooks and unhandled errors).
+The report always contains a summary line (e.g. `5/5 tests passed`). Details are only rendered for failed tests (error message, diff, stack trace, and for failed [`compareScreenshot`](2-2-utilities.html#comparescreenshot) calls also the baseline and the actual screenshot), as well as for errors that happened outside of tests (failed test modules, failed `beforeAll`/`afterAll` hooks and unhandled errors).
 
 The report is produced by a custom Vitest reporter. It is registered via a Vite plugin that appends it to whatever reporters are in effect, so it works together with the default Vitest reporters, with `reporters` set in your config, as well as with the `--reporter` CLI option.
 
