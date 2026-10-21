@@ -2,6 +2,13 @@
 
 Overview of the latest features in Nuxt Spec.
 
+## 0.4.0
+
+`2026-10-21`
+
+- refactor: move internal components away from `app.vue`
+- no other changes from `0.4.0-alpha.5`
+
 ## 0.4.0-alpha.5
 
 `2026-10-20`
