@@ -21,8 +21,8 @@ import { SPEC_VERSION, SPEC_URL } from '../helpers/constants.js'
  *  0) scaffolds a new Nuxt project via `create nuxt` (only if the current directory is empty)
  *  1) adds `nuxt-spec` into `package.json` dependencies and removes `nuxt`, `vue` and `vue-router` if present
  *     (creates default `package.json`, if missing)
- *  2) adds `extends: ['nuxt-spec']` to `nuxt.config.ts`
- *     (creates default `nuxt.config.ts`, if missing)
+ *  2) adds `extends: ['nuxt-spec']` to Nuxt config file (`nuxt.config.{ts,js,mjs,mts,cjs}`)
+ *     (creates default `nuxt.config.ts`, if none exists)
  *  3) creates/updates `pnpm-workspace.yaml` file (only if pnpm is used)
  *  4) creates default `vitest.config.ts` file
  *  5) creates default `.nuxtrc` file
@@ -126,36 +126,41 @@ export async function specSetup(autoRun = false, packageManager) {
     }
   }
 
-  // 2) modify nuxt.config.ts
+  // 2) modify Nuxt config file
+
+  // existing config is altered regardless of its extension
+  const nuxtConfigFile = ['ts', 'js', 'mjs', 'mts', 'cjs']
+    .map(ext => `nuxt.config.${ext}`)
+    .find(file => pathExists({ targetPath: file })) ?? 'nuxt.config.ts'
 
   // create nuxt.config.ts if missing
-  if (!pathExists({ targetPath: 'nuxt.config.ts' })) {
+  if (!pathExists({ targetPath: nuxtConfigFile })) {
     try {
       await createFileFromWebTemplate({
         url: `${SPEC_URL}/config/templates/nuxt.config.ts.template`,
-        targetFile: 'nuxt.config.ts',
+        targetFile: nuxtConfigFile,
         force: isAutoRun,
-        prompt: '[Nuxt Spec] No \'nuxt.config.ts\' found. This will create a default one for your project. Continue?',
+        prompt: `[Nuxt Spec] No '${nuxtConfigFile}' found. This will create a default one for your project. Continue?`,
       })
     } catch (error) {
-      console.error('[Nuxt Spec] Error creating \'nuxt.config.ts\':\n', error.message)
+      console.error(`[Nuxt Spec] Error creating '${nuxtConfigFile}':\n`, error.message)
     }
   }
 
   // add nuxt-spec layer
   try {
     await updateConfigFile({
-      targetFile: 'nuxt.config.ts',
+      targetFile: nuxtConfigFile,
       newConfig: {
         extends: [
           'nuxt-spec',
         ],
       },
       force: isAutoRun,
-      prompt: `[Nuxt Spec] This will add 'nuxt-spec' module to your 'nuxt.config.ts'. Continue?`,
+      prompt: `[Nuxt Spec] This will add 'nuxt-spec' module to your '${nuxtConfigFile}'. Continue?`,
     })
   } catch (error) {
-    console.error('[Nuxt Spec] Error updating \'nuxt.config.ts\':\n', error.message)
+    console.error(`[Nuxt Spec] Error updating '${nuxtConfigFile}':\n`, error.message)
   }
 
   // 3) `pnpm-workspace.yaml` file (only if pnpm is used)

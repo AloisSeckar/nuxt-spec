@@ -38,7 +38,7 @@ deno run -A npm:nuxt-spec-cli setup
 
 :::
 
-> TIP: You can run the CLI tool in an existing Nuxt project or even in a completely empty folder. In an empty folder, the CLI tool first scaffolds a new Nuxt project using the official `create nuxt` command with the `minimal` template, so you can start a new project with Nuxt Spec from scratch. If `package.json` and/or `nuxt.config.ts` is missing in non-empty folderm, the CLI tool creates minimal defaults.
+> TIP: You can run the CLI tool in an existing Nuxt project or even in a completely empty folder. In an empty folder, the CLI tool first scaffolds a new Nuxt project using the official `create nuxt` command with the `minimal` template, so you can start a new project with Nuxt Spec from scratch. If `package.json` and/or Nuxt config file is missing in non-empty folder, the CLI tool creates minimal defaults.
 
 First, the CLI tool will ask you whether you want to do the setup automatically. If you choose `y`es, it will perform all the steps for you. If you choose `n`o, it will guide you through the manual setup step-by-step (see [manual setup](#manual-setup) section).
 
@@ -60,7 +60,7 @@ If you don't want to use the CLI tool, or you want to understand its flow better
 
 It is also advised to remove all explicit `nuxt`, `vue`, and `vue-router` dependencies, if present. The `nuxt-spec` layer includes all of them, and there might be version clashes if they are defined in both places.
 
-**2)** Add the following section to your `nuxt.config.ts`:
+**2)** Add the following section to your Nuxt config file (`nuxt.config.ts` or its `.js`, `.mjs`, `.mts` or `.cjs` variant):
 
 ```ts [nuxt.config.ts]
 extends: [
@@ -68,7 +68,7 @@ extends: [
 ]
 ```
 
-> Nuxt Spec CLI setup will create a default `package.json` if it doesn't exist yet.
+> Nuxt Spec CLI setup will alter your existing Nuxt config file regardless of its extension, or create a default `nuxt.config.ts` if none exists yet.
 
 **3)** If `pnpm` is used, add a `pnpm-workspace.yaml` file with the following content (if you don't have it yet):
 
