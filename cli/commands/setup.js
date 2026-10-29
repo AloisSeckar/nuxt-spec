@@ -22,7 +22,7 @@ import { SPEC_VERSION, SPEC_URL } from '../helpers/constants.js'
  *  1) adds `nuxt-spec` into `package.json` dependencies and removes `nuxt`, `vue` and `vue-router` if present
  *     (creates default `package.json`, if missing)
  *  2) adds `extends: ['nuxt-spec']` to Nuxt config file (`nuxt.config.{ts,js,mjs,mts,cjs}`)
- *     (creates default `nuxt.config.ts`, if none exists)
+ *     (creates default `nuxt.config.ts`, if none exists; `.cjs` must be edited manually)
  *  3) creates/updates `pnpm-workspace.yaml` file (only if pnpm is used)
  *  4) creates default `vitest.config.ts` file
  *  5) creates default `.nuxtrc` file
@@ -148,19 +148,23 @@ export async function specSetup(autoRun = false, packageManager) {
   }
 
   // add nuxt-spec layer
-  try {
-    await updateConfigFile({
-      targetFile: nuxtConfigFile,
-      newConfig: {
-        extends: [
-          'nuxt-spec',
-        ],
-      },
-      force: isAutoRun,
-      prompt: `[Nuxt Spec] This will add 'nuxt-spec' module to your '${nuxtConfigFile}'. Continue?`,
-    })
-  } catch (error) {
-    console.error(`[Nuxt Spec] Error updating '${nuxtConfigFile}':\n`, error.message)
+  // CommonJS config cannot be altered automatically, user is notified at the end
+  const isCjsConfig = nuxtConfigFile.endsWith('.cjs')
+  if (!isCjsConfig) {
+    try {
+      await updateConfigFile({
+        targetFile: nuxtConfigFile,
+        newConfig: {
+          extends: [
+            'nuxt-spec',
+          ],
+        },
+        force: isAutoRun,
+        prompt: `[Nuxt Spec] This will add 'nuxt-spec' module to your '${nuxtConfigFile}'. Continue?`,
+      })
+    } catch (error) {
+      console.error(`[Nuxt Spec] Error updating '${nuxtConfigFile}':\n`, error.message)
+    }
   }
 
   // 3) `pnpm-workspace.yaml` file (only if pnpm is used)
@@ -413,6 +417,9 @@ export async function specSetup(autoRun = false, packageManager) {
   }
   if (!runPlaywrightInstall) {
     showMessage({ message: `Run \`${playwrightInstallCmd}\` to setup the Playwright browser runtimes for e2e tests.` })
+  }
+  if (isCjsConfig) {
+    showMessage({ message: `WARNING: CLI setup was unable to modify your CommonJS Nuxt config. Please, add \`extends: ['nuxt-spec']\` to your '${nuxtConfigFile}' manually.` })
   }
 
   // force exit to prevent #20

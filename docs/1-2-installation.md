@@ -68,7 +68,7 @@ extends: [
 ]
 ```
 
-> Nuxt Spec CLI setup will alter your existing Nuxt config file regardless of its extension, or create a default `nuxt.config.ts` if none exists yet.
+> Nuxt Spec CLI setup will alter your existing Nuxt config file regardless of its extension, or create a default `nuxt.config.ts` if none exists yet. The only exception is CommonJS `nuxt.config.cjs`, which must be edited manually (the CLI tool reminds you at the end).
 
 **3)** If `pnpm` is used, add a `pnpm-workspace.yaml` file with the following content (if you don't have it yet):
 
