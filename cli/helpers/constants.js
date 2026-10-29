@@ -7,4 +7,4 @@ export const SPEC_VERSION = JSON.parse(readFileSync(new URL('../package.json', i
 export const SPEC_URL = `https://raw.githubusercontent.com/AloisSeckar/nuxt-spec/refs/tags/v${SPEC_VERSION}`
 
 // current Playwright version for usage in CLI scripts
-export const PLAYWRIGHT_VERSION = '1.64.0'
+export const PLAYWRIGHT_VERSION = '1.64.1'
