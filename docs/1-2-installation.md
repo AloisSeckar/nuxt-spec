@@ -4,7 +4,7 @@
 
 Nuxt Spec comes with a lightweight CLI tool `nuxt-spec-cli` that can help you:
 
-- set up the dependency in your project
+- wire up the package into your project or scaffold a brand new
 - scaffold the default `vitest.config.ts` (see [configuration](2-1-configuration.html) section)
 - add some test-related shorthands in your `package.json` (see [running tests](#running-tests) section)
 - create demo test files in the proposed file structure
@@ -38,7 +38,7 @@ deno run -A npm:nuxt-spec-cli setup
 
 :::
 
-> TIP: You can run the CLI tool in an existing Nuxt project or even in a completely empty folder. If `package.json` and/or `nuxt.config.ts` is missing, the CLI tool creates a minimal defaults, so you can start a new project with Nuxt Spec from scratch.
+> TIP: You can run the CLI tool in an existing Nuxt project or even in a completely empty folder. In an empty folder, the CLI tool first scaffolds a new Nuxt project using the official `create nuxt` command with the `minimal` template, so you can start a new project with Nuxt Spec from scratch. If `package.json` and/or `nuxt.config.ts` is missing in non-empty folderm, the CLI tool creates minimal defaults.
 
 First, the CLI tool will ask you whether you want to do the setup automatically. If you choose `y`es, it will perform all the steps for you. If you choose `n`o, it will guide you through the manual setup step-by-step (see [manual setup](#manual-setup) section).
 

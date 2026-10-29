@@ -47,6 +47,25 @@ export function getUpdateCmd(packageManager, target) {
   }
 }
 
+// scaffold a new Nuxt project into the current (empty) directory
+// - `--force` skips the "directory already exists" prompt
+// - dependencies are installed later in the setup
+export function getCreateNuxtCmd(packageManager) {
+  const args = `. --force --template minimal --packageManager ${packageManager} --gitInit=false --install=false --no-modules`
+  switch (packageManager) {
+    case 'pnpm':
+      return `pnpm create nuxt@latest ${args}`
+    case 'yarn':
+      return `yarn create nuxt ${args}`
+    case 'bun':
+      return `bun create nuxt@latest ${args}`
+    case 'deno':
+      return `deno run -A npm:create-nuxt@latest ${args}`
+    default:
+      return `npm create nuxt@latest -- ${args}`
+  }
+}
+
 // generate Nuxt types and auto-imports
 export function getPrepareCmd(packageManager) {
   const command = 'nuxt prepare'

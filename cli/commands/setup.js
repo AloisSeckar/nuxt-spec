@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
 import { execSync } from 'node:child_process'
-import { readFileSync } from 'node:fs'
+import { readdirSync, readFileSync } from 'node:fs'
 import {
   createFileFromWebTemplate, deletePath,
   pathExists, promptUser, removeFromJsonFile, showMessage,
   updateConfigFile, updateJsonFile, updateTextFile,
 } from 'elrh-cosca'
 import {
-  getPlaywrightInstallCmd, getPrepareCmd,
+  getCreateNuxtCmd, getPlaywrightInstallCmd, getPrepareCmd,
 } from '../helpers/commands.js'
 import { SPEC_VERSION, SPEC_URL } from '../helpers/constants.js'
 
@@ -18,6 +18,7 @@ import { SPEC_VERSION, SPEC_URL } from '../helpers/constants.js'
  * It first asks whether to run in "auto" mode (no prompts, force = true) or "manual" mode (with prompts, force = false).
  *
  * Then it:
+ *  0) scaffolds a new Nuxt project via `create nuxt` (only if the current directory is empty)
  *  1) adds `nuxt-spec` into `package.json` dependencies and removes `nuxt`, `vue` and `vue-router` if present
  *     (creates default `package.json`, if missing)
  *  2) adds `extends: ['nuxt-spec']` to `nuxt.config.ts`
@@ -43,6 +44,21 @@ export async function specSetup(autoRun = false, packageManager) {
 
   const isAutoRun = autoRun || await promptUser({ question: '[Nuxt Spec] Do you want to set everything up automatically (no more prompts)?' })
   showMessage({ message: '' })
+
+  // 0) scaffold a new Nuxt project if the current directory is empty
+  if (readdirSync(process.cwd()).length === 0) {
+    const createNuxtCmd = getCreateNuxtCmd(packageManager)
+    const runCreateNuxt = isAutoRun || await promptUser({ question: `[Nuxt Spec] Current directory is empty. Do you want to scaffold a new Nuxt project via \`${createNuxtCmd}\` first?` })
+    if (runCreateNuxt) {
+      try {
+        showMessage({ message: `Running \`${createNuxtCmd}\`...` })
+        execSync(createNuxtCmd, { stdio: 'inherit' })
+      } catch (error) {
+        // the following steps still create minimal 'package.json' and 'nuxt.config.ts' as a fallback
+        console.error(`[Nuxt Spec] Error running \`${createNuxtCmd}\`:\n`, error.message)
+      }
+    }
+  }
 
   // 1) manage dependencies in package.json
 
