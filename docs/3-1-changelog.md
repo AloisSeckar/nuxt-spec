@@ -2,6 +2,19 @@
 
 Overview of the latest features in Nuxt Spec.
 
+## 0.4.1
+
+`2026-10-29`
+
+- feat(cli): scaffold Nuxt starter project when on empty folder ([#74](https://github.com/AloisSeckar/nuxt-spec/issues/74))
+- feat(cli): support all possible extensions of Nuxt Config file ([#75](https://github.com/AloisSeckar/nuxt-spec/issues/75))
+- fix: missing lang attr in default app entry ([#71](https://github.com/AloisSeckar/nuxt-spec/issues/71))
+- docs: updated project logo
+- docs: add short project annotation to README file
+- build: bump `nuxt` to `4.6.3`
+- build: pin **exact** `playwright` version to `1.64.1`
+- build: updated dependencies (see the [overview](3-2-dependencies.html))
+
 ## 0.4.0
 
 `2026-10-21`
