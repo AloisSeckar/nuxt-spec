@@ -67,7 +67,7 @@ export async function specSetup(autoRun = false, packageManager) {
     try {
       await createFileFromWebTemplate({
         url: `${SPEC_URL}/config/templates/package.json.template`,
-        targetFile: 'package.json',
+        targetPath: 'package.json',
         force: isAutoRun,
         prompt: '[Nuxt Spec] No \'package.json\' found. This will create a default one for your project. Continue?',
       })
@@ -79,7 +79,7 @@ export async function specSetup(autoRun = false, packageManager) {
   // add nuxt-spec
   try {
     await updateJsonFile({
-      targetFile: 'package.json',
+      targetPath: 'package.json',
       jsonKey: 'dependencies',
       patch: {
         ['nuxt-spec']: SPEC_VERSION,
@@ -95,32 +95,32 @@ export async function specSetup(autoRun = false, packageManager) {
   const removeDeps = isAutoRun || await promptUser({ question: `[Nuxt Spec] As 'nuxt-spec' provides 'nuxt', 'vue' and 'vue-router' dependencies out of the box, do you want to remove them from your 'package.json' to avoid duplications and possible version clashes?` })
   if (removeDeps) {
     try {
-      await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'dependencies.nuxt', force: true })
+      await removeFromJsonFile({ targetPath: 'package.json', jsonKey: 'dependencies.nuxt', force: true })
     } catch (error) {
       console.error('[Nuxt Spec] Error removing \'nuxt\' dependency:\n', error.message)
     }
     try {
-      await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'dependencies.vue', force: true })
+      await removeFromJsonFile({ targetPath: 'package.json', jsonKey: 'dependencies.vue', force: true })
     } catch (error) {
       console.error('[Nuxt Spec] Error removing \'vue\' dependency:\n', error.message)
     }
     try {
-      await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'dependencies.vue-router', force: true })
+      await removeFromJsonFile({ targetPath: 'package.json', jsonKey: 'dependencies.vue-router', force: true })
     } catch (error) {
       console.error('[Nuxt Spec] Error removing \'vue-router\' dependency:\n', error.message)
     }
     try {
-      await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'devDependencies.nuxt', force: true })
+      await removeFromJsonFile({ targetPath: 'package.json', jsonKey: 'devDependencies.nuxt', force: true })
     } catch (error) {
       console.error('[Nuxt Spec] Error removing \'nuxt\' devDependency:\n', error.message)
     }
     try {
-      await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'devDependencies.vue', force: true })
+      await removeFromJsonFile({ targetPath: 'package.json', jsonKey: 'devDependencies.vue', force: true })
     } catch (error) {
       console.error('[Nuxt Spec] Error removing \'vue\' devDependency:\n', error.message)
     }
     try {
-      await removeFromJsonFile({ targetFile: 'package.json', jsonKey: 'devDependencies.vue-router', force: true })
+      await removeFromJsonFile({ targetPath: 'package.json', jsonKey: 'devDependencies.vue-router', force: true })
     } catch (error) {
       console.error('[Nuxt Spec] Error removing \'vue-router\' devDependency:\n', error.message)
     }
@@ -138,7 +138,7 @@ export async function specSetup(autoRun = false, packageManager) {
     try {
       await createFileFromWebTemplate({
         url: `${SPEC_URL}/config/templates/nuxt.config.ts.template`,
-        targetFile: nuxtConfigFile,
+        targetPath: nuxtConfigFile,
         force: isAutoRun,
         prompt: `[Nuxt Spec] No '${nuxtConfigFile}' found. This will create a default one for your project. Continue?`,
       })
@@ -153,7 +153,7 @@ export async function specSetup(autoRun = false, packageManager) {
   if (!isCjsConfig) {
     try {
       await updateConfigFile({
-        targetFile: nuxtConfigFile,
+        targetPath: nuxtConfigFile,
         newConfig: {
           extends: [
             'nuxt-spec',
@@ -172,7 +172,7 @@ export async function specSetup(autoRun = false, packageManager) {
     try {
       if (pathExists({ targetPath: 'pnpm-workspace.yaml' })) {
         await updateTextFile({
-          targetFile: 'pnpm-workspace.yaml',
+          targetPath: 'pnpm-workspace.yaml',
           rowsToAdd: ['shamefullyHoist: true'],
           force: isAutoRun,
           prompt: '[Nuxt Spec] This will adjust \'pnpm-workspace.yaml\' file in your project. Continue?',
@@ -180,7 +180,7 @@ export async function specSetup(autoRun = false, packageManager) {
       } else {
         await createFileFromWebTemplate({
           url: `${SPEC_URL}/config/templates/pnpm-workspace.yaml.template`,
-          targetFile: 'pnpm-workspace.yaml',
+          targetPath: 'pnpm-workspace.yaml',
           force: isAutoRun,
           prompt: '[Nuxt Spec] This will add \'pnpm-workspace.yaml\' file for your project. Continue?',
         })
@@ -194,7 +194,7 @@ export async function specSetup(autoRun = false, packageManager) {
   try {
     await createFileFromWebTemplate({
       url: `${SPEC_URL}/config/templates/vitest.config.ts.template`,
-      targetFile: 'vitest.config.ts',
+      targetPath: 'vitest.config.ts',
       force: isAutoRun,
       prompt: '[Nuxt Spec] This will create a new \'vitest.config.ts\' file for your project. Continue?',
     })
@@ -207,7 +207,7 @@ export async function specSetup(autoRun = false, packageManager) {
     try {
       await createFileFromWebTemplate({
         url: `${SPEC_URL}/.nuxtrc`,
-        targetFile: '.nuxtrc',
+        targetPath: '.nuxtrc',
         force: isAutoRun,
         prompt: '[Nuxt Spec] This will create a \'.nuxtrc\' file to prevent @nuxt/test-utils setup from running automatically when dev server starts. Continue?',
       })
@@ -219,7 +219,7 @@ export async function specSetup(autoRun = false, packageManager) {
   // 6) modify package.json with test scripts
   try {
     await updateJsonFile({
-      targetFile: 'package.json',
+      targetPath: 'package.json',
       jsonKey: 'scripts',
       patch: {
         'test': 'vitest run',
@@ -240,7 +240,7 @@ export async function specSetup(autoRun = false, packageManager) {
     try {
       await createFileFromWebTemplate({
         url: `${SPEC_URL}/test/browser/vitest-browser.test.ts`,
-        targetFile: 'test/browser/vitest-browser.test.ts',
+        targetPath: 'test/browser/vitest-browser.test.ts',
         force: true,
       })
     } catch (error) {
@@ -249,7 +249,7 @@ export async function specSetup(autoRun = false, packageManager) {
     try {
       await createFileFromWebTemplate({
         url: `${SPEC_URL}/test/e2e/nuxt-e2e.test.ts`,
-        targetFile: 'test/e2e/nuxt-e2e.test.ts',
+        targetPath: 'test/e2e/nuxt-e2e.test.ts',
         force: true,
       })
     } catch (error) {
@@ -258,7 +258,7 @@ export async function specSetup(autoRun = false, packageManager) {
     try {
       await createFileFromWebTemplate({
         url: `${SPEC_URL}/test/e2e/nuxt-visual.test.ts`,
-        targetFile: 'test/e2e/nuxt-visual.test.ts',
+        targetPath: 'test/e2e/nuxt-visual.test.ts',
         force: true,
       })
     } catch (error) {
@@ -268,7 +268,7 @@ export async function specSetup(autoRun = false, packageManager) {
     try {
       await createFileFromWebTemplate({
         url: `${SPEC_URL}/test/e2e/__baseline__/wrong.png`,
-        targetFile: 'test/e2e/__baseline__/wrong.png',
+        targetPath: 'test/e2e/__baseline__/wrong.png',
         force: true,
       })
     } catch (error) {
@@ -277,7 +277,7 @@ export async function specSetup(autoRun = false, packageManager) {
     try {
       await createFileFromWebTemplate({
         url: `${SPEC_URL}/test/nuxt/nuxt-unit.test.ts`,
-        targetFile: 'test/nuxt/nuxt-unit.test.ts',
+        targetPath: 'test/nuxt/nuxt-unit.test.ts',
         force: true,
       })
     } catch (error) {
@@ -286,7 +286,7 @@ export async function specSetup(autoRun = false, packageManager) {
     try {
       await createFileFromWebTemplate({
         url: `${SPEC_URL}/test/unit/vitest-unit.test.ts`,
-        targetFile: 'test/unit/vitest-unit.test.ts',
+        targetPath: 'test/unit/vitest-unit.test.ts',
         force: true,
       })
     } catch (error) {
@@ -312,7 +312,7 @@ export async function specSetup(autoRun = false, packageManager) {
     //
     if (rowsToAdd.length > 0) {
       await updateTextFile({
-        targetFile: '.gitignore',
+        targetPath: '.gitignore',
         rowsToAdd,
         allowDuplicates: true,
         createMissing: true,

@@ -45,7 +45,7 @@ describe('Test `specSetup` handling of Nuxt config file', () => {
 
     expect(updateConfigFile).not.toHaveBeenCalled()
     expect(createFileFromWebTemplate).not.toHaveBeenCalledWith(
-      expect.objectContaining({ targetFile: expect.stringContaining('nuxt.config') }),
+      expect.objectContaining({ targetPath: expect.stringContaining('nuxt.config') }),
     )
 
     const messages = shownMessages()
@@ -61,7 +61,7 @@ describe('Test `specSetup` handling of Nuxt config file', () => {
     await specSetup(false, 'pnpm')
 
     expect(updateConfigFile).toHaveBeenCalledOnce()
-    expect(updateConfigFile).toHaveBeenCalledWith(expect.objectContaining({ targetFile: 'nuxt.config.mjs' }))
+    expect(updateConfigFile).toHaveBeenCalledWith(expect.objectContaining({ targetPath: 'nuxt.config.mjs' }))
     expect(shownMessages().some(m => m.includes('manually'))).toBe(false)
   })
 })

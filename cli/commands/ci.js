@@ -13,12 +13,12 @@ const GITLAB_ROOT_FILE = '.gitlab-ci.yml'
 
 export const CI_TEMPLATES = {
   github: [
-    { template: '.github/workflows/ci-test-verify.yml.template', targetFile: '.github/workflows/ci-test-verify.yml' },
-    { template: '.github/workflows/ci-test-update.yml.template', targetFile: '.github/workflows/ci-test-update.yml' },
+    { template: '.github/workflows/ci-test-verify.yml.template', targetPath: '.github/workflows/ci-test-verify.yml' },
+    { template: '.github/workflows/ci-test-update.yml.template', targetPath: '.github/workflows/ci-test-update.yml' },
   ],
   gitlab: [
-    { template: '.gitlab/ci/ci-test-verify.yml.template', targetFile: '.gitlab/ci/ci-test-verify.yml' },
-    { template: '.gitlab/ci/ci-test-update.yml.template', targetFile: '.gitlab/ci/ci-test-update.yml' },
+    { template: '.gitlab/ci/ci-test-verify.yml.template', targetPath: '.gitlab/ci/ci-test-verify.yml' },
+    { template: '.gitlab/ci/ci-test-update.yml.template', targetPath: '.gitlab/ci/ci-test-update.yml' },
   ],
 }
 
@@ -64,47 +64,47 @@ export async function specCi(host, autoRun = false) {
 
   let branch
   const created = []
-  for (const { template, targetFile } of templates) {
+  for (const { template, targetPath } of templates) {
     // 1) create workflow files
-    const exists = pathExists({ targetPath: targetFile })
+    const exists = pathExists({ targetPath: targetPath })
     const proceed = isAutoRun || await promptUser({
       question: exists
-        ? `[Nuxt Spec] File '${targetFile}' already exists. Overwrite?`
-        : `[Nuxt Spec] This will create '${targetFile}' file. Continue?`,
+        ? `[Nuxt Spec] File '${targetPath}' already exists. Overwrite?`
+        : `[Nuxt Spec] This will create '${targetPath}' file. Continue?`,
     })
     if (!proceed) {
       if (!exists) {
-        throw new Error(`Creation of '${targetFile}' declined - CI setup cannot be completed without it.`)
+        throw new Error(`Creation of '${targetPath}' declined - CI setup cannot be completed without it.`)
       }
-      console.log(`[Nuxt Spec] Existing '${targetFile}' kept.`)
+      console.log(`[Nuxt Spec] Existing '${targetPath}' kept.`)
       continue
     }
-    await createFileFromWebTemplate({ url: `${SPEC_URL}/config/templates/${template}`, targetFile, force: true })
+    await createFileFromWebTemplate({ url: `${SPEC_URL}/config/templates/${template}`, targetPath, force: true })
 
     // 2) fill in placeholders
-    let content = readFileSync(targetFile, 'utf8').replaceAll('__PLAYWRIGHT_VERSION__', PLAYWRIGHT_VERSION)
+    let content = readFileSync(targetPath, 'utf8').replaceAll('__PLAYWRIGHT_VERSION__', PLAYWRIGHT_VERSION)
     if (content.includes('__DEFAULT_BRANCH__')) {
       branch ??= getDefaultBranch()
       content = content.replaceAll('__DEFAULT_BRANCH__', branch)
     }
-    writeFileSync(targetFile, content)
-    created.push(targetFile)
+    writeFileSync(targetPath, content)
+    created.push(targetPath)
   }
 
   // 3) (GitLab only) register CI files in root pipeline
   if (host === 'gitlab') {
     if (pathExists({ targetPath: GITLAB_ROOT_FILE })) {
       await updateYamlFile({
-        targetFile: GITLAB_ROOT_FILE,
+        targetPath: GITLAB_ROOT_FILE,
         yamlKey: 'include',
-        patch: templates.map(({ targetFile }) => ({ local: targetFile })),
+        patch: templates.map(({ targetPath }) => ({ local: targetPath })),
         force: isAutoRun,
         prompt: `[Nuxt Spec] This will add CI files into 'include' section of your '${GITLAB_ROOT_FILE}'. Continue?`,
       })
     } else {
       await createFileFromWebTemplate({
         url: `${SPEC_URL}/config/templates/${GITLAB_ROOT_FILE}.template`,
-        targetFile: GITLAB_ROOT_FILE,
+        targetPath: GITLAB_ROOT_FILE,
         force: isAutoRun,
         prompt: `[Nuxt Spec] This will create '${GITLAB_ROOT_FILE}' file including the CI files. Continue?`,
       })

@@ -35,8 +35,8 @@ export async function specUpdate(autoRun = false, packageManager) {
   showMessage({ message: 'Refer to the documentation for more information.', linesAfter: 2 })
 
   // fail fast if there is nothing to update
-  const isInstalled = hasJsonKey({ targetFile: 'package.json', jsonKey: `dependencies.nuxt-spec` })
-    || hasJsonKey({ targetFile: 'package.json', jsonKey: `devDependencies.nuxt-spec` })
+  const isInstalled = hasJsonKey({ targetPath: 'package.json', jsonKey: `dependencies.nuxt-spec` })
+    || hasJsonKey({ targetPath: 'package.json', jsonKey: `devDependencies.nuxt-spec` })
   if (!isInstalled) {
     console.error(`[Nuxt Spec] 'nuxt-spec' was not found in your 'package.json'. Run the 'setup' command first.`)
     process.exit(1)
@@ -84,24 +84,24 @@ export async function specUpdate(autoRun = false, packageManager) {
   // 4) bump Playwright container image in CI workflow files
   const outdatedCiFiles = []
   const ciFiles = Object.values(CI_TEMPLATES).flat()
-    .map(({ targetFile }) => targetFile)
-    .filter(targetFile => pathExists({ targetPath: targetFile }))
-  for (const targetFile of ciFiles) {
+    .map(({ targetPath }) => targetPath)
+    .filter(targetPath => pathExists({ targetPath: targetPath }))
+  for (const targetPath of ciFiles) {
     try {
-      const content = readFileSync(targetFile, 'utf8')
+      const content = readFileSync(targetPath, 'utf8')
       const bumped = content.replace(PLAYWRIGHT_IMAGE_REGEX, `$1${PLAYWRIGHT_VERSION}`)
       if (bumped === content) {
         continue
       }
-      const runBump = isAutoRun || await promptUser({ question: `[Nuxt Spec] This will bump the Playwright container image in '${targetFile}' to version '${PLAYWRIGHT_VERSION}'. Continue?` })
+      const runBump = isAutoRun || await promptUser({ question: `[Nuxt Spec] This will bump the Playwright container image in '${targetPath}' to version '${PLAYWRIGHT_VERSION}'. Continue?` })
       if (runBump) {
-        writeFileSync(targetFile, bumped)
-        showMessage({ message: `Playwright container image in '${targetFile}' bumped to version '${PLAYWRIGHT_VERSION}'.` })
+        writeFileSync(targetPath, bumped)
+        showMessage({ message: `Playwright container image in '${targetPath}' bumped to version '${PLAYWRIGHT_VERSION}'.` })
       } else {
-        outdatedCiFiles.push(targetFile)
+        outdatedCiFiles.push(targetPath)
       }
     } catch (error) {
-      console.error(`[Nuxt Spec] Error bumping Playwright container image in '${targetFile}':\n`, error.message)
+      console.error(`[Nuxt Spec] Error bumping Playwright container image in '${targetPath}':\n`, error.message)
     }
   }
 
@@ -117,8 +117,8 @@ export async function specUpdate(autoRun = false, packageManager) {
   if (!runPlaywrightUpdate) {
     showMessage({ message: `Run \`${playwrightUpdateCmd}\` to update the Playwright browser runtimes for e2e tests.` })
   }
-  for (const targetFile of outdatedCiFiles) {
-    showMessage({ message: `Bump the Playwright container image in '${targetFile}' to version '${PLAYWRIGHT_VERSION}' to match the \`playwright\` dependency.` })
+  for (const targetPath of outdatedCiFiles) {
+    showMessage({ message: `Bump the Playwright container image in '${targetPath}' to version '${PLAYWRIGHT_VERSION}' to match the \`playwright\` dependency.` })
   }
 
   // force exit to prevent #20
