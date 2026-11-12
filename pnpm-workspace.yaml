@@ -26,6 +26,8 @@ overrides:
   'vite': '^8.3.5'
   # align playwright version
   'playwright': '1.64.1'
+  # temp fix for https://github.com/nuxt/nuxt/issues/36829
+  '@nuxt/cli': '^4.0.3'
 
 # https://pnpm.io/settings/dependency-resolution#minimumreleaseageexclude
 # minimumReleaseAgeExclude:

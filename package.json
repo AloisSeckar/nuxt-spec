@@ -48,32 +48,33 @@
     "modules",
     "public",
     "utils",
-    "nuxt.config.ts"
+    "nuxt.config.ts",
+    "CHANGELOG.md"
   ],
   "dependencies": {
-    "@nuxt/devtools": "4.0.0",
+    "@nuxt/devtools": "4.1.0",
     "@nuxt/eslint": "~1.17.0",
     "@nuxt/hints": "1.1.5",
-    "@nuxt/test-utils": "4.3.4",
+    "@nuxt/test-utils": "4.4.0",
     "@vitejs/plugin-vue": "~6.0.10",
-    "@vitest/browser": "5.0.5",
-    "@vitest/browser-playwright": "5.0.5",
-    "@vitest/coverage-istanbul": "5.0.5",
-    "@vitest/coverage-v8": "5.0.5",
-    "@vitest/ui": "5.0.5",
+    "@vitest/browser": "5.1.0",
+    "@vitest/browser-playwright": "5.1.0",
+    "@vitest/coverage-istanbul": "5.1.0",
+    "@vitest/coverage-v8": "5.1.0",
+    "@vitest/ui": "5.1.0",
     "@vue/test-utils": "2.5.1",
     "fast-png": "~8.0.0",
-    "happy-dom": "~21.0.0",
-    "nuxt": "4.6.3",
+    "happy-dom": "~21.0.4",
+    "nuxt": "4.6.4",
     "pixelmatch": "~7.2.0",
     "playwright": "1.64.1",
     "playwright-core": "1.64.1",
     "typescript": "~6.0.3",
-    "vitest": "5.0.5",
+    "vitest": "5.1.0",
     "vitest-browser-vue": "3.1.0",
-    "vue": "~3.5.44",
-    "vue-router": "~5.4.0",
-    "vue-tsc": "~3.3.13"
+    "vue": "~3.5.45",
+    "vue-router": "~5.5.0",
+    "vue-tsc": "~3.3.14"
   },
-  "packageManager": "pnpm@12.16.1"
+  "packageManager": "pnpm@12.18.0"
 }
