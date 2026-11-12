@@ -93,7 +93,7 @@ This is a wrapper around the native Vitest config, allowing you to merge your cu
 **5)** Add a `.nuxtrc` file with the following content (if you don't have it yet):
 
 ```text [.nuxtrc]
-setups.@nuxt/test-utils="4.3.3"
+setups.@nuxt/test-utils="4.4.0"
 ```
 
 Nuxt will auto-generate the file anyway if you do not create it.

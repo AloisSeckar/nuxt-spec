@@ -61,11 +61,11 @@ nuxt-spec (root, published)      nuxt-spec-cli (cli/, published)     docs/ (priv
 - `config/` - `nuxt-spec/config` export: `index.mjs` (`loadVitestConfig`, `nuxtSpecReportPlugin`), hand-written `.d.ts`/`.d.mts` types, `utils/` (merge, options, projects, reporter, warnings), `report/` (HTML report fragments), `templates/` (files downloaded by the CLI, incl. GitHub/GitLab CI workflows).
 - `utils/` - `nuxt-spec/utils` export: `gotoPage`, `getDataHtml`, `getAPIResultHtml` (`e2e.ts`), `compareScreenshot` (`screenshot.ts`), `playwright.ts` (e2e setup file for external Playwright), `helpers/`.
 - `modules/` - local Nuxt module `spec-options.ts` (typed `spec` config key, hints toggle).
-- `cli/` - `nuxt-spec-cli` package: entry `nuxt-spec.js`, `commands/` (`setup`, `update`, `ci`), `helpers/` (package-manager commands and `runCmd` that runs them via `execFileSync` without a shell string, `cmd.exe` on Windows; constants, git).
+- `cli/` - `nuxt-spec-cli` package ([cli/README.md](cli/README.md)): entry `nuxt-spec.js`, `commands/` (`setup`, `update`, `ci`), `helpers/` (package-manager commands and `runCmd` that runs them via `execFileSync` without a shell string, `cmd.exe` on Windows; constants, git).
 - `scripts/` - `release.js` (version check + `pnpm -r publish`), `prepublish-check.js` (blocks direct `pnpm publish`).
 - `test/` - tests of this repo, laid out per Vitest project (`unit/`, `nuxt/`, `e2e/`, `browser/`); `_internal/` and `custom/` fall into the `default` project; `_internal/` covers `config/` and `cli/` internals.
 - `docs/` - VitePress source of the online documentation (installation, configuration, utilities, CI, changelog, contributing).
-- `playground/` - git-tracked Nuxt starter app for manual testing of the CLI and new features.
+- `playground/` - git-tracked Nuxt starter app for manual testing of the CLI and new features ([playground/README.md](playground/README.md)).
 - `public/` - static assets (logo).
 
 ## Entry Points
