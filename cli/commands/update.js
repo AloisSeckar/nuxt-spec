@@ -20,7 +20,7 @@ const PLAYWRIGHT_IMAGE_REGEX = /(mcr\.microsoft\.com\/playwright:v)\d+\.\d+\.\d+
  *
  * Then it:
  *  1) verifies `nuxt-spec` is present in `package.json` (fails with a hint to run `setup` otherwise)
- *  2) runs the package manager's update command to bump `nuxt-spec` to the latest version
+ *  2) runs the package manager's update command to bump `nuxt-spec` to `SPEC_VERSION`
  *  3) run the `nuxt prepare` command to regenerate types and auto-imports
  *  4) run the `playwright install` command to ensure the Playwright browser runtimes are up to date
  *  5) bump the Playwright container image version in CI workflow files created by the `ci` command

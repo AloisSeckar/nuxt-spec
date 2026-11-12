@@ -9,4 +9,3 @@ This file holds pending tasks only. Resolved items are deleted, never marked as 
 <!-- ↑↑↑ agentcreed ↑↑↑ -->
 
 - `docs/4-1-contributing.md` contains a `TODO :(` placeholder - the contributing guide is incomplete.
-- The JSDoc step list in `cli/commands/update.js` (step 2) says it bumps `nuxt-spec` "to the latest version". The code bumps it to `SPEC_VERSION`, which is the CLI's own version (`nuxt-spec@${SPEC_VERSION}`), not the latest.

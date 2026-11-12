@@ -263,7 +263,7 @@ It works the same way as `setup` - first asking whether to run automatically, th
 
 The `update` command will:
 
-- run the package manager's update command to bump `nuxt-spec` to the latest version
+- run the package manager's update command to bump `nuxt-spec` to `SPEC_VERSION`
 - run the `nuxt prepare` command to regenerate the Nuxt types and auto-imports
 - run the `playwright install` command to ensure the Playwright browser runtimes are up to date
 - bump the Playwright container image version in CI files scaffolded by the `ci` command (see [CI integration](2-3-ci.html#playwright-version))
