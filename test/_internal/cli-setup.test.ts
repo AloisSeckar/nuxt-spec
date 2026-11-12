@@ -25,7 +25,7 @@ function mockExistingFiles(files: string[]) {
 }
 
 function shownMessages() {
-  return vi.mocked(showMessage).mock.calls.map(([{ message }]) => message)
+  return vi.mocked(showMessage).mock.calls.map(([opts]) => typeof opts === 'string' ? opts : opts.message)
 }
 
 describe('Test `specSetup` handling of Nuxt config file', () => {
