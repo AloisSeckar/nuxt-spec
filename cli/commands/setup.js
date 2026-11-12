@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import { execSync } from 'node:child_process'
 import { readdirSync, readFileSync } from 'node:fs'
 import {
   createFileFromWebTemplate, deletePath,
@@ -8,7 +7,7 @@ import {
   updateConfigFile, updateJsonFile, updateTextFile,
 } from 'elrh-cosca'
 import {
-  getCreateNuxtCmd, getFirstTestRunCmd, getPlaywrightInstallCmd, getPrepareCmd,
+  getCreateNuxtCmd, getFirstTestRunCmd, getPlaywrightInstallCmd, getPrepareCmd, runCmd,
 } from '../helpers/commands.js'
 import { SPEC_VERSION, SPEC_URL } from '../helpers/constants.js'
 
@@ -53,7 +52,7 @@ export async function specSetup(autoRun = false, packageManager) {
     if (runCreateNuxt) {
       try {
         showMessage({ message: `Running \`${createNuxtCmd}\`...` })
-        execSync(createNuxtCmd, { stdio: 'inherit' })
+        runCmd(createNuxtCmd)
       } catch (error) {
         // the following steps still create minimal 'package.json' and 'nuxt.config.ts' as a fallback
         console.error(`[Nuxt Spec] Error running \`${createNuxtCmd}\`:\n`, error.message)
@@ -377,7 +376,7 @@ export async function specSetup(autoRun = false, packageManager) {
   if (runInstall) {
     try {
       showMessage({ message: `Running \`${packageManager} install\`...` })
-      execSync(`${packageManager} install`, { stdio: 'inherit' })
+      runCmd(`${packageManager} install`)
     } catch (error) {
       console.error(`[Nuxt Spec] Error running \`${packageManager} install\`:\n`, error.message)
     }
@@ -389,7 +388,7 @@ export async function specSetup(autoRun = false, packageManager) {
   if (runPrepare) {
     try {
       showMessage({ message: `Running \`${prepareCmd}\`...` })
-      execSync(prepareCmd, { stdio: 'inherit' })
+      runCmd(prepareCmd)
     } catch (error) {
       console.error(`[Nuxt Spec] Error running \`${prepareCmd}\`:\n`, error.message)
     }
@@ -401,7 +400,7 @@ export async function specSetup(autoRun = false, packageManager) {
   if (runPlaywrightInstall) {
     try {
       showMessage({ message: `Running \`${playwrightInstallCmd}\`...` })
-      execSync(playwrightInstallCmd, { stdio: 'inherit' })
+      runCmd(playwrightInstallCmd)
     } catch (error) {
       console.error(`[Nuxt Spec] Error running \`${playwrightInstallCmd}\`:\n`, error.message)
     }
@@ -414,7 +413,7 @@ export async function specSetup(autoRun = false, packageManager) {
     const firstTestRunCmd = getFirstTestRunCmd(packageManager)
     try {
       showMessage({ message: `Creating reference screenshot for visual regression testing...` })
-      execSync(firstTestRunCmd, { stdio: 'ignore' })
+      runCmd(firstTestRunCmd, 'ignore')
     } catch {
       // expected failure on the first run
     }

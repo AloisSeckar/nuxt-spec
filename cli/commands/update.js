@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
-import { execSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
 import {
   hasJsonKey, pathExists, promptUser, showMessage,
 } from 'elrh-cosca'
 import { CI_TEMPLATES } from './ci.js'
 import {
-  getPlaywrightInstallCmd, getPrepareCmd, getUpdateCmd,
+  getPlaywrightInstallCmd, getPrepareCmd, getUpdateCmd, runCmd,
 } from '../helpers/commands.js'
 import { SPEC_VERSION, PLAYWRIGHT_VERSION } from '../helpers/constants.js'
 
@@ -51,7 +50,7 @@ export async function specUpdate(autoRun = false, packageManager) {
   if (runUpdate) {
     try {
       showMessage({ message: `Running \`${updateCmd}\`...` })
-      execSync(updateCmd, { stdio: 'inherit' })
+      runCmd(updateCmd)
     } catch (error) {
       console.error(`[Nuxt Spec] Error running \`${updateCmd}\`:\n`, error.message)
     }
@@ -63,7 +62,7 @@ export async function specUpdate(autoRun = false, packageManager) {
   if (runPrepare) {
     try {
       showMessage({ message: `Running \`${prepareCmd}\`...` })
-      execSync(prepareCmd, { stdio: 'inherit' })
+      runCmd(prepareCmd)
     } catch (error) {
       console.error(`[Nuxt Spec] Error running \`${prepareCmd}\`:\n`, error.message)
     }
@@ -75,7 +74,7 @@ export async function specUpdate(autoRun = false, packageManager) {
   if (runPlaywrightUpdate) {
     try {
       showMessage({ message: `Running \`${playwrightUpdateCmd}\`...` })
-      execSync(playwrightUpdateCmd, { stdio: 'inherit' })
+      runCmd(playwrightUpdateCmd)
     } catch (error) {
       console.error(`[Nuxt Spec] Error running \`${playwrightUpdateCmd}\`:\n`, error.message)
     }

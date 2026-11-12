@@ -18,7 +18,7 @@ vi.mock('elrh-cosca', async importOriginal => ({
   updateJsonFile: vi.fn(),
   updateTextFile: vi.fn(),
 }))
-vi.mock('node:child_process', () => ({ execSync: vi.fn() }))
+vi.mock('node:child_process', () => ({ execFileSync: vi.fn() }))
 
 function mockExistingFiles(files: string[]) {
   vi.mocked(pathExists).mockImplementation(({ targetPath }) => files.includes(targetPath))

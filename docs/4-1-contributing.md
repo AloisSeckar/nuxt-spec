@@ -6,6 +6,10 @@ See <https://github.com/AloisSeckar> for more info.
 
 TODO :(
 
+## Working with CLI
+
+> NOTE: The CLI tool runs package manager commands (install, `nuxt prepare`, `playwright install`...) directly as a program with an argument list, not as a shell command string. On Windows, package managers can only be started through `cmd.exe`, so the CLI tool runs them this way and refuses to run any command containing characters special to `cmd.exe` (e.g. `&`, `|`, `^`, `%`, quotes).
+
 ## Playground
 
 A playground app is included in the `/playground` folder. It is nothing but a Nuxt starter project from the official template. CLI scripts and latest features can be tested against it locally.
