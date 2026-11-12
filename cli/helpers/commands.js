@@ -83,6 +83,23 @@ export function getPrepareCmd(packageManager) {
   }
 }
 
+// run the sample browser test (creates its missing reference screenshot)
+export function getFirstTestRunCmd(packageManager) {
+  const command = 'vitest run test/browser/vitest-browser.test.ts'
+  switch (packageManager) {
+    case 'pnpm':
+      return `pnpm exec ${command}`
+    case 'yarn':
+      return `yarn ${command}`
+    case 'bun':
+      return `bunx ${command}`
+    case 'deno':
+      return `deno run -A npm:${command}`
+    default:
+      return `npx ${command}`
+  }
+}
+
 // install/update playwright
 export function getPlaywrightInstallCmd(packageManager) {
   const command = 'playwright install'

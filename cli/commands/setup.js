@@ -8,7 +8,7 @@ import {
   updateConfigFile, updateJsonFile, updateTextFile,
 } from 'elrh-cosca'
 import {
-  getCreateNuxtCmd, getPlaywrightInstallCmd, getPrepareCmd,
+  getCreateNuxtCmd, getFirstTestRunCmd, getPlaywrightInstallCmd, getPrepareCmd,
 } from '../helpers/commands.js'
 import { SPEC_VERSION, SPEC_URL } from '../helpers/constants.js'
 
@@ -30,9 +30,10 @@ import { SPEC_VERSION, SPEC_URL } from '../helpers/constants.js'
  *  7) creates sample test files
  *  8) adds nuxt-spec related entries to `.gitignore`
  *  9) clear node_modules and lock file(s)
- * 10) run install command
- * 11) run Nuxt prepare command to generate types and auto-imports
- * 12) run Playwright setup command
+ * 10) runs install command
+ * 11) runs Nuxt prepare command to generate types and auto-imports
+ * 12) runs Playwright setup command
+ * 13) runs the sample browser test to create its reference screenshot
  *
  * @param {boolean} autoRun - Whether to run the setup automatically without any prompts (defaults to false).
  * @param {string} [packageManager] - Package manager to be used (`npm`, `pnpm`, `yarn`, `bun` or `deno`).
@@ -406,7 +407,20 @@ export async function specSetup(autoRun = false, packageManager) {
     }
   }
 
-  // 13) inform user
+  // 13) run the sample browser test for the first time
+  // to create its reference screenshot and prevent visible failure
+  // TODO this might be removed if https://github.com/vitest-dev/vitest/issues/11787 is addressed
+  if (createSampleTests && runInstall && runPlaywrightInstall) {
+    const firstTestRunCmd = getFirstTestRunCmd(packageManager)
+    try {
+      showMessage({ message: `Creating reference screenshot for visual regression testing...` })
+      execSync(firstTestRunCmd, { stdio: 'ignore' })
+    } catch {
+      // expected failure on the first run
+    }
+  }
+
+  // 14) inform user
   showMessage({ message: '' })
   showMessage({ message: 'NUXT SPEC SETUP COMPLETE', linesAfter: 2 })
   if (!runInstall) {

@@ -1,5 +1,6 @@
 // render component using built-in vue-specific `render` function
 // this is an alternative to setup proposed in /test/nuxt/**
+// see https://vitest.dev/guide/browser/visual-regression-testing
 
 import { expect, test } from 'vitest'
 import { render } from 'vitest-browser-vue'
@@ -19,4 +20,8 @@ test('properly handles v-model', async () => {
   // by default, the file name is: test-component-chromium-<OS>.png
   // if ran on different platforms, more files are being generated
   await expect(screen.getByTestId('test-component')).toMatchScreenshot('test-component')
+
+  // WARNING:
+  // This test will fail for the first time as no reference screenshot exists yet
+  // see https://vitest.dev/guide/browser/visual-regression-testing#creating-references
 })
