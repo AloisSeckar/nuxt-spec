@@ -10,8 +10,14 @@ You are just one command away from having full and reliable test setup in your N
 
 ## How to use
 
-See [ONLINE DOCS](https://nuxt-spec.netlify.app) for all the necessary information.
+See [ONLINE DOCS](https://nuxt-spec.netlify.app) for all the necessary usage information.
+
+See [ARCHITECTURE](ARCHITECTURE.md) for the detailed project structure and conventions.
 
 See [CHANGELOG](https://nuxt-spec.netlify.app/3-1-changelog.html) for the full list of changes.
 
 See [CONTRIBUTING](https://nuxt-spec.netlify.app/4-1-contributing.html) if you want to help.
+
+## AI
+
+This project is AI-friendly and uses [Agent Creed](https://github.com/AloisSeckar/agent-creed) for managing agent instructions and suggestions.
