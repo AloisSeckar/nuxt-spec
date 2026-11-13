@@ -24,8 +24,8 @@ Loose versions prefixed with `~` allow patch updates.
 | [@vitest/coverage-istanbul](https://npmx.dev/package/@vitest/coverage-istanbul) | Istanbul-based code coverage provider for Vitest (see [Code coverage](2-1-configuration.html#code-coverage)) | `5.1.0` |
 | [@vitest/ui](https://npmx.dev/package/@vitest/ui) | Graphical UI for the Vitest test runner | `5.1.0` |
 | [happy-dom](https://npmx.dev/package/happy-dom) | Headless browser runtime | `~21.0.4` |
-| [playwright](https://npmx.dev/package/playwright) | Headless browser testing framework | `1.64.1` |
-| [playwright-core](https://npmx.dev/package/playwright-core) | Core Playwright browser API used by Nuxt Spec utilities | `1.64.1` |
+| [playwright](https://npmx.dev/package/playwright) | Headless browser testing framework | `1.65.0` |
+| [playwright-core](https://npmx.dev/package/playwright-core) | Core Playwright browser API used by Nuxt Spec utilities | `1.65.0` |
 | [@vue/test-utils](https://npmx.dev/package/@vue/test-utils) | Utilities for testing Vue stuff | `2.5.1` |
 | [@nuxt/test-utils](https://npmx.dev/package/@nuxt/test-utils) | Utilities for testing Nuxt stuff | `4.4.0` |
 | [@nuxt/devtools](https://npmx.dev/package/@nuxt/devtools) | Development browser console for Nuxt | `4.1.0` |
