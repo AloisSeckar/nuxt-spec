@@ -126,23 +126,19 @@ export async function specSetup(autoRun = false, packageManager) {
   }
 
   // add nuxt-spec layer
-  // CommonJS config cannot be altered automatically, user is notified at the end
-  const isCjsConfig = nuxtConfigFile.endsWith('.cjs')
-  if (!isCjsConfig) {
-    try {
-      await updateConfigFile({
-        targetPath: nuxtConfigFile,
-        newConfig: {
-          extends: [
-            'nuxt-spec',
-          ],
-        },
-        force: isAutoRun,
-        prompt: `[Nuxt Spec] This will add 'nuxt-spec' module to your '${nuxtConfigFile}'. Continue?`,
-      })
-    } catch (error) {
-      console.error(`[Nuxt Spec] Error updating '${nuxtConfigFile}':\n`, error.message)
-    }
+  try {
+    await updateConfigFile({
+      targetPath: nuxtConfigFile,
+      newConfig: {
+        extends: [
+          'nuxt-spec',
+        ],
+      },
+      force: isAutoRun,
+      prompt: `[Nuxt Spec] This will add 'nuxt-spec' module to your '${nuxtConfigFile}'. Continue?`,
+    })
+  } catch (error) {
+    console.error(`[Nuxt Spec] Error updating '${nuxtConfigFile}':\n`, error.message)
   }
 
   // 3) `pnpm-workspace.yaml` file (only if pnpm is used)
@@ -408,9 +404,6 @@ export async function specSetup(autoRun = false, packageManager) {
   }
   if (!runPlaywrightInstall) {
     showMessage({ message: `Run \`${playwrightInstallCmd}\` to setup the Playwright browser runtimes for e2e tests.` })
-  }
-  if (isCjsConfig) {
-    showMessage({ message: `WARNING: CLI setup was unable to modify your CommonJS Nuxt config. Please, add \`extends: ['nuxt-spec']\` to your '${nuxtConfigFile}' manually.` })
   }
 
   // force exit to prevent #20

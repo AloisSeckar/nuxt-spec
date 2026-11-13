@@ -38,21 +38,17 @@ describe('Test `specSetup` handling of Nuxt config file', () => {
     vi.restoreAllMocks()
   })
 
-  test('should skip `nuxt.config.cjs` and ask for manual edit at the end', async () => {
+  test('should alter `nuxt.config.cjs` without asking for manual edit', async () => {
     mockExistingFiles(['package.json', 'nuxt.config.cjs'])
 
     await specSetup(false, 'pnpm')
 
-    expect(updateConfigFile).not.toHaveBeenCalled()
+    expect(updateConfigFile).toHaveBeenCalledOnce()
+    expect(updateConfigFile).toHaveBeenCalledWith(expect.objectContaining({ targetPath: 'nuxt.config.cjs' }))
     expect(createFileFromWebTemplate).not.toHaveBeenCalledWith(
       expect.objectContaining({ targetPath: expect.stringContaining('nuxt.config') }),
     )
-
-    const messages = shownMessages()
-    const completeIndex = messages.indexOf('NUXT SPEC SETUP COMPLETE')
-    const warningIndex = messages.findIndex(m => m.includes('nuxt.config.cjs') && m.includes('manually'))
-    expect(completeIndex).toBeGreaterThan(-1)
-    expect(warningIndex).toBeGreaterThan(completeIndex)
+    expect(shownMessages().some(m => m.includes('manually'))).toBe(false)
   })
 
   test('should alter `nuxt.config.mjs` without asking for manual edit', async () => {
