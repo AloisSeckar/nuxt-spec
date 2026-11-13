@@ -413,7 +413,7 @@ export async function specSetup(autoRun = false, packageManager) {
     const firstTestRunCmd = getFirstTestRunCmd(packageManager)
     try {
       showMessage({ message: `Creating reference screenshot for visual regression testing...` })
-      runCmd(firstTestRunCmd, 'ignore')
+      runCmd(firstTestRunCmd, { stdio: 'ignore' })
     } catch {
       // expected failure on the first run
     }

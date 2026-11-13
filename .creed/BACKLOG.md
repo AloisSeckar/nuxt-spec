@@ -9,4 +9,3 @@ This file holds pending tasks only, as a numbered list. Resolved items are delet
 <!-- ↑↑↑ agentcreed ↑↑↑ -->
 
 1. `docs/4-1-contributing.md` is incomplete - it only links to the author's GitHub profile and lacks contribution rules.
-2. `scripts/release.js` runs `<pm> publish` with `shell: true` on Windows (`spawnSync`) and passes through user-supplied args (`--pm`, extra publish args). This is not covered by "Known exceptions" in `SECURITY.md` - either document it there or avoid the shell.

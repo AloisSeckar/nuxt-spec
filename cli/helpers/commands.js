@@ -1,26 +1,8 @@
-import { execFileSync } from 'node:child_process'
 import { getPackageManager } from 'elrh-cosca'
 
+export { runCmd } from './run.js'
+
 export const SUPPORTED_PACKAGE_MANAGERS = ['npm', 'pnpm', 'yarn', 'bun', 'deno']
-
-// whitelisted characters for Windows command tokens
-const SAFE_WIN_TOKEN = /^[\w@.\-:/=]+$/
-
-// run a command produced by the getters below (space-separated tokens, no quoting) without a shell string
-// package managers are `.cmd` shims on Windows, which Node can only start through `cmd.exe`
-// so every token must be free of `cmd.exe` metacharacters there (see "Known exceptions" in SECURITY.md)
-export function runCmd(cmd, stdio = 'inherit') {
-  const [file, ...args] = cmd.split(' ')
-  if (process.platform === 'win32') {
-    const unsafe = [file, ...args].find(token => !SAFE_WIN_TOKEN.test(token))
-    if (unsafe !== undefined) {
-      throw new Error(`Refusing to run command with unsafe argument '${unsafe}'`)
-    }
-    execFileSync(process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', file, ...args], { stdio })
-  } else {
-    execFileSync(file, args, { stdio })
-  }
-}
 
 // get the package manager name for usage in commands
 // explicit override takes precedence over auto-detection

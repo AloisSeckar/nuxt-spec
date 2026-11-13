@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import { spawnSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
 import { createInterface } from 'node:readline'
+import { runCmd } from '../cli/helpers/run.js'
 
 // publishes `nuxt-spec` and `nuxt-spec-cli` together
 // extra args are passed to `<pm> publish` (e.g. `--tag alpha`)
@@ -47,14 +47,14 @@ rl.question(`Are you sure the current solution (v${specVersion}) was properly te
     : ['..', '../cli'].map(dir => ({ args: ['publish', ...args], cwd: new URL(dir, import.meta.url) }))
 
   for (const run of runs) {
-    const result = spawnSync(packageManager, run.args, {
-      cwd: run.cwd,
-      stdio: 'inherit',
-      shell: process.platform === 'win32',
-      env: { ...process.env, NUXT_SPEC_RELEASE: 'true' },
-    })
-    if (result.status !== 0) {
-      process.exit(result.status ?? 1)
+    try {
+      runCmd([packageManager, ...run.args].join(' '), {
+        cwd: run.cwd,
+        env: { ...process.env, NUXT_SPEC_RELEASE: 'true' },
+      })
+    } catch (error) {
+      console.error(error.message)
+      process.exit(error.status ?? 1)
     }
   }
 })
