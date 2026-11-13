@@ -31,11 +31,6 @@ The most important client of `nuxt-spec` is my [Nuxt Ignis](https://github.com/A
 - [@nuxt/test-utils](https://www.npmjs.com/package/@nuxt/test-utils) for testing Nuxt stuff
 - [@nuxt/hints](https://nuxt.com/modules/hints) for DevTools performance, hydration, and security tips (enabled by default, can be opted out of via [configuration](2-1-configuration.html#nuxt-hints-integration))
 
-Planned future development:
-
-- reason about (not) using Vitest browser mode (or make it optional)
-- a solution for visual regression testing (currently there is an experimental custom solution)
-
 See the [changelog](3-1-changelog.html) for the latest updates and features.
 
 ## More info

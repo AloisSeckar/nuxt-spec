@@ -64,7 +64,7 @@ nuxt-spec (root, published)      nuxt-spec-cli (cli/, published)     docs/ (priv
 - `cli/` - `nuxt-spec-cli` package ([cli/README.md](cli/README.md)): entry `nuxt-spec.js`, `commands/` (`setup`, `update`, `ci`), `helpers/` (package-manager commands and `runCmd` that runs them via `execFileSync` without a shell string, `cmd.exe` on Windows; constants, git).
 - `scripts/` - `release.js` (version check + `pnpm -r publish`), `prepublish-check.js` (blocks direct `pnpm publish`).
 - `test/` - tests of this repo, laid out per Vitest project (`unit/`, `nuxt/`, `e2e/`, `browser/`); `_internal/` and `custom/` fall into the `default` project; `_internal/` covers `config/` and `cli/` internals.
-- `docs/` - VitePress source of the online documentation (installation, configuration, utilities, CI, changelog, contributing).
+- `docs/` - VitePress source of the online documentation (overview, installation, configuration, utilities, CI, changelog, dependencies, contributing).
 - `playground/` - git-tracked Nuxt starter app for manual testing of the CLI and new features ([playground/README.md](playground/README.md)).
 - `public/` - static assets (logo).
 

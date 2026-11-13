@@ -4,8 +4,6 @@ Contributions are welcome. Let's make this project better together.
 
 See <https://github.com/AloisSeckar> for more info.
 
-TODO :(
-
 ## Working with CLI
 
 > NOTE: The CLI tool runs package manager commands (install, `nuxt prepare`, `playwright install`...) directly as a program with an argument list, not as a shell command string. On Windows, package managers can only be started through `cmd.exe`, so the CLI tool runs them this way and refuses to run any command containing characters special to `cmd.exe` (e.g. `&`, `|`, `^`, `%`, quotes).
