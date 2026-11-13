@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { showMessage } from 'elrh-cosca'
-import { getCmd, resolvePackageManager } from './helpers/commands.js'
+import { CommandType, getCmd, resolvePackageManager } from './helpers/commands.js'
 import { SPEC_VERSION } from './helpers/constants.js'
 
 /**
@@ -46,9 +46,11 @@ const args = process.argv.slice(2);
       case 'ci':
         await (await import('./commands/ci.js')).specCi(host, autoRun)
         break
-      default:
-        console.log(`[Nuxt Spec] Usage: \`${getCmd(packageManager)} setup [true|false] [npm|pnpm|yarn|bun|deno]\`, \`${getCmd(packageManager)} update [true|false] [npm|pnpm|yarn|bun|deno]\` or \`${getCmd(packageManager)} ci <github|gitlab> [true|false]\``)
+      default: {
+        const cliCmd = getCmd(packageManager, CommandType.CLI)
+        console.log(`[Nuxt Spec] Usage: \`${cliCmd} setup [true|false] [npm|pnpm|yarn|bun|deno]\`, \`${cliCmd} update [true|false] [npm|pnpm|yarn|bun|deno]\` or \`${cliCmd} ci <github|gitlab> [true|false]\``)
         status = 1
+      }
     }
   } catch (error) {
     console.error('[Nuxt Spec] CLI failed:', error.message)

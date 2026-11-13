@@ -6,9 +6,7 @@ import {
   pathExists, promptUser, removeFromJsonFile, showMessage,
   updateConfigFile, updateJsonFile, updateTextFile,
 } from 'elrh-cosca'
-import {
-  getCreateNuxtCmd, getFirstTestRunCmd, getPlaywrightInstallCmd, getPrepareCmd, runCmd,
-} from '../helpers/commands.js'
+import { CommandType, getCmd, runCmd } from '../helpers/commands.js'
 import { SPEC_VERSION, SPEC_URL } from '../helpers/constants.js'
 
 /**
@@ -47,7 +45,7 @@ export async function specSetup(autoRun = false, packageManager) {
 
   // 0) scaffold a new Nuxt project if the current directory is empty
   if (readdirSync(process.cwd()).length === 0) {
-    const createNuxtCmd = getCreateNuxtCmd(packageManager)
+    const createNuxtCmd = getCmd(packageManager, CommandType.CREATE_NUXT)
     const runCreateNuxt = isAutoRun || await promptUser({ question: `[Nuxt Spec] Current directory is empty. Do you want to scaffold a new Nuxt project via \`${createNuxtCmd}\` first?` })
     if (runCreateNuxt) {
       try {
@@ -383,7 +381,7 @@ export async function specSetup(autoRun = false, packageManager) {
   }
 
   // 11) run Nuxt prepare command to generate types and auto-imports
-  const prepareCmd = getPrepareCmd(packageManager)
+  const prepareCmd = getCmd(packageManager, CommandType.NUXT_PREPARE)
   const runPrepare = isAutoRun || await promptUser({ question: `[Nuxt Spec] Nuxt needs to generate types and auto-imports before the project is fully usable. Do you want to run \`${prepareCmd}\` now?` })
   if (runPrepare) {
     try {
@@ -395,7 +393,7 @@ export async function specSetup(autoRun = false, packageManager) {
   }
 
   // 12) run Playwright browser install command
-  const playwrightInstallCmd = getPlaywrightInstallCmd(packageManager)
+  const playwrightInstallCmd = getCmd(packageManager, CommandType.PLAYWRIGHT_INSTALL)
   const runPlaywrightInstall = isAutoRun || await promptUser({ question: `[Nuxt Spec] Playwright browser runtimes might need to be installed locally for e2e tests. Do you want to run \`${playwrightInstallCmd}\` now?` })
   if (runPlaywrightInstall) {
     try {
@@ -410,7 +408,7 @@ export async function specSetup(autoRun = false, packageManager) {
   // to create its reference screenshot and prevent visible failure
   // TODO this might be removed if https://github.com/vitest-dev/vitest/issues/11787 is addressed
   if (createSampleTests && runInstall && runPlaywrightInstall) {
-    const firstTestRunCmd = getFirstTestRunCmd(packageManager)
+    const firstTestRunCmd = getCmd(packageManager, CommandType.FIRST_TEST_RUN)
     try {
       showMessage({ message: `Creating reference screenshot for visual regression testing...` })
       runCmd(firstTestRunCmd, { stdio: 'ignore' })

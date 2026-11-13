@@ -5,9 +5,7 @@ import {
   hasJsonKey, pathExists, promptUser, showMessage,
 } from 'elrh-cosca'
 import { CI_TEMPLATES } from './ci.js'
-import {
-  getPlaywrightInstallCmd, getPrepareCmd, getUpdateCmd, runCmd,
-} from '../helpers/commands.js'
+import { CommandType, getCmd, runCmd } from '../helpers/commands.js'
 import { SPEC_VERSION, PLAYWRIGHT_VERSION } from '../helpers/constants.js'
 
 // for automated version patching in CI workflow files
@@ -45,7 +43,7 @@ export async function specUpdate(autoRun = false, packageManager) {
   showMessage({ message: '' })
 
   // 1) run 'update nuxt-spec'
-  const updateCmd = getUpdateCmd(packageManager, `nuxt-spec@${SPEC_VERSION}`)
+  const updateCmd = getCmd(packageManager, CommandType.UPDATE_SPEC)
   const runUpdate = isAutoRun || await promptUser({ question: `[Nuxt Spec] This will bump 'nuxt-spec' to version '${SPEC_VERSION}' by running \`${updateCmd}\`. Continue?` })
   if (runUpdate) {
     try {
@@ -57,7 +55,7 @@ export async function specUpdate(autoRun = false, packageManager) {
   }
 
   // 2) run 'nuxt prepare'
-  const prepareCmd = getPrepareCmd(packageManager)
+  const prepareCmd = getCmd(packageManager, CommandType.NUXT_PREPARE)
   const runPrepare = isAutoRun || await promptUser({ question: `[Nuxt Spec] Nuxt types and auto-imports should be regenerated after the update. Do you want to run \`${prepareCmd}\` now?` })
   if (runPrepare) {
     try {
@@ -69,7 +67,7 @@ export async function specUpdate(autoRun = false, packageManager) {
   }
 
   // 3) run 'playwright install'
-  const playwrightUpdateCmd = getPlaywrightInstallCmd(packageManager)
+  const playwrightUpdateCmd = getCmd(packageManager, CommandType.PLAYWRIGHT_INSTALL)
   const runPlaywrightUpdate = isAutoRun || await promptUser({ question: `[Nuxt Spec] Playwright browser runtimes might need to be updated for e2e tests. Do you want to run \`${playwrightUpdateCmd}\` now?` })
   if (runPlaywrightUpdate) {
     try {
