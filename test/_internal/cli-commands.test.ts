@@ -1,9 +1,9 @@
 // unit tests for
-// - cli/helpers/commands.js
+// - cli/helpers/run.js
 
 import { execFileSync } from 'node:child_process'
 import { afterEach, describe, expect, test, vi } from 'vitest'
-import { runCmd } from '../../cli/helpers/commands.js'
+import { runCmd } from '../../cli/helpers/run.js'
 
 vi.mock('node:child_process', () => ({ execFileSync: vi.fn() }))
 
@@ -26,7 +26,7 @@ describe('Test `runCmd`', () => {
     vi.spyOn(process, 'platform', 'get').mockReturnValue('win32')
     vi.stubEnv('ComSpec', 'C:\\Windows\\System32\\cmd.exe')
 
-    runCmd('npm install nuxt-spec@1.0.0-alpha.1', 'ignore')
+    runCmd('npm install nuxt-spec@1.0.0-alpha.1', { stdio: 'ignore' })
 
     expect(execFileSync).toHaveBeenCalledWith(
       'C:\\Windows\\System32\\cmd.exe',
