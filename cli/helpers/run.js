@@ -3,9 +3,16 @@ import { execFileSync } from 'node:child_process'
 // whitelisted characters for Windows command tokens
 const SAFE_WIN_TOKEN = /^[\w@.\-:/=]+$/
 
-// run a command (space-separated tokens, no quoting) without a shell string
-// package managers are `.cmd` shims on Windows, which Node can only start through `cmd.exe`
-// so every token must be free of `cmd.exe` metacharacters there (see "Known exceptions" in SECURITY.md)
+/**
+ * Runs a command synchronously without a shell string.
+ *
+ * Package managers are `.cmd` shims on Windows, which Node can only start through `cmd.exe`.
+ * Every token must be free of `cmd.exe` metacharacters there (see "Known exceptions" in SECURITY.md).
+ *
+ * @param {string} cmd - Command with space-separated tokens (no quoting).
+ * @param {object} [options] - Options passed to `execFileSync` (`stdio` defaults to `inherit`).
+ * @throws {Error} On Windows, if any token contains unsafe characters.
+ */
 export function runCmd(cmd, { stdio = 'inherit', cwd, env } = {}) {
   const [file, ...args] = cmd.split(' ')
   if (process.platform === 'win32') {

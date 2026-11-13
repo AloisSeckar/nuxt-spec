@@ -1,5 +1,6 @@
 import { execFileSync } from 'node:child_process'
 
+/** Default branch name used when it cannot be resolved from the repository or Git config. */
 export const FALLBACK_DEFAULT_BRANCH = 'main'
 
 // run a read-only git command, returning trimmed stdout or `undefined` on failure
@@ -20,6 +21,11 @@ function hasRef(ref) {
   }
 }
 
+/**
+ * Checks whether the current working directory is inside a Git work tree.
+ *
+ * @returns {boolean} `true` if it is a Git repository.
+ */
 export function isGitRepo() {
   return git('rev-parse', '--is-inside-work-tree') === 'true'
 }

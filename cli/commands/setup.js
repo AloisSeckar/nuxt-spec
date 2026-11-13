@@ -12,26 +12,6 @@ import { SPEC_VERSION, SPEC_URL } from '../helpers/constants.js'
 /**
  * CLI tool to scaffold necessary adjustments in project folder.
  *
- * It first asks whether to run in "auto" mode (no prompts, force = true) or "manual" mode (with prompts, force = false).
- *
- * Then it:
- *  0) scaffolds a new Nuxt project via `create nuxt` (only if the current directory is empty)
- *  1) adds `nuxt-spec` into `package.json` dependencies and removes `nuxt`, `vue` and `vue-router` if present
- *     (creates default `package.json`, if missing)
- *  2) adds `extends: ['nuxt-spec']` to Nuxt config file (`nuxt.config.{ts,js,mjs,mts,cjs}`)
- *     (creates default `nuxt.config.ts`, if none exists; `.cjs` must be edited manually)
- *  3) creates/updates `pnpm-workspace.yaml` file (only if pnpm is used)
- *  4) creates default `vitest.config.ts` file
- *  5) creates default `.nuxtrc` file
- *  6) adds test-related scripts in `package.json`
- *  7) creates sample test files
- *  8) adds nuxt-spec related entries to `.gitignore`
- *  9) clear node_modules and lock file(s)
- * 10) runs install command
- * 11) runs Nuxt prepare command to generate types and auto-imports
- * 12) runs Playwright setup command
- * 13) runs the sample browser test to create its reference screenshot
- *
  * @param {boolean} autoRun - Whether to run the setup automatically without any prompts (defaults to false).
  * @param {string} [packageManager] - Package manager to be used (`npm`, `pnpm`, `yarn`, `bun` or `deno`).
  */
@@ -300,6 +280,7 @@ export async function specSetup(autoRun = false, packageManager) {
       ['# nuxt-spec screenshots folder', '__current__'],
       ['# nuxt-spec HTML test reports folder', '__reports__'],
     ]
+
     // if .gitignore exists, we rather check for duplicates
     const gitignoreExists = pathExists({ targetPath: '.gitignore' })
     const gitignoreRows = gitignoreExists ? readFileSync('.gitignore', 'utf8').split(/\r?\n/) : []
@@ -307,7 +288,6 @@ export async function specSetup(autoRun = false, packageManager) {
       .filter(([, entry]) => !gitignoreRows.includes(entry))
       .flatMap(([comment, entry]) => ['', comment, entry])
       .slice(gitignoreExists ? 0 : 1)
-    //
     if (rowsToAdd.length > 0) {
       await updateTextFile({
         targetPath: '.gitignore',

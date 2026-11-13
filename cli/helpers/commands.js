@@ -3,10 +3,17 @@ import { SPEC_VERSION } from './constants.js'
 
 export { runCmd } from './run.js'
 
+// package managers supported by the CLI
 export const SUPPORTED_PACKAGE_MANAGERS = ['npm', 'pnpm', 'yarn', 'bun', 'deno']
 
-// get the package manager name for usage in commands
-// explicit override takes precedence over auto-detection
+/**
+ * Gets the package manager name for usage in commands.
+ * Explicit override takes precedence over auto-detection.
+ *
+ * @param {string} [override] - Package manager name passed by the user.
+ * @returns {string} Package manager name.
+ * @throws {Error} If the override is not a supported package manager.
+ */
 export function resolvePackageManager(override) {
   if (override) {
     if (!SUPPORTED_PACKAGE_MANAGERS.includes(override)) {

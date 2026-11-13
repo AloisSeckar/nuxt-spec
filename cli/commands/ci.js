@@ -11,6 +11,7 @@ const SUPPORTED_CI_HOSTS = ['github', 'gitlab']
 
 const GITLAB_ROOT_FILE = '.gitlab-ci.yml'
 
+/** CI workflow templates and their target paths per supported Git host. */
 export const CI_TEMPLATES = {
   github: [
     { template: '.github/workflows/ci-test-verify.yml.template', targetPath: '.github/workflows/ci-test-verify.yml' },
@@ -37,13 +38,6 @@ function getDefaultBranch() {
 
 /**
  * CLI tool to scaffold CI test workflows for selected Git host.
- *
- * It first asks whether to run in "auto" mode (no prompts, force = true) or "manual" mode (with prompts, force = false).
- *
- * Then it:
- *  1) creates CI workflow files for the selected host
- *  2) fills in placeholders - Playwright version and default branch of the Git repository in the current folder (resolved only if used)
- *  3) (GitLab only) adds CI files into `include` section of `.gitlab-ci.yml` (scaffolded from template if missing)
  *
  * @param {string} host - Target Git host (`github` or `gitlab`).
  * @param {boolean} autoRun - Whether to run the scaffolding automatically without any prompts (defaults to false).

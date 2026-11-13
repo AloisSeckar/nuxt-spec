@@ -19,11 +19,8 @@ import { SPEC_VERSION } from './helpers/constants.js'
  * (`npm`, `pnpm`, `yarn`, `bun` or `deno`), bypassing auto-detection.
  */
 
-// get parameters passed by user
 const args = process.argv.slice(2);
 
-// execute actions based on first param
-// additional params might be passed into the called functions
 (async () => {
   let status = 0
   try {
