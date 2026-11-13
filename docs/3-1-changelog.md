@@ -2,6 +2,21 @@
 
 Overview of the latest features in Nuxt Spec.
 
+## 0.4.2
+
+`2026-11-13`
+
+- feat: CLI setup now supports even CommonJS (`.cjs`) Nuxt config files
+- fix: avoid failing first test run in freshly scaffolded project ([#72](https://github.com/AloisSeckar/nuxt-spec/issues/72))
+- fix: temporarilly suppress NDT_DEP_0003 warning from `@nuxt/hints` module ([#69](https://github.com/AloisSeckar/nuxt-spec/issues/69))
+- fix: tighten security by removing direct `execSync` calls in CLI scripts
+- refactor: several internal changes to CLI scripts
+- build: experimental [`AgentCreed`](https://github.com/AloisSeckar/AgentCreed) methodology for AI-assisted development introduced to project
+- build: bump `nuxt` to `4.6.4`
+- build: bump `vitest` to `5.1.0`
+- build: bump `playwright` version to `1.65.0`
+- build: updated dependencies (see the [overview](3-2-dependencies.html))
+
 ## 0.4.1
 
 `2026-10-29`

@@ -53,7 +53,7 @@ If you don't want to use the CLI tool, or you want to understand its flow better
 **1)** Add the following dependency to your `package.json`:
 
 ```json [package.json]
-"nuxt-spec": "0.4.1"
+"nuxt-spec": "0.4.2"
 ```
 
 > Nuxt Spec CLI setup will create a default `package.json` if it doesn't exist yet.
@@ -125,7 +125,7 @@ test/
     └── vitest-unit.test.ts
 ```
 
-You can use sample files from the [project repository](https://github.com/AloisSeckar/nuxt-spec/tree/v0.4.1/test).
+You can use sample files from the [project repository](https://github.com/AloisSeckar/nuxt-spec/tree/v0.4.2/test).
 
 The structure matches the default [configuration](2-1-configuration.html) of `nuxt-spec`.
 
