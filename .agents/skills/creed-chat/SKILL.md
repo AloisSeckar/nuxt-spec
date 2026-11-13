@@ -7,13 +7,13 @@ description: 'Interviewing skill that must be run when clarifying the task given
 
 # creed-chat
 
-Before starting an interview with user, analyze the input and abstract the steps that should lead to the result.
+Before starting an interview with the user, analyze the input and abstract the steps that should lead to the result.
 
-For each step, consider what the required information are.
+For each step, consider what the required information is.
 
-For each required information, consider if it can be obtained from the instructions, docs, codebase or the previous answers. If yes, use the obtained knowledge.
+For each piece of required information, consider if it can be obtained from the instructions, docs, codebase or the previous answers. If yes, use the obtained knowledge.
 
-If no, seek clarification from the user.
+If not, seek clarification from the user.
 
 Repeat this process until all required information for all steps is obtained or clarified.
 

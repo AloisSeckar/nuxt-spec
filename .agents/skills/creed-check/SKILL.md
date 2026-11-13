@@ -7,7 +7,7 @@ description: 'Methodology for checking consistency of instruction files and rele
 
 # creed-check
 
-Following process is used to check and fix current state of agent instructions and project documentation in projects driven by AgentCreed. Follow it step by step to ensure effective assessment.
+The following process is used to check and fix the current state of agent instructions and project documentation in projects driven by AgentCreed. Follow it step by step to ensure effective assessment.
 
 For the purpose of this skill, consider:
 
@@ -21,7 +21,9 @@ For the purpose of this skill, consider:
 
 Split a passage into separate items only where it holds independent rules. Keep a condition together with its consequence (e.g. "do X and notify the user" is one item).
 
-When a flaw is inside AgentCreed-managed text that `AGENTS.md` does not allow editing, do not edit it; log the finding into `.creed/SUGGESTIONS.md` instead.
+For duplication checks, intentional documentation summaries and navigation are not duplicates to remove. Preserve them while consolidating redundant normative rules with the same scope and unnecessarily repeated documented facts. Summaries must stay consistent with their authoritative sources.
+
+When a flaw is in an instruction file or inside AgentCreed-managed text that `AGENTS.md` does not allow editing, do not edit it; log the finding into `.creed/SUGGESTIONS.md` instead. This restriction applies to every editing step below.
 
 Fix typos and grammar mistakes in any file you read and may edit right away, without asking and without adding them into `fixes`, provided the meaning does not change. If a correction could change the meaning, treat it as an ambiguity (add it into `questions`).
 
@@ -29,11 +31,11 @@ When moving or rephrasing a `source`, move text word for word by default and kee
 
 ## 1. Gathering information
 
-First read the key files line-by-line to get the full picture about current status.
+First read the key files line by line to get the full picture of the current status.
 
 Start with empty `security-boundaries`, `agent-instructions`, `documented-facts` and `questions` lists.
 
-For each step below: if the main file is not present in `project root`, log its absence into `.creed/SUGGESTIONS.md` and add a question whether to create it into `questions`.
+For each step below: if the main file is not present in `project root`, log its absence into `.creed/SUGGESTIONS.md` and add a question into `questions` asking whether to create it.
 
 ### 1.1 Security Boundaries
 
@@ -51,7 +53,7 @@ Read `ARCHITECTURE.md` in `project root` with its `linked-files` and `README.md`
 
 Now analyze the gathered items closely and systematically to discover flaws.
 
-Start with empty `fixes` list. Whenever you make any edit based on rules below, note the change down into it.
+Start with an empty `fixes` list. Whenever you make any edit based on the rules below, note the change down in it.
 
 For each item of `security-boundaries` list, verify it is:
 
@@ -78,9 +80,9 @@ For each item of `documented-facts` list, verify it is:
 
 After all items are checked:
 
-1. If `questions` is not empty, stop and ask user for clarification of all of them at once. Make appropriate changes to reflect user info, note them into `fixes` and empty `questions`.
-2. If `fixes` is not empty (including changes made after user's answers), the consistency must be re-assessed: gather the lists again (chapter 1) and start over with this chapter. Repeat this loop at most 3 times. If `fixes` is still not empty after the 3rd repetition, stop and ask user how to proceed, listing the remaining changes.
-3. Once a pass ends with empty `fixes` and `questions`, proceed to next chapter.
+1. If `questions` is not empty, stop and ask the user for clarification of all of them at once. Make appropriate changes to reflect user info, note them into `fixes` and empty `questions`.
+2. If `fixes` is not empty (including changes made after user's answers), the consistency must be re-assessed: gather the lists again (chapter 1) and start over with this chapter. Repeat this loop at most 3 times. If `fixes` is still not empty after the 3rd repetition, stop and ask the user how to proceed, listing the remaining changes.
+3. Once a pass ends with empty `fixes` and `questions`, proceed to the next chapter.
 
 ## 3. Report
 

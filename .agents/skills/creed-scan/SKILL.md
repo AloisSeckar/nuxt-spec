@@ -11,7 +11,7 @@ description: Skill for structured exploration of codebases to understand structu
 
 Use this approach to systematically explore and understand a codebase.
 
-If `ARCHITECTURE.md` file already exists in project root, treat it as a source of truth. Otherwise fallback to `README.md`. Verify available claims against the code and look directly into the code for anything it does not cover.
+If the `ARCHITECTURE.md` file already exists in the project root, treat it as a source of truth. Otherwise, fall back to `README.md`. Verify available claims against the code and look directly into the code for anything it does not cover.
 
 ## Project Analysis Workflows
 
@@ -162,14 +162,14 @@ If any items cannot be verified, note them as "needs clarification" in the repor
 
 ## Persisting Analysis
 
-If `ARCHITECTURE.md` exists in project root and ends with `<!-- ↑↑↑ agentcreed ↑↑↑ -->`, append the analysis after this marker.
+If `ARCHITECTURE.md` exists in the project root and ends with `<!-- ↑↑↑ agentcreed ↑↑↑ -->`, append the analysis after this marker.
 
-If `ARCHITECTURE.md` exists in project root and has any other content (with or without `<!-- ↑↑↑ agentcreed ↑↑↑ -->` marker), merge the findings into its existing text instead.
+If `ARCHITECTURE.md` exists in the project root and has any other content (with or without `<!-- ↑↑↑ agentcreed ↑↑↑ -->` marker), merge the findings into its existing text instead.
 
-If `ARCHITECTURE.md` does not exist in project root, create the file, use project name as a H1 headline and insert the analysis afterwards.
+If `ARCHITECTURE.md` does not exist in the project root, create the file, use the project name as an H1 headline and insert the analysis afterwards.
 
 ## Final Check
 
-Run `creed-check` skill session to ensure consistency of all the newly documented facts.
+Run a `creed-check` skill session to ensure consistency of all the newly documented facts.
 
 <!-- ↑↑↑ agentcreed ↑↑↑ -->
