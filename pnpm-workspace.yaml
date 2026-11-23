@@ -28,6 +28,13 @@ overrides:
   'playwright': '1.65.0'
   # temp fix for https://github.com/nuxt/nuxt/issues/36829
   '@nuxt/cli': '^4.0.3'
+  # pnpm audit @ 2026-11-23
+  fast-uri@>=3.0.0 <3.1.9: ^3.1.9
+  glob@>=9.0.0 <=14.0.1: ^14.0.2
+  minimatch@>=7.0.0 <11.0.1: ^11.0.1
+  node-forge@<=1.4.2: ^1.4.3
+  serialize-javascript@<7.1.3: ^7.1.3
+  zod@<4.6.6: ^4.6.6
 
 # https://pnpm.io/settings/dependency-resolution#minimumreleaseageexclude
 # minimumReleaseAgeExclude:
