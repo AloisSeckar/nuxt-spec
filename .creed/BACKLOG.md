@@ -9,4 +9,3 @@ This file holds pending tasks only, as a numbered list. Resolved items are delet
 <!-- ↑↑↑ agentcreed ↑↑↑ -->
 
 1. `docs/4-1-contributing.md` is incomplete - it only links to the author's GitHub profile and lacks contribution rules.
-2. `cli/nuxt-spec.js` line 22 (`const args = process.argv.slice(2);`) ends with a semicolon, but the project convention is no semicolons. Remove the semicolon.

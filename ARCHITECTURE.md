@@ -79,7 +79,7 @@ nuxt-spec (root, published)      nuxt-spec-cli (cli/, published)     docs/ (priv
 
 ## Conventions
 
-- ESM everywhere (`"type": "module"`); no semicolons, single quotes, 2-space indent (`@nuxt/eslint` stylistic, custom rules in `eslint.config.mjs`).
+- ESM everywhere (`"type": "module"`); no semicolons unless JS syntax requires one, single quotes, 2-space indent (`@nuxt/eslint` stylistic, custom rules in `eslint.config.mjs`).
 - Entry points `config/index.mjs` and `config/utils/options.mjs` are plain `.mjs` files with hand-written type declarations next to them (`index.d.ts`, `options.d.mts`); keep both in sync.
 - Short lowercase `//` comments explaining intent; JSDoc on exported utilities and CLI entry points.
 - `nuxt-spec` and `nuxt-spec-cli` always share the same version and are released together.

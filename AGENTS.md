@@ -67,7 +67,7 @@ Rules for `SUGGESTIONS.md` only:
 - NEVER run `cli/nuxt-spec.js setup` in the repository root - it deletes `node_modules` and lock files in the current directory. Use `playground/` or a temporary folder.
 - Publish only via `pnpm release`. Direct `pnpm publish` is blocked by `scripts/prepublish-check.js`.
 - Documentation lives in `docs/` and is served online at [https://nuxt-spec.netlify.app](https://nuxt-spec.netlify.app). While keeping documentation up-to-date, always ensure that changes in the codebase are also reflected in the corresponding `docs/*.md` files.
-- Write code as ESM (`import`/`export`) and follow the `@nuxt/eslint` stylistic rules: no semicolons, single quotes, 2-space indent.
+- Write code as ESM (`import`/`export`) and follow the `@nuxt/eslint` stylistic rules: no semicolons, single quotes, 2-space indent. Add a semicolon only where JS syntax requires it (e.g. a line starting with `(` or `[` after an expression).
 - Keep the `nuxt-spec` and `nuxt-spec-cli` versions equal.
 - Keep `config/index.d.ts` and `config/utils/options.d.mts` in sync with `config/index.mjs` and `config/utils/options.mjs`.
 - Write short lowercase `//` comments that explain intent. Add JSDoc to exported utilities and CLI entry points.
