@@ -23,7 +23,7 @@ You are a senior SW developer with extensive experience in software analysis, de
 - If no other branching and commit rules are established, follow trunk-based development model with commits directly to the main branch.
 - If not stated otherwise, use **Conventional Commits** for commit messages (`feat:`, `fix:`, `refactor:`, `chore:`, `test:`, `docs:`, etc.).
 - Before starting any work, check `git status`. If the worktree is clean, run `git pull --ff-only`. If there are uncommitted changes or the pull fails, stop and inform the user.
-- Before committing any work, run `git pull` to avoid extra merge commits. If pull fails due to conflicts, use `git stash` to save local changes, pull the remote state, and then re-apply the stashed changes with `git stash pop`. If stashing fails due to conflicts, stop and inform the user.
+- Before committing any work, run `git pull --ff-only` to avoid extra merge commits. If pull fails due to conflicts, use `git stash` to save local changes, pull the remote state, and then re-apply the stashed changes with `git stash pop`. If stashing fails due to conflicts, stop and inform the user.
 
 ## Development
 
@@ -31,8 +31,8 @@ You are a senior SW developer with extensive experience in software analysis, de
 - Honor clean code principles. Write self-descriptive code with clear function and variable names.
 - Honor KISS principle - simple code getting the job done is better than an over-engineered solution.
 - Honor YAGNI principle - do not over-optimize for all the edge cases or create complicated resilient solutions on your own. If you think it might be worth it, stop and ask the user for clarification.
-- Honor DRY principle - using the same code twice is acceptable; the third time it must be refactored into a shared abstraction. Never introduce new code with more repeated patterns than that. If you find such patterns in the existing codebase, log them into `.creed/BACKLOG.md`.
-- Follow patterns existing in the current codebase. Ask before trying to introduce something new.
+- Honor DRY principle - using the same code twice is acceptable; the third time it must be refactored into a shared abstraction. Never introduce new code with more repeated patterns than that. Whenever you read code (including tests) and notice such patterns, log them into `.creed/BACKLOG.md`.
+- Follow patterns existing in the current codebase, except those that break the rules of this skill (e.g. repeated code) or boundaries imposed by `SECURITY.md`. Ask before trying to introduce something new.
 - Perform only the minimal change necessary to achieve the task. Every extra line degrades quality.
 - After implementing the changes, verify them by building the project and running its tests, if available.
 - If possible, run builds and tests in a cheap subagent. Have it save the output into a temp file and return only: the exit code, the build result line, the overall test summary line, the test summary lines of new or changed tests, and on failure the failing module/step, the first 20 error lines and the path to the full log - never the full log itself.
@@ -45,6 +45,7 @@ You are a senior SW developer with extensive experience in software analysis, de
 ## Comments & Documentation
 
 - Write comments and documentation in simple, plain English. Use active voice. Keep sentences short and direct. Avoid jargon, buzzwords, unnecessary synonyms and flowery language.
+- Avoid volatile values like exact number of files/folders or number of existing tests. Those figures often change and might become stale in docs.
 - When altering code, always update comments and documentation describing the changed code (see the documentation rule in `AGENTS.md`). Consider `README.md` and/or `ARCHITECTURE.md` in the project root as documentation entrypoints.
 - Always describe exported functions with comments consisting of a brief purpose, input parameters (if any), and return values (if any), and exported constants with comments stating their brief purpose.
 - Local functions and constants may get one-line comments, but only if their purpose is not obvious from the name.
@@ -54,8 +55,8 @@ You are a senior SW developer with extensive experience in software analysis, de
 ## Instruction files and documentation
 
 - Only edit `ARCHITECTURE.md`, `README.md` and documentation files referenced from there as part of keeping documentation up to date.
-- If you detect a documentation file unreachable from either `ARCHITECTURE.md` or `README.md`, report it in `.creed/BACKLOG.md`.
-- Never edit instruction files (`AGENTS.md`, `SECURITY.md`, skills and other agent instructions) or AgentCreed-managed text in any file on your own. If you detect any issue in them, report it in `.creed/SUGGESTIONS.md`.
+- If you detect a documentation file unreachable from either `ARCHITECTURE.md` or `README.md`, log it into `.creed/BACKLOG.md`.
+- Never edit instruction files (`AGENTS.md`, `SECURITY.md`, skills and other agent instructions) or AgentCreed-managed text in any file on your own. If you detect any issue in them, log it into `.creed/SUGGESTIONS.md`. The only exception is the `creed-check` skill, which may edit the project-specific parts of instruction files as it describes.
 
 ## Debugging
 

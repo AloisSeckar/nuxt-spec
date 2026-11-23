@@ -13,6 +13,10 @@ Use this approach to systematically explore and understand a codebase.
 
 If the `ARCHITECTURE.md` file already exists in the project root, treat it as a source of truth. Otherwise, fall back to `README.md`. Verify available claims against the code and look directly into the code for anything it does not cover.
 
+## Preparation
+
+If and only if `.creed/.check` is not present in `project root` yet (the first run after installation), skip the `git status` and `git pull --ff-only` check required by `creed-dev` and continue right away.
+
 ## Project Analysis Workflows
 
 Copy this checklist and track progress:
@@ -83,6 +87,8 @@ Look for and report:
 - **Authentication**: JWT, OAuth, Sessions
 - **Testing**: Jest, Pytest, Go test, etc.
 
+Check each pattern before listing it under Conventions. Do not list patterns that break `creed-dev` rules (e.g. repeated code) or boundaries imposed by `SECURITY.md`; log them as findings into `.creed/BACKLOG.md` instead.
+
 ## Step 5: Development Workflow
 
 Check for:
@@ -90,7 +96,7 @@ Check for:
 - `.eslintrc`, `.prettierrc` → Linting/Formatting
 - `.husky/` → Git hooks
 - `Makefile` → Build commands
-- `scripts/` in package.json → NPM scripts
+- `scripts` in `package.json` → NPM scripts
 
 ## Step 6: Output Format
 
@@ -139,10 +145,6 @@ Generate a summary using this template:
 | Dev     | `npm run dev`   |
 | Test    | `npm test`      |
 | Build   | `npm run build` |
-
-## Needs Clarification
-
-- [ ] Any assumptions made without evidence are noted
 ```
 
 ## Analysis Validation
@@ -158,7 +160,7 @@ Analysis Validation:
 - [ ] No assumptions made without evidence
 ```
 
-If any items cannot be verified, note them as "needs clarification" in the report.
+If any items cannot be verified, ask the user in the chat while offering to log them into `.creed/BACKLOG.md` if the user cannot answer right away. Never persist open questions or assumptions into `ARCHITECTURE.md`.
 
 ## Persisting Analysis
 

@@ -2,7 +2,7 @@
 
 <!-- ↓↓↓ agentcreed ↓↓↓ -->
 
-This file describes the project tech stack, structure and coding conventions. Rules for handling this file are defined in [AGENTS.md](./AGENTS.md).
+This file describes the project tech stack, structure and the coding conventions used. Rules for handling this file are defined in [AGENTS.md](./AGENTS.md).
 
 <!-- ↑↑↑ agentcreed ↑↑↑ -->
 
@@ -80,10 +80,10 @@ nuxt-spec (root, published)      nuxt-spec-cli (cli/, published)     docs/ (priv
 ## Conventions
 
 - ESM everywhere (`"type": "module"`); no semicolons, single quotes, 2-space indent (`@nuxt/eslint` stylistic, custom rules in `eslint.config.mjs`).
-- Files under `config/` are plain `.mjs` with hand-written type declarations next to them; keep both in sync.
+- Entry points `config/index.mjs` and `config/utils/options.mjs` are plain `.mjs` files with hand-written type declarations next to them (`index.d.ts`, `options.d.mts`); keep both in sync.
 - Short lowercase `//` comments explaining intent; JSDoc on exported utilities and CLI entry points.
 - `nuxt-spec` and `nuxt-spec-cli` always share the same version and are released together.
-- Pinned dependency versions in `package.json`; `playwright` and `playwright-core` are pinned in lockstep, and `PLAYWRIGHT_VERSION` in `cli/helpers/constants.js` must match.
+- Dependency versions in `package.json` are a mix of exact pins and `~`/`^` ranges; `playwright` and `playwright-core` are pinned in lockstep, and `PLAYWRIGHT_VERSION` in `cli/helpers/constants.js` must match.
 - Repo-only pnpm `overrides` in `pnpm-workspace.yaml` are not shipped to consumers.
 - Test files are named `*.test.ts` and placed in the folder of their Vitest project.
 

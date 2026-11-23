@@ -2,7 +2,15 @@
 
 <!-- ↓↓↓ agentcreed ↓↓↓ -->
 
-This file describes security boundaries and restrictions that MUST ALWAYS be followed. Rules for handling this file are defined in [AGENTS.md](./AGENTS.md).
+This file describes security boundaries and restrictions that MUST ALWAYS be followed, unless a local rule marked as an intentional exception exists. Rules for handling this file are defined in [AGENTS.md](./AGENTS.md).
+
+## Destructive Operations
+
+- **DON'T** run irreversible recursive delete, overwrite, or wipe commands (e.g., `rm -rf`, `Remove-Item -Recurse -Force`, `rd /s /q`, `find -delete`, `dd`, `mkfs`, `format`) against the filesystem root, the user's home directory, the project root, the `.git` directory, or any of their parent directories.
+- **DON'T** run delete commands whose target comes from an unset or unverified variable, a wildcard, or a relative path (e.g., `rm -rf "$DIR/"`, `rm -rf ~/*`, `rm -rf ../`); **DO** resolve the absolute target path first and verify it is a specific path strictly inside the project root.
+- **DON'T** discard uncommitted or unpushed work or rewrite published history (e.g., `git reset --hard`, `git clean -fdx`, `git checkout -- .`, `git restore .`, `git push --force`, deleting branches) without explicit user confirmation for that specific command.
+- **DON'T** drop, truncate, reset, or mass-modify databases (e.g., `DROP`, `TRUNCATE`, `DELETE`/`UPDATE` without `WHERE`, destructive migrations or `db reset` commands) or destroy infrastructure and cloud resources (e.g., `terraform destroy`, `kubectl delete`, cloud CLI delete commands) without explicit user confirmation for that specific command, and never against production.
+- **DON'T** change files, permissions, ownership, packages, or processes outside the project root (e.g., `chmod -R`, `chown -R`, `sudo`, global installs or uninstalls, killing unrelated processes) without explicit user confirmation for that specific command.
 
 ## Secrets & Credentials
 

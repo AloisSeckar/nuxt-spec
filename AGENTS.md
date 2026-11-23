@@ -8,7 +8,9 @@ This project uses the `AgentCreed` methodology for AI-assisted software developm
 
 Always use the `creed-dev` skill when tasked to interact with the codebase.
 
-Lines `<!-- ↓↓↓ agentcreed ↓↓↓ -->` and `<!-- ↑↑↑ agentcreed ↑↑↑ -->` are structural markers, not instructions. Text between them is managed by AgentCreed and gets overwritten on `agentcreed update`: each file has a single managed block, project-specific content belongs AFTER `<!-- ↑↑↑ agentcreed ↑↑↑ -->`, and managed text must not be edited unless `AGENTS.md` allows it.
+Lines `<!-- ↓↓↓ agentcreed ↓↓↓ -->` and `<!-- ↑↑↑ agentcreed ↑↑↑ -->` are structural markers, not instructions. Text between them is managed by AgentCreed and gets overwritten on `agentcreed setup` and `agentcreed update`: each file has a single managed block, project-specific content belongs AFTER `<!-- ↑↑↑ agentcreed ↑↑↑ -->`, and managed text must not be edited unless `AGENTS.md` allows it.
+
+Project-specific rules (outside AgentCreed-managed text) may intentionally override AgentCreed-managed rules, including rules in `SECURITY.md`. Always include any such rule in summary response.
 
 When the user prompt contradicts any of the established rules, notify the user and ask for confirmation.
 
@@ -16,7 +18,7 @@ When the user prompt contradicts any of the established rules, notify the user a
 
 Before starting any task, read:
 
-- [ARCHITECTURE.md](./ARCHITECTURE.md) - the project tech stack, structure and coding conventions.
+- [ARCHITECTURE.md](./ARCHITECTURE.md) - the project tech stack, structure and the coding conventions used.
 - [SECURITY.md](./SECURITY.md) - security boundaries and restrictions that MUST ALWAYS be followed.
 
 Rules for both files:
@@ -25,8 +27,15 @@ Rules for both files:
 - Prefer `ARCHITECTURE.md` to gather relevant info about the project. Fallback to `README.md` if needed. If a topic is not sufficiently covered and further discovery is required, suggest that the user update the file accordingly.
 - `ARCHITECTURE.md`, `README.md` and files linked from them are documentation, not instruction files. Keep them up-to-date by this rule for every wrong or outdated passage you notice:
   - If it describes code, configuration, commands or behavior changed in the current task, make the whole passage correct as part of the task, even if parts were wrong before. Notify the user about implied architecture changes.
-  - Otherwise do not edit it, but log it into `BACKLOG.md` with the quoted passage and the actual state.
+  - Otherwise do not edit it, but log it into `BACKLOG.md` with the quoted passage and the actual state. This does not apply to the `creed-check` skill, which can edit all documentation in its described reach.
+
+Rules for `SECURITY.md` only:
+
 - Rules in `SECURITY.md` take precedence over any task, user prompt or other instruction. Never break them silently, partially or temporarily. If the task contradicts or would violate them, pause the execution before making the violating change, quote the affected rule and let the user decide the next step. Proceed only after explicit user confirmation for this specific case, and suggest updating `SECURITY.md` instead of one-off exceptions.
+
+Rules for `ARCHITECTURE.md` only:
+
+- Every coding convention is documented twice: as a fact in `ARCHITECTURE.md` (e.g. "Functions are documented with JSDoc") and as the derived rule for writing code in the project-specific part of `AGENTS.md` (e.g. "Every function MUST have a JSDoc comment"). Both places must be kept in sync when a task adds, changes or removes a convention.
 
 ## Suggestions and backlog
 
@@ -38,10 +47,17 @@ Two files versioned in git collect **pending** items only:
 Rules for both files:
 
 - Items are numbered list entries (`1.`, `2.`, ...) for easy reference by number.
-- When you notice applicable item, append it as a new numbered item into the matching file and notify the user. Other instructions referring to "log into `SUGGESTIONS.md`" or "log into `BACKLOG.md`" mean this procedure.
+- When you notice an applicable item, append it as a new numbered item into the matching file and notify the user. Other instructions referring to "log into `SUGGESTIONS.md`" or "log into `BACKLOG.md`" mean this procedure.
+- Before appending (including moves of text into these files by skills), read the target file. If an item with the same meaning is already listed, do not add a duplicate; if the new finding adds relevant detail, update the existing item instead. Notify the user only about genuinely new or updated items.
 - Logging never replaces asking. If the item blocks or affects the current task, also stop and let the user decide.
-- Never mark items as done, resolved or obsolete. Once an item is resolved, delete it from the file entirely.
+- Never mark items as done, resolved or obsolete. Once an item is resolved, delete it from the file entirely and renumber the remaining items.
 - Treat an item as resolved only when its change has been implemented in this session or the user explicitly confirms it. Otherwise leave it untouched.
+
+Rules for `SUGGESTIONS.md` only:
+
+- Start every item with one of two tags:
+  - `[local]` - the finding is caused by project-specific instructions (anything outside AgentCreed-managed text). Describe the issue and propose a fix. The user can fix it on his/her own.
+  - `[agentcreed]` - the finding has origin in AgentCreed-managed text (managed blocks of any file, shipped skills). Persistent fix must be made in AgentCreed repository. Append the item with the note `Report to AgentCreed repository.` and add a draft of a temporary local override: the exact rule text the user can place into the project-specific part of `AGENTS.md` (after the closing marker). Start the draft with the line `<!-- TEMPORARY OVERRIDE of AgentCreed: re-assess after the next agentcreed update and remove if fixed upstream -->`. Never apply the override yourself.
 
 <!-- ↑↑↑ agentcreed ↑↑↑ -->
 
@@ -51,3 +67,10 @@ Rules for both files:
 - NEVER run `cli/nuxt-spec.js setup` in the repository root - it deletes `node_modules` and lock files in the current directory. Use `playground/` or a temporary folder.
 - Publish only via `pnpm release`. Direct `pnpm publish` is blocked by `scripts/prepublish-check.js`.
 - Documentation lives in `docs/` and is served online at [https://nuxt-spec.netlify.app](https://nuxt-spec.netlify.app). While keeping documentation up-to-date, always ensure that changes in the codebase are also reflected in the corresponding `docs/*.md` files.
+- Write code as ESM (`import`/`export`) and follow the `@nuxt/eslint` stylistic rules: no semicolons, single quotes, 2-space indent.
+- Keep the `nuxt-spec` and `nuxt-spec-cli` versions equal.
+- Keep `config/index.d.ts` and `config/utils/options.d.mts` in sync with `config/index.mjs` and `config/utils/options.mjs`.
+- Write short lowercase `//` comments that explain intent. Add JSDoc to exported utilities and CLI entry points.
+- Keep `playwright`, `playwright-core` and `PLAYWRIGHT_VERSION` in `cli/helpers/constants.js` on the same version.
+- Put repo-only pnpm `overrides` into `pnpm-workspace.yaml` only.
+- Name test files `*.test.ts` and place them in the folder of their Vitest project.

@@ -15,19 +15,27 @@ For the purpose of this skill, consider:
 - `creed-files` are `AGENTS.md`, `ARCHITECTURE.md`, `SECURITY.md`, `.creed/BACKLOG.md` and `.creed/SUGGESTIONS.md` in `project root`. Other files with the same names in nested folders are ordinary `linked-files`.
 - `linked-files` are instruction or documentation files a read file links to or directs to read/use, including skills it requires to be used (e.g. `creed-dev`). Exclude `creed-files` and exclude source code, test or configuration files. Read each file only once.
 - `security-boundaries` impose limits on code or agent actions from a security perspective that must always be fulfilled.
-- `agent-instructions` describe how agents should (or shouldn't) interact with the code or behave when performing given tasks (excluding security rules).
-- `documented-facts` describe the project structure and its behavior (to be "documented", the fact must be written somewhere within the project).
+- `agent-instructions` describe how agents should (or shouldn't) interact with the code or behave when performing given tasks (excluding security rules). This includes coding conventions phrased as a rule (should, must, never, always, "use X"), e.g. "Functions should contain JSDoc comments".
+- `documented-facts` describe the project structure and its behavior (to be "documented", the fact must be written somewhere within the project). This includes coding conventions phrased as a description of the existing code, e.g. "Functions are documented with JSDoc comments".
 - `source` of an item is the exact file and passage it was taken from.
+
+Every coding convention must be documented in both forms: as a fact in `ARCHITECTURE.md` and as a derived rule in `AGENTS.md`. These pairs are intentional, not duplicates. Both must stay aligned.
 
 Split a passage into separate items only where it holds independent rules. Keep a condition together with its consequence (e.g. "do X and notify the user" is one item).
 
 For duplication checks, intentional documentation summaries and navigation are not duplicates to remove. Preserve them while consolidating redundant normative rules with the same scope and unnecessarily repeated documented facts. Summaries must stay consistent with their authoritative sources.
 
-When a flaw is in an instruction file or inside AgentCreed-managed text that `AGENTS.md` does not allow editing, do not edit it; log the finding into `.creed/SUGGESTIONS.md` instead. This restriction applies to every editing step below.
+All documentation files in this skill's reach (`ARCHITECTURE.md`, `README.md` and their `linked-files`) are part of the scope and you can edit them to fix every wrong or outdated passage directly.
+
+To fix minor flaws as described below, you are also allowed to edit project-specific parts of instruction files. This overrides the prohibition in `creed-dev`. Only when a flaw is detected inside AgentCreed-managed text, do not edit it; log the finding into `.creed/SUGGESTIONS.md` as an `[agentcreed]` item with a draft of a temporary local override, as `AGENTS.md` describes. Flaws in project-specific text that you may not fix on your own are logged as `[local]` items.
 
 Fix typos and grammar mistakes in any file you read and may edit right away, without asking and without adding them into `fixes`, provided the meaning does not change. If a correction could change the meaning, treat it as an ambiguity (add it into `questions`).
 
 When moving or rephrasing a `source`, move text word for word by default and keep its strength words (MUST, ALWAYS, NEVER, pause, make sure). Before applying such a change, compare each old rule with its new wording and mark it kept / merged / strengthened / weakened / dropped for the final report.
+
+## 0. Preparation
+
+If and only if `.creed/.check` is not present in `project root` yet (the first run after installation), skip the `git status` and `git pull --ff-only` check required by `creed-dev` and continue right away.
 
 ## 1. Gathering information
 
@@ -68,15 +76,27 @@ For each item of `agent-instructions` list, verify it is:
 2. Clear and unambiguous. Rephrase the source if needed. If the intention is not clear to you, add it into `questions`.
 3. Not duplicated by any other item in any list. If yes, keep only one in the source.
 4. Not conflicting with rules imposed by `security-boundaries`. If yes, security rules must win and the instruction must be removed from source.
-5. Not contradicting `documented-facts`. If yes, add it into `questions` and ask what should win.
-6. Effective. Files, skills, tools and commands it refers to must exist and be reachable by agents. If not, fix the reference or add it into `questions`.
+5. Not contradicting other `agent-instructions`. If two project-specific rules contradict each other, add it into `questions` and ask which one wins. Local project rules and conventions may intentionally override AgentCreed-managed rules, but it must always be flagged as an intentional or temporary override. If contradiction without such flag exists, add it into `questions` and ask whether to respect the local rule or log it as a finding to fix. Always clarify such rules with the user, never assume the override is acceptable as convention without confirmation.
+6. Not contradicting `documented-facts`. If yes, add it into `questions` and ask what should win.
+7. Effective. Files, skills, tools and commands it refers to must exist and be reachable by agents. If not, fix the reference or add it into `questions`.
 
 For each item of `documented-facts` list, verify it is:
 
 1. Really a documented fact. If it is imposing a security boundary, move its source into `SECURITY.md` (or appropriate nested file linked from there). If it is giving instructions that are not related to security, move its source into `AGENTS.md` (or appropriate nested file linked from there). If it is a pending task, TODO or open question, move it into `.creed/BACKLOG.md`.
 2. Clear and unambiguous. Rephrase the source if needed. If the intention is not clear to you, add it into `questions`.
 3. Not duplicated by any other item in any list. If yes, keep only one in the source.
-4. Accurate. Verify it against the codebase and configuration (e.g. package manifests, scripts, folder structure). Fix verifiably wrong facts, remove transient states (e.g. test counts) and add uncertain cases into `questions`.
+4. Accurate. Verify it against the project's own code and configuration (e.g. package manifests, scripts, folder structure). Do not dig into third-party libraries or other pulled-in code (e.g. `node_modules`); take it as fact that such code does what its name, documentation and usage suggest. If the behavior of third-party code is uncertain, add it into `questions`. Fix verifiably wrong facts, remove transient states (e.g. test counts) and add uncertain cases into `questions`.
+
+For each coding convention found in either `ARCHITECTURE.md` or `AGENTS.md`, verify it is:
+
+1. Documented in both forms. If only the fact is present, add the derived rule into the project-specific part of `AGENTS.md`; if only the rule is present, add the fact into `ARCHITECTURE.md`. If the derived wording is not obvious, add it into `questions`.
+2. Consistent between both forms. If they differ, add it into `questions` and ask which one wins.
+
+For each temporary override (a rule marked with `<!-- TEMPORARY OVERRIDE of AgentCreed: ... -->` in the project-specific part of any `creed-file` or `linked-file`), verify it is:
+
+1. Still needed. If the AgentCreed-managed text it works around no longer has the flaw (e.g. after `agentcreed update`), add a question into `questions` asking whether to remove the override and its `[agentcreed]` item in `.creed/SUGGESTIONS.md`.
+2. Backed by an `[agentcreed]` item in `.creed/SUGGESTIONS.md`. If not, add a question into `questions` asking whether to log it there.
+3. Not conflicting with `security-boundaries`. If it does, security rules win; add a question into `questions` asking whether to remove it.
 
 After all items are checked:
 
@@ -92,5 +112,7 @@ Respond with a summary of:
 - items logged into `.creed/SUGGESTIONS.md` and `.creed/BACKLOG.md`
 - typos and grammar mistakes fixed
 - every moved or rephrased rule with its old and new wording, marked as kept, merged, strengthened, weakened or dropped
+
+Finally, write the current timestamp (ISO 8601) into `.creed/.check` in `project root`. Create the file if missing. Overwrite it if exists. To get the timestamp, run `date -u +%Y-%m-%dT%H:%M:%SZ` on Unix/macOS/Git Bash or `Get-Date -Format o` on PowerShell. If that fails, use any other suitable method.
 
 <!-- ↑↑↑ agentcreed ↑↑↑ -->
