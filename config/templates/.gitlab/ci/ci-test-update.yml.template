@@ -30,6 +30,7 @@ ci-test-update:
       - .pnpm-store/
   before_script:
     - ': "${NUXT_SPEC_CI_TOKEN:?CI/CD variable NUXT_SPEC_CI_TOKEN (project access token with write_repository scope) is required}"'
+    - npm install --global corepack
     - corepack enable
     - pnpm install --frozen-lockfile --store-dir "$PNPM_STORE_DIR"
     - pnpm store prune --store-dir "$PNPM_STORE_DIR"

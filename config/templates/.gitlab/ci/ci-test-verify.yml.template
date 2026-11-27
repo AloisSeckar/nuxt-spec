@@ -23,6 +23,7 @@ ci-test-verify:
     paths:
       - .pnpm-store/
   before_script:
+    - npm install --global corepack
     - corepack enable
     - pnpm install --frozen-lockfile --store-dir "$PNPM_STORE_DIR"
     - pnpm store prune --store-dir "$PNPM_STORE_DIR"
