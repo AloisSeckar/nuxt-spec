@@ -14,7 +14,7 @@ Overview of the latest features in Nuxt Spec.
 - build: experimental [`AgentCreed`](https://github.com/AloisSeckar/AgentCreed) methodology for AI-assisted development introduced to project
 - build: bump `nuxt` to `4.6.4`
 - build: bump `vitest` to `5.1.0`
-- build: bump `playwright` version to `1.65.0`
+- build: bump `playwright` version to `1.65.1`
 - build: updated dependencies (see the [overview](3-2-dependencies.html))
 
 ## 0.4.1
