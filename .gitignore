@@ -21,6 +21,5 @@ __current__
 # nuxt-spec HTML test reports folder
 __reports__
 
-# Vitest browser screenshots folder
-# (deliberately ignored during development)
-__screenshots__
+# avoid accidental inclusion of dev-only files
+test-component-chromium-win32.png
