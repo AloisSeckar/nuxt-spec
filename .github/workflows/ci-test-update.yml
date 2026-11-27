@@ -97,7 +97,7 @@ jobs:
               body: `Test baselines update triggered on run #${RUN_NUMBER} against branch \`${REF_NAME}\`.`,
             }))')
           curl -sS -X POST \
-            -u "x-access-token:$GH_TOKEN" \
+            -H "Authorization: ******" \
             -H "Accept: application/vnd.github+json" \
             -H "Content-Type: application/json" \
             -d "$BODY" \
