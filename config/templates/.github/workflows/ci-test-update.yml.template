@@ -33,6 +33,7 @@ jobs:
 
       - name: Enable pnpm via corepack
         run: |
+          npm uninstall --global yarn
           npm install --global corepack
           corepack enable
 
