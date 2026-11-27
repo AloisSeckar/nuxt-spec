@@ -9,7 +9,7 @@ describe('Visual Regression', async () => {
   // start the Nuxt application
   await setup()
 
-  test('home page matches screenshot - custom', async () => {
+  test('home page matches baseline screenshots', async () => {
     // open a real browser page and navigate to the running Nuxt app
     const page = await createPage()
     await page.setViewportSize({ width: 1280, height: 720 }) // important for consistent results!
@@ -27,7 +27,7 @@ describe('Visual Regression', async () => {
     expect(await compareScreenshot(page, { fileName: 'component.png', selector: 'h1', maxDiffPixels: 300 })).toEqual(true)
   })
 
-  test('visual regression test report generation', async () => {
+  test('visual regression detection', async () => {
     // open a real browser page and navigate to the running Nuxt app
     const page = await createPage()
     await page.setViewportSize({ width: 1280, height: 720 }) // important for consistent results!

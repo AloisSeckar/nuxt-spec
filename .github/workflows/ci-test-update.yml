@@ -55,7 +55,8 @@ jobs:
         run: pnpm store prune
 
       - name: Regenerate test baselines
-        run: pnpm test-u
+        # "visual regression detection" must be skipped to avoid overwriting the wrong.jpg baseline
+        run: pnpm test-u -t '^(?!.*visual regression detection)'
 
       - name: Commit updated baselines
         env:
