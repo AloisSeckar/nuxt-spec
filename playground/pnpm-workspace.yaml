@@ -1,7 +1,5 @@
 allowBuilds:
   'esbuild': false
 overrides:
-  # temp issue with vue-router
-  'vue-router': '5.5.1'
   # security (build 2026-11-27)
   minimatch@>=7.0.0 <11.0.1: ^11.0.1

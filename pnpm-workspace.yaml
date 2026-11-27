@@ -26,15 +26,9 @@ overrides:
   'vite': '^8.4.0'
   # align playwright version
   'playwright': '1.65.1'
-  # temp issue with vue-router
-  'vue-router': '5.5.1'
   # security (build 2026-11-27)
   glob@>=9.0.0 <=14.0.1: ^14.0.2
   minimatch@>=7.0.0 <11.0.1: ^11.0.1
 
 # https://pnpm.io/settings/dependency-resolution#minimumreleaseageexclude
-minimumReleaseAgeExclude:
-  # build 2026-11-27
-  - '@nuxt/devtools-assets@4.2.2'
-  - '@nuxt/devtools-kit@4.2.2'
-  - '@nuxt/devtools@4.2.2'
+# minimumReleaseAgeExclude:
